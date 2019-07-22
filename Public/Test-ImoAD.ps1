@@ -1,26 +1,40 @@
 function Test-ImoAD {
     [CmdletBinding()]
     param(
-
+        [switch] $ReturnResults
     )
-    <#
+    $Time = Start-TimeLog
+    $Script:TestResults = [System.Collections.Generic.List[PSCustomObject]]::new()
+
     $Forest = Start-TestProcessing -Test 'Forest Information - Is Available' -ExpectedStatus $true -OutputRequired {
         Get-WinADForest
     }
+    Start-TestProcessing -Test "Testing optional features" -Level 1 -Data {
+        Get-TestForestOptionalFeatures
+    } -Tests {
+        Test-Value -TestName 'Is Recycle Bin Enabled?' -Property 'Recycle Bin Enabled' -ExpectedValue $true
+        Test-Value -TestName 'is Laps Enabled?' -Property 'Laps Enabled' -ExpectedValue $true
+    }
+
     foreach ($Domain in $Forest.Domains) {
-        $DomainInformation = Start-TestProcessing -Test "Domain $Domain - Is Available" -ExpectedStatus $true -OutputRequired -Level 1 -IsTest {
+
+        $DomainInformation = Start-TestProcessing -Test "Domain $Domain - Is Available" -ExpectedStatus $true -OutputRequired -IsTest {
             Get-WinADDomain -Domain $Domain
         }
-        $DomainControllers = Start-TestProcessing -Test "Domain Controllers - List is Available" -ExpectedStatus $true -OutputRequired -Level 2 {
+        $DomainControllers = Start-TestProcessing -Test "Domain Controllers - List is Available" -ExpectedStatus $true -OutputRequired -Level 1 {
             Get-WinADDC -Domain $Domain
         }
+
         foreach ($_ in $DomainControllers) {
-            Start-TestProcessing -Test "Domain Controller - $($_.HostName) | Connectivity Ping $($_.HostName)" -Level 2 -ExpectedStatus $true -IsTest {
+
+            Start-TestProcessing -Test "Domain Controller - $($_.HostName) | Connectivity Ping $($_.HostName)" -Level 1 -ExpectedStatus $true -IsTest {
                 Get-WinTestConnection -Computer $_.HostName
             }
-            Start-TestProcessing -Test "Domain Controller - $($_.HostName) | Connectivity Port 53 (DNS)" -Level 2 -ExpectedStatus $true -IsTest {
+            Start-TestProcessing -Test "Domain Controller - $($_.HostName) | Connectivity Port 53 (DNS)" -Level 1 -ExpectedStatus $true -IsTest {
                 Get-WinTestConnectionPort -Computer $_.HostName -Port 53
             }
+
+            <#
             Start-TestProcessing -Test "Domain Controller - $($_.HostName) | Service 'DNS Server'" -Level 2 -ExpectedStatus $true -IsTest {
                 Get-WinTestService -Computer $_.HostName -Service 'DNS Server' -Status 'Running'
             }
@@ -36,6 +50,31 @@ function Test-ImoAD {
             Start-TestProcessing -Test "Domain Controller - $($_.HostName) | Service 'Netlogon'" -Level 2 -ExpectedStatus $true -IsTest {
                 Get-WinTestService -Computer $_.HostName -Service 'Netlogon' -Status 'Running'
             }
+           #>
+            Start-TestProcessing -Test "Testing Services - Domain Controller - $($_.HostName)" -Level 1 -Data {
+                $Services = @(
+                    'ADWS',
+                    #'DHCPServer',
+                    'DNS',
+                    'DFS',
+                    'DFSR',
+                    'Eventlog',
+                    'EventSystem',
+                    'KDC',
+                    'LanManWorkstation',
+                    'LanManServer',
+                    'NetLogon',
+                    'NTDS',
+                    'RPCSS',
+                    'SAMSS',
+                    'W32Time'
+                )
+                Get-PSService -Computers $_ -Services $Services
+            } -Tests {
+                foreach ($Service in $Services) {
+                    Test-Array -TestName "Domain Controller - $($_.HostName) | Service $Service" -SearchObjectProperty 'Name' -SearchObjectValue $Service -Property 'Status' -ExpectedValue 'Running'
+                }
+            } -Simple
         }
     }
     $Replication = Start-TestProcessing -Test "Forest Replication" -Level 1 -ExpectedStatus $true -OutputRequired {
@@ -46,63 +85,19 @@ function Test-ImoAD {
             Get-WinTestReplicationSingular -Replication $_
         }
     }
-    Start-TestProcessing -Test "Is LAPS Available" -Level 1 -ExpectedStatus $true -IsTest {
-        Get-WinTestIsLapsAvailable
-    }
-    #>
-    $OptionalFeatures = Start-TestProcessing -Test "Is LAPS Available" -Level 1 -ExpectedStatus $true {
-        Get-TestForestOptionalFeatures
-    }
-    Start-TestProcessing -Test "RecycleBin Enabled" -Level 1 -ExpectedStatus $true -OutputRequired -IsTest {
-        $OptionalFeatures.'Recycle Bin Enabled'
-    }
-    Start-TestProcessing -Test "LAPS Available" -Level 1 -ExpectedStatus $true -OutputRequired -IsTest {
-        $Optional.'Laps Enabled'
-    }
-}
 
+    $TestsPassed = (($Script:TestResults) | Where-Object { $_.Status -eq $true }).Count
+    $TestsFailed = (($Script:TestResults) | Where-Object { $_.Status -eq $false }).Count
+    $TestsSkipped = 0
+    $TestsInformational = 0
 
+    $EndTime = Stop-TimeLog -Time $Time -Option OneLiner
 
-function Start-Verification {
-    [CmdletBinding()]
-    param(
-        [ScriptBlock] $Execute
-    )
+    Write-Color -Text '[i] ', 'Time to execute tests: ', $EndTime -Color Yellow, DarkGray, Cyan
+    Write-Color -Text '[i] ', 'Tests Passed: ', $TestsPassed, ' Tests Failed: ', $TestsFailed, ' Tests Skipped: ', $TestsSkipped -Color Yellow, DarkGray, Green, DarkGray, Red, DarkGray, Cyan
 
-}
-
-function Test-Value {
-    param(
-        [Object] $Object,
-        [string] $Property,
-        [Object] $ExpectedValue
-    )
-
-    if ($Object.$Property -eq $ExpectedValue) {
-
-    }
-}
-
-function Get-TestForestOptionalFeatures {
-    [CmdletBinding()]
-    param(
-
-    )
-    try {
-        $ADModule = Import-Module PSWinDocumentation.AD -PassThru
-        try {
-            $OptionalFeatures = & $ADModule { Get-WinADForestOptionalFeatures -WarningAction SilentlyContinue }
-        } catch {
-            $ErrorMessage = $_.Exception.Message -replace "`n", " " -replace "`r", " "
-        }
-
-        if ($OptionalFeatures.Count -gt 0) {
-            [ordered] @{ Status = $true; Output = $OptionalFeatures; Extended = "" }
-        } else {
-            [ordered] @{ Status = $false; Output = $OptionalFeatures; Extended = $ErrorMessage }
-        }
-    } catch {
-        $ErrorMessage = $_.Exception.Message -replace "`n", " " -replace "`r", " "
-        [ordered] @{ Status = $false; Output = @(); Extended = $ErrorMessage }
+    # This results informaiton in form of Array for future processing
+    if ($ReturnResults) {
+        $Script:TestResults
     }
 }

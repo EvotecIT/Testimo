@@ -29,7 +29,7 @@ $Configuration = @{
             # Copyright statement for this module
             Copyright            = '(c) 2011 - 2019 Przemyslaw Klys. All rights reserved.'
             # Description of the functionality provided by this module
-            Description          = 'Module that allows testing infrastructure'
+            Description          = 'Testimo is Powershell module that tests Active Directory against specific set of tasks.'
             # Minimum version of the Windows PowerShell engine required by this module
             PowerShellVersion    = '5.1'
             # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.

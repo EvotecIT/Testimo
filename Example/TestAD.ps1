@@ -1,3 +1,3 @@
 Import-Module .\Testimo.psd1 -Force
 
-Test-ImoAD
+Test-ImoAD -ReturnResults
