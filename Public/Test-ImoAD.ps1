@@ -51,24 +51,24 @@ function Test-ImoAD {
                 Get-WinTestService -Computer $_.HostName -Service 'Netlogon' -Status 'Running'
             }
            #>
+            $Services = @(
+                'ADWS',
+                #'DHCPServer',
+                'DNS',
+                'DFS',
+                'DFSR',
+                'Eventlog',
+                'EventSystem',
+                'KDC',
+                'LanManWorkstation',
+                'LanManServer',
+                'NetLogon',
+                'NTDS',
+                'RPCSS',
+                'SAMSS',
+                'W32Time'
+            )
             Start-TestProcessing -Test "Testing Services - Domain Controller - $($_.HostName)" -Level 1 -Data {
-                $Services = @(
-                    'ADWS',
-                    #'DHCPServer',
-                    'DNS',
-                    'DFS',
-                    'DFSR',
-                    'Eventlog',
-                    'EventSystem',
-                    'KDC',
-                    'LanManWorkstation',
-                    'LanManServer',
-                    'NetLogon',
-                    'NTDS',
-                    'RPCSS',
-                    'SAMSS',
-                    'W32Time'
-                )
                 Get-PSService -Computers $_ -Services $Services
             } -Tests {
                 foreach ($Service in $Services) {

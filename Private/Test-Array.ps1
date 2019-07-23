@@ -1,4 +1,5 @@
 ﻿function Test-Array {
+    [CmdletBinding()]
     param(
         [string] $TestName,
         [string] $SearchObjectProperty,
