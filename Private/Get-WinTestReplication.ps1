@@ -4,8 +4,8 @@
         [bool] $Status
     )
     try {
-        $ADModule = Import-Module PSWinDocumentation.AD -PassThru
-        $Replication = & $ADModule { Get-WinADForestReplicationPartnerMetaData -WarningAction SilentlyContinue }
+        $Replication = Get-WinADForestReplication -WarningAction SilentlyContinue
+        #$Replication = & $ADModule { Get-WinADForestReplicationPartnerMetaData -WarningAction SilentlyContinue }
         if ($Replication.Status -contains (-not $Status)) {
             [ordered] @{ Status = $false; Output = $Replication; Extended = "There were some errors." }
         } else {

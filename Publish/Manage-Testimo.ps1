@@ -17,7 +17,7 @@ $Configuration = @{
             # Script module or binary module file associated with this manifest.
             RootModule           = 'Testimo.psm1'
             # Version number of this module.
-            ModuleVersion        = '0.0.1'
+            ModuleVersion        = '0.0.3'
             # Supported PSEditions
             CompatiblePSEditions = @('Desktop')
             # ID used to uniquely identify this module
@@ -49,7 +49,7 @@ $Configuration = @{
 
             RequiredModules   = @(
                 @{ ModuleName = 'PSSharedGoods'; ModuleVersion = "0.0.82"; Guid = 'ee272aa8-baaa-4edf-9f45-b6d6f7d844fe' }
-                @{ ModuleName = 'PSWinDocumentation.AD'; ModuleVersion = "0.1.7"; Guid = 'a46f9775-04d2-4423-9631-01cfda42b95d' }
+                @{ ModuleName = 'PSWinDocumentation.AD'; ModuleVersion = "0.1.8"; Guid = 'a46f9775-04d2-4423-9631-01cfda42b95d' }
             )
         }
     }
@@ -148,7 +148,7 @@ $Configuration = @{
         }
         BuildDocumentation = $false
         PublishModule      = @{
-            Enabled      = $false
+            Enabled      = $true
             Prerelease   = ''
             RequireForce = $false
         }

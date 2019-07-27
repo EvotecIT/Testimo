@@ -12,13 +12,13 @@
     RootModule = 'Testimo.psm1'
 
     # Version number of this module.
-    ModuleVersion = '0.0.1'
+    ModuleVersion = '0.0.3'
 
     # Supported PSEditions
     CompatiblePSEditions = 'Desktop'
 
     # ID used to uniquely identify this module
-    GUID = 'b519a044-1b84-4595-9a13-d93fb4f27d1e'
+    GUID = '8a91a9dc-436b-45e9-869b-b3d9e13ad30d'
 
     # Author of this module
     Author = 'Przemyslaw Klys'
@@ -52,7 +52,7 @@
 
     # Modules that must be imported into the global environment prior to importing this module
     RequiredModules = @(@{ModuleName = 'PSSharedGoods'; GUID = 'ee272aa8-baaa-4edf-9f45-b6d6f7d844fe'; ModuleVersion = '0.0.82'; }, 
-        @{ModuleName = 'PSWinDocumentation.AD'; GUID = 'a46f9775-04d2-4423-9631-01cfda42b95d'; ModuleVersion = '0.1.7'; })
+        @{ModuleName = 'PSWinDocumentation.AD'; GUID = 'a46f9775-04d2-4423-9631-01cfda42b95d'; ModuleVersion = '0.1.8'; })
 
     # Assemblies that must be loaded prior to importing this module
     # RequiredAssemblies = @()
