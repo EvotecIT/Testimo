@@ -17,7 +17,7 @@ $Configuration = @{
             # Script module or binary module file associated with this manifest.
             RootModule           = 'Testimo.psm1'
             # Version number of this module.
-            ModuleVersion        = '0.0.3'
+            ModuleVersion        = '0.0.4'
             # Supported PSEditions
             CompatiblePSEditions = @('Desktop')
             # ID used to uniquely identify this module
@@ -47,9 +47,10 @@ $Configuration = @{
 
             ProjectUri           = 'https://github.com/EvotecIT/Testimo'
 
-            RequiredModules   = @(
+            RequiredModules      = @(
                 @{ ModuleName = 'PSSharedGoods'; ModuleVersion = "0.0.82"; Guid = 'ee272aa8-baaa-4edf-9f45-b6d6f7d844fe' }
                 @{ ModuleName = 'PSWinDocumentation.AD'; ModuleVersion = "0.1.8"; Guid = 'a46f9775-04d2-4423-9631-01cfda42b95d' }
+                @{ ModuleName = 'ADEssentials'; ModuleVersion = "0.0.4"; Guid = '9fc9fd61-7f11-4f4b-a527-084086f1905f' }
             )
         }
     }

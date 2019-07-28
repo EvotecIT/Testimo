@@ -15,7 +15,6 @@ function Test-ImoAD {
         Test-Value -TestName 'Is Recycle Bin Enabled?' -Property 'Recycle Bin Enabled' -ExpectedValue $true
         Test-Value -TestName 'is Laps Enabled?' -Property 'Laps Enabled' -ExpectedValue $true
     }
-
     foreach ($Domain in $Forest.Domains) {
 
         $DomainInformation = Start-TestProcessing -Test "Domain $Domain - Is Available" -ExpectedStatus $true -OutputRequired -IsTest {
@@ -26,7 +25,14 @@ function Test-ImoAD {
         }
 
         foreach ($_ in $DomainControllers) {
-
+            Start-TestProcessing -Test "Testing LDAP Connectivity" -Level 1 -Data {
+                Test-LDAP -ComputerName $_.HostName
+            } -Tests {
+                Test-Array -TestName "Domain Controller - $($_.HostName) | LDAP Port is Available" -Property 'LDAP' -ExpectedValue $true -SearchObjectValue $_.HostName -SearchObjectProperty 'ComputerFQDN'
+                Test-Array -TestName "Domain Controller - $($_.HostName) | LDAP SSL Port is Available" -Property 'LDAPS' -ExpectedValue $true -SearchObjectValue $_.HostName -SearchObjectProperty 'ComputerFQDN'
+                Test-Array -TestName "Domain Controller - $($_.HostName) | LDAP GC Port is Available" -Property 'GlobalCatalogLDAP' -ExpectedValue $true -SearchObjectValue $_.HostName -SearchObjectProperty 'ComputerFQDN'
+                Test-Array -TestName "Domain Controller - $($_.HostName) | LDAP GC SSL Port is Available" -Property 'GlobalCatalogLDAPS' -ExpectedValue $true -SearchObjectValue $_.HostName -SearchObjectProperty 'ComputerFQDN'
+            } -Simple
             Start-TestProcessing -Test "Domain Controller - $($_.HostName) | Connectivity Ping $($_.HostName)" -Level 1 -ExpectedStatus $true -IsTest {
                 Get-WinTestConnection -Computer $_.HostName
             }
@@ -34,40 +40,7 @@ function Test-ImoAD {
                 Get-WinTestConnectionPort -Computer $_.HostName -Port 53
             }
 
-            <#
-            Start-TestProcessing -Test "Domain Controller - $($_.HostName) | Service 'DNS Server'" -Level 2 -ExpectedStatus $true -IsTest {
-                Get-WinTestService -Computer $_.HostName -Service 'DNS Server' -Status 'Running'
-            }
-            Start-TestProcessing -Test "Domain Controller - $($_.HostName) | Service 'Active Directory Domain Services'" -Level 2 -ExpectedStatus $true -IsTest {
-                Get-WinTestService -Computer $_.HostName -Service 'Active Directory Domain Services' -Status 'Running'
-            }
-            Start-TestProcessing -Test "Domain Controller - $($_.HostName) | Service 'Active Directory Web Services'" -Level 2 -ExpectedStatus $true -IsTest {
-                Get-WinTestService -Computer $_.HostName -Service 'Active Directory Web Services' -Status 'Running'
-            }
-            Start-TestProcessing -Test "Domain Controller - $($_.HostName) | Service 'Kerberos Key Distribution Center'" -Level 2 -ExpectedStatus $true -IsTest {
-                Get-WinTestService -Computer $_.HostName -Service 'Kerberos Key Distribution Center' -Status 'Running'
-            }
-            Start-TestProcessing -Test "Domain Controller - $($_.HostName) | Service 'Netlogon'" -Level 2 -ExpectedStatus $true -IsTest {
-                Get-WinTestService -Computer $_.HostName -Service 'Netlogon' -Status 'Running'
-            }
-           #>
-            $Services = @(
-                'ADWS',
-                #'DHCPServer',
-                'DNS',
-                'DFS',
-                'DFSR',
-                'Eventlog',
-                'EventSystem',
-                'KDC',
-                'LanManWorkstation',
-                'LanManServer',
-                'NetLogon',
-                'NTDS',
-                'RPCSS',
-                'SAMSS',
-                'W32Time'
-            )
+            $Services = @( 'ADWS', 'DNS', 'DFS', 'DFSR', 'Eventlog', 'EventSystem', 'KDC', 'LanManWorkstation', 'LanManServer', 'NetLogon', 'NTDS', 'RPCSS', 'SAMSS', 'W32Time')
             Start-TestProcessing -Test "Testing Services - Domain Controller - $($_.HostName)" -Level 1 -Data {
                 Get-PSService -Computers $_ -Services $Services
             } -Tests {
@@ -89,7 +62,7 @@ function Test-ImoAD {
     $TestsPassed = (($Script:TestResults) | Where-Object { $_.Status -eq $true }).Count
     $TestsFailed = (($Script:TestResults) | Where-Object { $_.Status -eq $false }).Count
     $TestsSkipped = 0
-    $TestsInformational = 0
+    #$TestsInformational = 0
 
     $EndTime = Stop-TimeLog -Time $Time -Option OneLiner
 
