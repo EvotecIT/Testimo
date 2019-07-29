@@ -45,9 +45,13 @@ function Test-ImoAD {
                 Get-PSService -Computers $_ -Services $Services
             } -Tests {
                 foreach ($Service in $Services) {
-                    Test-Array -TestName "Domain Controller - $($_.HostName) | Service $Service" -SearchObjectProperty 'Name' -SearchObjectValue $Service -Property 'Status' -ExpectedValue 'Running'
+                    Test-Array -TestName "Domain Controller - $($_.HostName) | Service $Service Status" -SearchObjectProperty 'Name' -SearchObjectValue $Service -Property 'Status' -ExpectedValue 'Running'
+                    Test-Array -TestName "Domain Controller - $($_.HostName) | Service $Service Start Type" -SearchObjectProperty 'Name' -SearchObjectValue $Service -Property 'StartType' -ExpectedValue 'Automatic'
                 }
             } -Simple
+            Start-TestProcessing -Test "Domain Controller - $($_.HostName) | Responds to PowerShell Queries" -ExpectedStatus $true -IsTest -Level 1 {
+                Get-WinADDomain -Domain $_
+            }
         }
     }
     $Replication = Start-TestProcessing -Test "Forest Replication" -Level 1 -ExpectedStatus $true -OutputRequired {

@@ -84,9 +84,9 @@
             if ($_.Type -eq 'Hash') {
                 $Value = $GatheredData.$($_.Property)
                 if ($Value -eq $_.ExpectedValue) {
-                    Write-Color -Text '[t] ', $_.TestName, ' [', 'Passed', ']', " [", $Value, "]" -Color Cyan, Green, Cyan, Green, Cyan -StartSpaces ($Level * 6)
+                    Write-Color -Text '[t] ', $_.TestName, ' [', 'Passed', ']', " [", $Value, "]" -Color Cyan, Green, Cyan, Cyan, Green, Cyan -StartSpaces ($Level * 6)
                 } else {
-                    Write-Color -Text '[t] ', $_.TestName, ' [', 'Fail', ']', " [", $Value, "]" -Color Cyan, Red, Cyan, Red, Cyan, Red, Cyan, Red, Cyan -StartSpaces ($Level * 6)
+                    Write-Color -Text '[t] ', $_.TestName, ' [', 'Fail', ']', " [", $Value, "]" -Color Cyan, Red, Cyan, Red, Cyan,Cyan, Red, Cyan, Red, Cyan -StartSpaces ($Level * 6)
                 }
             } elseif ($_.Type -eq 'Array') {
 
