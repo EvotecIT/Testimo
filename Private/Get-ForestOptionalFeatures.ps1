@@ -1,4 +1,4 @@
-﻿function Get-TestForestOptionalFeatures {
+﻿function Get-ForestOptionalFeatures {
     [CmdletBinding()]
     param(
 

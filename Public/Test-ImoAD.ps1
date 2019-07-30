@@ -6,17 +6,28 @@ function Test-ImoAD {
     $Time = Start-TimeLog
     $Script:TestResults = [System.Collections.Generic.List[PSCustomObject]]::new()
 
+    # Imports all commands / including private ones from PSWinDocumentation.AD
+    $ADModule = Import-Module PSWinDocumentation.AD -PassThru
+
     $Forest = Start-TestProcessing -Test 'Forest Information - Is Available' -ExpectedStatus $true -OutputRequired {
         Get-WinADForest
     }
     Start-TestProcessing -Test "Testing optional features" -Level 1 -Data {
-        Get-TestForestOptionalFeatures
+        Get-ForestOptionalFeatures
     } -Tests {
         Test-Value -TestName 'Is Recycle Bin Enabled?' -Property 'Recycle Bin Enabled' -ExpectedValue $true
         Test-Value -TestName 'is Laps Enabled?' -Property 'Laps Enabled' -ExpectedValue $true
     }
     foreach ($Domain in $Forest.Domains) {
-
+        $Trusts = Start-TestProcessing -Test "Testing Trusts Availability" -Level 1 -OutputRequired {
+            & $ADModule { param($Domain); Get-WinADDomainTrusts -Domain $Domain } $Domain
+            #Test-DomainTrusts -Domain $Domain
+        }
+        foreach ($_ in $Trusts) {
+            #Start-TestProcessing -Test "Trusts $Domain | Target $($_.'Trust Target'), Direction $($_.Direction)" -Level 2 -ExpectedStatus $true -IsTest {
+            Test-Value -TestName "Trusts Verification | Source $Domain, Target $($_.'Trust Target'), Direction $($_.'Trust Direction')" -Level 2 -Object $_ -Property 'Trust Status' -ExpectedValue 'OK'
+            # }
+        }
         $DomainInformation = Start-TestProcessing -Test "Domain $Domain - Is Available" -ExpectedStatus $true -OutputRequired -IsTest {
             Get-WinADDomain -Domain $Domain
         }
@@ -53,28 +64,30 @@ function Test-ImoAD {
                 Get-WinADDomain -Domain $_
             }
         }
-    }
-    $Replication = Start-TestProcessing -Test "Forest Replication" -Level 1 -ExpectedStatus $true -OutputRequired {
-        Get-WinTestReplication -Status $true
-    }
-    foreach ($_ in $Replication) {
-        Start-TestProcessing -Test "Replication from $($_.Server) to $($_.ServerPartner)" -Level 2 -ExpectedStatus $true -IsTest {
-            Get-WinTestReplicationSingular -Replication $_
+
+
+        $Replication = Start-TestProcessing -Test "Forest Replication" -Level 1 -ExpectedStatus $true -OutputRequired {
+            Get-WinTestReplication -Status $true
         }
-    }
+        foreach ($_ in $Replication) {
+            Start-TestProcessing -Test "Replication from $($_.Server) to $($_.ServerPartner)" -Level 2 -ExpectedStatus $true -IsTest {
+                Get-WinTestReplicationSingular -Replication $_
+            }
+        }
 
-    $TestsPassed = (($Script:TestResults) | Where-Object { $_.Status -eq $true }).Count
-    $TestsFailed = (($Script:TestResults) | Where-Object { $_.Status -eq $false }).Count
-    $TestsSkipped = 0
-    #$TestsInformational = 0
+        $TestsPassed = (($Script:TestResults) | Where-Object { $_.Status -eq $true }).Count
+        $TestsFailed = (($Script:TestResults) | Where-Object { $_.Status -eq $false }).Count
+        $TestsSkipped = 0
+        #$TestsInformational = 0
 
-    $EndTime = Stop-TimeLog -Time $Time -Option OneLiner
+        $EndTime = Stop-TimeLog -Time $Time -Option OneLiner
 
-    Write-Color -Text '[i] ', 'Time to execute tests: ', $EndTime -Color Yellow, DarkGray, Cyan
-    Write-Color -Text '[i] ', 'Tests Passed: ', $TestsPassed, ' Tests Failed: ', $TestsFailed, ' Tests Skipped: ', $TestsSkipped -Color Yellow, DarkGray, Green, DarkGray, Red, DarkGray, Cyan
+        Write-Color -Text '[i] ', 'Time to execute tests: ', $EndTime -Color Yellow, DarkGray, Cyan
+        Write-Color -Text '[i] ', 'Tests Passed: ', $TestsPassed, ' Tests Failed: ', $TestsFailed, ' Tests Skipped: ', $TestsSkipped -Color Yellow, DarkGray, Green, DarkGray, Red, DarkGray, Cyan
 
-    # This results informaiton in form of Array for future processing
-    if ($ReturnResults) {
-        $Script:TestResults
+        # This results informaiton in form of Array for future processing
+        if ($ReturnResults) {
+            $Script:TestResults
+        }
     }
 }

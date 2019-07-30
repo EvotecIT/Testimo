@@ -7,7 +7,7 @@
         [ScriptBlock] $Tests,
         [string] $Test,
         [switch] $OutputRequired,
-        [bool] $ExpectedStatus,
+        [nullable[bool]] $ExpectedStatus,
         [int] $Level = 0,
         [switch] $IsTest,
         [switch] $Simple
@@ -15,18 +15,26 @@
 
     if ($Execute) {
         if ($IsTest) {
-            Write-Color '[i] ', $Test -Color Cyan, Yellow, Cyan -NoNewLine -StartSpaces ($Level * 3)
+            Write-Color '[t] ', $Test -Color Cyan, Yellow, Cyan -NoNewLine -StartSpaces ($Level * 3)
         } else {
-            Write-Color '[i] ', $Test -Color Cyan, Yellow, Cyan -NoNewLine -StartSpaces ($Level * 3)
+            Write-Color '[i] ', $Test -Color Cyan, DarkGray, Cyan -NoNewLine -StartSpaces ($Level * 3)
         }
 
         [Array] $Output = & $Execute
         if ($OutputRequired) {
-            foreach ($_ in $Output.Output) {
-                $_
+            if ($Output.Output) {
+                foreach ($_ in $Output.Output) {
+                    $_
+                }
+            } else {
+                foreach ($_ in $Output) {
+                    $_
+                }
             }
         }
-        if ($ExpectedStatus -eq $Output.Status) {
+        if ($null -eq $ExpectedStatus) {
+            Write-Color -Text ' [', 'Informative', ']' -Color Cyan, DarkGray,Cyan
+        } elseif ($ExpectedStatus -eq $Output.Status) {
             if ($Output.Extended) {
                 Write-Color -Text ' [', 'Pass', ']', " [", $Output.Extended, "]" -Color Cyan, Green, Cyan, Cyan, Green, Cyan
             } else {
@@ -51,7 +59,7 @@
 
 
     if ($Data) {
-        Write-Color '[i] ', $Test -Color Yellow, DarkGray, White -StartSpaces ($Level * 3) -NoNewLine
+        Write-Color '[i] ', $Test -Color Cyan, DarkGray, White -StartSpaces ($Level * 3) -NoNewLine
         [Array] $OutputData = & $Data
         if (-not $Simple) {
             $GatheredData = $OutputData.Output
@@ -86,7 +94,7 @@
                 if ($Value -eq $_.ExpectedValue) {
                     Write-Color -Text '[t] ', $_.TestName, ' [', 'Passed', ']', " [", $Value, "]" -Color Cyan, Green, Cyan, Cyan, Green, Cyan -StartSpaces ($Level * 6)
                 } else {
-                    Write-Color -Text '[t] ', $_.TestName, ' [', 'Fail', ']', " [", $Value, "]" -Color Cyan, Red, Cyan, Red, Cyan,Cyan, Red, Cyan, Red, Cyan -StartSpaces ($Level * 6)
+                    Write-Color -Text '[t] ', $_.TestName, ' [', 'Fail', ']', " [", $Value, "]" -Color Cyan, Red, Cyan, Red, Cyan, Cyan, Red, Cyan, Red, Cyan -StartSpaces ($Level * 6)
                 }
             } elseif ($_.Type -eq 'Array') {
 
