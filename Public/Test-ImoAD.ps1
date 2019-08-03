@@ -12,12 +12,31 @@ function Test-ImoAD {
     $Forest = Start-TestProcessing -Test 'Forest Information - Is Available' -ExpectedStatus $true -OutputRequired {
         Get-WinADForest
     }
-    Start-TestProcessing -Test "Testing optional features" -Level 1 -Data {
+
+    Start-TestProcessing -Test "Optional features" -Level 1 -Data {
         Get-ForestOptionalFeatures
     } -Tests {
         Test-Value -TestName 'Is Recycle Bin Enabled?' -Property 'Recycle Bin Enabled' -ExpectedValue $true
         Test-Value -TestName 'is Laps Enabled?' -Property 'Laps Enabled' -ExpectedValue $true
     }
+
+    $Replication = Start-TestProcessing -Test "Forest Replication" -Level 1 -ExpectedStatus $true -OutputRequired {
+        Get-WinTestReplication -Status $true
+    }
+    foreach ($_ in $Replication) {
+        Test-Value -TestName "Replication from $($_.Server) to $($_.ServerPartner)" -Object $_ -Property 'Status' -ExpectedValue $true -Level 2 -PropertExtendedValue 'StatusMessage'
+    }
+
+
+    $LastBackup = Start-TestProcessing -Test "Forest Last Backup Time" -Level 1 -OutputRequired {
+        Get-WinADLastBackup
+    }
+
+    foreach ($_ in $LastBackup) {
+        #Test-Value -TestName "Replication from $($_.Server) to $($_.ServerPartner)" -Object $_ -Property 'Status' -ExpectedValue $true -Level 2 -PropertExtendedValue 'StatusMessage'
+        Test-Value -Level 2 -TestName "Last Backup $($_.NamingContext)" -Object $_ -Property 'LastBackupDaysAgo' -PropertExtendedValue 'LastBackup' -lt -ExpectedValue 2
+    }
+
     foreach ($Domain in $Forest.Domains) {
         $Trusts = Start-TestProcessing -Test "Testing Trusts Availability" -Level 1 -OutputRequired {
             & $ADModule { param($Domain); Get-WinADDomainTrusts -Domain $Domain } $Domain
@@ -37,7 +56,7 @@ function Test-ImoAD {
 
         foreach ($_ in $DomainControllers) {
             Start-TestProcessing -Test "Testing LDAP Connectivity" -Level 1 -Data {
-                Test-LDAP -ComputerName $_.HostName
+                Test-LDAP -ComputerName $_.HostName -WarningAction SilentlyContinue
             } -Tests {
                 Test-Array -TestName "Domain Controller - $($_.HostName) | LDAP Port is Available" -Property 'LDAP' -ExpectedValue $true -SearchObjectValue $_.HostName -SearchObjectProperty 'ComputerFQDN'
                 Test-Array -TestName "Domain Controller - $($_.HostName) | LDAP SSL Port is Available" -Property 'LDAPS' -ExpectedValue $true -SearchObjectValue $_.HostName -SearchObjectProperty 'ComputerFQDN'
@@ -51,7 +70,7 @@ function Test-ImoAD {
                 Get-WinTestConnectionPort -Computer $_.HostName -Port 53
             }
 
-            $Services = @( 'ADWS', 'DNS', 'DFS', 'DFSR', 'Eventlog', 'EventSystem', 'KDC', 'LanManWorkstation', 'LanManServer', 'NetLogon', 'NTDS', 'RPCSS', 'SAMSS', 'W32Time')
+            $Services = @('ADWS', 'DNS', 'DFS', 'DFSR', 'Eventlog', 'EventSystem', 'KDC', 'LanManWorkstation', 'LanManServer', 'NetLogon', 'NTDS', 'RPCSS', 'SAMSS', 'W32Time')
             Start-TestProcessing -Test "Testing Services - Domain Controller - $($_.HostName)" -Level 1 -Data {
                 Get-PSService -Computers $_ -Services $Services
             } -Tests {
@@ -64,30 +83,19 @@ function Test-ImoAD {
                 Get-WinADDomain -Domain $_
             }
         }
+    }
+    $TestsPassed = (($Script:TestResults) | Where-Object { $_.Status -eq $true }).Count
+    $TestsFailed = (($Script:TestResults) | Where-Object { $_.Status -eq $false }).Count
+    $TestsSkipped = 0
+    #$TestsInformational = 0
 
+    $EndTime = Stop-TimeLog -Time $Time -Option OneLiner
 
-        $Replication = Start-TestProcessing -Test "Forest Replication" -Level 1 -ExpectedStatus $true -OutputRequired {
-            Get-WinTestReplication -Status $true
-        }
-        foreach ($_ in $Replication) {
-            Start-TestProcessing -Test "Replication from $($_.Server) to $($_.ServerPartner)" -Level 2 -ExpectedStatus $true -IsTest {
-                Get-WinTestReplicationSingular -Replication $_
-            }
-        }
+    Write-Color -Text '[i] ', 'Time to execute tests: ', $EndTime -Color Yellow, DarkGray, Cyan
+    Write-Color -Text '[i] ', 'Tests Passed: ', $TestsPassed, ' Tests Failed: ', $TestsFailed, ' Tests Skipped: ', $TestsSkipped -Color Yellow, DarkGray, Green, DarkGray, Red, DarkGray, Cyan
 
-        $TestsPassed = (($Script:TestResults) | Where-Object { $_.Status -eq $true }).Count
-        $TestsFailed = (($Script:TestResults) | Where-Object { $_.Status -eq $false }).Count
-        $TestsSkipped = 0
-        #$TestsInformational = 0
-
-        $EndTime = Stop-TimeLog -Time $Time -Option OneLiner
-
-        Write-Color -Text '[i] ', 'Time to execute tests: ', $EndTime -Color Yellow, DarkGray, Cyan
-        Write-Color -Text '[i] ', 'Tests Passed: ', $TestsPassed, ' Tests Failed: ', $TestsFailed, ' Tests Skipped: ', $TestsSkipped -Color Yellow, DarkGray, Green, DarkGray, Red, DarkGray, Cyan
-
-        # This results informaiton in form of Array for future processing
-        if ($ReturnResults) {
-            $Script:TestResults
-        }
+    # This results informaiton in form of Array for future processing
+    if ($ReturnResults) {
+        $Script:TestResults
     }
 }

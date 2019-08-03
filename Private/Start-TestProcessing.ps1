@@ -21,28 +21,30 @@
         }
 
         [Array] $Output = & $Execute
-        if ($OutputRequired) {
-            if ($Output.Output) {
-                foreach ($_ in $Output.Output) {
-                    $_
-                }
-            } else {
-                foreach ($_ in $Output) {
-                    $_
+        foreach ($O in $Output) {
+            if ($OutputRequired.IsPresent) {
+                if ($O['Output']) {
+                    foreach ($_ in $O['Output']) {
+                        $_
+                    }
+                } else {
+                    foreach ($_ in $O) {
+                        $_
+                    }
                 }
             }
         }
         if ($null -eq $ExpectedStatus) {
-            Write-Color -Text ' [', 'Informative', ']' -Color Cyan, DarkGray,Cyan
-        } elseif ($ExpectedStatus -eq $Output.Status) {
-            if ($Output.Extended) {
-                Write-Color -Text ' [', 'Pass', ']', " [", $Output.Extended, "]" -Color Cyan, Green, Cyan, Cyan, Green, Cyan
+            Write-Color -Text ' [', 'Informative', ']' -Color Cyan, DarkGray, Cyan
+        } elseif ($ExpectedStatus -eq $O.Status) {
+            if ($O.Extended) {
+                Write-Color -Text ' [', 'Pass', ']', " [", $O.Extended, "]" -Color Cyan, Green, Cyan, Cyan, Green, Cyan
             } else {
                 Write-Color -Text ' [', 'Pass', ']' -Color Cyan, Green, Cyan #, Cyan, Green, Cyan
             }
         } else {
-            if ($Output.Extended) {
-                Write-Color -Text ' [', 'Fail', ']', " [", $Output.Extended, "]" -Color Cyan, Red, Cyan, Cyan, Red, Cyan
+            if ($O.Extended) {
+                Write-Color -Text ' [', 'Fail', ']', " [", $O.Extended, "]" -Color Cyan, Red, Cyan, Cyan, Red, Cyan
             } else {
                 Write-Color -Text ' [', 'Fail', ']' -Color Cyan, Red, Cyan #, Cyan, Green, Cyan
             }
@@ -56,7 +58,6 @@
             }
         )
     }
-
 
     if ($Data) {
         Write-Color '[i] ', $Test -Color Cyan, DarkGray, White -StartSpaces ($Level * 3) -NoNewLine
