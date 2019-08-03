@@ -12,7 +12,6 @@ function Test-ImoAD {
     $Forest = Start-TestProcessing -Test 'Forest Information - Is Available' -ExpectedStatus $true -OutputRequired {
         Get-WinADForest
     }
-
     Start-TestProcessing -Test "Optional features" -Level 1 -Data {
         Get-ForestOptionalFeatures
     } -Tests {
@@ -37,16 +36,24 @@ function Test-ImoAD {
         Test-Value -Level 2 -TestName "Last Backup $($_.NamingContext)" -Object $_ -Property 'LastBackupDaysAgo' -PropertExtendedValue 'LastBackup' -lt -ExpectedValue 2
     }
 
+
     foreach ($Domain in $Forest.Domains) {
         $Trusts = Start-TestProcessing -Test "Testing Trusts Availability" -Level 1 -OutputRequired {
             & $ADModule { param($Domain); Get-WinADDomainTrusts -Domain $Domain } $Domain
-            #Test-DomainTrusts -Domain $Domain
         }
+
+        # All trusts should be OK
         foreach ($_ in $Trusts) {
-            #Start-TestProcessing -Test "Trusts $Domain | Target $($_.'Trust Target'), Direction $($_.Direction)" -Level 2 -ExpectedStatus $true -IsTest {
-            Test-Value -TestName "Trusts Verification | Source $Domain, Target $($_.'Trust Target'), Direction $($_.'Trust Direction')" -Level 2 -Object $_ -Property 'Trust Status' -ExpectedValue 'OK'
-            # }
+            Test-Value -TestName "Trust status verification | Source $Domain, Target $($_.'Trust Target'), Direction $($_.'Trust Direction')" -Level 2 -Object $_ -Property 'Trust Status' -ExpectedValue 'OK'
         }
+        # TGTDelegation as per https://blogs.technet.microsoft.com/askpfeplat/2019/04/11/changes-to-ticket-granting-ticket-tgt-delegation-across-trusts-in-windows-server-askpfeplat-edition/
+        # TGTDelegation should be set to $True (contrary to name)
+        foreach ($_ in $Trusts) {
+            if ($($_.'Trust Direction' -eq 'BiDirectional' -or $_.'Trust Direction' -eq 'InBound')) {
+                Test-Value -TestName "Trust Unconstrained TGTDelegation | Source $Domain, Target $($_.'Trust Target'), Direction $($_.'Trust Direction')" -Level 2 -Object $_ -Property 'TGTDelegation' -ExpectedValue $True
+            }
+        }
+
         $DomainInformation = Start-TestProcessing -Test "Domain $Domain - Is Available" -ExpectedStatus $true -OutputRequired -IsTest {
             Get-WinADDomain -Domain $Domain
         }
