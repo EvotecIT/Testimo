@@ -12,13 +12,13 @@
     RootModule = 'Testimo.psm1'
 
     # Version number of this module.
-    ModuleVersion = '0.0.9'
+    ModuleVersion = '0.0.10'
 
     # Supported PSEditions
     CompatiblePSEditions = 'Desktop'
 
     # ID used to uniquely identify this module
-    GUID = '6195d287-f402-489d-a12b-91df0e598e92'
+    GUID = '169e618a-d682-4516-9772-bd264f844adb'
 
     # Author of this module
     Author = 'Przemyslaw Klys'

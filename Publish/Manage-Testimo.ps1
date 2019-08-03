@@ -17,11 +17,11 @@ $Configuration = @{
             # Script module or binary module file associated with this manifest.
             RootModule           = 'Testimo.psm1'
             # Version number of this module.
-            ModuleVersion        = '0.0.9'
+            ModuleVersion        = '0.0.10'
             # Supported PSEditions
             CompatiblePSEditions = @('Desktop')
             # ID used to uniquely identify this module
-            # GUID                 = 'a7bdf640-f5cb-4acf-9de0-365b322d245c'
+            GUID                 = '0c1b99de-55ac-4410-8cb5-e689ff3be39b'
             # Author of this module
             Author               = 'Przemyslaw Klys'
             # Company or vendor of this module
@@ -149,7 +149,7 @@ $Configuration = @{
         }
         BuildDocumentation = $false
         PublishModule      = @{
-            Enabled      = $true
+            Enabled      = $false
             Prerelease   = ''
             RequireForce = $false
         }
