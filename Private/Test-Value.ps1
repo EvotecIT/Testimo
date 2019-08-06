@@ -11,22 +11,39 @@
         [switch] $le,
         [switch] $eq,
         [switch] $ge,
-        [int] $Level
+        [string] $OperationType,
+        [int] $Level,
+        [string] $Domain,
+        [Object] $DomainController
     )
 
     if ($Object) {
-        Out-Begin -Text $TestName -Level 3
+        Out-Begin -Text $TestName -Level ($Level * 3)
         try {
-            if ($lt) {
-                $TestResult = $Object.$Property -lt $ExpectedValue
-            } elseif ($gt) {
-                $TestResult = $Object.$Property -gt $ExpectedValue
-            } elseif ($ge) {
-                $TestResult = $Object.$Property -ge $ExpectedValue
-            } elseif ($le) {
-                $TestResult = $Object.$Property -le $ExpectedValue
+            if ($OperationType) {
+                if ($OperationType -eq 'lt') {
+                    $TestResult = $Object.$Property -lt $ExpectedValue
+                } elseif ($OperationType -eq 'gt') {
+                    $TestResult = $Object.$Property -gt $ExpectedValue
+                } elseif ($OperationType -eq 'ge') {
+                    $TestResult = $Object.$Property -ge $ExpectedValue
+                } elseif ($OperationType -eq 'le') {
+                    $TestResult = $Object.$Property -le $ExpectedValue
+                } else {
+                    $TestResult = $Object.$Property -eq $ExpectedValue
+                }
             } else {
-                $TestResult = $Object.$Property -eq $ExpectedValue
+                if ($lt) {
+                    $TestResult = $Object.$Property -lt $ExpectedValue
+                } elseif ($gt) {
+                    $TestResult = $Object.$Property -gt $ExpectedValue
+                } elseif ($ge) {
+                    $TestResult = $Object.$Property -ge $ExpectedValue
+                } elseif ($le) {
+                    $TestResult = $Object.$Property -le $ExpectedValue
+                } else {
+                    $TestResult = $Object.$Property -eq $ExpectedValue
+                }
             }
             if ($TestResult) {
                 $Extended = "Expected value: $($Object.$Property)"

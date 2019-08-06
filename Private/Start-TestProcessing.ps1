@@ -19,27 +19,37 @@
             Out-Begin -Type 'i' -Text $Test -Level ($Level * 3)
         }
 
-        [Array] $Output = & $Execute
-        foreach ($O in $Output) {
-            if ($OutputRequired.IsPresent) {
-                if ($O['Output']) {
-                    foreach ($_ in $O['Output']) {
-                        $_
-                    }
-                } else {
-                    foreach ($_ in $O) {
-                        $_
+        try {
+            [Array] $Output = & $Execute
+        } catch {
+            $ErrorMessage = $_.Exception.Message -replace "`n", " " -replace "`r", " "
+            #[ordered] @{ Status = $false; Output = @(); Extended = $ErrorMessage }
+        }
+        if (-not $ErrorMessage) {
+            foreach ($O in $Output) {
+                if ($OutputRequired.IsPresent) {
+                    if ($O['Output']) {
+                        foreach ($_ in $O['Output']) {
+                            $_
+                        }
+                    } else {
+                        foreach ($_ in $O) {
+                            $_
+                        }
                     }
                 }
             }
-        }
-        if ($null -eq $ExpectedStatus) {
-            $TestResult = $null
-        } else {
-            $TestResult = $ExpectedStatus -eq $Output.Status
-        }
 
-        Out-Status -Text $Test -Status $TestResult -ExtendedValue $O.Extended
+            if ($null -eq $ExpectedStatus) {
+                $TestResult = $null
+            } else {
+                $TestResult = $ExpectedStatus -eq $Output.Status
+            }
+
+            Out-Status -Text $Test -Status $TestResult -ExtendedValue $O.Extended
+        } else {
+            Out-Status -Text $Test -Status $false -ExtendedValue $ErrorMessage
+        }
         return
     }
 
