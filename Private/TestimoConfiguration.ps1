@@ -1,4 +1,4 @@
-﻿$Script:Configuration = [ordered] @{
+﻿$Script:TestimoConfiguration = [ordered] @{
     Forest            = @{
         Sources = [ordered]  @{
             OptionalFeatures = @{
@@ -15,7 +15,7 @@
                             OperationType = 'eq'
                         }
                     }
-                    LapsAvailable= @{
+                    LapsAvailable     = @{
                         Enable         = $true
                         TestName       = 'Laps Available'
                         TestSource     = $Script:SBForestOptionalFeaturesTest2
@@ -39,7 +39,7 @@
     Domain            = @{
         Sources = [ordered] @{
             PasswordComplexity = @{
-                Enable     = $true
+                Enable     = $false
                 SourceName = 'Password Complexity Requirements'
                 SourceData = $Script:SBDomainPasswordComplexity
                 Tests      = [ordered] @{
@@ -151,29 +151,49 @@
                 Enable     = $false
                 SourceName = 'LDAP Connectivity'
                 SourceData = $Script:SBDomainControllersLDAP
-                Tests      = @{
+                Tests      = [ordered] @{
                     PortLDAP     = @{
-                        Enable     = $true
-                        TestName   = 'LDAP Port is Available'
-                        TestSource = $Script:SBDomainControllersLDAP_Port
+                        Enable         = $true
+                        TestName       = 'LDAP Port is Available'
+                        TestSource     = $Script:SBDomainControllersLDAP_Port
+                        TestParameters = @{
+                            ExpectedValue = $true
+                            OperationType = 'eq'
+                        }
                     }
                     PortLDAPS    = @{
-                        Enable     = $true
-                        TestName   = 'LDAP SSL Port is Available'
-                        TestSource = $Script:SBDomainControllersLDAP_PortSSL
+                        Enable         = $true
+                        TestName       = 'LDAP SSL Port is Available'
+                        TestSource     = $Script:SBDomainControllersLDAP_PortSSL
+                        TestParameters = @{
+                            ExpectedValue = $true
+                            OperationType = 'eq'
+                        }
                     }
                     PortLDAP_GC  = @{
-                        Enable     = $true
-                        TestName   = 'LDAP GC Port is Available'
-                        TestSource = $Script:SBDomainControllersLDAP_PortGC
+                        Enable         = $true
+                        TestName       = 'LDAP GC Port is Available'
+                        TestSource     = $Script:SBDomainControllersLDAP_PortGC
+                        TestParameters = @{
+                            ExpectedValue = $true
+                            OperationType = 'eq'
+                        }
                     }
                     PortLDAPS_GC = @{
-                        Enable     = $true
-                        TestName   = 'LDAP SSL GC Port is Available'
-                        TestSource = $Script:SBDomainControllersLDAP_PortGC_SSL
+                        Enable         = $true
+                        TestName       = 'LDAP SSL GC Port is Available'
+                        TestSource     = $Script:SBDomainControllersLDAP_PortGC_SSL
+                        TestParameters = @{
+                            ExpectedValue = $true
+                            OperationType = 'eq'
+                        }
                     }
                 }
             }
         }
+    }
+
+    Debug             = @{
+        DisableTryCatch = $true
     }
 }

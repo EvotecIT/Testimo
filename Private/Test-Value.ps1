@@ -18,7 +18,7 @@
     )
 
     if ($Object) {
-        Out-Begin -Text $TestName -Level ($Level * 3)
+        Out-Begin -Text $TestName -Level $Level #($Level * 3)
         try {
             if ($OperationType) {
                 if ($OperationType -eq 'lt') {

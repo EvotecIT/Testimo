@@ -22,9 +22,11 @@ $Script:SBDomainTrusts = {
 #>
 
 $Script:SBDomainTrustsData = {
-    & $ADModule { param($Domain); Get-WinADDomainTrust -Domain $Domain } $Domain @args
+    & $ADModule {
+        param($Domain);
+        Get-WinADDomainTrusts -Domain $Domain
+    } $Domain @args
 }
-
 $Script:SBDomainTrustsConnectivity = {
     # All trusts should be OK
     Test-Value -TestName "Trust status verification | Source $Domain, Target $($_.'Trust Target'), Direction $($_.'Trust Direction')" -Property 'Trust Status' -ExpectedValue 'OK' @args

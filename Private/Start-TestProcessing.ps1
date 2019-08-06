@@ -14,16 +14,20 @@
 
     if ($Execute) {
         if ($IsTest) {
-            Out-Begin -Type 't' -Text $Test -Level ($Level * 3)
+            Out-Begin -Type 't' -Text $Test -Level $Level # ($Level * 3)
         } else {
-            Out-Begin -Type 'i' -Text $Test -Level ($Level * 3)
+            Out-Begin -Type 'i' -Text $Test -Level $Level # ($Level * 3)
         }
-
-        try {
+        if ($Script:TestimoConfiguration.Debug.DisableTryCatch) {
             [Array] $Output = & $Execute
-        } catch {
-            $ErrorMessage = $_.Exception.Message -replace "`n", " " -replace "`r", " "
-            #[ordered] @{ Status = $false; Output = @(); Extended = $ErrorMessage }
+
+        } else {
+            try {
+                [Array] $Output = & $Execute
+            } catch {
+                $ErrorMessage = $_.Exception.Message -replace "`n", " " -replace "`r", " "
+                #[ordered] @{ Status = $false; Output = @(); Extended = $ErrorMessage }
+            }
         }
         if (-not $ErrorMessage) {
             foreach ($O in $Output) {
@@ -54,7 +58,7 @@
     }
 
     if ($Data) {
-        Out-Begin -Type 'i' -Text $Test -Level ($Level * 3)
+        Out-Begin -Type 'i' -Text $Test -Level $Level #($Level * 3)
 
         [Array] $Output = & $Data
         if ($Output.Contains('Status') -and $Output.Contains('Extended') -and $Output.Contains('Output')) {

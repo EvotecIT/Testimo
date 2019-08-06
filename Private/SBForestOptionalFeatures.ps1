@@ -9,7 +9,8 @@ $Script:SBForestOptionalFeatures = {
 }
 #>
 $Script:SBForestOptionalFeatures = {
-    Get-ForestOptionalFeatures
+    $ADModule = Import-Module PSWinDocumentation.AD -PassThru
+    & $ADModule { Get-WinADForestOptionalFeatures -WarningAction SilentlyContinue }
 }
 $Script:SBForestOptionalFeaturesTest1 = {
     Test-Value -TestName 'RecycleBin Enabled' -Property 'Recycle Bin Enabled' @args #-ExpectedValue $true
