@@ -27,8 +27,21 @@
                 }
             }
             Replication      = @{
-                Enable     = $false
-                TestSource = $Script:SBForestReplication
+                Enable     = $true
+                SourceName = 'Forest Replication'
+                SourceData = $Script:SBForestReplication
+                Tests      = [ordered] @{
+                    ReplicationTests = @{
+                        Enable         = $true
+                        TestName       = 'Replication Test'
+                        TestSource     = $Script:SBForestReplicationTest1
+                        TestParameters = @{
+                            #ExpectedValue        = $true
+                            OperationType        = 'eq'
+                            #PropertExtendedValue = 'StatusMessage'
+                        }
+                    }
+                }
             }
             LastBackup       = @{
                 Enable     = $false

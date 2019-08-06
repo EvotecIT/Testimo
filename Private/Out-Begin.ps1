@@ -4,6 +4,10 @@
         [int] $Level,
         [string] $Type = 't'
     )
-    [ConsoleColor[]] $Color = [ConsoleColor]::Cyan, [ConsoleColor]::Yellow
+    if ($Type -eq 't') {
+        [ConsoleColor[]] $Color = [ConsoleColor]::Cyan, [ConsoleColor]::DarkGray
+    } else {
+        [ConsoleColor[]] $Color = [ConsoleColor]::Yellow, [ConsoleColor]::DarkGray
+    }
     Write-Color -Text "[$Type] ", $Text -Color $Color -StartSpaces $Level -NoNewLine
 }
