@@ -65,7 +65,7 @@
     Domain            = @{
         Sources = [ordered] @{
             PasswordComplexity          = @{
-                Enable     = $false
+                Enable     = $true
                 SourceName = 'Password Complexity Requirements'
                 SourceData = $Script:SBDomainPasswordComplexity
                 Tests      = [ordered] @{
@@ -257,7 +257,7 @@
 
             }
             Pingable = @{
-                Enable     = $false
+                Enable     = $true
                 SourceName = 'PING Connectivity'
                 SourceData = $Script:SBDomainControllersPing
                 Tests      = @{
@@ -273,7 +273,7 @@
                 }
             }
             Port53   = @{
-                Enable     = $true
+                Enable     = $false
                 SourceName = 'PORT 53 (DNS) Connectivity'
                 SourceData = $Script:SBDomainControllersPort53
                 Tests      = @{
@@ -291,6 +291,6 @@
         }
     }
     Debug             = @{
-        DisableTryCatch = $true
+        DisableTryCatch = $false
     }
 }

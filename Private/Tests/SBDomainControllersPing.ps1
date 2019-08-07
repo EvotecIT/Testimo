@@ -10,7 +10,7 @@ $Script:SBDomainControllersPing = {
 #>
 
 $Script:SBDomainControllersPing = {
-    Test-NetConnection -ComputerName $DomainController.HostName -WarningAction SilentlyContinue
+    Test-NetConnection -ComputerName $DomainController -WarningAction SilentlyContinue
 }
 
 $Script:SBDomainControllersPingTest = {

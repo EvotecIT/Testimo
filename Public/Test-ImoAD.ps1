@@ -40,20 +40,21 @@ function Test-ImoAD {
     Start-Testing -Scope 'Forest' #-Level 1
     # Tests related to DOMAIN
     foreach ($Domain in $Forest.Domains) {
-
+        $Domain = $Domain.ToLower()
         $null = & $Script:SBDomain -Domain $Domain
 
-        Start-Testing -Scope 'Domain' -Domain $Domain -DomainController $DomainController
+        Start-Testing -Scope 'Domain' -Domain $Domain
         # Tests related to DOMAIN CONTROLLERS
         $DomainControllers = & $Script:SBDomainControllers -Domain $Domain
         foreach ($DomainController in $DomainControllers) {
-            Start-Testing -Scope 'DomainControllers' -Domain $Domain -DomainController $DomainController
+            $DomainControllerHostName = $($DomainController.HostName).ToLower()
+            Start-Testing -Scope 'DomainControllers' -Domain $Domain -DomainController $DomainControllerHostName
         }
     }
 
     # Summary
-    [Array] $TestsPassed = (($Script:TestResults) | Where-Object { $_.Status -eq $true }) #.Count
-    [Array] $TestsFailed = (($Script:TestResults) | Where-Object { $_.Status -eq $false }) #.Count
+    [Array] $TestsPassed = (($Script:TestResults) | Where-Object { $_.Status -eq $true })
+    [Array] $TestsFailed = (($Script:TestResults) | Where-Object { $_.Status -eq $false })
     [Array] $TestsSkipped = @()
 
     $EndTime = Stop-TimeLog -Time $Time -Option OneLiner

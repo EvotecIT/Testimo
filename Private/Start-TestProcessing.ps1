@@ -9,18 +9,20 @@
         [nullable[bool]] $ExpectedStatus,
         [int] $Level = 0,
         [switch] $IsTest,
-        [switch] $Simple
+        [switch] $Simple,
+        [string] $Domain,
+        [string] $DomainController
     )
 
     if ($Execute) {
         if ($IsTest) {
-            Out-Begin -Type 't' -Text $Test -Level $Level # ($Level * 3)
+            Out-Begin -Type 't' -Text $Test -Level $Level -Domain $Domain -DomainController $DomainController # ($Level * 3)
         } else {
-            Out-Begin -Type 'i' -Text $Test -Level $Level # ($Level * 3)
+            Out-Begin -Type 'i' -Text $Test -Level $Level -Domain $Domain -DomainController $DomainController # ($Level * 3)
         }
         if ($Script:TestimoConfiguration.Debug.DisableTryCatch) {
             [Array] $Output = & $Execute
-
+            $ErrorMessage = $null
         } else {
             try {
                 [Array] $Output = & $Execute

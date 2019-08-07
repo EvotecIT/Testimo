@@ -2,7 +2,7 @@
     param(
         [string] $Scope,
         [string] $Domain,
-        $DomainController
+        [string] $DomainController
     )
     if ($Scope -eq 'Forest') {
         $Level = 3
@@ -26,7 +26,7 @@
         if ($CurrentSource['Enable'] -eq $true) {
             # $Data = & $CurrentSource['Data'] -DomainController $DomainController
             $Time = Start-TimeLog
-            $Object = Start-TestProcessing -Test $CurrentSource['SourceName'] -Level $Level -OutputRequired {
+            $Object = Start-TestProcessing -Test $CurrentSource['SourceName'] -Level $Level -OutputRequired -Domain $Domain -DomainController $DomainController {
                 & $CurrentSource['SourceData'] -DomainController $DomainController -Domain $Domain
             }
             # If there's no output from Source Data all other tests will fail
