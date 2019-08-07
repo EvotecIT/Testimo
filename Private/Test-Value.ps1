@@ -5,7 +5,7 @@
         [string] $TestName,
         [string] $Property,
         [Object] $ExpectedValue,
-        [string] $PropertExtendedValue,
+        [string[]] $PropertExtendedValue,
         [switch] $lt,
         [switch] $gt,
         [switch] $le,
@@ -50,8 +50,15 @@
             } else {
                 $Extended = "Expected value: $ExpectedValue, Found value: $($Object.$Property)"
             }
-            if ($PropertExtendedValue) {
-                $Extended = $($Object.$PropertExtendedValue)
+            if ($PropertExtendedValue.Count -gt 0) {
+
+                #foreach ($PropertExtended in $PropertExtendedValue) {
+                #    $Extended += $($Object.$PropertExtendedValue)
+                #}
+                $Extended = $Object
+                foreach ($V in $PropertExtendedValue) {
+                    $Extended = $Extended.$V
+                }
             }
             Out-Status -Text $TestName -Status $TestResult -ExtendedValue $Extended
         } catch {

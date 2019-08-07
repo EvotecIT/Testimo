@@ -52,14 +52,14 @@ function Test-ImoAD {
     }
 
     # Summary
-    $TestsPassed = (($Script:TestResults) | Where-Object { $_.Status -eq $true }).Count
-    $TestsFailed = (($Script:TestResults) | Where-Object { $_.Status -eq $false }).Count
-    $TestsSkipped = 0
+    [Array] $TestsPassed = (($Script:TestResults) | Where-Object { $_.Status -eq $true }) #.Count
+    [Array] $TestsFailed = (($Script:TestResults) | Where-Object { $_.Status -eq $false }) #.Count
+    [Array] $TestsSkipped = @()
 
     $EndTime = Stop-TimeLog -Time $Time -Option OneLiner
 
     Write-Color -Text '[i] ', 'Time to execute tests: ', $EndTime -Color Yellow, DarkGray, Cyan
-    Write-Color -Text '[i] ', 'Tests Passed: ', $TestsPassed, ' Tests Failed: ', $TestsFailed, ' Tests Skipped: ', $TestsSkipped -Color Yellow, DarkGray, Green, DarkGray, Red, DarkGray, Cyan
+    Write-Color -Text '[i] ', 'Tests Passed: ', $TestsPassed.Count, ' Tests Failed: ', $TestsFailed.Count, ' Tests Skipped: ', $TestsSkipped.Count -Color Yellow, DarkGray, Green, DarkGray, Red, DarkGray, Cyan
 
     # This results informaiton in form of Array for future processing
     if ($ReturnResults) {

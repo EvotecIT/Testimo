@@ -27,5 +27,5 @@ $Script:SBDomainControllersLDAP_PortGC = {
     Test-Value -TestName "Domain Controller - $($DomainController.HostName) | LDAP GC Port is Available" -Property 'GlobalCatalogLDAP'  @args
 }
 $Script:SBDomainControllersLDAP_PortGC_SSL = {
-    Test-Value -TestName "Domain Controller - $($DomainController.HostName) | LDAP GC SSL Port is Available" -Property1 'GlobalCatalogLDAPS' @args
+    Test-Value -TestName "Domain Controller - $($DomainController.HostName) | LDAP GC SSL Port is Available" -Property 'GlobalCatalogLDAPS' @args
 }

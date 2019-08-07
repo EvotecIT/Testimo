@@ -2,7 +2,7 @@
     Forest            = @{
         Sources = [ordered]  @{
             OptionalFeatures = @{
-                Enable     = $true
+                Enable     = $false
                 SourceName = 'Optional Features'
                 SourceData = $Script:SBForestOptionalFeatures
                 Tests      = [ordered] @{
@@ -27,7 +27,7 @@
                 }
             }
             Replication      = @{
-                Enable     = $true
+                Enable     = $false
                 SourceName = 'Forest Replication'
                 SourceData = $Script:SBForestReplication
                 Tests      = [ordered] @{
@@ -37,7 +37,7 @@
                         TestSource     = $Script:SBForestReplicationTest1
                         TestParameters = @{
                             #ExpectedValue        = $true
-                            OperationType        = 'eq'
+                            OperationType = 'eq'
                             #PropertExtendedValue = 'StatusMessage'
                         }
                     }
@@ -45,13 +45,26 @@
             }
             LastBackup       = @{
                 Enable     = $false
-                TestSource = $Script:SBForestLastBackup
+                SourceName = 'Forest Backup'
+                SourceData = $Script:SBForestLastBackup
+                Tests      = [ordered] @{
+                    LastBackupTests = @{
+                        Enable         = $true
+                        TestName       = 'Forest Last Backup Time - Context'
+                        TestSource     = $Script:SBForestLastBackupTest
+                        TestParameters = @{
+                            #ExpectedValue        = $true
+                            #OperationType = 'eq'
+                            #PropertExtendedValue = 'StatusMessage'
+                        }
+                    }
+                }
             }
         }
     }
     Domain            = @{
         Sources = [ordered] @{
-            PasswordComplexity = @{
+            PasswordComplexity          = @{
                 Enable     = $false
                 SourceName = 'Password Complexity Requirements'
                 SourceData = $Script:SBDomainPasswordComplexity
@@ -139,8 +152,8 @@
                     }
                 }
             }
-            Trusts             = @{
-                Enable     = $true
+            Trusts                      = @{
+                Enable     = $false
                 SourceName = "Testing Trusts Availability"
                 SourceData = $Script:SBDomainTrustsData
                 Tests      = [ordered] @{
@@ -156,11 +169,50 @@
                     }
                 }
             }
+            RespondsToPowerShellQueries = @{
+                Enable     = $false
+                SourceName = "Responds to PS Queries"
+                SourceData = $Script:SBDomainControllersRespondsPS
+                Tests      = [ordered] @{
+                    RespondsToQueries            = @{
+                        Enable     = $true
+                        TestName   = 'Trust status verification'
+                        TestSource = $Script:SBDomainControllersRespondsPSTest
+                    }
+                }
+            }
         }
     }
     DomainControllers = @{
         Sources = [ordered] @{
-            LDAP = @{
+            Services = @{
+                Enable     = $false
+                SourceName = 'Services Status'
+                SourceData = $Script:SBDomainControllersServices
+                Tests      = [ordered] @{
+                    ServiceStatus    = @{
+                        Enable         = $true
+                        TestName       = 'Service is RUNNING'
+                        TestSource     = $Script:SBDomainControllersServicesTestStatus
+                        TestParameters = @{
+                            ExpectedValue = 'Running'
+                            OperationType = 'eq'
+                        }
+
+                    }
+                    ServiceStartType = @{
+                        Enable         = $true
+                        TestName       = 'Service START TYPE is Automatic'
+                        TestSource     = $Script:SBDomainControllersServicesTestStartType
+                        TestParameters = @{
+                            ExpectedValue = 'Automatic'
+                            OperationType = 'eq'
+                        }
+                    }
+                }
+            }
+
+            LDAP     = @{
                 Enable     = $false
                 SourceName = 'LDAP Connectivity'
                 SourceData = $Script:SBDomainControllersLDAP
@@ -202,10 +254,42 @@
                         }
                     }
                 }
+
+            }
+            Pingable = @{
+                Enable     = $false
+                SourceName = 'PING Connectivity'
+                SourceData = $Script:SBDomainControllersPing
+                Tests      = @{
+                    Ping = @{
+                        Enable         = $true
+                        TestName       = 'Responding to PING'
+                        TestSource     = $Script:SBDomainControllersPingTest
+                        TestParameters = @{
+                            ExpectedValue = $true
+                            OperationType = 'eq'
+                        }
+                    }
+                }
+            }
+            Port53   = @{
+                Enable     = $true
+                SourceName = 'PORT 53 (DNS) Connectivity'
+                SourceData = $Script:SBDomainControllersPort53
+                Tests      = @{
+                    Ping = @{
+                        Enable         = $true
+                        TestName       = 'Port 53 is OPEN'
+                        TestSource     = $Script:SBDomainControllersPort53Test
+                        TestParameters = @{
+                            ExpectedValue = $true
+                            OperationType = 'eq'
+                        }
+                    }
+                }
             }
         }
     }
-
     Debug             = @{
         DisableTryCatch = $true
     }
