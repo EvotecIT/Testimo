@@ -27,7 +27,7 @@
                 }
             }
             Replication      = @{
-                Enable     = $true
+                Enable     = $false
                 SourceName = 'Forest Replication'
                 SourceData = $Script:SBForestReplication
                 Tests      = [ordered] @{
@@ -44,7 +44,7 @@
                 }
             }
             LastBackup       = @{
-                Enable     = $true
+                Enable     = $false
                 SourceName = 'Forest Backup'
                 SourceData = $Script:SBForestLastBackup
                 Tests      = [ordered] @{
@@ -153,7 +153,7 @@
                 }
             }
             Trusts                      = @{
-                Enable     = $true
+                Enable     = $false
                 SourceName = "Trust Availability"
                 SourceData = $Script:SBDomainTrustsData
                 Tests      = [ordered] @{
@@ -180,7 +180,7 @@
     DomainControllers = @{
         Sources = [ordered] @{
             Services = @{
-                Enable     = $true
+                Enable     = $false
                 SourceName = 'Service Status'
                 SourceData = $Script:SBDomainControllersServices
                 Tests      = [ordered] @{
@@ -267,7 +267,7 @@
                 }
             }
             Port53   = @{
-                Enable     = $true
+                Enable     = $false
                 SourceName = 'PORT 53 (DNS)'
                 SourceData = $Script:SBDomainControllersPort53
                 Tests      = @{

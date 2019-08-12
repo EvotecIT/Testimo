@@ -6,9 +6,6 @@ function Test-ImoAD {
     $Time = Start-TimeLog
     $Script:TestResults = [System.Collections.Generic.List[PSCustomObject]]::new()
 
-    # Imports all commands / including private ones from PSWinDocumentation.AD
-    $ADModule = Import-Module PSWinDocumentation.AD -PassThru
-
     <#
     $Forest = & $Script:SBForest
 
@@ -40,7 +37,7 @@ function Test-ImoAD {
     Start-Testing -Scope 'Forest'
     # Tests related to DOMAIN
     foreach ($Domain in $Forest.Domains) {
-        $TimeDomain = Start-TimeLog
+        #$TimeDomain = Start-TimeLog
         $Domain = $Domain.ToLower()
         $null = & $Script:SBDomain -Domain $Domain
 
@@ -48,14 +45,13 @@ function Test-ImoAD {
         # Tests related to DOMAIN CONTROLLERS
         $DomainControllers = & $Script:SBDomainControllers -Domain $Domain
         foreach ($DomainController in $DomainControllers) {
-            $TimeController = Start-TimeLog
+            #$TimeController = Start-TimeLog
             $DomainControllerHostName = $($DomainController.HostName).ToLower()
             Start-Testing -Scope 'DomainControllers' -Domain $Domain -DomainController $DomainControllerHostName
-            Out-Summary -Text "Domain Controllers" -Time $TimeController -Level 6
+            #Out-Summary -Text "Domain Controllers" -Time $TimeController -Level 6
         }
-        Out-Summary -Text "Domain $Domain" -Time $TimeDomain -Level 3 #-Domain $Domain -DomainController $DomainController
+        #Out-Summary -Text "Domain $Domain" -Time $TimeDomain -Level 3 #-Domain $Domain -DomainController $DomainController
     }
-
 
     # Summary
     [Array] $TestsPassed = (($Script:TestResults) | Where-Object { $_.Status -eq $true })

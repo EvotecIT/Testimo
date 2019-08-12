@@ -22,6 +22,8 @@ $Script:SBDomainTrusts = {
 #>
 
 $Script:SBDomainTrustsData = {
+    # Imports all commands / including private ones from PSWinDocumentation.AD
+    $ADModule = Import-Module PSWinDocumentation.AD -PassThru
     & $ADModule {
         param($Domain);
         Get-WinADDomainTrusts -Domain $Domain

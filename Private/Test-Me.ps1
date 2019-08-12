@@ -54,7 +54,9 @@
             }
         }
         Out-Status -Text $TestName -Status $TestResult -ExtendedValue $Extended -Domain $Domain -DomainController $DomainController
+        return $TestResult
     } catch {
         Out-Status -Text $TestName -Status $false -ExtendedValue $_.Exception.Message -Domain $Domain -DomainController $DomainController
+        return $False
     }
 }

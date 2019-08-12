@@ -10,9 +10,11 @@
     if ($Execute) {
         if ($Script:TestimoConfiguration.Debug.DisableTryCatch) {
             [Array] $Output = & $Execute
+            $Output
         } else {
             try {
                 [Array] $Output = & $Execute
+                $Output
             } catch {
                 $ErrorMessage = $_.Exception.Message -replace "`n", " " -replace "`r", " "
             }
