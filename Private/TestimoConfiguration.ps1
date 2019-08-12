@@ -65,7 +65,7 @@
     Domain            = @{
         Sources = [ordered] @{
             PasswordComplexity          = @{
-                Enable     = $true
+                Enable     = $false
                 SourceName = 'Password Complexity Requirements'
                 SourceData = $Script:SBDomainPasswordComplexity
                 Tests      = [ordered] @{
@@ -153,7 +153,7 @@
                 }
             }
             Trusts                      = @{
-                Enable     = $false
+                Enable     = $true
                 SourceName = "Testing Trusts Availability"
                 SourceData = $Script:SBDomainTrustsData
                 Tests      = [ordered] @{
@@ -170,7 +170,7 @@
                 }
             }
             RespondsToPowerShellQueries = @{
-                Enable     = $false
+                Enable     = $true
                 SourceName = "Responds to PS Queries"
                 SourceData = $Script:SBDomainControllersRespondsPS
                 Tests      = [ordered] @{
@@ -257,7 +257,7 @@
 
             }
             Pingable = @{
-                Enable     = $true
+                Enable     = $false
                 SourceName = 'PING Connectivity'
                 SourceData = $Script:SBDomainControllersPing
                 Tests      = @{

@@ -44,15 +44,15 @@
                         } else {
                             $Parameters = $null
                         }
-                        Start-TestingTest -Test $CurrentTest['TestName'] -Level $LevelTest {
+                        Start-TestingTest -Test $CurrentTest['TestName'] -Level $LevelTest -Domain $Domain -DomainController $DomainController {
                             & $CurrentTest['TestSource'] -Object $Object -Domain $Domain -DomainController $DomainController @Parameters -Level $LevelTest #-TestName $CurrentTest['TestName']
                         }
                     } else {
-                        Out-Failure -Text $CurrentTest['TestName'] -Level $LevelTestFailure
+                        Out-Failure -Text $CurrentTest['TestName'] -Level $LevelTestFailure -Domain $Domain -DomainController $DomainController
                     }
                 }
             }
-            Out-Summary -Text $CurrentSource['SourceName'] -Time $Time -Level $LevelSummary
+            Out-Summary -Text $CurrentSource['SourceName'] -Time $Time -Level $LevelSummary -Domain $Domain -DomainController $DomainController
         }
     }
 }

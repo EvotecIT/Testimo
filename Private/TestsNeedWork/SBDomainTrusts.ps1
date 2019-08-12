@@ -29,13 +29,19 @@ $Script:SBDomainTrustsData = {
 }
 $Script:SBDomainTrustsConnectivity = {
     # All trusts should be OK
-    Test-Value -TestName "Trust status verification | Source $Domain, Target $($_.'Trust Target'), Direction $($_.'Trust Direction')" -Property 'Trust Status' -ExpectedValue 'OK' @args
+    #Test-Value -TestName "Trust status verification | Source $Domain, Target $($_.'Trust Target'), Direction $($_.'Trust Direction')" -Property 'Trust Status' -ExpectedValue 'OK' @args
+
+    foreach ($_ in $Object) {
+        Test-Value -TestName "Trust status verification | Source $Domain, Target $($_.'Trust Target'), Direction $($_.'Trust Direction')" -Property 'Trust Status' -ExpectedValue 'OK' -Object $_ -Level 9 #@args
+    }
 }
 
 $Script:SBDomainTrustsUnconstrainedDelegation = {
     # TGTDelegation as per https://blogs.technet.microsoft.com/askpfeplat/2019/04/11/changes-to-ticket-granting-ticket-tgt-delegation-across-trusts-in-windows-server-askpfeplat-edition/
     # TGTDelegation should be set to $True (contrary to name)
-    if ($($Object.'Trust Direction' -eq 'BiDirectional' -or $Object.'Trust Direction' -eq 'InBound')) {
-        Test-Value -TestName "Trust Unconstrained TGTDelegation | Source $Domain, Target $($_.'Trust Target'), Direction $($_.'Trust Direction')" -Property 'TGTDelegation' -ExpectedValue $True @args
+    foreach ($_ in $Object) {
+        if ($($_.'Trust Direction' -eq 'BiDirectional' -or $_.'Trust Direction' -eq 'InBound')) {
+            Test-Value -TestName "Trust Unconstrained TGTDelegation | Source $Domain, Target $($_.'Trust Target'), Direction $($_.'Trust Direction')" -Property 'TGTDelegation' -ExpectedValue $True -Object $_ -Level 9 # @args
+        }
     }
 }

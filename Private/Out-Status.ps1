@@ -3,7 +3,9 @@
         [string] $Text,
         [nullable[bool]] $Status,
         [string] $Section,
-        [string] $ExtendedValue
+        [string] $ExtendedValue,
+        [string] $Domain,
+        [string] $DomainController
     )
     if ($Status -eq $true) {
         [string] $TextStatus = 'Pass'
@@ -20,12 +22,26 @@
     } else {
         Write-Color -Text ' [', $TextStatus, ']' -Color $Color
     }
-    $Script:TestResults.Add(
-        [PSCustomObject]@{
-            Test     = $Text
-            Section  = $Section
-            Status   = $Status
-            Extended = $ExtendedValue
-        }
-    )
+    if ($Domain -and $DomainController) {
+        $TestType = 'Domain Controller'
+    } elseif ($Domain) {
+        $TestType = 'Domain'
+    } elseif ($DomainController) {
+        $TestType = 'Should not happen. Find an error.'
+    } else {
+        $TestType = 'Forest Wide'
+    }
+    if ($null -ne $Status) {
+        $Script:TestResults.Add(
+            [PSCustomObject]@{
+                Test             = $Text
+                TestType         = $TestType
+                Section          = $Section
+                Domain           = $Domain
+                DomainController = $DomainController
+                Status           = $Status
+                Extended         = $ExtendedValue
+            }
+        )
+    }
 }

@@ -52,9 +52,9 @@
                 $TestResult = $ExpectedStatus -eq $Output.Status
             }
 
-            Out-Status -Text $Test -Status $TestResult -ExtendedValue $O.Extended
+            Out-Status -Text $Test -Status $TestResult -ExtendedValue $O.Extended -Domain $Domain -DomainController $DomainController
         } else {
-            Out-Status -Text $Test -Status $false -ExtendedValue $ErrorMessage
+            Out-Status -Text $Test -Status $false -ExtendedValue $ErrorMessage -Domain $Domain -DomainController $DomainController
         }
         #return
     }

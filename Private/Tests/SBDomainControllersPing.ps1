@@ -14,5 +14,5 @@ $Script:SBDomainControllersPing = {
 }
 
 $Script:SBDomainControllersPingTest = {
-    Test-Value -TestName "Responding to PING" -Property 'PingSucceeded' @args -PropertExtendedValue 'PingReplyDetails', 'RoundtripTime'
+    Test-Value -TestName "Domain Controller - $DomainController | Responds to PING" -Property 'PingSucceeded' @args -PropertExtendedValue 'PingReplyDetails', 'RoundtripTime'
 }

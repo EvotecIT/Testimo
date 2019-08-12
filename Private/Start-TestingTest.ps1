@@ -2,7 +2,9 @@
     param(
         [ScriptBlock] $Execute,
         $Test,
-        $Level
+        $Level,
+        [string] $Domain,
+        [string] $DomainController
     )
     if ($Execute) {
         if ($Script:TestimoConfiguration.Debug.DisableTryCatch) {
@@ -17,7 +19,7 @@
                 #Out-Status -Text $Test -Status $TestResult -ExtendedValue $O.Extended
             } else {
                 # Out-Status -Text $Test -Status $false -ExtendedValue $ErrorMessage
-                Out-Failure -Text $CurrentTest['TestName'] -Level $Level -ExtendedValue $ErrorMessage
+                Out-Failure -Text $CurrentTest['TestName'] -Level $Level -ExtendedValue $ErrorMessage -Domain $Domain -DomainController $DomainController
             }
         }
     }

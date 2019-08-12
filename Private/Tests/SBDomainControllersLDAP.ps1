@@ -15,7 +15,7 @@ $Script:SBDomainControllersLDAP = {
 #>
 
 $Script:SBDomainControllersLDAP = {
-    Test-LDAP -ComputerName $DomainController.HostName -WarningAction SilentlyContinue
+    Test-LDAP -ComputerName $DomainController -WarningAction SilentlyContinue
 }
 $Script:SBDomainControllersLDAP_Port = {
     Test-Value -TestName "Domain Controller - $($DomainController) | LDAP Port is Available" -Property 'LDAP' @args

@@ -60,9 +60,9 @@
                     $Extended = $Extended.$V
                 }
             }
-            Out-Status -Text $TestName -Status $TestResult -ExtendedValue $Extended
+            Out-Status -Text $TestName -Status $TestResult -ExtendedValue $Extended -Domain $Domain -DomainController $DomainController
         } catch {
-            Out-Status -Text $TestName -Status $false -ExtendedValue $_.Exception.Message
+            Out-Status -Text $TestName -Status $false -ExtendedValue $_.Exception.Message -Domain $Domain -DomainController $DomainController
         }
     } else {
         if ($lt) {
