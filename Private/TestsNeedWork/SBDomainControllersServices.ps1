@@ -23,12 +23,14 @@ $Script:SBDomainControllersServices = {
 
 $Script:SBDomainControllersServicesTestStatus = {
     foreach ($_ in $Object) {
-        Test-Value -TestName "Domain Controller - $($DomainController) | Service $($_.Name) Status" -Property 'Status' -Object $_ -ExpectedValue 'Running' -Level 12   #-SearchObjectProperty 'Name' -SearchObjectValue $Service -Property 'Status' -ExpectedValue 'Running'
+        # 12
+        Test-Value -TestName "Service $($_.Name) Status" -Property 'Status' -Object $_ -ExpectedValue 'Running' -Level $LevelTest -Domain $Domain -DomainController $DomainController   #-SearchObjectProperty 'Name' -SearchObjectValue $Service -Property 'Status' -ExpectedValue 'Running'
     }
 }
 
 $Script:SBDomainControllersServicesTestStartType = {
     foreach ($_ in $Object) {
-        Test-Value -TestName "Domain Controller - $($DomainController) | Service $($_.Name) Start Type" -Property 'StartType' -Object $_ -ExpectedValue 'Automatic' -Level 12 #-SearchObjectProperty 'Name' -SearchObjectValue $Service -Property 'StartType' -ExpectedValue 'Automatic'
+        # 12
+        Test-Value -TestName "Service $($_.Name) Start Type" -Property 'StartType' -Object $_ -ExpectedValue 'Automatic' -Level $LevelTest -Domain $Domain -DomainController $DomainController #-SearchObjectProperty 'Name' -SearchObjectValue $Service -Property 'StartType' -ExpectedValue 'Automatic'
     }
 }

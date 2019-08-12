@@ -1,8 +1,9 @@
 ﻿function Start-TestingTest {
+    [CmdletBinding()]
     param(
         [ScriptBlock] $Execute,
         $Test,
-        $Level,
+        [int] $Level,
         [string] $Domain,
         [string] $DomainController
     )

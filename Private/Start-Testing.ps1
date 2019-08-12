@@ -1,4 +1,5 @@
 ﻿function Start-Testing {
+    [CmdletBinding()]
     param(
         [string] $Scope,
         [string] $Domain,
@@ -32,8 +33,11 @@
             # If there's no output from Source Data all other tests will fail
             if ($Object) {
                 $FailAllTests = $false
+                Out-Begin -Text $CurrentSource['SourceName'] -Level $LevelTest -Domain $Domain -DomainController $DomainController
+                Out-Status -Text $CurrentSource['SourceName'] -Status $true -ExtendedValue 'Data is available.' -Domain $Domain -DomainController $DomainController
             } else {
                 $FailAllTests = $true
+                Out-Failure -Text $CurrentSource['SourceName'] -Level $LevelTest -ExtendedValue 'No data available.' -Domain $Domain -DomainController $DomainController
             }
             foreach ($Test in $CurrentSource['Tests'].Keys) {
                 $CurrentTest = $CurrentSource['Tests'][$Test]

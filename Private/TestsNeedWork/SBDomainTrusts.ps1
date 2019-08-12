@@ -32,7 +32,8 @@ $Script:SBDomainTrustsConnectivity = {
     #Test-Value -TestName "Trust status verification | Source $Domain, Target $($_.'Trust Target'), Direction $($_.'Trust Direction')" -Property 'Trust Status' -ExpectedValue 'OK' @args
 
     foreach ($_ in $Object) {
-        Test-Value -TestName "Trust status verification | Source $Domain, Target $($_.'Trust Target'), Direction $($_.'Trust Direction')" -Property 'Trust Status' -ExpectedValue 'OK' -Object $_ -Level 9 #@args
+        # 9
+        Test-Value -TestName "Trust status verification | Source $Domain, Target $($_.'Trust Target'), Direction $($_.'Trust Direction')" -Property 'Trust Status' -ExpectedValue 'OK' -Object $_ -Level $LevelTest -Domain $Domain -DomainController $DomainController #@args
     }
 }
 
@@ -41,7 +42,8 @@ $Script:SBDomainTrustsUnconstrainedDelegation = {
     # TGTDelegation should be set to $True (contrary to name)
     foreach ($_ in $Object) {
         if ($($_.'Trust Direction' -eq 'BiDirectional' -or $_.'Trust Direction' -eq 'InBound')) {
-            Test-Value -TestName "Trust Unconstrained TGTDelegation | Source $Domain, Target $($_.'Trust Target'), Direction $($_.'Trust Direction')" -Property 'TGTDelegation' -ExpectedValue $True -Object $_ -Level 9 # @args
+            # 9
+            Test-Value -TestName "Trust Unconstrained TGTDelegation | Source $Domain, Target $($_.'Trust Target'), Direction $($_.'Trust Direction')" -Property 'TGTDelegation' -ExpectedValue $True -Object $_ -Level $LevelTest -Domain $Domain -DomainController $DomainController # @args
         }
     }
 }

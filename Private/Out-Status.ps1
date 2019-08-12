@@ -1,4 +1,5 @@
 ﻿function Out-Status {
+    [CmdletBinding()]
     param(
         [string] $Text,
         [nullable[bool]] $Status,
@@ -24,19 +25,22 @@
     }
     if ($Domain -and $DomainController) {
         $TestType = 'Domain Controller'
+        $TestText = "Domain Controller - $DomainController | $Text"
     } elseif ($Domain) {
         $TestType = 'Domain'
+        $TestText = "Domain - $Domain | $Text"
     } elseif ($DomainController) {
         $TestType = 'Should not happen. Find an error.'
     } else {
         $TestType = 'Forest Wide'
+        $TestText = "Forest | $Text"
     }
     if ($null -ne $Status) {
         $Script:TestResults.Add(
             [PSCustomObject]@{
-                Test             = $Text
+                Test             = $TestText
                 TestType         = $TestType
-                Section          = $Section
+                #Section          = $Section
                 Domain           = $Domain
                 DomainController = $DomainController
                 Status           = $Status

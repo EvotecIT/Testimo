@@ -2,7 +2,7 @@
     Forest            = @{
         Sources = [ordered]  @{
             OptionalFeatures = @{
-                Enable     = $false
+                Enable     = $true
                 SourceName = 'Optional Features'
                 SourceData = $Script:SBForestOptionalFeatures
                 Tests      = [ordered] @{
@@ -27,7 +27,7 @@
                 }
             }
             Replication      = @{
-                Enable     = $false
+                Enable     = $true
                 SourceName = 'Forest Replication'
                 SourceData = $Script:SBForestReplication
                 Tests      = [ordered] @{
@@ -38,13 +38,13 @@
                         TestParameters = @{
                             #ExpectedValue        = $true
                             OperationType = 'eq'
-                            #PropertExtendedValue = 'StatusMessage'
+                            #PropertyExtendedValue = 'StatusMessage'
                         }
                     }
                 }
             }
             LastBackup       = @{
-                Enable     = $false
+                Enable     = $true
                 SourceName = 'Forest Backup'
                 SourceData = $Script:SBForestLastBackup
                 Tests      = [ordered] @{
@@ -55,7 +55,7 @@
                         TestParameters = @{
                             #ExpectedValue        = $true
                             #OperationType = 'eq'
-                            #PropertExtendedValue = 'StatusMessage'
+                            #PropertyExtendedValue = 'StatusMessage'
                         }
                     }
                 }
@@ -65,7 +65,7 @@
     Domain            = @{
         Sources = [ordered] @{
             PasswordComplexity          = @{
-                Enable     = $false
+                Enable     = $true
                 SourceName = 'Password Complexity Requirements'
                 SourceData = $Script:SBDomainPasswordComplexity
                 Tests      = [ordered] @{
@@ -154,7 +154,7 @@
             }
             Trusts                      = @{
                 Enable     = $true
-                SourceName = "Testing Trusts Availability"
+                SourceName = "Trust Availability"
                 SourceData = $Script:SBDomainTrustsData
                 Tests      = [ordered] @{
                     TrustsConnectivity            = @{
@@ -171,23 +171,17 @@
             }
             RespondsToPowerShellQueries = @{
                 Enable     = $true
-                SourceName = "Responds to PS Queries"
+                SourceName = "Responds to PowerShell Queries"
                 SourceData = $Script:SBDomainControllersRespondsPS
-                Tests      = [ordered] @{
-                    RespondsToQueries            = @{
-                        Enable     = $true
-                        TestName   = 'Trust status verification'
-                        TestSource = $Script:SBDomainControllersRespondsPSTest
-                    }
-                }
+                # When there are no tests only one test is done - whether data is returned or not.
             }
         }
     }
     DomainControllers = @{
         Sources = [ordered] @{
             Services = @{
-                Enable     = $false
-                SourceName = 'Services Status'
+                Enable     = $true
+                SourceName = 'Service Status'
                 SourceData = $Script:SBDomainControllersServices
                 Tests      = [ordered] @{
                     ServiceStatus    = @{
@@ -257,8 +251,8 @@
 
             }
             Pingable = @{
-                Enable     = $false
-                SourceName = 'PING Connectivity'
+                Enable     = $true
+                SourceName = 'PING'
                 SourceData = $Script:SBDomainControllersPing
                 Tests      = @{
                     Ping = @{
@@ -273,8 +267,8 @@
                 }
             }
             Port53   = @{
-                Enable     = $false
-                SourceName = 'PORT 53 (DNS) Connectivity'
+                Enable     = $true
+                SourceName = 'PORT 53 (DNS)'
                 SourceData = $Script:SBDomainControllersPort53
                 Tests      = @{
                     Ping = @{

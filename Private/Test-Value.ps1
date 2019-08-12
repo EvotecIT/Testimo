@@ -5,7 +5,7 @@
         [string] $TestName,
         [string] $Property,
         [Object] $ExpectedValue,
-        [string[]] $PropertExtendedValue,
+        [string[]] $PropertyExtendedValue,
         [switch] $lt,
         [switch] $gt,
         [switch] $le,
@@ -17,7 +17,28 @@
         [Object] $DomainController
     )
 
+    if ($lt) {
+        $OperationType = 'lt'
+    } elseif ($gt) {
+        $OperationType = 'gt'
+    } elseif ($ge) {
+        $OperationType = 'ge'
+    } elseif ($le) {
+        $OperationType = 'le'
+    } else {
+        $OperationType = 'eq'
+    }
+
     if ($Object) {
+
+        #if ($Object -is [System.Collections.IList]) {
+        foreach ($_ in $Object) {
+            Test-Me -OperationType $OperationType -TestName $TestName -Level $Level -Domain $Domain -DomainController $DomainController -TestedValue $_.$Property -ExpectedValue $ExpectedValue -PropertyExtendedValue $PropertyExtendedValue
+        }
+        #  } else {
+
+        # }
+        <#
         Out-Begin -Text $TestName -Level $Level -Domain $Domain -DomainController $DomainController #($Level * 3)
         try {
             if ($OperationType) {
@@ -50,13 +71,13 @@
             } else {
                 $Extended = "Expected value: $ExpectedValue, Found value: $($Object.$Property)"
             }
-            if ($PropertExtendedValue.Count -gt 0) {
+            if ($PropertyExtendedValue.Count -gt 0) {
 
-                #foreach ($PropertExtended in $PropertExtendedValue) {
-                #    $Extended += $($Object.$PropertExtendedValue)
+                #foreach ($PropertExtended in $PropertyExtendedValue) {
+                #    $Extended += $($Object.$PropertyExtendedValue)
                 #}
                 $Extended = $Object
-                foreach ($V in $PropertExtendedValue) {
+                foreach ($V in $PropertyExtendedValue) {
                     $Extended = $Extended.$V
                 }
             }
@@ -64,7 +85,10 @@
         } catch {
             Out-Status -Text $TestName -Status $false -ExtendedValue $_.Exception.Message -Domain $Domain -DomainController $DomainController
         }
+        #>
     } else {
+        Write-Warning 'Objected not passed to Test-VALUE.'
+        <#
         if ($lt) {
             $Comparison = 'lt'
         } elseif ($gt) {
@@ -83,5 +107,6 @@
             Comparison    = $Comparison
             Type          = 'Hash'
         }
+        #>
     }
 }

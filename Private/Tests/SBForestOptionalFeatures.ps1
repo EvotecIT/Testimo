@@ -13,8 +13,8 @@ $Script:SBForestOptionalFeatures = {
     & $ADModule { Get-WinADForestOptionalFeatures -WarningAction SilentlyContinue }
 }
 $Script:SBForestOptionalFeaturesTest1 = {
-    Test-Value -TestName 'RecycleBin Enabled' -Property 'Recycle Bin Enabled' @args #-ExpectedValue $true
+    Test-Value -TestName 'Recycle Bin Enabled' -Property 'Recycle Bin Enabled' @args
 }
 $Script:SBForestOptionalFeaturesTest2 = {
-    Test-Value -TestName 'LAPS Available' -Property 'Laps Enabled' @args #-ExpectedValue $true
+    Test-Value -TestName 'LAPS Schema Extended' -Property 'Laps Enabled' @args
 }
