@@ -6,6 +6,7 @@
         [string] $Domain,
         [string] $DomainController
     )
+    $EndTime = Stop-TimeLog -Time $Time -Option OneLiner
     $Type = 'i'
 
     if ($Domain -and $DomainController) {
