@@ -12,7 +12,7 @@
     $Type = 'i'
 
 
-    #     'Total: ', $TestsSummary.TestsTotal.Count, 'Passed: ', $TestsSummary.TestsPassed.Count, ' Failed: ', $TestsSummary.TestsFailed.Count, ' Skipped: ', $TestsSummary.TestsSkipped.Count
+    #     'Total: ', $TestsSummary.Total.Count, 'Passed: ', $TestsSummary.Passed.Count, ' Failed: ', $TestsSummary.Failed.Count, ' Skipped: ', $TestsSummary.Skipped.Count
     # $Colors = Yellow, DarkGray, Green, DarkGray, Red, DarkGray, Cyan
 
 
@@ -60,13 +60,13 @@
             ']', # DarkGray
             '[', # DarkGray
             'Tests Total: ', # Yellow
-            ($TestsSummary.TestsTotal), # White
+            ($TestsSummary.Total), # White
             ', Passed: ', # Yellow
-            ($TestsSummary.TestsPassed),
+            ($TestsSummary.Passed),
             ', Failed: ',
-            ($TestsSummary.TestsFailed),
+            ($TestsSummary.Failed),
             ', Skipped: ',
-            ($TestsSummary.TestsSkipped),
+            ($TestsSummary.Skipped),
             ']'
         )
     } elseif ($Domain) {
@@ -104,13 +104,13 @@
             ']', # DarkGray
             '[', # DarkGray
             'Tests Total: ', # Yellow
-            ($TestsSummary.TestsTotal), # White
+            ($TestsSummary.Total), # White
             ', Passed: ', # Yellow
-            ($TestsSummary.TestsPassed),
+            ($TestsSummary.Passed),
             ', Failed: ',
-            ($TestsSummary.TestsFailed),
+            ($TestsSummary.Failed),
             ', Skipped: ',
-            ($TestsSummary.TestsSkipped),
+            ($TestsSummary.Skipped),
             ']'
         )
     } elseif ($DomainController) {
@@ -151,13 +151,13 @@
             ']', # DarkGray
             '[', # DarkGray
             'Tests Total: ', # Yellow
-            ($TestsSummary.TestsTotal), # White
+            ($TestsSummary.Total), # White
             ', Passed: ', # Yellow
-            ($TestsSummary.TestsPassed),
+            ($TestsSummary.Passed),
             ', Failed: ',
-            ($TestsSummary.TestsFailed),
+            ($TestsSummary.Failed),
             ', Skipped: ',
-            ($TestsSummary.TestsSkipped),
+            ($TestsSummary.Skipped),
             ']'
         )
     }

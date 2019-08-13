@@ -6,42 +6,44 @@
         [string] $Domain,
         [string] $DomainController,
         [Object] $TestedValue,
+        [Object] $Object,
         [Object] $ExpectedValue,
         [string[]] $PropertyExtendedValue
     )
     Out-Begin -Text $TestName -Level $Level -Domain $Domain -DomainController $DomainController #($Level * 3)
-    try {
+
+    $ScriptBlock = {
         # if ($OperationType) {
         if ($OperationType -eq 'lt') {
-            $TestResult = $Object.$Property -lt $ExpectedValue
+            $TestResult = $TestedValue -lt $ExpectedValue
         } elseif ($OperationType -eq 'gt') {
-            $TestResult = $Object.$Property -gt $ExpectedValue
+            $TestResult = $TestedValue -gt $ExpectedValue
         } elseif ($OperationType -eq 'ge') {
-            $TestResult = $Object.$Property -ge $ExpectedValue
+            $TestResult = $TestedValue -ge $ExpectedValue
         } elseif ($OperationType -eq 'le') {
-            $TestResult = $Object.$Property -le $ExpectedValue
+            $TestResult = $TestedValue -le $ExpectedValue
         } else {
-            $TestResult = $Object.$Property -eq $ExpectedValue
+            $TestResult = $TestedValue -eq $ExpectedValue
         }
         <#
-        } else {
-            if ($lt) {
-                $TestResult = $Object.$Property -lt $ExpectedValue
-            } elseif ($gt) {
-                $TestResult = $Object.$Property -gt $ExpectedValue
-            } elseif ($ge) {
-                $TestResult = $Object.$Property -ge $ExpectedValue
-            } elseif ($le) {
-                $TestResult = $Object.$Property -le $ExpectedValue
             } else {
-                $TestResult = $Object.$Property -eq $ExpectedValue
+                if ($lt) {
+                    $TestResult = $Object.$Property -lt $ExpectedValue
+                } elseif ($gt) {
+                    $TestResult = $Object.$Property -gt $ExpectedValue
+                } elseif ($ge) {
+                    $TestResult = $Object.$Property -ge $ExpectedValue
+                } elseif ($le) {
+                    $TestResult = $Object.$Property -le $ExpectedValue
+                } else {
+                    $TestResult = $Object.$Property -eq $ExpectedValue
+                }
             }
-        }
-        #>
+            #>
         if ($TestResult) {
-            $Extended = "Expected value: $($Object.$Property)"
+            $Extended = "Expected value: $($TestedValue)"
         } else {
-            $Extended = "Expected value: $ExpectedValue, Found value: $($Object.$Property)"
+            $Extended = "Expected value: $ExpectedValue, Found value: $($TestedValue)"
         }
         if ($PropertyExtendedValue.Count -gt 0) {
 
@@ -55,8 +57,17 @@
         }
         Out-Status -Text $TestName -Status $TestResult -ExtendedValue $Extended -Domain $Domain -DomainController $DomainController
         return $TestResult
-    } catch {
-        Out-Status -Text $TestName -Status $false -ExtendedValue $_.Exception.Message -Domain $Domain -DomainController $DomainController
-        return $False
+    }
+
+
+    if ($Script:TestimoConfiguration.Debug.DisableTryCatch) {
+        & $ScriptBlock
+    } else {
+        try {
+            & $ScriptBlock
+        } catch {
+            Out-Status -Text $TestName -Status $false -ExtendedValue $_.Exception.Message -Domain $Domain -DomainController $DomainController
+            return $False
+        }
     }
 }

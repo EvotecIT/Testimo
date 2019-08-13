@@ -2,7 +2,7 @@
     Forest            = @{
         Sources = [ordered]  @{
             OptionalFeatures = @{
-                Enable     = $true
+                Enable     = $false
                 SourceName = 'Optional Features'
                 SourceData = $Script:SBForestOptionalFeatures
                 Tests      = [ordered] @{
@@ -44,7 +44,7 @@
                 }
             }
             LastBackup       = @{
-                Enable     = $true
+                Enable     = $false
                 SourceName = 'Forest Backup'
                 SourceData = $Script:SBForestLastBackup
                 Tests      = [ordered] @{
@@ -282,6 +282,31 @@
                     }
                 }
             }
+            DiskSpace                   = @{
+                Enable     = $true
+                SourceName = 'Disk Free'
+                SourceData = $Script:SBDomainControllersDiskSpace
+                Tests      = @{
+                    FreeSpace   = @{
+                        Enable         = $true
+                        TestName       = 'Free Space in GB'
+                        TestSource     = $Script:SBDomainControllersDiskSpaceGB
+                        TestParameters = @{
+                            ExpectedValue = 30
+                            OperationType = 'gt'
+                        }
+                    }
+                    FreePercent = @{
+                        Enable         = $true
+                        TestName       = 'Free Space Percent'
+                        TestSource     = $Script:SBDomainControllersDiskSpacePercent
+                        TestParameters = @{
+                            ExpectedValue = 20
+                            OperationType = 'gt'
+                        }
+                    }
+                }
+            }
         }
     }
     AnyServers        = @{
@@ -315,6 +340,6 @@
         }
     }
     Debug             = @{
-        DisableTryCatch = $false
+        DisableTryCatch = $true
     }
 }

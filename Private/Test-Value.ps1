@@ -17,23 +17,24 @@
         [Object] $DomainController
     )
 
-    if ($lt) {
-        $OperationType = 'lt'
-    } elseif ($gt) {
-        $OperationType = 'gt'
-    } elseif ($ge) {
-        $OperationType = 'ge'
-    } elseif ($le) {
-        $OperationType = 'le'
-    } else {
-        $OperationType = 'eq'
+    if (-not $OperationType) {
+        if ($lt) {
+            $OperationType = 'lt'
+        } elseif ($gt) {
+            $OperationType = 'gt'
+        } elseif ($ge) {
+            $OperationType = 'ge'
+        } elseif ($le) {
+            $OperationType = 'le'
+        } else {
+            $OperationType = 'eq'
+        }
     }
-
     if ($Object) {
 
         #if ($Object -is [System.Collections.IList]) {
         foreach ($_ in $Object) {
-            Test-Me -OperationType $OperationType -TestName $TestName -Level $Level -Domain $Domain -DomainController $DomainController -TestedValue $_.$Property -ExpectedValue $ExpectedValue -PropertyExtendedValue $PropertyExtendedValue
+            Test-Me -Object $_ -OperationType $OperationType -TestName $TestName -Level $Level -Domain $Domain -DomainController $DomainController -TestedValue $_.$Property -ExpectedValue $ExpectedValue -PropertyExtendedValue $PropertyExtendedValue
         }
         #  } else {
 

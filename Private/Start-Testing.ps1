@@ -68,10 +68,10 @@
             if ($CurrentSource['Enable'] -eq $true) {
                 [Array] $AllTests = $CurrentSource['Tests'].Keys
                 $TestsSummary = [PSCustomobject] @{
-                    TestsPassed  = 0
-                    TestsFailed  = 0
-                    TestsSkipped = 0
-                    TestsTotal   = 0 # $AllTests.Count + 1 # +1 includes availability of data test
+                    Passed  = 0
+                    Failed  = 0
+                    Skipped = 0
+                    Total   = 0 # $AllTests.Count + 1 # +1 includes availability of data test
                 }
                 # $Data = & $CurrentSource['Data'] -DomainController $DomainController
                 $Time = Start-TimeLog
@@ -83,11 +83,11 @@
                     $FailAllTests = $false
                     Out-Begin -Text $CurrentSource['SourceName'] -Level $LevelTest -Domain $Domain -DomainController $DomainController
                     Out-Status -Text $CurrentSource['SourceName'] -Status $true -ExtendedValue 'Data is available.' -Domain $Domain -DomainController $DomainController
-                    $TestsSummary.TestsPassed = $TestsSummary.TestsPassed + 1
+                    $TestsSummary.Passed = $TestsSummary.Passed + 1
                 } else {
                     $FailAllTests = $true
                     Out-Failure -Text $CurrentSource['SourceName'] -Level $LevelTest -ExtendedValue 'No data available.' -Domain $Domain -DomainController $DomainController
-                    $TestsSummary.TestsFailed = $TestsSummary.TestsFailed + 1
+                    $TestsSummary.Failed = $TestsSummary.Failed + 1
                 }
                 foreach ($Test in $AllTests) {
                     $CurrentTest = $CurrentSource['Tests'][$Test]
@@ -101,20 +101,17 @@
                             $TestsResults = Start-TestingTest -Test $CurrentTest['TestName'] -Level $LevelTest -Domain $Domain -DomainController $DomainController {
                                 & $CurrentTest['TestSource'] -Object $Object -Domain $Domain -DomainController $DomainController @Parameters -Level $LevelTest #-TestName $CurrentTest['TestName']
                             }
-                            #if ($TestsResults) {
-                                $TestsSummary.TestsPassed = $TestsSummary.TestsPassed + ($TestsResults | Where-Object { $_ -eq $true }).Count
-                           # } else {
-                                $TestsSummary.TestsFailed = $TestsSummary.TestsFailed + ($TestsResults | Where-Object { $_ -eq $false }).Count
-                           # }
+                            $TestsSummary.Passed = $TestsSummary.Passed + ($TestsResults | Where-Object { $_ -eq $true }).Count
+                            $TestsSummary.Failed = $TestsSummary.Failed + ($TestsResults | Where-Object { $_ -eq $false }).Count
                         } else {
-                            $TestsSummary.TestsFailed = $Tests.TestsFailed + 1
+                            $TestsSummary.Failed = $TestsSummary.Failed + 1
                             Out-Failure -Text $CurrentTest['TestName'] -Level $LevelTestFailure -Domain $Domain -DomainController $DomainController
                         }
                     } else {
-                        $TestsSummary.TestsSkipped = $TestsSummary.TestsSkipped + 1
+                        $TestsSummary.Skipped = $TestsSummary.Skipped + 1
                     }
                 }
-                $TestsSummary.TestsTotal = $TestsSummary.TestsFailed + $TestsSummary.TestsPassed + $TestsSummary.TestsSkipped
+                $TestsSummary.Total = $TestsSummary.Failed + $TestsSummary.Passed + $TestsSummary.Skipped
                 $TestsSummary
                 Out-Summary -Text $CurrentSource['SourceName'] -Time $Time -Level $LevelSummary -Domain $Domain -DomainController $DomainController -TestsSummary $TestsSummary
             }
@@ -123,14 +120,13 @@
             & $Execute
         }
     )
-    $TestsSummary1 = [PSCustomObject] @{
-        TestsPassed  = ($TestsSummaryTogether.TestsPassed | Measure-Object -Sum).Sum
-        TestsFailed  = ($TestsSummaryTogether.TestsFailed | Measure-Object -Sum).Sum
-        TestsSkipped = ($TestsSummaryTogether.TestsSkipped | Measure-Object -Sum).Sum
-        TestsTotal   = ($TestsSummaryTogether.TestsTotal | Measure-Object -Sum).Sum
+    $TestsSummaryFinal = [PSCustomObject] @{
+        Passed  = ($TestsSummaryTogether.Passed | Measure-Object -Sum).Sum
+        Failed  = ($TestsSummaryTogether.Failed | Measure-Object -Sum).Sum
+        Skipped = ($TestsSummaryTogether.Skipped | Measure-Object -Sum).Sum
+        Total   = ($TestsSummaryTogether.Total | Measure-Object -Sum).Sum
     }
-    $TestsSummary1
+    $TestsSummaryFinal
 
-
-    Out-Summary -Text $SummaryText -Time $GlobalTime -Level ($LevelSummary - 3) -Domain $Domain -DomainController $DomainController -TestsSummary $TestsSummary1
+    Out-Summary -Text $SummaryText -Time $GlobalTime -Level ($LevelSummary - 3) -Domain $Domain -DomainController $DomainController -TestsSummary $TestsSummaryFinal
 }
