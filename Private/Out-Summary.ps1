@@ -1,11 +1,12 @@
 ﻿function Out-Summary {
+    [CmdletBinding()]
     param(
         [System.Diagnostics.Stopwatch] $Time,
         $Text,
         [int] $Level,
         [string] $Domain,
         [string] $DomainController,
-        [System.Collections.IDictionary] $TestsSummary
+        [PSCustomobject] $TestsSummary
     )
     $EndTime = Stop-TimeLog -Time $Time -Option OneLiner
     $Type = 'i'
@@ -94,7 +95,7 @@
         }
         $TestText = @(
             "[$Type]", # Yellow
-            "[$Domain]", # DarkGray
+            "[$Domain] ", # DarkGray
             # "[$($DomainController)] ", # DarkGray
             $Text, # Yellow
             ' [', # Yellow
@@ -141,7 +142,7 @@
         }
         $TestText = @(
             "[$Type]", # Yellow
-            "[Forest]", # DarkGray
+            "[Forest] ", # DarkGray
             # "[$($DomainController)] ", # DarkGray
             $Text, # Yellow
             ' [', # Yellow

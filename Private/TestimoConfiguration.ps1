@@ -44,7 +44,7 @@
                 }
             }
             LastBackup       = @{
-                Enable     = $false
+                Enable     = $true
                 SourceName = 'Forest Backup'
                 SourceData = $Script:SBForestLastBackup
                 Tests      = [ordered] @{
@@ -64,8 +64,8 @@
     }
     Domain            = @{
         Sources = [ordered] @{
-            PasswordComplexity          = @{
-                Enable     = $true
+            PasswordComplexity = @{
+                Enable     = $false
                 SourceName = 'Password Complexity Requirements'
                 SourceData = $Script:SBDomainPasswordComplexity
                 Tests      = [ordered] @{
@@ -152,7 +152,7 @@
                     }
                 }
             }
-            Trusts                      = @{
+            Trusts             = @{
                 Enable     = $false
                 SourceName = "Trust Availability"
                 SourceData = $Script:SBDomainTrustsData
@@ -169,17 +169,17 @@
                     }
                 }
             }
-            RespondsToPowerShellQueries = @{
-                Enable     = $true
-                SourceName = "Responds to PowerShell Queries"
-                SourceData = $Script:SBDomainControllersRespondsPS
-                # When there are no tests only one test is done - whether data is returned or not.
-            }
         }
     }
     DomainControllers = @{
         Sources = [ordered] @{
-            Services = @{
+            RespondsToPowerShellQueries = @{
+                Enable     = $false
+                SourceName = "Responds to PowerShell Queries"
+                SourceData = $Script:SBDomainControllersRespondsPS
+                # When there are no tests only one test is done - whether data is returned or not.
+            }
+            Services                    = @{
                 Enable     = $false
                 SourceName = 'Service Status'
                 SourceData = $Script:SBDomainControllersServices
@@ -206,7 +206,7 @@
                 }
             }
 
-            LDAP     = @{
+            LDAP                        = @{
                 Enable     = $false
                 SourceName = 'LDAP Connectivity'
                 SourceData = $Script:SBDomainControllersLDAP
@@ -250,8 +250,8 @@
                 }
 
             }
-            Pingable = @{
-                Enable     = $true
+            Pingable                    = @{
+                Enable     = $false
                 SourceName = 'PING'
                 SourceData = $Script:SBDomainControllersPing
                 Tests      = @{
@@ -266,7 +266,7 @@
                     }
                 }
             }
-            Port53   = @{
+            Port53                      = @{
                 Enable     = $false
                 SourceName = 'PORT 53 (DNS)'
                 SourceData = $Script:SBDomainControllersPort53
@@ -277,6 +277,36 @@
                         TestSource     = $Script:SBDomainControllersPort53Test
                         TestParameters = @{
                             ExpectedValue = $true
+                            OperationType = 'eq'
+                        }
+                    }
+                }
+            }
+        }
+    }
+    AnyServers        = @{
+        Sources = [ordered] @{
+            Services = @{
+                Enable     = $false
+                SourceName = 'Service Status'
+                SourceData = $Script:SBDomainControllersServices
+                Tests      = [ordered] @{
+                    ServiceStatus    = @{
+                        Enable         = $true
+                        TestName       = 'Service is RUNNING'
+                        TestSource     = $Script:SBDomainControllersServicesTestStatus
+                        TestParameters = @{
+                            ExpectedValue = 'Running'
+                            OperationType = 'eq'
+                        }
+
+                    }
+                    ServiceStartType = @{
+                        Enable         = $true
+                        TestName       = 'Service START TYPE is Automatic'
+                        TestSource     = $Script:SBDomainControllersServicesTestStartType
+                        TestParameters = @{
+                            ExpectedValue = 'Automatic'
                             OperationType = 'eq'
                         }
                     }
