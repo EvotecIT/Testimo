@@ -13,37 +13,41 @@
     Out-Begin -Text $TestName -Level $Level -Domain $Domain -DomainController $DomainController #($Level * 3)
 
     $ScriptBlock = {
-        # if ($OperationType) {
-        if ($OperationType -eq 'lt') {
-            $TestResult = $TestedValue -lt $ExpectedValue
-        } elseif ($OperationType -eq 'gt') {
-            $TestResult = $TestedValue -gt $ExpectedValue
-        } elseif ($OperationType -eq 'ge') {
-            $TestResult = $TestedValue -ge $ExpectedValue
-        } elseif ($OperationType -eq 'le') {
-            $TestResult = $TestedValue -le $ExpectedValue
-        } else {
-            $TestResult = $TestedValue -eq $ExpectedValue
+        $Operators = @{
+            'lt' = 'LessThan'
+            'gt' = 'GreaterThan'
+            'le' = 'LessOrEqual'
+            'ge' = 'GreaterOrEqual'
+            'eq' = 'Equal'
         }
-        <#
-            } else {
-                if ($lt) {
-                    $TestResult = $Object.$Property -lt $ExpectedValue
-                } elseif ($gt) {
-                    $TestResult = $Object.$Property -gt $ExpectedValue
-                } elseif ($ge) {
-                    $TestResult = $Object.$Property -ge $ExpectedValue
-                } elseif ($le) {
-                    $TestResult = $Object.$Property -le $ExpectedValue
-                } else {
-                    $TestResult = $Object.$Property -eq $ExpectedValue
-                }
-            }
-            #>
-        if ($TestResult) {
-            $Extended = "Expected value: $($TestedValue)"
+        if ($null -eq $TestedValue -and $null -ne $ExpectedValue) {
+            # if testedvalue is null and expected value is not null that means there's no sense in testing things
+            # it should fail
+            $TestResult = $false
+            $TextTestedValue = 'Null'
         } else {
-            $Extended = "Expected value: $ExpectedValue, Found value: $($TestedValue)"
+            if ($OperationType -eq 'lt') {
+                $TestResult = $TestedValue -lt $ExpectedValue
+
+            } elseif ($OperationType -eq 'gt') {
+                $TestResult = $TestedValue -gt $ExpectedValue
+
+            } elseif ($OperationType -eq 'ge') {
+                $TestResult = $TestedValue -ge $ExpectedValue
+
+            } elseif ($OperationType -eq 'le') {
+
+                $TestResult = $TestedValue -le $ExpectedValue
+            } else {
+
+                $TestResult = $TestedValue -eq $ExpectedValue
+            }
+
+        }
+        if ($TestResult) {
+            $Extended = "Expected value ($($Operators[$OperationType])): $($ExpectedValue)"
+        } else {
+            $Extended = "Expected value ($($Operators[$OperationType])): $ExpectedValue, Found value: $($TextTestedValue)"
         }
         if ($PropertyExtendedValue.Count -gt 0) {
 
@@ -58,8 +62,6 @@
         Out-Status -Text $TestName -Status $TestResult -ExtendedValue $Extended -Domain $Domain -DomainController $DomainController
         return $TestResult
     }
-
-
     if ($Script:TestimoConfiguration.Debug.DisableTryCatch) {
         & $ScriptBlock
     } else {

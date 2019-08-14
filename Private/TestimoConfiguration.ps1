@@ -283,7 +283,7 @@
                 }
             }
             DiskSpace                   = @{
-                Enable     = $true
+                Enable     = $false
                 SourceName = 'Disk Free'
                 SourceData = $Script:SBDomainControllersDiskSpace
                 Tests      = @{
@@ -303,6 +303,22 @@
                         TestParameters = @{
                             ExpectedValue = 20
                             OperationType = 'gt'
+                        }
+                    }
+                }
+            }
+            TimeSynchronization         = @{
+                Enable     = $true
+                SourceName = "Time Synchronization Internal"
+                SourceData = $Script:SBDomainTimeSynchronizationInternal
+                Tests      = [ordered] @{
+                    TimeSynchronizationTest = @{
+                        Enable     = $true
+                        TestName   = 'Time Difference'
+                        TestSource = $Script:SBDomainTimeSynchronizationInternalTest1
+                        TestParameters = @{
+                            ExpectedValue = 1
+                            OperationType = 'le'
                         }
                     }
                 }
