@@ -19,3 +19,6 @@ $Script:SBForestOptionalFeaturesTest1 = {
 $Script:SBForestOptionalFeaturesTest2 = {
     Test-Value -TestName 'LAPS Schema Extended' -Property 'Laps Enabled' @args
 }
+$Script:SBForestOptionalFeaturesTest3 = {
+    Test-Value -TestName 'Privileged Access Management Enabled' -Property 'Privileged Access Management Feature Enabled' @args
+}

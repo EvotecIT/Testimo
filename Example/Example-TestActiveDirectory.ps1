@@ -9,4 +9,3 @@ $Results = Test-ImoAD -ReturnResults
 #$Domain2 = $Results | Where-Object { $_.Domain -eq 'ad.evotec.pl' }
 #$Domain1.Count
 #$Domain2.Count
-

@@ -42,6 +42,7 @@
 
                 $TestResult = $TestedValue -eq $ExpectedValue
             }
+            $TextTestedValue = $TestedValue
 
         }
         if ($TestResult) {

@@ -2,11 +2,11 @@
     Forest            = @{
         Sources = [ordered]  @{
             OptionalFeatures = @{
-                Enable     = $false
+                Enable     = $true
                 SourceName = 'Optional Features'
                 SourceData = $Script:SBForestOptionalFeatures
                 Tests      = [ordered] @{
-                    RecycleBinEnabled = @{
+                    RecycleBinEnabled    = @{
                         Enable         = $true
                         TestName       = 'RecycleBin Enabled'
                         TestSource     = $Script:SBForestOptionalFeaturesTest1
@@ -15,10 +15,19 @@
                             OperationType = 'eq'
                         }
                     }
-                    LapsAvailable     = @{
+                    LapsAvailable        = @{
                         Enable         = $true
                         TestName       = 'Laps Available'
                         TestSource     = $Script:SBForestOptionalFeaturesTest2
+                        TestParameters = @{
+                            ExpectedValue = $true
+                            OperationType = 'eq'
+                        }
+                    }
+                    PrivAccessManagement = @{
+                        Enable         = $true
+                        TestName       = 'Privileged Access Management'
+                        TestSource     = $Script:SBForestOptionalFeaturesTest3
                         TestParameters = @{
                             ExpectedValue = $true
                             OperationType = 'eq'
@@ -307,21 +316,39 @@
                     }
                 }
             }
-            TimeSynchronization         = @{
-                Enable     = $true
-                SourceName = "Time Synchronization Internal"
-                SourceData = $Script:SBDomainTimeSynchronizationInternal
-                Tests      = [ordered] @{
+            TimeSynchronizationInternal = @{
+                Enable             = $true
+                SourceName         = "Time Synchronization Internal"
+                SourceData         = $Script:SBDomainTimeSynchronizationInternal
+                Tests              = [ordered] @{
                     TimeSynchronizationTest = @{
-                        Enable     = $true
-                        TestName   = 'Time Difference'
-                        TestSource = $Script:SBDomainTimeSynchronizationInternalTest1
+                        Enable         = $true
+                        TestName       = 'Time Difference'
+                        TestSource     = $Script:SBDomainTimeSynchronizationTest1
                         TestParameters = @{
                             ExpectedValue = 1
                             OperationType = 'le'
                         }
                     }
                 }
+                MicrosoftMaterials = 'https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc773263(v=ws.10)#w2k3tr_times_tools_uhlp'
+            }
+            TimeSynchronizationExternal = @{
+                Enable             = $true
+                SourceName         = "Time Synchronization External"
+                SourceData         = $Script:SBDomainTimeSynchronizationExternal
+                Tests              = [ordered] @{
+                    TimeSynchronizationTest = @{
+                        Enable         = $true
+                        TestName       = 'Time Difference'
+                        TestSource     = $Script:SBDomainTimeSynchronizationTest1
+                        TestParameters = @{
+                            ExpectedValue = 1
+                            OperationType = 'le'
+                        }
+                    }
+                }
+                MicrosoftMaterials = 'https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc773263(v=ws.10)#w2k3tr_times_tools_uhlp'
             }
         }
     }
@@ -356,6 +383,20 @@
         }
     }
     Debug             = @{
-        DisableTryCatch = $true
+        DisableTryCatch = $false
     }
 }
+
+<#
+$Types = 'Forest', 'Domain', 'DomainControllers', 'AnyServers'
+
+foreach ($Type in $Types) {
+    $Keys = $Script:TestimoConfiguration.$Type.Sources.Keys
+    foreach ($Key in $Keys) {
+
+        $Script:TestimoConfiguration.$Type.Sources.$Key.SourceName
+
+        $Script:TestimoConfiguration.$Type.Sources.$Key.Enable = $true
+    }
+}
+#>
