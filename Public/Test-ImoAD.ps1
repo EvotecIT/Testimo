@@ -4,6 +4,7 @@ function Test-ImoAD {
         [switch] $ReturnResults
     )
     # $Time = Start-TimeLog
+    $global:ProgressPreference = 'SilentlyContinue'
     $Script:TestResults = [System.Collections.Generic.List[PSCustomObject]]::new()
 
     <#

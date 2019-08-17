@@ -8,7 +8,7 @@
                 Tests      = [ordered] @{
                     RecycleBinEnabled    = @{
                         Enable         = $true
-                        TestName       = 'RecycleBin Enabled'
+                        TestName       = 'Recycle Bin Enabled'
                         TestSource     = $Script:SBForestOptionalFeaturesTest1
                         TestParameters = @{
                             ExpectedValue = $true
@@ -36,7 +36,7 @@
                 }
             }
             Replication      = @{
-                Enable     = $false
+                Enable     = $true
                 SourceName = 'Forest Replication'
                 SourceData = $Script:SBForestReplication
                 Tests      = [ordered] @{
@@ -53,7 +53,7 @@
                 }
             }
             LastBackup       = @{
-                Enable     = $false
+                Enable     = $true
                 SourceName = 'Forest Backup'
                 SourceData = $Script:SBForestLastBackup
                 Tests      = [ordered] @{
@@ -73,8 +73,8 @@
     }
     Domain            = @{
         Sources = [ordered] @{
-            PasswordComplexity = @{
-                Enable     = $false
+            PasswordComplexity               = @{
+                Enable     = $true
                 SourceName = 'Password Complexity Requirements'
                 SourceData = $Script:SBDomainPasswordComplexity
                 Tests      = [ordered] @{
@@ -161,8 +161,8 @@
                     }
                 }
             }
-            Trusts             = @{
-                Enable     = $false
+            Trusts                           = @{
+                Enable     = $true
                 SourceName = "Trust Availability"
                 SourceData = $Script:SBDomainTrustsData
                 Tests      = [ordered] @{
@@ -178,18 +178,84 @@
                     }
                 }
             }
+            DNSScavengingForPrimaryDNSServer = @{
+                Enable     = $true
+                SourceName = "DNS Scavenging - Primary DNS Server"
+                SourceData = $Script:SBDomainScavenging
+                Tests      = [ordered] @{
+                    'Scavenging Count'    = @{
+                        Enable         = $true
+                        TestName       = 'Scavenging Count'
+                        TestSource     = $Script:SBDomainScavengingTest0
+                        TestParameters = @{
+                            ExpectedCount = 1
+                            OperationType = 'eq'
+                        }
+                        Explanation    = 'Scavenging Count should be 1. There should be 1 DNS server per domain responsible for scavenging. If this returns false, every other test fails.'
+                    }
+                    'Scavenging Interval' = @{
+                        Enable         = $true
+                        TestName       = 'Scavenging Interval'
+                        TestSource     = $Script:SBDomainScavengingTest1
+                        TestParameters = @{
+                            ExpectedValue = 7
+                            OperationType = 'le'
+                        }
+                    }
+                    'Scavenging State'    = @{
+                        Enable                 = $true
+                        TestName               = 'Scavenging State'
+                        TestSource             = $Script:SBDomainScavengingTest2
+                        TestParameters         = @{
+                            ExpectedValue = $true
+                            OperationType = 'eq'
+                        }
+                        Explanation            = 'Scavenging State is responsible for enablement of scavenging for all new zones created.'
+                        RecommendedValue       = $true
+                        ExplanationRecommended = 'It should be enabled so all new zones are subject to scavanging.'
+                        DefaultValue           = $false
+                    }
+                    'Last Scavenge Time'  = @{
+                        Enable         = $true
+                        TestName       = 'Last Scavenge Time'
+                        TestSource     = $Script:SBDomainScavengingTest3
+                        TestParameters = @{
+                            # this date should be the same as in Scavending Interval
+                            ExpectedValue = (Get-Date).AddDays(-7)
+                            OperationType = 'lt'
+                        }
+                    }
+                }
+            }
+            DNSForwaders                     = @{
+                Enable     = $true
+                SourceName = "DNS Forwarders"
+                SourceData = $Script:SBDomainDNSForwaders
+                Tests      = [ordered] @{
+                    SameForwarders = @{
+                        Enable         = $true
+                        TestName       = 'Same DNS Forwarders'
+                        TestSource     = $Script:SBDomainDNSForwadersTest
+                        TestParameters = @{
+                            ExpectedValue = $true
+                            OperationType = 'eq'
+                        }
+                        Explanation    = 'DNS forwarders within one domain should have identical setup'
+                    }
+                }
+            }
         }
     }
     DomainControllers = @{
         Sources = [ordered] @{
             RespondsToPowerShellQueries = @{
-                Enable     = $false
+                Enable     = $true
                 SourceName = "Responds to PowerShell Queries"
                 SourceData = $Script:SBDomainControllersRespondsPS
                 # When there are no tests only one test is done - whether data is returned or not.
             }
             Services                    = @{
-                Enable     = $false
+                Enable     = $true
                 SourceName = 'Service Status'
                 SourceData = $Script:SBDomainControllersServices
                 Tests      = [ordered] @{
@@ -216,7 +282,7 @@
             }
 
             LDAP                        = @{
-                Enable     = $false
+                Enable     = $true
                 SourceName = 'LDAP Connectivity'
                 SourceData = $Script:SBDomainControllersLDAP
                 Tests      = [ordered] @{
@@ -260,8 +326,8 @@
 
             }
             Pingable                    = @{
-                Enable     = $false
-                SourceName = 'PING'
+                Enable     = $true
+                SourceName = 'Ping Connectivity'
                 SourceData = $Script:SBDomainControllersPing
                 Tests      = @{
                     Ping = @{
@@ -276,7 +342,7 @@
                 }
             }
             Port53                      = @{
-                Enable     = $false
+                Enable     = $true
                 SourceName = 'PORT 53 (DNS)'
                 SourceData = $Script:SBDomainControllersPort53
                 Tests      = @{
@@ -292,7 +358,7 @@
                 }
             }
             DiskSpace                   = @{
-                Enable     = $false
+                Enable     = $true
                 SourceName = 'Disk Free'
                 SourceData = $Script:SBDomainControllersDiskSpace
                 Tests      = @{

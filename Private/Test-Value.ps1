@@ -3,7 +3,7 @@
     param(
         [Object] $Object,
         [string] $TestName,
-        [string] $Property,
+        [string[]] $Property,
         [Object] $ExpectedValue,
         [string[]] $PropertyExtendedValue,
         [switch] $lt,
@@ -14,7 +14,8 @@
         [string] $OperationType,
         [int] $Level,
         [string] $Domain,
-        [Object] $DomainController
+        [Object] $DomainController,
+        [int] $ExpectedCount
     )
 
     if (-not $OperationType) {
@@ -31,8 +32,13 @@
         }
     }
     if ($Object) {
-        foreach ($_ in $Object) {
-            Test-Me -Object $_ -OperationType $OperationType -TestName $TestName -Level $Level -Domain $Domain -DomainController $DomainController -TestedValue $_.$Property -ExpectedValue $ExpectedValue -PropertyExtendedValue $PropertyExtendedValue
+
+        if ($ExpectedCount) {
+            Test-Me -Object $Object -ExpectedCount $ExpectedCount -OperationType $OperationType -TestName $TestName -Level $Level -Domain $Domain -DomainController $DomainController -Property $Property -ExpectedValue $ExpectedValue -PropertyExtendedValue $PropertyExtendedValue
+        } else {
+            foreach ($_ in $Object) {
+                Test-Me -Object $_ -OperationType $OperationType -TestName $TestName -Level $Level -Domain $Domain -DomainController $DomainController -Property $Property -ExpectedValue $ExpectedValue -PropertyExtendedValue $PropertyExtendedValue
+            }
         }
     } else {
         Write-Warning 'Objected not passed to Test-VALUE.'

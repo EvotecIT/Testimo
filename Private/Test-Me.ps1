@@ -5,12 +5,21 @@
         [int] $Level,
         [string] $Domain,
         [string] $DomainController,
+        [string[]] $Property,
         [Object] $TestedValue,
         [Object] $Object,
         [Object] $ExpectedValue,
-        [string[]] $PropertyExtendedValue
+        [string[]] $PropertyExtendedValue,
+        [int] $ExpectedCount
     )
     Out-Begin -Text $TestName -Level $Level -Domain $Domain -DomainController $DomainController #($Level * 3)
+
+
+    $TestedValue = $Object
+    foreach ($V in $Property) {
+        $TestedValue = $TestedValue.$V
+    }
+
 
     $ScriptBlock = {
         $Operators = @{
@@ -20,36 +29,65 @@
             'ge' = 'GreaterOrEqual'
             'eq' = 'Equal'
         }
-        if ($null -eq $TestedValue -and $null -ne $ExpectedValue) {
-            # if testedvalue is null and expected value is not null that means there's no sense in testing things
-            # it should fail
-            $TestResult = $false
-            $TextTestedValue = 'Null'
-        } else {
+
+        if ($ExpectedCount) {
             if ($OperationType -eq 'lt') {
-                $TestResult = $TestedValue -lt $ExpectedValue
-
+                $TestResult = $Object.Count -lt $ExpectedCount
             } elseif ($OperationType -eq 'gt') {
-                $TestResult = $TestedValue -gt $ExpectedValue
-
+                $TestResult = $Object.Count -lt $ExpectedCount
             } elseif ($OperationType -eq 'ge') {
-                $TestResult = $TestedValue -ge $ExpectedValue
-
+                $TestResult = $Object.Count -lt $ExpectedCount
             } elseif ($OperationType -eq 'le') {
-
-                $TestResult = $TestedValue -le $ExpectedValue
+                $TestResult = $Object.Count -lt $ExpectedCount
             } else {
-
-                $TestResult = $TestedValue -eq $ExpectedValue
+                $TestResult = $Object.Count -lt $ExpectedCount
             }
-            $TextTestedValue = $TestedValue
+            $TextTestedValue = $Object.Count
+            $ExpectedValue = $ExpectedCount
 
-        }
-        if ($TestResult) {
-            $Extended = "Expected value ($($Operators[$OperationType])): $($ExpectedValue)"
+        } elseif ($ExpectedValue) {
+            if ($null -eq $TestedValue -and $null -ne $ExpectedValue) {
+                # if testedvalue is null and expected value is not null that means there's no sense in testing things
+                # it should fail
+                $TestResult = $false
+                $TextTestedValue = 'Null'
+            } else {
+                if ($OperationType -eq 'lt') {
+                    $TestResult = $TestedValue -lt $ExpectedValue
+
+                } elseif ($OperationType -eq 'gt') {
+                    $TestResult = $TestedValue -gt $ExpectedValue
+
+                } elseif ($OperationType -eq 'ge') {
+                    $TestResult = $TestedValue -ge $ExpectedValue
+
+                } elseif ($OperationType -eq 'le') {
+
+                    $TestResult = $TestedValue -le $ExpectedValue
+                } else {
+
+                    $TestResult = $TestedValue -eq $ExpectedValue
+                }
+                $TextTestedValue = $TestedValue
+
+            }
         } else {
-            $Extended = "Expected value ($($Operators[$OperationType])): $ExpectedValue, Found value: $($TextTestedValue)"
+            # Skipped tests
+            $TestResult = $null
+            $ExtendedTextValue = "Test provided but no tests required."
         }
+
+        #if ($ExtendedTextValue) {
+
+        # } else {
+        if ($TestResult -eq $true) {
+            $Extended = "Expected value ($($Operators[$OperationType])): $($ExpectedValue)"
+        } elseif ($TestResult -eq $false) {
+            $Extended = "Expected value ($($Operators[$OperationType])): $ExpectedValue, Found value: $($TextTestedValue)"
+        } else {
+            $Extended = $ExtendedTextValue
+        }
+        #}#
         if ($PropertyExtendedValue.Count -gt 0) {
 
             #foreach ($PropertExtended in $PropertyExtendedValue) {
