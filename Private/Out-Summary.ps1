@@ -11,11 +11,6 @@
     $EndTime = Stop-TimeLog -Time $Time -Option OneLiner
     $Type = 'i'
 
-
-    #     'Total: ', $TestsSummary.Total.Count, 'Passed: ', $TestsSummary.Passed.Count, ' Failed: ', $TestsSummary.Failed.Count, ' Skipped: ', $TestsSummary.Skipped.Count
-    # $Colors = Yellow, DarkGray, Green, DarkGray, Red, DarkGray, Cyan
-
-
     if ($Domain -and $DomainController) {
         if ($Type -eq 't') {
             [ConsoleColor[]] $Color = @(

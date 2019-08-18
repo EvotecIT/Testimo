@@ -1,5 +1,4 @@
 ﻿$Script:SBDomainControllersDiskSpace = {
-    #Get-ComputerDiskLogical -ComputerName $DomainController
     Get-ComputerDiskLogical -ComputerName $DomainController -OnlyLocalDisk -WarningAction SilentlyContinue
 }
 

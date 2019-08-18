@@ -1,8 +1,12 @@
 ﻿$Script:TestimoConfiguration = [ordered] @{
+    Exclusions        = @{
+        #Domains           = 'ad.evotec.pl'
+        DomainControllers = 'AD3.ad.evotec.xyz'
+    }
     Forest            = @{
         Sources = [ordered]  @{
             OptionalFeatures = @{
-                Enable     = $false
+                Enable     = $true
                 SourceName = 'Optional Features'
                 SourceData = $Script:SBForestOptionalFeatures
                 Tests      = [ordered] @{
@@ -481,41 +485,3 @@
         DisableTryCatch = $false
     }
 }
-
-
-function Format-Json {
-    [CmdletBinding()]
-    param(
-        [Parameter(Mandatory, ValueFromPipeline)][String] $JSON
-    )
-    $indent = 0;
-    ($JSON -Split '\n' |
-        ForEach-Object {
-            if ($_ -match '[\}\]]') {
-                # This line contains ] or }, decrement the indentation level
-                $indent--
-            }
-            $line = (' ' * $indent * 2) + $_.TrimStart().Replace(': ', ': ')
-            if ($_ -match '[\{\[]') {
-                # This line contains [ or {, increment the indentation level
-                $indent++
-            }
-            $line
-        }) -Join "`n"
-}
-
-$Script:TestimoConfiguration | ConvertTo-Json -Depth 10 | Format-Json #| Out-File -FilePath 'C:\Support\GitHub\Testimo\Example\Config.json'
-
-<#
-$Types = 'Forest', 'Domain', 'DomainControllers', 'AnyServers'
-
-foreach ($Type in $Types) {
-    $Keys = $Script:TestimoConfiguration.$Type.Sources.Keys
-    foreach ($Key in $Keys) {
-
-        $Script:TestimoConfiguration.$Type.Sources.$Key.SourceName
-
-        $Script:TestimoConfiguration.$Type.Sources.$Key.Enable = $true
-    }
-}
-#>
