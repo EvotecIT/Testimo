@@ -1,4 +1,4 @@
-﻿$Script:SBDomainScavenging = {
+﻿$Script:SBDomainDNSScavenging = {
     $PSWinDocumentationDNS = Import-Module PSWinDocumentation.DNS -PassThru
 
     & $PSWinDocumentationDNS {
@@ -12,19 +12,19 @@
     } $Domain
 }
 
-$Script:SBDomainScavengingTest0 = {
+$Script:SBDomainDNSScavengingTest0 = {
     Test-Value -TestName 'Scavenging DNS Servers Count' @args # ExpectedCount eq 1
 }
 
-$Script:SBDomainScavengingTest1 = {
+$Script:SBDomainDNSScavengingTest1 = {
     Test-Value -TestName 'Scavenging Interval' -Property 'ScavengingInterval', 'Days' @args # ExpectedValue le 7
 }
 
-$Script:SBDomainScavengingTest2 = {
+$Script:SBDomainDnsScavengingTest2 = {
     # ScavengingState True means it's enabled for all new zones
     Test-Value -TestName 'Scavenging State' -Property 'ScavengingState' @args
 }
 
-$Script:SBDomainScavengingTest3 = {
+$Script:SBDomainDnsScavengingTest3 = {
     Test-Value -TestName 'Last Scavenge Time' -Property 'LastScavengeTime' @args
 }

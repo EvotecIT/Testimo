@@ -2,7 +2,7 @@
     Forest            = @{
         Sources = [ordered]  @{
             OptionalFeatures = @{
-                Enable     = $true
+                Enable     = $false
                 SourceName = 'Optional Features'
                 SourceData = $Script:SBForestOptionalFeatures
                 Tests      = [ordered] @{
@@ -36,7 +36,7 @@
                 }
             }
             Replication      = @{
-                Enable     = $true
+                Enable     = $false
                 SourceName = 'Forest Replication'
                 SourceData = $Script:SBForestReplication
                 Tests      = [ordered] @{
@@ -53,7 +53,7 @@
                 }
             }
             LastBackup       = @{
-                Enable     = $true
+                Enable     = $false
                 SourceName = 'Forest Backup'
                 SourceData = $Script:SBForestLastBackup
                 Tests      = [ordered] @{
@@ -74,7 +74,7 @@
     Domain            = @{
         Sources = [ordered] @{
             PasswordComplexity               = @{
-                Enable     = $true
+                Enable     = $false
                 SourceName = 'Password Complexity Requirements'
                 SourceData = $Script:SBDomainPasswordComplexity
                 Tests      = [ordered] @{
@@ -162,7 +162,7 @@
                 }
             }
             Trusts                           = @{
-                Enable     = $true
+                Enable     = $false
                 SourceName = "Trust Availability"
                 SourceData = $Script:SBDomainTrustsData
                 Tests      = [ordered] @{
@@ -181,12 +181,12 @@
             DNSScavengingForPrimaryDNSServer = @{
                 Enable     = $true
                 SourceName = "DNS Scavenging - Primary DNS Server"
-                SourceData = $Script:SBDomainScavenging
+                SourceData = $Script:SBDomainDnsScavenging
                 Tests      = [ordered] @{
                     'Scavenging Count'    = @{
                         Enable         = $true
                         TestName       = 'Scavenging Count'
-                        TestSource     = $Script:SBDomainScavengingTest0
+                        TestSource     = $Script:SBDomainDnsScavengingTest0
                         TestParameters = @{
                             ExpectedCount = 1
                             OperationType = 'eq'
@@ -196,7 +196,7 @@
                     'Scavenging Interval' = @{
                         Enable         = $true
                         TestName       = 'Scavenging Interval'
-                        TestSource     = $Script:SBDomainScavengingTest1
+                        TestSource     = $Script:SBDomainDnsScavengingTest1
                         TestParameters = @{
                             ExpectedValue = 7
                             OperationType = 'le'
@@ -205,7 +205,7 @@
                     'Scavenging State'    = @{
                         Enable                 = $true
                         TestName               = 'Scavenging State'
-                        TestSource             = $Script:SBDomainScavengingTest2
+                        TestSource             = $Script:SBDomainDnsScavengingTest2
                         TestParameters         = @{
                             ExpectedValue = $true
                             OperationType = 'eq'
@@ -218,7 +218,7 @@
                     'Last Scavenge Time'  = @{
                         Enable         = $true
                         TestName       = 'Last Scavenge Time'
-                        TestSource     = $Script:SBDomainScavengingTest3
+                        TestSource     = $Script:SBDomainDnsScavengingTest3
                         TestParameters = @{
                             # this date should be the same as in Scavending Interval
                             ExpectedValue = (Get-Date).AddDays(-7)
@@ -244,18 +244,47 @@
                     }
                 }
             }
+            DnsZonesAging                    = @{
+                Enable     = $true
+                SourceName = "Aging primary DNS Zone"
+                SourceData = $Script:SBDomainDnsZones
+                Tests      = [ordered] @{
+                    EnabledAgingEnabled   = @{
+                        Enable         = $true
+                        TestName       = 'Aging primary zone is enabled'
+                        TestSource     = $Script:SBDomainDnsZonesTestEnabled
+                        TestParameters = @{
+                            Property      = 'Source'
+                            ExpectedValue = $true
+                            OperationType = 'eq'
+                        }
+                        Explanation    = 'Primary DNS zone should have aging enabled.'
+                    }
+                    EnabledAgingIdentical = @{
+                        Enable         = $true
+                        TestName       = 'Aging primary zone is identical'
+                        TestSource     = $Script:SBDomainDnsZonesTestIdentical
+                        TestParameters = @{
+                            Property      = 'Status'
+                            ExpectedValue = $true
+                            OperationType = 'eq'
+                        }
+                        Explanation    = 'Primary DNS zone should have aging enabled, on all DNS servers.'
+                    }
+                }
+            }
         }
     }
     DomainControllers = @{
         Sources = [ordered] @{
             RespondsToPowerShellQueries = @{
-                Enable     = $true
+                Enable     = $false
                 SourceName = "Responds to PowerShell Queries"
                 SourceData = $Script:SBDomainControllersRespondsPS
                 # When there are no tests only one test is done - whether data is returned or not.
             }
             Services                    = @{
-                Enable     = $true
+                Enable     = $false
                 SourceName = 'Service Status'
                 SourceData = $Script:SBDomainControllersServices
                 Tests      = [ordered] @{
@@ -282,7 +311,7 @@
             }
 
             LDAP                        = @{
-                Enable     = $true
+                Enable     = $false
                 SourceName = 'LDAP Connectivity'
                 SourceData = $Script:SBDomainControllersLDAP
                 Tests      = [ordered] @{
@@ -326,7 +355,7 @@
 
             }
             Pingable                    = @{
-                Enable     = $true
+                Enable     = $false
                 SourceName = 'Ping Connectivity'
                 SourceData = $Script:SBDomainControllersPing
                 Tests      = @{
@@ -342,7 +371,7 @@
                 }
             }
             Port53                      = @{
-                Enable     = $true
+                Enable     = $false
                 SourceName = 'PORT 53 (DNS)'
                 SourceData = $Script:SBDomainControllersPort53
                 Tests      = @{
@@ -358,7 +387,7 @@
                 }
             }
             DiskSpace                   = @{
-                Enable     = $true
+                Enable     = $false
                 SourceName = 'Disk Free'
                 SourceData = $Script:SBDomainControllersDiskSpace
                 Tests      = @{
@@ -383,7 +412,7 @@
                 }
             }
             TimeSynchronizationInternal = @{
-                Enable             = $true
+                Enable             = $false
                 SourceName         = "Time Synchronization Internal"
                 SourceData         = $Script:SBDomainTimeSynchronizationInternal
                 Tests              = [ordered] @{
@@ -400,7 +429,7 @@
                 MicrosoftMaterials = 'https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc773263(v=ws.10)#w2k3tr_times_tools_uhlp'
             }
             TimeSynchronizationExternal = @{
-                Enable             = $true
+                Enable             = $false
                 SourceName         = "Time Synchronization External"
                 SourceData         = $Script:SBDomainTimeSynchronizationExternal
                 Tests              = [ordered] @{
@@ -452,6 +481,30 @@
         DisableTryCatch = $false
     }
 }
+
+
+function Format-Json {
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory, ValueFromPipeline)][String] $JSON
+    )
+    $indent = 0;
+    ($JSON -Split '\n' |
+        ForEach-Object {
+            if ($_ -match '[\}\]]') {
+                # This line contains ] or }, decrement the indentation level
+                $indent--
+            }
+            $line = (' ' * $indent * 2) + $_.TrimStart().Replace(': ', ': ')
+            if ($_ -match '[\{\[]') {
+                # This line contains [ or {, increment the indentation level
+                $indent++
+            }
+            $line
+        }) -Join "`n"
+}
+
+$Script:TestimoConfiguration | ConvertTo-Json -Depth 10 | Format-Json #| Out-File -FilePath 'C:\Support\GitHub\Testimo\Example\Config.json'
 
 <#
 $Types = 'Forest', 'Domain', 'DomainControllers', 'AnyServers'

@@ -6,6 +6,6 @@
         [string] $Domain,
         [string] $DomainController
     )
-    Out-Begin -Text $Text -Level $Level
+    Out-Begin -Text $Text -Level $Level -Domain $Domain -DomainController $DomainController
     Out-Status -Text $Text -Status $false -ExtendedValue $ExtendedValue -Domain $Domain -DomainController $DomainController
 }
