@@ -76,10 +76,6 @@
             $TestResult = $null
             $ExtendedTextValue = "Test provided but no tests required."
         }
-
-        #if ($ExtendedTextValue) {
-
-        # } else {
         if ($TestResult -eq $true) {
             $Extended = "Expected value ($($Operators[$OperationType])): $($ExpectedValue)"
         } elseif ($TestResult -eq $false) {
@@ -87,12 +83,8 @@
         } else {
             $Extended = $ExtendedTextValue
         }
-        #}#
-        if ($PropertyExtendedValue.Count -gt 0) {
 
-            #foreach ($PropertExtended in $PropertyExtendedValue) {
-            #    $Extended += $($Object.$PropertyExtendedValue)
-            #}
+        if ($PropertyExtendedValue.Count -gt 0) {
             $Extended = $Object
             foreach ($V in $PropertyExtendedValue) {
                 $Extended = $Extended.$V

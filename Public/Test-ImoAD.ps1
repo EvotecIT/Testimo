@@ -3,42 +3,15 @@ function Test-ImoAD {
     param(
         [switch] $ReturnResults
     )
-    # $Time = Start-TimeLog
     $global:ProgressPreference = 'SilentlyContinue'
     $Script:TestResults = [System.Collections.Generic.List[PSCustomObject]]::new()
 
-    <#
-    $Forest = & $Script:SBForest
-
-    & $Script:SBForestOptionalFeatures
-    & $Script:SBForestReplication
-    & $Script:SBForestLastBackup
-
-    foreach ($Domain in $Forest.Domains) {
-        & $Script:SBDomainPasswordComplexity -Domain $Domain
-        & $Script:SBDomainTrusts -Domain $Domain
-
-        $DomainInformation = & $Script:SBDomainInformation -Domain $Domain
-
-        $DomainControllers = & $Script:SBDomainControllers -Domain $Domain
-
-        foreach ($_ in $DomainControllers) {
-            & $Script:SBDomainControllersLDAP -DomainController $_
-            & $Script:SBDomainControllersPing -DomainController $_
-            & $Script:SBDomainControllersPort53 -DomainController $_
-            & $Script:SBDomainControllersServices -DomainController $_
-            & $Script:SBDomainControllersRespondsPS -DomainController $_
-        }
-    }
-    #>
-    #Start-Testing {
     $Forest = & $Script:SBForest
 
     # Tests related to FOREST
     $null = Start-Testing -Scope 'Forest' {
         # Tests related to DOMAIN
         foreach ($Domain in $Forest.Domains) {
-            #$TimeDomain = Start-TimeLog
             $Domain = $Domain.ToLower()
             $null = & $Script:SBDomain -Domain $Domain
 
@@ -46,27 +19,12 @@ function Test-ImoAD {
                 # Tests related to DOMAIN CONTROLLERS
                 $DomainControllers = & $Script:SBDomainControllers -Domain $Domain
                 foreach ($DomainController in $DomainControllers) {
-                    #$TimeController = Start-TimeLog
                     $DomainControllerHostName = $($DomainController.HostName).ToLower()
                     Start-Testing -Scope 'DomainControllers' -Domain $Domain -DomainController $DomainControllerHostName
-                    #Out-Summary -Text "Domain Controllers" -Time $TimeController -Level 6
                 }
-                #Out-Summary -Text "Domain $Domain" -Time $TimeDomain -Level 3 #-Domain $Domain -DomainController $DomainController
             }
         }
     }
-    # }
-    #Summary
-    #[Array] $TestsPassed = (($Script:TestResults) | Where-Object { $_.Status -eq $true })
-    #[Array] $TestsFailed = (($Script:TestResults) | Where-Object { $_.Status -eq $false })
-    #[Array] $TestsSkipped = @()
-
-    #$EndTime = Stop-TimeLog -Time $Time -Option OneLiner
-
-    #Write-Color -Text '[i]', '[All]', 'Time to execute tests: ', $EndTime -Color Yellow, DarkGray, Cyan
-    #Write-Color -Text '[i]', '[All]', 'Tests all', $Script:TestResults.Count, ' Tests Passed: ', $TestsPassed.Count, ' Tests Failed: ', $TestsFailed.Count, ' Tests Skipped: ', $TestsSkipped.Count -Color Yellow, DarkGray, Green, DarkGray, Red, DarkGray, Cyan
-
-    # This results informaiton in form of Array for future processing
     if ($ReturnResults) {
         $Script:TestResults
     }

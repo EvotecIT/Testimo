@@ -6,14 +6,6 @@
         [string] $Domain,
         [string] $DomainController
     )
-    <#
-    if ($Type -eq 't') {
-        [ConsoleColor[]] $Color = [ConsoleColor]::Cyan, [ConsoleColor]::DarkGray
-    } else {
-        [ConsoleColor[]] $Color = [ConsoleColor]::Yellow, [ConsoleColor]::DarkGray
-    }
-    #>
-
     if ($Domain -and $DomainController) {
         if ($Type -eq 't') {
             [ConsoleColor[]] $Color = [ConsoleColor]::Cyan, [ConsoleColor]::DarkGray,[ConsoleColor]::DarkGray, [ConsoleColor]::Yellow, [ConsoleColor]::Yellow

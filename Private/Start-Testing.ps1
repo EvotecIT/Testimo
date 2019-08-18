@@ -8,28 +8,6 @@
     )
     $GlobalTime = Start-TimeLog
 
-    <#
-    if ($Scope -eq 'Forest') {
-        $Level = 3
-        $LevelTest = 6
-        $LevelSummary = 3
-        $LevelTestFailure = 6
-    } elseif ($Scope -eq 'Domain') {
-        $Level = 3
-        $LevelTest = 6
-        $LevelSummary = 3
-        $LevelTestFailure = 6
-    } elseif ($Scope -eq 'DomainControllers') {
-        $Level = 6
-        $LevelTest = 9
-        $LevelSummary = 6
-        $LevelTestFailure = 9
-    } else {
-        # Write-Color 'x'
-    }
-    #>
-
-
     if ($Scope -eq 'Forest') {
         $Level = 3
         $LevelTest = 6
@@ -46,7 +24,7 @@
         $LevelSummary = 9
         $LevelTestFailure = 12
     } else {
-        # Write-Color 'x'
+
     }
 
     if ($Domain -and $DomainController) {
