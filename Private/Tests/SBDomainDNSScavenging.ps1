@@ -12,6 +12,7 @@
     } $Domain
 }
 
+<#
 $Script:SBDomainDNSScavengingTest0 = {
     Test-Value -TestName 'Scavenging DNS Servers Count' @args # ExpectedCount eq 1
 }
@@ -28,3 +29,4 @@ $Script:SBDomainDnsScavengingTest2 = {
 $Script:SBDomainDnsScavengingTest3 = {
     Test-Value -TestName 'Last Scavenge Time' -Property 'LastScavengeTime' @args
 }
+#>

@@ -3,6 +3,7 @@
     $ADModule = Import-Module PSWinDocumentation.AD -PassThru
     & $ADModule { param($Domain); Get-WinADDomainDefaultPasswordPolicy -Domain $Domain } $Domain
 }
+<#
 $Script:SBDomainPasswordComplexityTest1 = {
     Test-Value -TestName 'Complexity Enabled' -Property 'Complexity Enabled' @args
 }
@@ -30,3 +31,4 @@ $Script:SBDomainPasswordComplexityTest8 = {
 $Script:SBDomainPasswordComplexityTest9 = {
     Test-Value -TestName 'Reversible Encryption Enabled' -Property 'Reversible Encryption Enabled' @args
 }
+#>

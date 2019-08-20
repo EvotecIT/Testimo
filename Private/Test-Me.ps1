@@ -10,7 +10,7 @@
         [Object] $Object,
         [Object] $ExpectedValue,
         [string[]] $PropertyExtendedValue,
-        [int] $ExpectedCount
+        [int] $ExpectedCount = -1
     )
     Out-Begin -Text $TestName -Level $Level -Domain $Domain -DomainController $DomainController #($Level * 3)
 
@@ -30,7 +30,7 @@
             'eq' = 'Equal'
         }
 
-        if ($ExpectedCount) {
+        if ($ExpectedCount -ne -1) {
             if ($OperationType -eq 'lt') {
                 $TestResult = $Object.Count -lt $ExpectedCount
             } elseif ($OperationType -eq 'gt') {
@@ -45,7 +45,7 @@
             $TextTestedValue = $Object.Count
             $ExpectedValue = $ExpectedCount
 
-        } elseif ($ExpectedValue) {
+        } elseif ($null -ne $ExpectedValue) {
             if ($null -eq $TestedValue -and $null -ne $ExpectedValue) {
                 # if testedvalue is null and expected value is not null that means there's no sense in testing things
                 # it should fail

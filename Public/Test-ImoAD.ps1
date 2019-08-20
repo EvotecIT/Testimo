@@ -6,6 +6,15 @@ function Test-ImoAD {
     $global:ProgressPreference = 'SilentlyContinue'
     $Script:TestResults = [System.Collections.Generic.List[PSCustomObject]]::new()
 
+    if ($Script:TestimoConfiguration.Exclusions.Domains) {
+        Out-Begin -Text 'Following Domains will be ignored' -Level 0
+        Out-Status -Status $null -Domain $Domain -DomainController $DomainController -ExtendedValue ($Script:TestimoConfiguration.Exclusions.Domains -join ', ')
+    }
+    if ( $Script:TestimoConfiguration.Exclusions.DomainControllers) {
+        Out-Begin -Text 'Following Domain Controllers will be ignored' -Level 0
+        Out-Status -Status $null -Domain $Domain -DomainController $DomainController -ExtendedValue ($Script:TestimoConfiguration.Exclusions.DomainControllers -join ', ')
+    }
+
     $Domains = & $Script:SBForest
 
     # Tests related to FOREST

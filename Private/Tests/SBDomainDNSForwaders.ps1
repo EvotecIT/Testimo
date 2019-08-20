@@ -8,6 +8,8 @@
     } $Domain
 }
 
+<#
 $Script:SBDomainDNSForwadersTest = {
     Test-Value -TestName 'Same DNS Forwarders' -Property 'Status' @args
 }
+#>

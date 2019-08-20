@@ -8,5 +8,15 @@ function Set-TestimoConfiguration {
     [string] $CurrentUserReportsPath = "$Env:USERPROFILE\Evotec\Testimo"
 
 
-    $CurrentConfiguration = $CurrentUserReportsPath
+    #$CurrentConfiguration = $CurrentUserReportsPath
+
+
+    $CurrentConfig = 'C:\Support\GitHub\Testimo\Example\Config.json'
+
+    $ConfigExists = if (Test-Path -LiteralPath $CurrentConfig) {
+
+    } else {
+        $Script:TestimoConfiguration | ConvertTo-Json -Depth 10 | Out-File -FilePath $CurrentConfig
+    }
+
 }
