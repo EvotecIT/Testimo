@@ -5,36 +5,41 @@
     }
     Forest            = @{
         Sources = [ordered]  @{
-            OptionalFeatures = @{
-                Enable     = $false
-                SourceName = 'Optional Features'
-                SourceData = $Script:SBForestOptionalFeatures
-                Tests      = [ordered] @{
+            OptionalFeatures     = @{
+                Enable = $false
+                Source = @{
+                    Name       = 'Optional Features'
+                    Data       = $Script:SBForestOptionalFeatures
+                    Parameters = @{
+
+                    }
+                }
+                Tests  = [ordered] @{
                     RecycleBinEnabled    = @{
-                        Enable         = $true
-                        TestName       = 'Recycle Bin Enabled'
-                        # TestSource     = $Script:SBForestOptionalFeaturesTest1
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'Recycle Bin Enabled'
+                        # Data     = $Script:SBForestOptionalFeaturesTest1
+                        Parameters = @{
                             Property      = 'Recycle Bin Enabled'
                             ExpectedValue = $true
                             OperationType = 'eq'
                         }
                     }
                     LapsAvailable        = @{
-                        Enable         = $true
-                        TestName       = 'LAPS Schema Extended'
-                        # TestSource     = $Script:SBForestOptionalFeaturesTest2
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'LAPS Schema Extended'
+                        # Data     = $Script:SBForestOptionalFeaturesTest2
+                        Parameters = @{
                             Property      = 'Laps Enabled'
                             ExpectedValue = $true
                             OperationType = 'eq'
                         }
                     }
                     PrivAccessManagement = @{
-                        Enable         = $true
-                        TestName       = 'Privileged Access Management Enabled'
-                        #  TestSource     = $Script:SBForestOptionalFeaturesTest3
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'Privileged Access Management Enabled'
+                        #  Data     = $Script:SBForestOptionalFeaturesTest3
+                        Parameters = @{
                             Property      = 'Privileged Access Management Feature Enabled'
                             ExpectedValue = $true
                             OperationType = 'eq'
@@ -42,16 +47,21 @@
                     }
                 }
             }
-            Replication      = @{
-                Enable     = $false
-                SourceName = 'Forest Replication'
-                SourceData = $Script:SBForestReplication
-                Tests      = [ordered] @{
+            Replication          = @{
+                Enable = $false
+                Source = @{
+                    Name       = 'Forest Replication'
+                    Data       = $Script:SBForestReplication
+                    Parameters = @{
+
+                    }
+                }
+                Tests  = [ordered] @{
                     ReplicationTests = @{
-                        Enable         = $true
-                        TestName       = 'Replication Test'
-                        TestSource     = $Script:SBForestReplicationTest1
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'Replication Test'
+                        Data       = $Script:SBForestReplicationTest1
+                        Parameters = @{
                             #ExpectedValue        = $true
                             OperationType = 'eq'
                             #PropertyExtendedValue = 'StatusMessage'
@@ -59,16 +69,21 @@
                     }
                 }
             }
-            LastBackup       = @{
-                Enable     = $false
-                SourceName = 'Forest Backup'
-                SourceData = $Script:SBForestLastBackup
-                Tests      = [ordered] @{
+            LastBackup           = @{
+                Enable = $false
+                Source = @{
+                    Name       = 'Forest Backup'
+                    Data       = $Script:SBForestLastBackup
+                    Parameters = @{
+
+                    }
+                }
+                Tests  = [ordered] @{
                     LastBackupTests = @{
-                        Enable         = $true
-                        TestName       = 'Forest Last Backup Time - Context'
-                        TestSource     = $Script:SBForestLastBackupTest
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'Forest Last Backup Time - Context'
+                        Data       = $Script:SBForestLastBackupTest
+                        Parameters = @{
                             #ExpectedValue        = $true
                             #OperationType = 'eq'
                             #PropertyExtendedValue = 'StatusMessage'
@@ -76,18 +91,23 @@
                     }
                 }
             }
-            Sites            = @{
-                Enable     = $false
-                SourceName = 'Sites Verification'
-                SourceData = $Script:SBForestSites
-                Area       = 'Sites'
-                Tests      = [ordered] @{
+            Sites                = @{
+                Enable = $false
+                Source = @{
+                    Name       = 'Sites Verification'
+                    Area       = 'Sites'
+                    Data       = $Script:SBForestSites
+                    Parameters = @{
+
+                    }
+                }
+                Tests  = [ordered] @{
                     SitesWithoutDC      = @{
-                        Enable         = $true
-                        TestName       = 'Sites without Domain Controllers'
-                        #TestSource     = $Script:SBForestSitesTest1
-                        Description    = 'Verify each `site has at least [one subnet configured]`'
-                        TestParameters = @{
+                        Enable      = $true
+                        Name        = 'Sites without Domain Controllers'
+                        #Data     = $Script:SBForestSitesTest1
+                        Description = 'Verify each `site has at least [one subnet configured]`'
+                        Parameters  = @{
                             Property      = 'SitesWithoutDC'
                             ExpectedValue = 0
                             OperationType = 'eq'
@@ -95,10 +115,10 @@
                         }
                     }
                     SitesWithoutSubnets = @{
-                        Enable         = $true
-                        TestName       = 'Sites without Subnets'
-                        #TestSource     = $Script:SBForestSitesTest2
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'Sites without Subnets'
+                        #Data     = $Script:SBForestSitesTest2
+                        Parameters = @{
                             Property      = 'SitesWithoutSubnets'
                             ExpectedValue = 0
                             OperationType = 'eq'
@@ -107,17 +127,56 @@
                     }
                 }
             }
-            SiteLinks        = @{
-                Enable     = $true
-                SourceName = 'Site Links'
-                SourceData = $Script:SBForestSiteLinks
-                Area       = 'Sites'
-                Tests      = [ordered] @{
+            SiteLinks            = @{
+                Enable = $true
+                Source = @{
+                    Name       = 'Site Links'
+                    Data       = $Script:SBForestSiteLinks
+                    Area       = 'Sites'
+                    Parameters = @{
+
+                    }
+                }
+                Tests  = [ordered] @{
+                    MinimalReplicationFrequency = @{
+                        Enable      = $true
+                        Name        = 'Replication Frequency should be set to minimal value'
+                        Description = ''
+                        Parameters  = @{
+                            Property      = 'ReplicationFrequencyInMinutes'
+                            ExpectedValue = 60
+                            OperationType = 'lt'
+                        }
+                    }
+                    UseNotificationsForLinks    = @{
+                        Enable      = $true
+                        Name        = 'Automatic site links should use notifications'
+                        Description = ''
+                        Parameters  = @{
+                            Property              = 'Options'
+                            ExpectedValue         = 'UseNotify'
+                            OperationType         = 'contains'
+                            PropertyExtendedValue = 'Options'
+                        }
+                    }
+                }
+            }
+            SiteLinksConnections = @{
+                Enable = $true
+                Source = @{
+                    Name       = 'Site Links Connections'
+                    Data       = $Script:SBForestSiteLinksConnections
+                    Area       = 'Sites'
+                    Parameters = @{
+
+                    }
+                }
+                Tests  = [ordered] @{
                     AutomaticSiteLinks             = @{
-                        Enable         = $true
-                        TestName       = 'All site links are automatic'
-                        Description    = 'Verify there are no manually configured sitelinks'
-                        TestParameters = @{
+                        Enable      = $true
+                        Name        = 'All site links are automatic'
+                        Description = 'Verify there are no manually configured sitelinks'
+                        Parameters  = @{
                             Property              = 'SiteLinksManualCount'
                             ExpectedValue         = 0
                             OperationType         = 'eq'
@@ -125,18 +184,18 @@
                         }
                     }
                     SiteLinksNotifications         = @{
-                        Enable         = $true
-                        TestName       = 'All site links use notifications'
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'All site links use notifications'
+                        Parameters = @{
                             Property      = 'SiteLinksNotUsingNotifyCount'
                             ExpectedValue = 0
                             OperationType = 'eq'
                         }
                     }
                     SiteLinksDoNotUseNotifications = @{
-                        Enable         = $false
-                        TestName       = 'All site links are not using notifications'
-                        TestParameters = @{
+                        Enable     = $false
+                        Name       = 'All site links are not using notifications'
+                        Parameters = @{
                             Property      = 'SiteLinksUseNotifyCount'
                             ExpectedValue = 0
                             OperationType = 'eq'
@@ -145,16 +204,22 @@
                     }
                 }
             }
-            Roles            = @{
-                Enable     = $false
-                SourceName = 'Roles availability'
-                SourceData = $Script:SBForestRoles
-                Tests      = [ordered] @{
+            Roles                = @{
+                Enable = $false
+                Source = @{
+                    Name       = 'Roles availability'
+                    Data       = $Script:SBForestRoles
+                    Area       = ''
+                    Parameters = @{
+
+                    }
+                }
+                Tests  = [ordered] @{
                     SchemaMasterAvailability       = @{
-                        Enable         = $true
-                        TestName       = 'Schema Master Availability'
-                        #TestSource     = $Script:SBForestRolesTest
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'Schema Master Availability'
+                        #Data     = $Script:SBForestRolesTest
+                        Parameters = @{
                             ExpectedValue         = $true
                             Property              = 'SchemaMasterAvailability'
                             OperationType         = 'eq'
@@ -162,10 +227,10 @@
                         }
                     }
                     DomainNamingMasterAvailability = @{
-                        Enable         = $true
-                        TestName       = 'Domain Master Availability'
-                        #TestSource     = $Script:SBForestRolesTest2
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'Domain Master Availability'
+                        #Data     = $Script:SBForestRolesTest2
+                        Parameters = @{
                             ExpectedValue         = $true
                             Property              = 'DomainNamingMasterAvailability'
                             OperationType         = 'eq'
@@ -179,15 +244,21 @@
     Domain            = @{
         Sources = [ordered] @{
             Roles                            = @{
-                Enable     = $false
-                SourceName = 'Roles availability'
-                SourceData = $Script:SBDomainRoles
-                Tests      = [ordered] @{
+                Enable = $false
+                Source = @{
+                    Name       = 'Roles availability'
+                    Data       = $Script:SBDomainRoles
+                    Area       = ''
+                    Parameters = @{
+
+                    }
+                }
+                Tests  = [ordered] @{
                     PDCEmulator          = @{
-                        Enable         = $true
-                        TestName       = 'PDC Emulator Availability'
-                        # TestSource     = $Script:SBForestRolesTest
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'PDC Emulator Availability'
+                        # Data     = $Script:SBForestRolesTest
+                        Parameters = @{
                             ExpectedValue         = $true
                             Property              = 'PDCEmulatorAvailability'
                             OperationType         = 'eq'
@@ -195,10 +266,10 @@
                         }
                     }
                     RIDMaster            = @{
-                        Enable         = $true
-                        TestName       = 'RID Master Availability'
-                        #  TestSource     = $Script:SBForestRolesTest2
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'RID Master Availability'
+                        #  Data     = $Script:SBForestRolesTest2
+                        Parameters = @{
                             ExpectedValue         = $true
                             Property              = 'RIDMasterAvailability'
                             OperationType         = 'eq'
@@ -206,10 +277,10 @@
                         }
                     }
                     InfrastructureMaster = @{
-                        Enable         = $true
-                        TestName       = 'Infrastructure Master Availability'
-                        #  TestSource     = $Script:SBForestRolesTest2
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'Infrastructure Master Availability'
+                        #  Data     = $Script:SBForestRolesTest2
+                        Parameters = @{
                             ExpectedValue         = $true
                             Property              = 'InfrastructureMasterAvailability'
                             OperationType         = 'eq'
@@ -219,95 +290,101 @@
                 }
             }
             PasswordComplexity               = @{
-                Enable     = $false
-                SourceName = 'Password Complexity Requirements'
-                SourceData = $Script:SBDomainPasswordComplexity
-                Tests      = [ordered] @{
+                Enable = $false
+                Source = @{
+                    Name       = 'Password Complexity Requirements'
+                    Data       = $Script:SBDomainPasswordComplexity
+                    Area       = ''
+                    Parameters = @{
+
+                    }
+                }
+                Tests  = [ordered] @{
                     ComplexityEnabled               = @{
-                        Enable         = $true
-                        TestName       = 'Complexity Enabled'
-                        #TestSource     = $Script:SBDomainPasswordComplexityTest1
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'Complexity Enabled'
+                        #Data     = $Script:SBDomainPasswordComplexityTest1
+                        Parameters = @{
                             Property      = 'Complexity Enabled'
                             ExpectedValue = $true
                             OperationType = 'eq'
                         }
                     }
                     'Lockout Duration'              = @{
-                        Enable         = $true
-                        TestName       = 'Lockout Duration'
-                        #TestSource     = $Script:SBDomainPasswordComplexityTest2
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'Lockout Duration'
+                        #Data     = $Script:SBDomainPasswordComplexityTest2
+                        Parameters = @{
                             Property      = 'Lockout Duration'
                             ExpectedValue = 30
                             OperationType = 'ge'
                         }
                     }
                     'Lockout Observation Window'    = @{
-                        Enable         = $true
-                        TestName       = 'Lockout Observation Window'
-                        #TestSource     = $Script:SBDomainPasswordComplexityTest3
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'Lockout Observation Window'
+                        #Data     = $Script:SBDomainPasswordComplexityTest3
+                        Parameters = @{
                             Property      = 'Lockout Observation Window'
                             ExpectedValue = 30
                             OperationType = 'ge'
                         }
                     }
                     'Lockout Threshold'             = @{
-                        Enable         = $true
-                        TestName       = 'Lockout Threshold'
-                        #TestSource     = $Script:SBDomainPasswordComplexityTest4
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'Lockout Threshold'
+                        #Data     = $Script:SBDomainPasswordComplexityTest4
+                        Parameters = @{
                             Property      = 'Lockout Threshold'
                             ExpectedValue = 5
                             OperationType = 'gt'
                         }
                     }
                     'Max Password Age'              = @{
-                        Enable         = $true
-                        TestName       = 'Max Password Age'
-                        # TestSource     = $Script:SBDomainPasswordComplexityTest5
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'Max Password Age'
+                        # Data     = $Script:SBDomainPasswordComplexityTest5
+                        Parameters = @{
                             Property      = 'Max Password Age'
                             ExpectedValue = 60
                             OperationType = 'le'
                         }
                     }
                     'Min Password Length'           = @{
-                        Enable         = $true
-                        TestName       = 'Min Password Length'
-                        #TestSource     = $Script:SBDomainPasswordComplexityTest6
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'Min Password Length'
+                        #Data     = $Script:SBDomainPasswordComplexityTest6
+                        Parameters = @{
                             Property      = 'Min Password Length'
                             ExpectedValue = 8
                             OperationType = 'gt'
                         }
                     }
                     'Min Password Age'              = @{
-                        Enable         = $true
-                        TestName       = 'Min Password Age'
-                        # TestSource     = $Script:SBDomainPasswordComplexityTest7
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'Min Password Age'
+                        # Data     = $Script:SBDomainPasswordComplexityTest7
+                        Parameters = @{
                             Property      = 'Min Password Age'
                             ExpectedValue = 1
                             OperationType = 'le'
                         }
                     }
                     'Password History Count'        = @{
-                        Enable         = $true
-                        TestName       = 'Password History Count'
-                        # TestSource     = $Script:SBDomainPasswordComplexityTest8
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'Password History Count'
+                        # Data     = $Script:SBDomainPasswordComplexityTest8
+                        Parameters = @{
                             Property      = 'Password History Count'
                             ExpectedValue = 10
                             OperationType = 'ge'
                         }
                     }
                     'Reversible Encryption Enabled' = @{
-                        Enable         = $true
-                        TestName       = 'Reversible Encryption Enabled'
-                        # TestSource     = $Script:SBDomainPasswordComplexityTest9
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'Reversible Encryption Enabled'
+                        # Data     = $Script:SBDomainPasswordComplexityTest9
+                        Parameters = @{
                             Property      = 'Reversible Encryption Enabled'
                             ExpectedValue = $true
                             OperationType = 'eq'
@@ -316,42 +393,54 @@
                 }
             }
             Trusts                           = @{
-                Enable     = $false
-                SourceName = "Trust Availability"
-                SourceData = $Script:SBDomainTrustsData
-                Tests      = [ordered] @{
+                Enable = $false
+                Source = @{
+                    Name       = "Trust Availability"
+                    Data       = $Script:SBDomainTrustsData
+                    Area       = ''
+                    Parameters = @{
+
+                    }
+                }
+                Tests  = [ordered] @{
                     TrustsConnectivity            = @{
-                        Enable     = $true
-                        TestName   = 'Trust status verification'
-                        TestSource = $Script:SBDomainTrustsConnectivity
+                        Enable = $true
+                        Name   = 'Trust status verification'
+                        Data   = $Script:SBDomainTrustsConnectivity
                     }
                     TrustsUnconstrainedDelegation = @{
-                        Enable     = $true
-                        TestName   = 'Trust Unconstrained TGTDelegation'
-                        TestSource = $Script:SBDomainTrustsUnconstrainedDelegation
+                        Enable = $true
+                        Name   = 'Trust Unconstrained TGTDelegation'
+                        Data   = $Script:SBDomainTrustsUnconstrainedDelegation
                     }
                 }
             }
             DNSScavengingForPrimaryDNSServer = @{
-                Enable     = $false
-                SourceName = "DNS Scavenging - Primary DNS Server"
-                SourceData = $Script:SBDomainDnsScavenging
-                Tests      = [ordered] @{
+                Enable = $false
+                Source = @{
+                    Name       = "DNS Scavenging - Primary DNS Server"
+                    Data       = $Script:SBDomainDnsScavenging
+                    Area       = ''
+                    Parameters = @{
+
+                    }
+                }
+                Tests  = [ordered] @{
                     ScavengingCount      = @{
-                        Enable         = $true
-                        TestName       = 'Scavenging DNS Servers Count'
-                        #TestSource     = $Script:SBDomainDnsScavengingTest0
-                        TestParameters = @{
+                        Enable      = $true
+                        Name        = 'Scavenging DNS Servers Count'
+                        #Data     = $Script:SBDomainDnsScavengingTest0
+                        Parameters  = @{
                             ExpectedCount = 1
                             OperationType = 'eq'
                         }
-                        Explanation    = 'Scavenging Count should be 1. There should be 1 DNS server per domain responsible for scavenging. If this returns false, every other test fails.'
+                        Explanation = 'Scavenging Count should be 1. There should be 1 DNS server per domain responsible for scavenging. If this returns false, every other test fails.'
                     }
                     ScavengingInterval   = @{
-                        Enable         = $true
-                        TestName       = 'Scavenging Interval'
-                        # TestSource     = $Script:SBDomainDnsScavengingTest1
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'Scavenging Interval'
+                        # Data     = $Script:SBDomainDnsScavengingTest1
+                        Parameters = @{
                             Property      = 'ScavengingInterval', 'Days'
                             ExpectedValue = 7
                             OperationType = 'le'
@@ -359,9 +448,9 @@
                     }
                     'Scavenging State'   = @{
                         Enable                 = $true
-                        TestName               = 'Scavenging State'
-                        #TestSource             = $Script:SBDomainDnsScavengingTest2
-                        TestParameters         = @{
+                        Name                   = 'Scavenging State'
+                        #Data             = $Script:SBDomainDnsScavengingTest2
+                        Parameters             = @{
                             Property      = 'ScavengingState'
                             ExpectedValue = $true
                             OperationType = 'eq'
@@ -372,10 +461,10 @@
                         DefaultValue           = $false
                     }
                     'Last Scavenge Time' = @{
-                        Enable         = $true
-                        TestName       = 'Last Scavenge Time'
-                        #TestSource     = $Script:SBDomainDnsScavengingTest3
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'Last Scavenge Time'
+                        #Data     = $Script:SBDomainDnsScavengingTest3
+                        Parameters = @{
                             # this date should be the same as in Scavending Interval
                             Property      = 'LastScavengeTime'
                             ExpectedValue = (Get-Date).AddDays(-7)
@@ -385,50 +474,62 @@
                 }
             }
             DNSForwaders                     = @{
-                Enable     = $false
-                SourceName = "DNS Forwarders"
-                SourceData = $Script:SBDomainDNSForwaders
-                Tests      = [ordered] @{
+                Enable = $false
+                Source = @{
+                    Name       = "DNS Forwarders"
+                    Data       = $Script:SBDomainDNSForwaders
+                    Area       = ''
+                    Parameters = @{
+
+                    }
+                }
+                Tests  = [ordered] @{
                     SameForwarders = @{
-                        Enable         = $true
-                        TestName       = 'Same DNS Forwarders'
-                        # TestSource     = $Script:SBDomainDNSForwadersTest
-                        TestParameters = @{
+                        Enable      = $true
+                        Name        = 'Same DNS Forwarders'
+                        # Data     = $Script:SBDomainDNSForwadersTest
+                        Parameters  = @{
                             Property              = 'Status'
                             ExpectedValue         = $true
                             OperationType         = 'eq'
                             PropertyExtendedValue = 'Source'
                         }
-                        Explanation    = 'DNS forwarders within one domain should have identical setup'
+                        Explanation = 'DNS forwarders within one domain should have identical setup'
                     }
                 }
             }
             DnsZonesAging                    = @{
-                Enable     = $false
-                SourceName = "Aging primary DNS Zone"
-                SourceData = $Script:SBDomainDnsZones
-                Tests      = [ordered] @{
+                Enable = $false
+                Source = @{
+                    Name       = "Aging primary DNS Zone"
+                    Data       = $Script:SBDomainDnsZones
+                    Area       = ''
+                    Parameters = @{
+
+                    }
+                }
+                Tests  = [ordered] @{
                     EnabledAgingEnabled   = @{
-                        Enable         = $true
-                        TestName       = 'Zone DNS aging should be enabled'
-                        # TestSource     = $Script:SBDomainDnsZonesTestEnabled
-                        TestParameters = @{
+                        Enable      = $true
+                        Name        = 'Zone DNS aging should be enabled'
+                        # Data     = $Script:SBDomainDnsZonesTestEnabled
+                        Parameters  = @{
                             Property      = 'Source'
                             ExpectedValue = $true
                             OperationType = 'eq'
                         }
-                        Explanation    = 'Primary DNS zone should have aging enabled.'
+                        Explanation = 'Primary DNS zone should have aging enabled.'
                     }
                     EnabledAgingIdentical = @{
-                        Enable         = $true
-                        TestName       = 'Zone DNS aging should be identical on all DCs'
-                        #TestSource     = $Script:SBDomainDnsZonesTestIdentical
-                        TestParameters = @{
+                        Enable      = $true
+                        Name        = 'Zone DNS aging should be identical on all DCs'
+                        #Data     = $Script:SBDomainDnsZonesTestIdentical
+                        Parameters  = @{
                             Property      = 'Status'
                             ExpectedValue = $true
                             OperationType = 'eq'
                         }
-                        Explanation    = 'Primary DNS zone should have aging enabled, on all DNS servers.'
+                        Explanation = 'Primary DNS zone should have aging enabled, on all DNS servers.'
                     }
                 }
             }
@@ -437,31 +538,43 @@
     DomainControllers = @{
         Sources = [ordered] @{
             RespondsToPowerShellQueries = @{
-                Enable     = $false
-                SourceName = "Responds to PowerShell Queries"
-                SourceData = $Script:SBDomainControllersRespondsPS
+                Enable = $false
+                Source = @{
+                    Name       = "Responds to PowerShell Queries"
+                    Data       = $Script:SBDomainControllersRespondsPS
+                    Area       = ''
+                    Parameters = @{
+
+                    }
+                }
                 # When there are no tests only one test is done - whether data is returned or not.
             }
             Services                    = @{
-                Enable     = $false
-                SourceName = 'Service Status'
-                SourceData = $Script:SBDomainControllersServices
-                Tests      = [ordered] @{
+                Enable = $false
+                Source = @{
+                    Name       = 'Service Status'
+                    Data       = $Script:SBDomainControllersServices
+                    Area       = ''
+                    Parameters = @{
+
+                    }
+                }
+                Tests  = [ordered] @{
                     ServiceStatus    = @{
-                        Enable         = $true
-                        TestName       = 'Service is RUNNING'
-                        TestSource     = $Script:SBDomainControllersServicesTestStatus
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'Service is RUNNING'
+                        Data       = $Script:SBDomainControllersServicesTestStatus
+                        Parameters = @{
                             ExpectedValue = 'Running'
                             OperationType = 'eq'
                         }
 
                     }
                     ServiceStartType = @{
-                        Enable         = $true
-                        TestName       = 'Service START TYPE is Automatic'
-                        TestSource     = $Script:SBDomainControllersServicesTestStartType
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'Service START TYPE is Automatic'
+                        Data       = $Script:SBDomainControllersServicesTestStartType
+                        Parameters = @{
                             ExpectedValue = 'Automatic'
                             OperationType = 'eq'
                         }
@@ -470,45 +583,51 @@
             }
 
             LDAP                        = @{
-                Enable     = $false
-                SourceName = 'LDAP Connectivity'
-                SourceData = $Script:SBDomainControllersLDAP
-                Tests      = [ordered] @{
+                Enable = $false
+                Source = @{
+                    Name       = 'LDAP Connectivity'
+                    Data       = $Script:SBDomainControllersLDAP
+                    Area       = ''
+                    Parameters = @{
+
+                    }
+                }
+                Tests  = [ordered] @{
                     PortLDAP     = @{
-                        Enable         = $true
-                        TestName       = 'LDAP Port is Available'
-                        #TestSource     = $Script:SBDomainControllersLDAP_Port
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'LDAP Port is Available'
+                        #Data     = $Script:SBDomainControllersLDAP_Port
+                        Parameters = @{
                             Property      = 'LDAP'
                             ExpectedValue = $true
                             OperationType = 'eq'
                         }
                     }
                     PortLDAPS    = @{
-                        Enable         = $true
-                        TestName       = 'LDAP SSL Port is Available'
-                        # TestSource     = $Script:SBDomainControllersLDAP_PortSSL
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'LDAP SSL Port is Available'
+                        # Data     = $Script:SBDomainControllersLDAP_PortSSL
+                        Parameters = @{
                             Property      = 'LDAPS'
                             ExpectedValue = $true
                             OperationType = 'eq'
                         }
                     }
                     PortLDAP_GC  = @{
-                        Enable         = $true
-                        TestName       = 'LDAP GC Port is Available'
-                        #TestSource     = $Script:SBDomainControllersLDAP_PortGC
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'LDAP GC Port is Available'
+                        #Data     = $Script:SBDomainControllersLDAP_PortGC
+                        Parameters = @{
                             Property      = 'GlobalCatalogLDAP'
                             ExpectedValue = $true
                             OperationType = 'eq'
                         }
                     }
                     PortLDAPS_GC = @{
-                        Enable         = $true
-                        TestName       = 'LDAP SSL GC Port is Available'
-                        #TestSource     = $Script:SBDomainControllersLDAP_PortGC_SSL
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'LDAP SSL GC Port is Available'
+                        #Data     = $Script:SBDomainControllersLDAP_PortGC_SSL
+                        Parameters = @{
                             Property      = 'GlobalCatalogLDAPS'
                             ExpectedValue = $true
                             OperationType = 'eq'
@@ -518,15 +637,21 @@
 
             }
             Pingable                    = @{
-                Enable     = $false
-                SourceName = 'Ping Connectivity'
-                SourceData = $Script:SBDomainControllersPing
-                Tests      = @{
+                Enable = $false
+                Source = @{
+                    Name       = 'Ping Connectivity'
+                    Data       = $Script:SBDomainControllersPing
+                    Area       = ''
+                    Parameters = @{
+
+                    }
+                }
+                Tests  = @{
                     Ping = @{
-                        Enable         = $true
-                        TestName       = 'Responding to PING'
-                        #TestSource     = $Script:SBDomainControllersPingTest
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'Responding to PING'
+                        #Data     = $Script:SBDomainControllersPingTest
+                        Parameters = @{
                             Property              = 'PingSucceeded'
                             PropertyExtendedValue = 'PingReplyDetails', 'RoundtripTime'
                             ExpectedValue         = $true
@@ -536,15 +661,21 @@
                 }
             }
             Port53                      = @{
-                Enable     = $false
-                SourceName = 'PORT 53 (DNS)'
-                SourceData = $Script:SBDomainControllersPort53
-                Tests      = @{
+                Enable = $false
+                Source = @{
+                    Name       = 'PORT 53 (DNS)'
+                    Data       = $Script:SBDomainControllersPort53
+                    Area       = ''
+                    Parameters = @{
+
+                    }
+                }
+                Tests  = @{
                     Ping = @{
-                        Enable         = $true
-                        TestName       = 'Port is OPEN'
-                        #TestSource     = $Script:SBDomainControllersPort53Test
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'Port is OPEN'
+                        #Data     = $Script:SBDomainControllersPort53Test
+                        Parameters = @{
                             Property      = 'TcpTestSucceeded'
                             ExpectedValue = $true
                             OperationType = 'eq'
@@ -553,15 +684,21 @@
                 }
             }
             DiskSpace                   = @{
-                Enable     = $false
-                SourceName = 'Disk Free'
-                SourceData = $Script:SBDomainControllersDiskSpace
-                Tests      = @{
+                Enable = $false
+                Source = @{
+                    Name       = 'Disk Free'
+                    Data       = $Script:SBDomainControllersDiskSpace
+                    Area       = ''
+                    Parameters = @{
+
+                    }
+                }
+                Tests  = @{
                     FreeSpace   = @{
-                        Enable         = $true
-                        TestName       = 'Free Space in GB'
-                        # TestSource     = $Script:SBDomainControllersDiskSpaceGB
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'Free Space in GB'
+                        # Data     = $Script:SBDomainControllersDiskSpaceGB
+                        Parameters = @{
                             Property              = 'FreeSpace'
                             PropertyExtendedValue = 'FreeSpace'
                             ExpectedValue         = 10
@@ -569,10 +706,10 @@
                         }
                     }
                     FreePercent = @{
-                        Enable         = $true
-                        TestName       = 'Free Space Percent'
-                        # TestSource     = $Script:SBDomainControllersDiskSpacePercent
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'Free Space Percent'
+                        # Data     = $Script:SBDomainControllersDiskSpacePercent
+                        Parameters = @{
                             Property              = 'FreePercent'
                             PropertyExtendedValue = 'FreePercent'
                             ExpectedValue         = 10
@@ -583,14 +720,20 @@
             }
             TimeSynchronizationInternal = @{
                 Enable             = $false
-                SourceName         = "Time Synchronization Internal"
-                SourceData         = $Script:SBDomainTimeSynchronizationInternal
+                Source             = @{
+                    Name       = "Time Synchronization Internal"
+                    Data       = $Script:SBDomainTimeSynchronizationInternal
+                    Area       = ''
+                    Parameters = @{
+
+                    }
+                }
                 Tests              = [ordered] @{
                     TimeSynchronizationTest = @{
-                        Enable         = $true
-                        TestName       = 'Time Difference'
-                        # TestSource     = $Script:SBDomainTimeSynchronizationTest1
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'Time Difference'
+                        # Data     = $Script:SBDomainTimeSynchronizationTest1
+                        Parameters = @{
                             Property              = 'TimeDifferenceSeconds'
                             ExpectedValue         = 1
                             OperationType         = 'le'
@@ -602,14 +745,20 @@
             }
             TimeSynchronizationExternal = @{
                 Enable             = $false
-                SourceName         = "Time Synchronization External"
-                SourceData         = $Script:SBDomainTimeSynchronizationExternal
+                Source             = @{
+                    Name       = "Time Synchronization External"
+                    Data       = $Script:SBDomainTimeSynchronizationExternal
+                    Area       = ''
+                    Parameters = @{
+
+                    }
+                }
                 Tests              = [ordered] @{
                     TimeSynchronizationTest = @{
-                        Enable         = $true
-                        TestName       = 'Time Difference'
-                        #  TestSource     = $Script:SBDomainTimeSynchronizationTest1
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'Time Difference'
+                        #  Data     = $Script:SBDomainTimeSynchronizationTest1
+                        Parameters = @{
                             Property              = 'TimeDifferenceSeconds'
                             ExpectedValue         = 1
                             OperationType         = 'le'
@@ -620,17 +769,22 @@
                 MicrosoftMaterials = 'https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc773263(v=ws.10)#w2k3tr_times_tools_uhlp'
             }
             WindowsFirewall             = @{
-                Enable      = $true
-                SourceName  = "Windows Firewall"
-                SourceData  = $Script:SBDomainControllersFirewall
-                Area        = 'Connectivity'
-                Description = 'Verify windows firewall is enabled for all network cards'
-                Tests       = [ordered] @{
+                Enable = $true
+                Source = @{
+                    Name        = "Windows Firewall"
+                    Data        = $Script:SBDomainControllersFirewall
+                    Area        = 'Connectivity'
+                    Description = 'Verify windows firewall is enabled for all network cards'
+                    Parameters  = @{
+
+                    }
+                }
+                Tests  = [ordered] @{
                     TimeSynchronizationTest = @{
-                        Enable         = $true
-                        TestName       = 'Windows Firewall is enabled on network card'
-                        #  TestSource     = $Script:SBDomainTimeSynchronizationTest1
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'Windows Firewall is enabled on network card'
+                        #  Data     = $Script:SBDomainTimeSynchronizationTest1
+                        Parameters = @{
                             Property              = 'FirewallStatus'
                             ExpectedValue         = $true
                             OperationType         = 'eq'
@@ -644,25 +798,30 @@
     AnyServers        = @{
         Sources = [ordered] @{
             Services = @{
-                Enable     = $false
-                SourceName = 'Service Status'
-                SourceData = $Script:SBDomainControllersServices
-                Tests      = [ordered] @{
+                Enable = $false
+                Source = @{
+                    Name       = 'Service Status'
+                    Data       = $Script:SBDomainControllersServices
+                    Parameters = @{
+
+                    }
+                }
+                Tests  = [ordered] @{
                     ServiceStatus    = @{
-                        Enable         = $true
-                        TestName       = 'Service is RUNNING'
-                        TestSource     = $Script:SBDomainControllersServicesTestStatus
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'Service is RUNNING'
+                        Data       = $Script:SBDomainControllersServicesTestStatus
+                        Parameters = @{
                             ExpectedValue = 'Running'
                             OperationType = 'eq'
                         }
 
                     }
                     ServiceStartType = @{
-                        Enable         = $true
-                        TestName       = 'Service START TYPE is Automatic'
-                        TestSource     = $Script:SBDomainControllersServicesTestStartType
-                        TestParameters = @{
+                        Enable     = $true
+                        Name       = 'Service START TYPE is Automatic'
+                        Data       = $Script:SBDomainControllersServicesTestStartType
+                        Parameters = @{
                             ExpectedValue = 'Automatic'
                             OperationType = 'eq'
                         }

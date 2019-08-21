@@ -53,41 +53,41 @@
                 }
                 # $Data = & $CurrentSource['Data'] -DomainController $DomainController
                 $Time = Start-TimeLog
-                $Object = Start-TestProcessing -Test $CurrentSource['SourceName'] -Level $Level -OutputRequired -Domain $Domain -DomainController $DomainController {
-                    & $CurrentSource['SourceData'] -DomainController $DomainController -Domain $Domain
+                $Object = Start-TestProcessing -Test $CurrentSource['Source']['Name'] -Level $Level -OutputRequired -Domain $Domain -DomainController $DomainController {
+                    & $CurrentSource['Source']['Data'] -DomainController $DomainController -Domain $Domain
                 }
                 # If there's no output from Source Data all other tests will fail
                 if ($Object) {
                     $FailAllTests = $false
-                    Out-Begin -Text $CurrentSource['SourceName'] -Level $LevelTest -Domain $Domain -DomainController $DomainController
-                    Out-Status -Text $CurrentSource['SourceName'] -Status $true -ExtendedValue 'Data is available.' -Domain $Domain -DomainController $DomainController
+                    Out-Begin -Text $CurrentSource['Source']['Name'] -Level $LevelTest -Domain $Domain -DomainController $DomainController
+                    Out-Status -Text $CurrentSource['Source']['Name'] -Status $true -ExtendedValue 'Data is available.' -Domain $Domain -DomainController $DomainController
                     $TestsSummary.Passed = $TestsSummary.Passed + 1
                 } else {
                     $FailAllTests = $true
-                    Out-Failure -Text $CurrentSource['SourceName'] -Level $LevelTest -ExtendedValue 'No data available.' -Domain $Domain -DomainController $DomainController
+                    Out-Failure -Text $CurrentSource['Source']['Name'] -Level $LevelTest -ExtendedValue 'No data available.' -Domain $Domain -DomainController $DomainController
                     $TestsSummary.Failed = $TestsSummary.Failed + 1
                 }
                 foreach ($Test in $AllTests) {
                     $CurrentTest = $CurrentSource['Tests'][$Test]
                     if ($CurrentTest['Enable'] -eq $True) {
                         if (-not $FailAllTests) {
-                            if ($CurrentTest['TestParameters']) {
-                                $Parameters = $CurrentTest['TestParameters']
+                            if ($CurrentTest['Parameters']) {
+                                $Parameters = $CurrentTest['Parameters']
                             } else {
                                 $Parameters = $null
                             }
-                            $TestsResults = Start-TestingTest -Test $CurrentTest['TestName'] -Level $LevelTest -Domain $Domain -DomainController $DomainController {
-                                if ($CurrentTest['TestSource'] -is [ScriptBlock]) {
-                                    & $CurrentTest['TestSource'] -Object $Object -Domain $Domain -DomainController $DomainController @Parameters -Level $LevelTest #-TestName $CurrentTest['TestName']
+                            $TestsResults = Start-TestingTest -Test $CurrentTest['Name'] -Level $LevelTest -Domain $Domain -DomainController $DomainController {
+                                if ($CurrentTest['Data'] -is [ScriptBlock]) {
+                                    & $CurrentTest['Data'] -Object $Object -Domain $Domain -DomainController $DomainController @Parameters -Level $LevelTest #-TestName $CurrentTest['TestName']
                                 } else {
-                                    Test-Value -Object $Object -Domain $Domain -DomainController $DomainController @Parameters -Level $LevelTest -TestName $CurrentTest['TestName']
+                                    Test-Value -Object $Object -Domain $Domain -DomainController $DomainController @Parameters -Level $LevelTest -TestName $CurrentTest['Name']
                                 }
                             }
                             $TestsSummary.Passed = $TestsSummary.Passed + ($TestsResults | Where-Object { $_ -eq $true }).Count
                             $TestsSummary.Failed = $TestsSummary.Failed + ($TestsResults | Where-Object { $_ -eq $false }).Count
                         } else {
                             $TestsSummary.Failed = $TestsSummary.Failed + 1
-                            Out-Failure -Text $CurrentTest['TestName'] -Level $LevelTestFailure -Domain $Domain -DomainController $DomainController
+                            Out-Failure -Text $CurrentTest['Name'] -Level $LevelTestFailure -Domain $Domain -DomainController $DomainController
                         }
                     } else {
                         $TestsSummary.Skipped = $TestsSummary.Skipped + 1
@@ -95,7 +95,7 @@
                 }
                 $TestsSummary.Total = $TestsSummary.Failed + $TestsSummary.Passed + $TestsSummary.Skipped
                 $TestsSummary
-                Out-Summary -Text $CurrentSource['SourceName'] -Time $Time -Level $LevelSummary -Domain $Domain -DomainController $DomainController -TestsSummary $TestsSummary
+                Out-Summary -Text $CurrentSource['Source']['Name'] -Time $Time -Level $LevelSummary -Domain $Domain -DomainController $DomainController -TestsSummary $TestsSummary
             }
         }
         if ($Execute) {

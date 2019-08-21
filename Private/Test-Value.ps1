@@ -6,11 +6,13 @@
         [string[]] $Property,
         [Object] $ExpectedValue,
         [string[]] $PropertyExtendedValue,
+        <#
         [switch] $lt,
         [switch] $gt,
         [switch] $le,
         [switch] $eq,
         [switch] $ge,
+        #>
         [string] $OperationType,
         [int] $Level,
         [string] $Domain,
@@ -18,6 +20,7 @@
         [int] $ExpectedCount
     )
 
+    <#
     if (-not $OperationType) {
         if ($lt) {
             $OperationType = 'lt'
@@ -31,6 +34,7 @@
             $OperationType = 'eq'
         }
     }
+    #>
     if ($Object) {
 
         if ($ExpectedCount) {

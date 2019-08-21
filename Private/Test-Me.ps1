@@ -23,11 +23,13 @@
 
     $ScriptBlock = {
         $Operators = @{
-            'lt' = 'LessThan'
-            'gt' = 'GreaterThan'
-            'le' = 'LessOrEqual'
-            'ge' = 'GreaterOrEqual'
-            'eq' = 'Equal'
+            'lt'       = 'LessThan'
+            'gt'       = 'GreaterThan'
+            'le'       = 'LessOrEqual'
+            'ge'       = 'GreaterOrEqual'
+            'eq'       = 'Equal'
+            'contains' = 'Contains'
+            'like'     = 'Like'
         }
 
         if ($ExpectedCount -ne -1) {
@@ -39,6 +41,10 @@
                 $TestResult = $Object.Count -lt $ExpectedCount
             } elseif ($OperationType -eq 'le') {
                 $TestResult = $Object.Count -lt $ExpectedCount
+            } elseif ($OperationType -eq 'like') {
+                $TestResult = $Object.Count -like $ExpectedCount
+            } elseif ($OperationType -eq 'contains') {
+                $TestResult = $Object.Count -like $ExpectedCount
             } else {
                 $TestResult = $Object.Count -lt $ExpectedCount
             }
@@ -54,18 +60,17 @@
             } else {
                 if ($OperationType -eq 'lt') {
                     $TestResult = $TestedValue -lt $ExpectedValue
-
                 } elseif ($OperationType -eq 'gt') {
                     $TestResult = $TestedValue -gt $ExpectedValue
-
                 } elseif ($OperationType -eq 'ge') {
                     $TestResult = $TestedValue -ge $ExpectedValue
-
                 } elseif ($OperationType -eq 'le') {
-
                     $TestResult = $TestedValue -le $ExpectedValue
+                } elseif ($OperationType -eq 'like') {
+                    $TestResult = $TestedValue -like $ExpectedValue
+                } elseif ($OperationType -eq 'contains') {
+                    $TestResult = $TestedValue -contains $ExpectedValue
                 } else {
-
                     $TestResult = $TestedValue -eq $ExpectedValue
                 }
                 $TextTestedValue = $TestedValue
