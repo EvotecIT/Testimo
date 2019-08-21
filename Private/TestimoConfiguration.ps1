@@ -1,12 +1,12 @@
 ﻿$Script:TestimoConfiguration = [ordered] @{
     Exclusions        = @{
-        # Domains           = 'ad.evotec.pl'
-        # DomainControllers = 'AD3.ad.evotec.xyz'
+        #Domains = 'ad.evotec.pl'
+        #DomainControllers = 'AD3.ad.evotec.xyz'
     }
     Forest            = @{
         Sources = [ordered]  @{
             OptionalFeatures = @{
-                Enable     = $true
+                Enable     = $false
                 SourceName = 'Optional Features'
                 SourceData = $Script:SBForestOptionalFeatures
                 Tests      = [ordered] @{
@@ -103,6 +103,44 @@
                             ExpectedValue = 0
                             OperationType = 'eq'
                             #PropertyExtendedValue = 'SitesWithoutSubnetsName'
+                        }
+                    }
+                }
+            }
+            SiteLinks        = @{
+                Enable     = $true
+                SourceName = 'Site Links'
+                SourceData = $Script:SBForestSiteLinks
+                Area       = 'Sites'
+                Tests      = [ordered] @{
+                    AutomaticSiteLinks             = @{
+                        Enable         = $true
+                        TestName       = 'All site links are automatic'
+                        Description    = 'Verify there are no manually configured sitelinks'
+                        TestParameters = @{
+                            Property              = 'SiteLinksManualCount'
+                            ExpectedValue         = 0
+                            OperationType         = 'eq'
+                            PropertyExtendedValue = 'SiteLinksManual'
+                        }
+                    }
+                    SiteLinksNotifications         = @{
+                        Enable         = $true
+                        TestName       = 'All site links use notifications'
+                        TestParameters = @{
+                            Property      = 'SiteLinksNotUsingNotifyCount'
+                            ExpectedValue = 0
+                            OperationType = 'eq'
+                        }
+                    }
+                    SiteLinksDoNotUseNotifications = @{
+                        Enable         = $false
+                        TestName       = 'All site links are not using notifications'
+                        TestParameters = @{
+                            Property      = 'SiteLinksUseNotifyCount'
+                            ExpectedValue = 0
+                            OperationType = 'eq'
+
                         }
                     }
                 }
@@ -278,7 +316,7 @@
                 }
             }
             Trusts                           = @{
-                Enable     = $true
+                Enable     = $false
                 SourceName = "Trust Availability"
                 SourceData = $Script:SBDomainTrustsData
                 Tests      = [ordered] @{
@@ -347,7 +385,7 @@
                 }
             }
             DNSForwaders                     = @{
-                Enable     = $true
+                Enable     = $false
                 SourceName = "DNS Forwarders"
                 SourceData = $Script:SBDomainDNSForwaders
                 Tests      = [ordered] @{
@@ -432,7 +470,7 @@
             }
 
             LDAP                        = @{
-                Enable     = $true
+                Enable     = $false
                 SourceName = 'LDAP Connectivity'
                 SourceData = $Script:SBDomainControllersLDAP
                 Tests      = [ordered] @{
@@ -544,7 +582,7 @@
                 }
             }
             TimeSynchronizationInternal = @{
-                Enable             = $true
+                Enable             = $false
                 SourceName         = "Time Synchronization Internal"
                 SourceData         = $Script:SBDomainTimeSynchronizationInternal
                 Tests              = [ordered] @{
@@ -553,9 +591,9 @@
                         TestName       = 'Time Difference'
                         # TestSource     = $Script:SBDomainTimeSynchronizationTest1
                         TestParameters = @{
-                            Property      = 'TimeDifferenceSeconds'
-                            ExpectedValue = 1
-                            OperationType = 'le'
+                            Property              = 'TimeDifferenceSeconds'
+                            ExpectedValue         = 1
+                            OperationType         = 'le'
                             PropertyExtendedValue = 'TimeDifferenceSeconds'
                         }
                     }
@@ -563,7 +601,7 @@
                 MicrosoftMaterials = 'https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc773263(v=ws.10)#w2k3tr_times_tools_uhlp'
             }
             TimeSynchronizationExternal = @{
-                Enable             = $true
+                Enable             = $false
                 SourceName         = "Time Synchronization External"
                 SourceData         = $Script:SBDomainTimeSynchronizationExternal
                 Tests              = [ordered] @{
@@ -580,6 +618,26 @@
                     }
                 }
                 MicrosoftMaterials = 'https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc773263(v=ws.10)#w2k3tr_times_tools_uhlp'
+            }
+            WindowsFirewall             = @{
+                Enable      = $true
+                SourceName  = "Windows Firewall"
+                SourceData  = $Script:SBDomainControllersFirewall
+                Area        = 'Connectivity'
+                Description = 'Verify windows firewall is enabled for all network cards'
+                Tests       = [ordered] @{
+                    TimeSynchronizationTest = @{
+                        Enable         = $true
+                        TestName       = 'Windows Firewall is enabled on network card'
+                        #  TestSource     = $Script:SBDomainTimeSynchronizationTest1
+                        TestParameters = @{
+                            Property              = 'FirewallStatus'
+                            ExpectedValue         = $true
+                            OperationType         = 'eq'
+                            PropertyExtendedValue = 'FirewallProfile'
+                        }
+                    }
+                }
             }
         }
     }

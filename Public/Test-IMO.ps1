@@ -1,4 +1,5 @@
-function Test-ImoAD {
+function Test-IMO {
+    [alias('Test-ImoAD')]
     [CmdletBinding()]
     param(
         [switch] $ReturnResults

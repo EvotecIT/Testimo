@@ -61,7 +61,12 @@ To do tests I use modules that I own, often using internal, not documented funct
 
 ### Actions
 
-| Type              | Test Source name                    | Area         | Description                                                                                  | Status                    | Details                                                             |
+Following action, that have **Status** `Tested` are verified and working.
+Keep in mind not all tests apply to each environment.
+I'm adding those to be flexible and be able to test things as needed.
+Each of those tests will need additional description and recommendation.
+
+| Type              | Name                                | Area         | Description                                                                                  | Status                    | Details                                                             |
 | ----------------- | ----------------------------------- | ------------ | -------------------------------------------------------------------------------------------- | ------------------------- | ------------------------------------------------------------------- |
 | Forest            | Forest Backup                       | Backup       | Verify `last backup time should be [less than X days]`                                       | Tested                    |                                                                     |
 | Forest            | Forest Replication                  | Connectivity | Verify each `DC in replication site can [reach other replication members]`                   | Tested                    |                                                                     |
@@ -71,6 +76,9 @@ To do tests I use modules that I own, often using internal, not documented funct
 | Forest            | Optional Features                   | Features     | Verify Optional Feature `Laps should be enabled [Configured]`                                | Tested                    |                                                                     |
 | Forest            | Sites Verification                  | Sites        | Verify each `site has at least [one subnet configured]`                                      | Tested                    |                                                                     |
 | Forest            | Sites Verification                  | Sites        | Verify each `site has at least [one domain controller configured]`                           | Tested                    |                                                                     |
+| Forest            | Site Links                          | Site Links   | Verify each `site link is automatic`                                                         | Tested                    |                                                                     |
+| Forest            | Site Links                          | Site Links   | Verify each `site link uses notifications`                                                   | Tested                    |                                                                     |
+| Forest            | Site Links                          | Site Links   | Verify each `site link do not use notification`                                              | Tested                    |                                                                     |
 | Domain            | Password Complexity Requirements    | Password     | Verify Password `Complexity Policy should be [Enabled]`                                      | Tested                    |                                                                     |
 | Domain            | Password Complexity Requirements    | Password     | Verify Password `Length should be [greater than X]`                                          | Tested                    |                                                                     |
 | Domain            | Password Complexity Requirements    | Password     | Verify Password `Threshold should be [greater than X]`                                       | Tested                    |                                                                     |
@@ -100,14 +108,20 @@ To do tests I use modules that I own, often using internal, not documented funct
 | Domain Controller |                                     | DNS resolve  | Verify `DNS on DC [resolves DNS]`                                                            |                           | Resolve current/any host name i.e. Resolve-DNSName                  |
 | Domain Controller | Responds to PowerShell Queries      | PowerShell   | Verify DC `responds to PowerShell queries`                                                   | Tested                    |                                                                     |
 | Domain Controller | PORT 53 (DNS)                       | Connectivity | Verify `DNS on DC [port is open]`                                                            | Tested                    |                                                                     |
-| Domain Controller |                                     | Time         | Verify `current time difference between Host and DC is [less than X minutes]`                | Tested                    |                                                                     |
+| Domain Controller |                                     | Time         | Verify `current time difference between PDC and DC is [less than X minutes]`                 | Tested                    |                                                                     |
 | Domain Controller |                                     | Time         | Verify `PDC should [sync time to external source]`                                           |                           |                                                                     |
 | Domain Controller |                                     | Time         | Verify `Non-PDC should [sync time to PDC emulator]`                                          |                           |                                                                     |
 | Domain Controller |                                     | Time         | Verify `Virtualized DCs should [sync to hypervisor during boot time only]`                   |                           |                                                                     |
 | Domain Controller | Time Synchronization Internal       | Time         | Verify `Time Synchronization Difference to PDC [less than X seconds]`                        | Tested                    |                                                                     |
 | Domain Controller | Time Synchronization External       | Time         | Verify `Time Synchronization Difference to pool.ntp.org [less than X seconds]`               | Tested                    |                                                                     |
-| Domain Controller | Disk Free                           | Host         | Verify `OS partition Free space is [at least X %]`                                           | Tested                    | Partially - tests all drives                                        |
-| Domain Controller | Disk Free                           | Host         | Verify `NTDS partition Free space is [at least X %]`                                         | Tested                    | Partially - tests all drives                                        |
+| Domain Controller | Disk Free                           | Computer     | Verify `OS partition Free space is [at least X %]`                                           | Tested                    | Partially - tests all drives                                        |
+| Domain Controller | Disk Free                           | Computer     | Verify `NTDS partition Free space is [at least X %]`                                         | Tested                    | Partially - tests all drives                                        |
+| Domain Controller | Windows Firewall                    | Connectivity | Verify `windows firewall is enabled` for all network cards                                   | Tested                    |                                                                     |
+
+### Things to consider
+
+- Criticality of Tests - some tests are critical, some are less critical
+- Recommended, Default, Sane - not all tests are equal or make sense in all conditions
 
 ## To install
 

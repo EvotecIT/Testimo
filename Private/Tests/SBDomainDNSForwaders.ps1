@@ -7,9 +7,3 @@
         Compare-MultipleObjects -Objects $Forwarders -FormatOutput -CompareSorted:$true -ExcludeProperty GatheredFrom -SkipProperties -Property 'IpAddress' #| Out-HtmlView -ScrollX -DisablePaging  -Filtering
     } $Domain
 }
-
-<#
-$Script:SBDomainDNSForwadersTest = {
-    Test-Value -TestName 'Same DNS Forwarders' -Property 'Status' @args
-}
-#>

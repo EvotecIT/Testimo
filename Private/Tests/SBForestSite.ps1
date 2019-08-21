@@ -17,15 +17,6 @@ function Test-ADSites {
     }
 }
 
-
 $Script:SBForestSites = {
     Test-ADSites
 }
-<#
-$Script:SBForestSitesTest1 = {
-    Test-Value @args
-}
-$Script:SBForestSitesTest2 = {
-    Test-Value @args
-}
-#>
