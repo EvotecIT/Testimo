@@ -8,8 +8,9 @@
         [string[]] $Property,
         [Object] $TestedValue,
         [Object] $Object,
-        [Object] $ExpectedValue,
+        [Array] $ExpectedValue,
         [string[]] $PropertyExtendedValue,
+        [string] $OperationResult,
         [int] $ExpectedCount = -1
     )
     Out-Begin -Text $TestName -Level $Level -Domain $Domain -DomainController $DomainController #($Level * 3)
@@ -66,51 +67,69 @@
                 $TestResult = $false
                 $TextTestedValue = 'Null'
             } else {
-                if ($OperationType -eq 'lt') {
-                    $TestResult = $TestedValue -lt $ExpectedValue
-                } elseif ($OperationType -eq 'gt') {
-                    $TestResult = $TestedValue -gt $ExpectedValue
-                } elseif ($OperationType -eq 'ge') {
-                    $TestResult = $TestedValue -ge $ExpectedValue
-                } elseif ($OperationType -eq 'le') {
-                    $TestResult = $TestedValue -le $ExpectedValue
-                } elseif ($OperationType -eq 'like') {
-                    $TestResult = $TestedValue -like $ExpectedValue
-                } elseif ($OperationType -eq 'contains') {
-                    $TestResult = $TestedValue -contains $ExpectedValue
-                } elseif ($OperationType -eq 'in') {
-                    $TestResult = $ExpectedValue -in $TestedValue
-                } elseif ($OperationType -eq 'notin') {
-                    $TestResult = $ExpectedValue -notin $TestedValue
-                } else {
-                    $TestResult = $TestedValue -eq $ExpectedValue
+                [Array] $TestResult = for ($i = 0; $i -lt $ExpectedValue.Count; $i++) {
+                    if ($OperationType -eq 'lt') {
+                        $TestedValue -lt $ExpectedValue[$i]
+                    } elseif ($OperationType -eq 'gt') {
+                        $TestedValue -gt $ExpectedValue[$i]
+                    } elseif ($OperationType -eq 'ge') {
+                        $TestedValue -ge $ExpectedValue[$i]
+                    } elseif ($OperationType -eq 'le') {
+                        $TestedValue -le $ExpectedValue[$i]
+                    } elseif ($OperationType -eq 'like') {
+                        $TestedValue -like $ExpectedValue[$i]
+                    } elseif ($OperationType -eq 'contains') {
+                        $TestedValue -contains $ExpectedValue[$i]
+                    } elseif ($OperationType -eq 'in') {
+                        $ExpectedValue -in $ExpectedValue[$i]
+                    } elseif ($OperationType -eq 'notin') {
+                        $ExpectedValue -notin $ExpectedValue[$i]
+                    } else {
+                        $TestedValue -eq $ExpectedValue[$i]
+                    }
                 }
                 $TextTestedValue = $TestedValue
-
             }
         } else {
             # Skipped tests
             $TestResult = $null
             $ExtendedTextValue = "Test provided but no tests required."
         }
-        if ($TestResult -eq $true) {
-            $Extended = "Expected value ($($Operators[$OperationType])): $($ExpectedValue)"
-        } elseif ($TestResult -eq $false) {
-            $Extended = "Expected value ($($Operators[$OperationType])): $ExpectedValue, Found value: $($TextTestedValue)"
-        } else {
-            $Extended = $ExtendedTextValue
-        }
 
-        if ($PropertyExtendedValue.Count -gt 0) {
-            $Extended = $Object
-            foreach ($V in $PropertyExtendedValue) {
-                $Extended = $Extended.$V
+
+        if ($null -eq $TestResult) {
+            $ReportResult = $null
+            $ReportExtended = $ExtendedTextValue
+        } else {
+            if ($OperationResult -eq 'OR') {
+                if ($TestResult -contains $true) {
+                    $ReportResult = $true
+                    $ReportExtended = "Expected value ($($Operators[$OperationType])): $($ExpectedValue)"
+                } else {
+                    $ReportResult = $false
+                    $ReportExtended = "Expected value ($($Operators[$OperationType])): $ExpectedValue, Found value: $($TextTestedValue)"
+                }
+            } else {
+                if ($TestResult -notcontains $false) {
+                    $ReportResult = $true
+                    $ReportExtended = "Expected value ($($Operators[$OperationType])): $($ExpectedValue)"
+                } else {
+                    $ReportResult = $false
+                    $ReportExtended = "Expected value ($($Operators[$OperationType])): $ExpectedValue, Found value: $($TextTestedValue)"
+                }
+
             }
         }
-        Out-Status -Text $TestName -Status $TestResult -ExtendedValue $Extended -Domain $Domain -DomainController $DomainController
-        return $TestResult
+        if ($PropertyExtendedValue.Count -gt 0) {
+            $ReportExtended = $Object
+            foreach ($V in $PropertyExtendedValue) {
+                $ReportExtended = $ReportExtended.$V
+            }
+        }
+        Out-Status -Text $TestName -Status $ReportResult -ExtendedValue $ReportExtended -Domain $Domain -DomainController $DomainController
+        return $ReportResult
     }
-    if ($Script:TestimoConfiguration.Debug.DisableTryCatch) {
+    if ($Script:TestimoConfiguration.Debug.ShowErrors) {
         & $ScriptBlock
     } else {
         try {

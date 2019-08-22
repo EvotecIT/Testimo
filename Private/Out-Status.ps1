@@ -32,14 +32,14 @@
     } elseif ($DomainController) {
         $TestType = 'Should not happen. Find an error.'
     } else {
-        $TestType = 'Forest Wide'
+        $TestType = 'Forest'
         $TestText = "Forest | $Text"
     }
     if ($null -ne $Status) {
         $Script:TestResults.Add(
             [PSCustomObject]@{
-                Test             = $TestText
-                TestType         = $TestType
+                Name             = $TestText
+                Type             = $TestType
                 #Section          = $Section
                 Domain           = $Domain
                 DomainController = $DomainController

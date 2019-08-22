@@ -8,7 +8,7 @@
         [string] $DomainController
     )
     if ($Execute) {
-        if ($Script:TestimoConfiguration.Debug.DisableTryCatch) {
+        if ($Script:TestimoConfiguration.Debug.ShowErrors) {
             [Array] $Output = & $Execute
             $Output
         } else {

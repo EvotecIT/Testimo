@@ -2,10 +2,15 @@ function Test-IMO {
     [alias('Test-ImoAD')]
     [CmdletBinding()]
     param(
-        [switch] $ReturnResults
+        [switch] $ReturnResults,
+        [string[]] $ExludeDomains,
+        [string[]] $ExludeDomainControllers,
+        [switch] $ShowErrors
     )
     $global:ProgressPreference = 'SilentlyContinue'
     $Script:TestResults = [System.Collections.Generic.List[PSCustomObject]]::new()
+    $Script:TestimoConfiguration.Exclusions.Domains = $ExludeDomains
+    $Script:TestimoConfiguration.Exclusions.DomainControllers = $ExludeDomainControllers
 
     if ($Script:TestimoConfiguration.Exclusions.Domains) {
         Out-Begin -Text 'Following Domains will be ignored' -Level 0

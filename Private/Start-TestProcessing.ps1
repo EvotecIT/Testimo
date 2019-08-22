@@ -18,7 +18,7 @@
         } else {
             Out-Begin -Type 'i' -Text $Test -Level $Level -Domain $Domain -DomainController $DomainController # ($Level * 3)
         }
-        if ($Script:TestimoConfiguration.Debug.DisableTryCatch) {
+        if ($Script:TestimoConfiguration.Debug.ShowErrors) {
             [Array] $Output = & $Execute
             $ErrorMessage = $null
         } else {

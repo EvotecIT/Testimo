@@ -1,4 +1,4 @@
 ﻿Import-Module .\Testimo.psd1 -Force #-Verbose
 
-$Results = Test-ImoAD -ReturnResults
-$Results | Format-Table -AutoSize *
+$TestResults = Test-IMO -ReturnResults -ExludeDomains 'ad.evotec.pl' -ExludeDomainControllers 'ADRODC.ad.evotec.pl'
+$TestResults | Format-Table -AutoSize *

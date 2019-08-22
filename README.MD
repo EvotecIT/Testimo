@@ -154,11 +154,11 @@ That's it. Whenever there's new version you simply run the command and you can e
 With output to screen only
 
 ```powershell
-Test-ImoAD
+Test-Imo
 ```
 
 With option to be able to process output - for example to email
 
 ```powershell
-Test-ImoAD -ReturnResults
+Test-Imo -ReturnResults
 ```

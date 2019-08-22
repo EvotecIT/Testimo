@@ -6,7 +6,7 @@
     Forest            = @{
         Sources = [ordered]  @{
             OptionalFeatures     = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = 'Optional Features'
                     Data       = $Script:SBForestOptionalFeatures
@@ -48,7 +48,7 @@
                 }
             }
             Replication          = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = 'Forest Replication'
                     Data       = $Script:SBForestReplication
@@ -128,7 +128,7 @@
                 }
             }
             SiteLinks            = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name       = 'Site Links'
                     Data       = $Script:SBForestSiteLinks
@@ -162,7 +162,7 @@
                 }
             }
             SiteLinksConnections = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name       = 'Site Links Connections'
                     Data       = $Script:SBForestSiteLinksConnections
@@ -537,6 +537,35 @@
     }
     DomainControllers = @{
         Sources = [ordered] @{
+            OperatingSystem             = @{
+                Enable = $true
+                Source = @{
+                    Name       = 'Operating System'
+                    Data       = $Script:ComputerOperatingSystem
+                    Area       = ''
+                    Parameters = @{
+
+                    }
+                }
+                Tests  = [ordered] @{
+                    OperatingSystem = @{
+                        Enable     = $true
+                        Name       = 'Operating system higher than 2012'
+                        Parameters = @{
+                            Property              = 'OperatingSystem'
+                            ExpectedValue         = 'Microsoft Windows Server 2019*', 'Microsoft Windows Server 2016*', 'Microsoft Windows Server 2012*'
+                            OperationType         = 'like'
+                            # this means Expected Value will require at least one $true comparison
+                            # anything else will require all values to match $true
+                            OperationResult       = 'OR'
+                            # This overwrites value, normally it shows results of comparison
+                            PropertyExtendedValue = 'OperatingSystem'
+                        }
+
+                    }
+                }
+            }
+
             RespondsToPowerShellQueries = @{
                 Enable = $false
                 Source = @{
@@ -769,7 +798,7 @@
                 MicrosoftMaterials = 'https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc773263(v=ws.10)#w2k3tr_times_tools_uhlp'
             }
             WindowsFirewall             = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name        = "Windows Firewall"
                     Data        = $Script:SBDomainControllersFirewall
@@ -831,6 +860,6 @@
         }
     }
     Debug             = @{
-        DisableTryCatch = $false
+        ShowErrors = $false
     }
 }
