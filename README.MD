@@ -38,6 +38,14 @@ To do tests I use modules that I own, often using internal, not documented funct
 - [x] [PSWinDocumentation.DNS](https://github.com/EvotecIT/PSWinDocumentation.DNS)
 - [x] [ADEssentials](https://github.com/EvotecIT/ADEssentials)
 
+
+## TODO
+
+- Loading configuration
+- Saving configuration
+- More tests
+- More flexibility
+
 ### Legend
 ---
 - DC = Domain Controller

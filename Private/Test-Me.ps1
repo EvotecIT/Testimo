@@ -42,9 +42,17 @@
             } elseif ($OperationType -eq 'le') {
                 $TestResult = $Object.Count -lt $ExpectedCount
             } elseif ($OperationType -eq 'like') {
+                # Useless - doesn't make any sense
                 $TestResult = $Object.Count -like $ExpectedCount
             } elseif ($OperationType -eq 'contains') {
+                # Useless - doesn't make any sense
                 $TestResult = $Object.Count -like $ExpectedCount
+            } elseif ($OperationType -eq 'in') {
+                # Useless - doesn't make any sense
+                $TestResult = $ExpectedCount -in $Object.Count
+            } elseif ($OperationType -eq 'notin') {
+                # Useless - doesn't make any sense
+                $TestResult = $ExpectedCount -notin $Object.Count
             } else {
                 $TestResult = $Object.Count -lt $ExpectedCount
             }
@@ -70,6 +78,10 @@
                     $TestResult = $TestedValue -like $ExpectedValue
                 } elseif ($OperationType -eq 'contains') {
                     $TestResult = $TestedValue -contains $ExpectedValue
+                } elseif ($OperationType -eq 'in') {
+                    $TestResult = $ExpectedValue -in $TestedValue
+                } elseif ($OperationType -eq 'notin') {
+                    $TestResult = $ExpectedValue -notin $TestedValue
                 } else {
                     $TestResult = $TestedValue -eq $ExpectedValue
                 }
