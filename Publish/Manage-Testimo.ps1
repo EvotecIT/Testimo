@@ -48,10 +48,10 @@ $Configuration = @{
             ProjectUri           = 'https://github.com/EvotecIT/Testimo'
 
             RequiredModules      = @(
-                @{ ModuleName = 'PSSharedGoods'; RequiredVersion = "0.0.87"; Guid = 'ee272aa8-baaa-4edf-9f45-b6d6f7d844fe' }
-                @{ ModuleName = 'PSWinDocumentation.AD'; RequiredVersion = "0.1.12"; Guid = 'a46f9775-04d2-4423-9631-01cfda42b95d' }
-                @{ ModuleName = 'PSWinDocumentation.DNS'; RequiredVersion = "0.0.6"; Guid = '462dd5e2-f32a-4263-bff5-22edf28882d0' }
-                @{ ModuleName = 'ADEssentials'; RequiredVersion = "0.0.9"; Guid = '9fc9fd61-7f11-4f4b-a527-084086f1905f' }
+                @{ ModuleName = 'PSSharedGoods'; ModuleVersion = "0.0.88"; Guid = 'ee272aa8-baaa-4edf-9f45-b6d6f7d844fe' }
+                @{ ModuleName = 'PSWinDocumentation.AD'; ModuleVersion = "0.1.13"; Guid = 'a46f9775-04d2-4423-9631-01cfda42b95d' }
+                @{ ModuleName = 'PSWinDocumentation.DNS'; ModuleVersion = "0.0.7"; Guid = '462dd5e2-f32a-4263-bff5-22edf28882d0' }
+                @{ ModuleName = 'ADEssentials'; ModuleVersion = "0.0.11"; Guid = '9fc9fd61-7f11-4f4b-a527-084086f1905f' }
             )
         }
     }
