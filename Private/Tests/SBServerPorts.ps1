@@ -13,7 +13,7 @@
 # AD Ports: https://technet.microsoft.com/en-us/library/dd772723(v=ws.10).aspx
 #   $Ports = @(53, 88, 135, 139, 389, 445, 464, 636, 3268, 3269, 9389)
 #  Test-NetConnection -ComputerName $env:COMPUTERNAME -Port $_).TcpTestSucceeded
-$Script:TestServerPorts = {
+$Script:SBTestServerPorts = {
     # Port 389, 636, 3268, 3269 are tested as LDAP Ports with proper LDAP
     $TcpPorts = @(53, 88, 135, 139, 389, 445, 464, 636, 3268, 3269, 9389)
     # $TcpPorts = @(25, 53, 88, 464, 5722, 9389)
@@ -30,7 +30,7 @@ $Script:TestServerPorts = {
     # UDP Testing is unreliable
 
 }
-$Script:TestServerPortsRDP = {
+$Script:SBTestServerPortsRDP = {
     $TcpPorts = @(3389)
     Test-ComputerPort -ComputerName $DomainController -PortTCP $TcpPorts -WarningAction SilentlyContinue
 }

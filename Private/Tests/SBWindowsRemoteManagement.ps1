@@ -1,3 +1,3 @@
-﻿$Script:WindowsRemoteManagement = {
+﻿$Script:SBWindowsRemoteManagement = {
     Test-WinRM -ComputerName $DomainController
 }

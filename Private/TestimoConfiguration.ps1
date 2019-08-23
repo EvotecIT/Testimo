@@ -18,7 +18,6 @@
                     RecycleBinEnabled    = @{
                         Enable     = $true
                         Name       = 'Recycle Bin Enabled'
-                        # Data     = $Script:SBForestOptionalFeaturesTest1
                         Parameters = @{
                             Property      = 'Recycle Bin Enabled'
                             ExpectedValue = $true
@@ -28,7 +27,6 @@
                     LapsAvailable        = @{
                         Enable     = $true
                         Name       = 'LAPS Schema Extended'
-                        # Data     = $Script:SBForestOptionalFeaturesTest2
                         Parameters = @{
                             Property      = 'Laps Enabled'
                             ExpectedValue = $true
@@ -38,7 +36,6 @@
                     PrivAccessManagement = @{
                         Enable     = $true
                         Name       = 'Privileged Access Management Enabled'
-                        #  Data     = $Script:SBForestOptionalFeaturesTest3
                         Parameters = @{
                             Property      = 'Privileged Access Management Feature Enabled'
                             ExpectedValue = $true
@@ -105,7 +102,6 @@
                     SitesWithoutDC      = @{
                         Enable      = $true
                         Name        = 'Sites without Domain Controllers'
-                        #Data     = $Script:SBForestSitesTest1
                         Description = 'Verify each `site has at least [one subnet configured]`'
                         Parameters  = @{
                             Property      = 'SitesWithoutDC'
@@ -117,7 +113,6 @@
                     SitesWithoutSubnets = @{
                         Enable     = $true
                         Name       = 'Sites without Subnets'
-                        #Data     = $Script:SBForestSitesTest2
                         Parameters = @{
                             Property      = 'SitesWithoutSubnets'
                             ExpectedValue = 0
@@ -218,7 +213,6 @@
                     SchemaMasterAvailability       = @{
                         Enable     = $true
                         Name       = 'Schema Master Availability'
-                        #Data     = $Script:SBForestRolesTest
                         Parameters = @{
                             ExpectedValue         = $true
                             Property              = 'SchemaMasterAvailability'
@@ -229,7 +223,6 @@
                     DomainNamingMasterAvailability = @{
                         Enable     = $true
                         Name       = 'Domain Master Availability'
-                        #Data     = $Script:SBForestRolesTest2
                         Parameters = @{
                             ExpectedValue         = $true
                             Property              = 'DomainNamingMasterAvailability'
@@ -257,7 +250,6 @@
                     PDCEmulator          = @{
                         Enable     = $true
                         Name       = 'PDC Emulator Availability'
-                        # Data     = $Script:SBForestRolesTest
                         Parameters = @{
                             ExpectedValue         = $true
                             Property              = 'PDCEmulatorAvailability'
@@ -268,7 +260,6 @@
                     RIDMaster            = @{
                         Enable     = $true
                         Name       = 'RID Master Availability'
-                        #  Data     = $Script:SBForestRolesTest2
                         Parameters = @{
                             ExpectedValue         = $true
                             Property              = 'RIDMasterAvailability'
@@ -279,7 +270,6 @@
                     InfrastructureMaster = @{
                         Enable     = $true
                         Name       = 'Infrastructure Master Availability'
-                        #  Data     = $Script:SBForestRolesTest2
                         Parameters = @{
                             ExpectedValue         = $true
                             Property              = 'InfrastructureMasterAvailability'
@@ -303,7 +293,6 @@
                     ComplexityEnabled               = @{
                         Enable     = $true
                         Name       = 'Complexity Enabled'
-                        #Data     = $Script:SBDomainPasswordComplexityTest1
                         Parameters = @{
                             Property      = 'Complexity Enabled'
                             ExpectedValue = $true
@@ -313,7 +302,6 @@
                     'Lockout Duration'              = @{
                         Enable     = $true
                         Name       = 'Lockout Duration'
-                        #Data     = $Script:SBDomainPasswordComplexityTest2
                         Parameters = @{
                             Property      = 'Lockout Duration'
                             ExpectedValue = 30
@@ -323,7 +311,6 @@
                     'Lockout Observation Window'    = @{
                         Enable     = $true
                         Name       = 'Lockout Observation Window'
-                        #Data     = $Script:SBDomainPasswordComplexityTest3
                         Parameters = @{
                             Property      = 'Lockout Observation Window'
                             ExpectedValue = 30
@@ -333,7 +320,6 @@
                     'Lockout Threshold'             = @{
                         Enable     = $true
                         Name       = 'Lockout Threshold'
-                        #Data     = $Script:SBDomainPasswordComplexityTest4
                         Parameters = @{
                             Property      = 'Lockout Threshold'
                             ExpectedValue = 5
@@ -343,7 +329,6 @@
                     'Max Password Age'              = @{
                         Enable     = $true
                         Name       = 'Max Password Age'
-                        # Data     = $Script:SBDomainPasswordComplexityTest5
                         Parameters = @{
                             Property      = 'Max Password Age'
                             ExpectedValue = 60
@@ -353,7 +338,6 @@
                     'Min Password Length'           = @{
                         Enable     = $true
                         Name       = 'Min Password Length'
-                        #Data     = $Script:SBDomainPasswordComplexityTest6
                         Parameters = @{
                             Property      = 'Min Password Length'
                             ExpectedValue = 8
@@ -363,7 +347,6 @@
                     'Min Password Age'              = @{
                         Enable     = $true
                         Name       = 'Min Password Age'
-                        # Data     = $Script:SBDomainPasswordComplexityTest7
                         Parameters = @{
                             Property      = 'Min Password Age'
                             ExpectedValue = 1
@@ -373,7 +356,6 @@
                     'Password History Count'        = @{
                         Enable     = $true
                         Name       = 'Password History Count'
-                        # Data     = $Script:SBDomainPasswordComplexityTest8
                         Parameters = @{
                             Property      = 'Password History Count'
                             ExpectedValue = 10
@@ -383,7 +365,6 @@
                     'Reversible Encryption Enabled' = @{
                         Enable     = $true
                         Name       = 'Reversible Encryption Enabled'
-                        # Data     = $Script:SBDomainPasswordComplexityTest9
                         Parameters = @{
                             Property      = 'Reversible Encryption Enabled'
                             ExpectedValue = $true
@@ -429,7 +410,6 @@
                     ScavengingCount      = @{
                         Enable      = $true
                         Name        = 'Scavenging DNS Servers Count'
-                        #Data     = $Script:SBDomainDnsScavengingTest0
                         Parameters  = @{
                             ExpectedCount = 1
                             OperationType = 'eq'
@@ -439,7 +419,6 @@
                     ScavengingInterval   = @{
                         Enable     = $true
                         Name       = 'Scavenging Interval'
-                        # Data     = $Script:SBDomainDnsScavengingTest1
                         Parameters = @{
                             Property      = 'ScavengingInterval', 'Days'
                             ExpectedValue = 7
@@ -449,7 +428,6 @@
                     'Scavenging State'   = @{
                         Enable                 = $true
                         Name                   = 'Scavenging State'
-                        #Data             = $Script:SBDomainDnsScavengingTest2
                         Parameters             = @{
                             Property      = 'ScavengingState'
                             ExpectedValue = $true
@@ -463,7 +441,6 @@
                     'Last Scavenge Time' = @{
                         Enable     = $true
                         Name       = 'Last Scavenge Time'
-                        #Data     = $Script:SBDomainDnsScavengingTest3
                         Parameters = @{
                             # this date should be the same as in Scavending Interval
                             Property      = 'LastScavengeTime'
@@ -537,7 +514,7 @@
                 Enable = $true
                 Source = @{
                     Name       = "Kerberos Account Age"
-                    Data       = $Script:KeberosAccountTimeChange
+                    Data       = $Script:SBKeberosAccountTimeChange
                     Area       = ''
                     Parameters = @{
 
@@ -560,7 +537,7 @@
                 Enable = $true
                 Source = @{
                     Name           = "Groups: Account operators should be empty"
-                    Data           = $Script:GroupsAccountOperators
+                    Data           = $Script:SBGroupsAccountOperators
                     Area           = ''
                     Parameters     = @{
 
@@ -573,7 +550,7 @@
                 Enable = $true
                 Source = @{
                     Name       = "Users: Administrator"
-                    Data       = $Script:UsersAccountAdministrator
+                    Data       = $Script:SBUsersAccountAdministrator
                     Area       = ''
                     Parameters = @{
 
@@ -600,7 +577,7 @@
                 Enable = $true
                 Source = @{
                     Name       = 'Windows Remote Management'
-                    Data       = $Script:WindowsRemoteManagement
+                    Data       = $Script:SBWindowsRemoteManagement
                     Area       = ''
                     Parameters = @{
 
@@ -623,7 +600,7 @@
                 Enable = $true
                 Source = @{
                     Name       = 'Operating System'
-                    Data       = $Script:ComputerOperatingSystem
+                    Data       = $Script:SBComputerOperatingSystem
                     Area       = ''
                     Parameters = @{
 
@@ -775,7 +752,7 @@
                 Enable = $true
                 Source = @{
                     Name       = 'AD TCP Ports are open' # UDP Testing is unreliable for now
-                    Data       = $Script:TestServerPorts
+                    Data       = $Script:SBTestServerPorts
                     Area       = ''
                     Parameters = @{
 
@@ -799,7 +776,7 @@
                 Enable = $true
                 Source = @{
                     Name       = 'RDP Ports is open'
-                    Data       = $Script:TestServerPortsRDP
+                    Data       = $Script:SBTestServerPortsRDP
                     Area       = ''
                     Parameters = @{
 
@@ -933,7 +910,7 @@
                 Enable = $true
                 Source = @{
                     Name       = "Windows Updates"
-                    Data       = $Script:TestWindowsUpdates
+                    Data       = $Script:SBTestWindowsUpdates
                     Area       = ''
                     Parameters = @{
 
@@ -952,11 +929,11 @@
                     }
                 }
             }
-            DnsResolveInternal                 = @{
+            DnsResolveInternal          = @{
                 Enable = $true
                 Source = @{
                     Name       = "Resolves internal DNS queries"
-                    Data       = $Script:ResolveDNSInternal
+                    Data       = $Script:SBResolveDNSInternal
                     Area       = ''
                     Parameters = @{
 
@@ -975,11 +952,11 @@
                     }
                 }
             }
-            DnsResolveExternal                 = @{
+            DnsResolveExternal          = @{
                 Enable = $true
                 Source = @{
                     Name       = "Resolves external DNS queries"
-                    Data       = $Script:ResolveDNSExternal
+                    Data       = $Script:SBResolveDNSExternal
                     Area       = ''
                     Parameters = @{
 

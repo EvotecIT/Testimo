@@ -54,6 +54,6 @@ $Script:SBForestRoles = {
 $Script:SBDomainRoles = {
     Test-ADRolesAvailability -Domain $Domain
 }
-$Script:TestFSMODomainRoles = {
+$Script:SBTestFSMODomainRoles = {
     Test-FSMORolesAvailability -Domain $Domain
 }

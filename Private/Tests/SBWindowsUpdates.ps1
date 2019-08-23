@@ -1,4 +1,4 @@
-﻿$Script:TestWindowsUpdates = {
+﻿$Script:SBTestWindowsUpdates = {
     #$Hosts = 'AD1', 'AD2'
     #$Hosts = 'AD1'
     Get-HotFix -ComputerName $DomainController | Sort-Object -Property InstalledOn -Descending | Select-Object -First 1  #| Where-Object { $_.InstalledOn -gt ((Get-Date).AddDays(-30)) }

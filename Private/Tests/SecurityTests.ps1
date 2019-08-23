@@ -1,13 +1,13 @@
-﻿$Script:KeberosAccountTimeChange = {
+﻿$Script:SBKeberosAccountTimeChange = {
     Get-ADUser krbtgt -Properties Created, PasswordLastSet, msDS-KeyVersionNumber -Server $Domain
 }
 
-$Script:GroupsAccountOperators = {
+$Script:SBGroupsAccountOperators = {
     # Account Operators'
     Get-ADGroupMember -Identity 'S-1-5-32-548' -Recursive -Server $Domain
 }
 
-$Script:UsersAccountAdministrator = {
+$Script:SBUsersAccountAdministrator = {
     # this test is kind of special
     # basically when account is disabled it doesn't make sense to check for PasswordLastSet
     # therefore i'm adding setting PasswordLastSet to current date to be able to test just that field
