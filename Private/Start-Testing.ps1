@@ -62,6 +62,14 @@
                     Out-Begin -Text $CurrentSource['Source']['Name'] -Level $LevelTest -Domain $Domain -DomainController $DomainController
                     Out-Status -Text $CurrentSource['Source']['Name'] -Status $true -ExtendedValue 'Data is available.' -Domain $Domain -DomainController $DomainController
                     $TestsSummary.Passed = $TestsSummary.Passed + 1
+                } elseif ($null -eq $Object -and $CurrentSource['Source']['ExpectedOutput'] -eq $false) {
+                    # This tests whether there was an output from Source or not.
+                    # Sometimes it makes sense to ask for data and get null/empty in return
+                    # you just need to make sure to define ExpectedOutput = $false in source definition
+                    $FailAllTests = $false
+                    Out-Begin -Text $CurrentSource['Source']['Name'] -Level $LevelTest -Domain $Domain -DomainController $DomainController
+                    Out-Status -Text $CurrentSource['Source']['Name'] -Status $true -ExtendedValue 'No data returned, which is a good thing.' -Domain $Domain -DomainController $DomainController
+                    $TestsSummary.Passed = $TestsSummary.Passed + 1
                 } else {
                     $FailAllTests = $true
                     Out-Failure -Text $CurrentSource['Source']['Name'] -Level $LevelTest -ExtendedValue 'No data available.' -Domain $Domain -DomainController $DomainController

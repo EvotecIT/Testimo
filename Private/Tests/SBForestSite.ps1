@@ -1,5 +1,4 @@
-﻿
-function Test-ADSites {
+﻿function Test-ADSites {
     param(
 
     )

@@ -17,6 +17,6 @@ $Script:SBForestLastBackup = {
 $Script:SBForestLastBackupTest = {
     foreach ($_ in $Object) {
         # 6
-        Test-Value -Level $LevelTest -TestName "Last Backup $($_.NamingContext)" -Object $_ -Property 'LastBackupDaysAgo' -PropertyExtendedValue 'LastBackup' -lt -ExpectedValue 2 -Domain $Domain -DomainController $DomainController
+        Test-Value -Level $LevelTest -TestName "Last Backup $($_.NamingContext)" -Object $_ -Property 'LastBackupDaysAgo' -PropertyExtendedValue 'LastBackup' -OperationType 'lt' -ExpectedValue 2 -Domain $Domain -DomainController $DomainController
     }
 }

@@ -48,7 +48,7 @@
                 }
             }
             Replication          = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name       = 'Forest Replication'
                     Data       = $Script:SBForestReplication
@@ -70,7 +70,7 @@
                 }
             }
             LastBackup           = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = 'Forest Backup'
                     Data       = $Script:SBForestLastBackup
@@ -92,7 +92,7 @@
                 }
             }
             Sites                = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = 'Sites Verification'
                     Area       = 'Sites'
@@ -128,7 +128,7 @@
                 }
             }
             SiteLinks            = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = 'Site Links'
                     Data       = $Script:SBForestSiteLinks
@@ -140,7 +140,7 @@
                 Tests  = [ordered] @{
                     MinimalReplicationFrequency = @{
                         Enable      = $true
-                        Name        = 'Replication Frequency should be set to minimal value'
+                        Name        = 'Replication Frequency should be set to maximum 60 minutes'
                         Description = ''
                         Parameters  = @{
                             Property      = 'ReplicationFrequencyInMinutes'
@@ -162,7 +162,7 @@
                 }
             }
             SiteLinksConnections = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = 'Site Links Connections'
                     Data       = $Script:SBForestSiteLinksConnections
@@ -205,7 +205,7 @@
                 }
             }
             Roles                = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = 'Roles availability'
                     Data       = $Script:SBForestRoles
@@ -243,8 +243,8 @@
     }
     Domain            = @{
         Sources = [ordered] @{
-            Roles                            = @{
-                Enable = $false
+            Roles                              = @{
+                Enable = $true
                 Source = @{
                     Name       = 'Roles availability'
                     Data       = $Script:SBDomainRoles
@@ -289,8 +289,8 @@
                     }
                 }
             }
-            PasswordComplexity               = @{
-                Enable = $false
+            PasswordComplexity                 = @{
+                Enable = $true
                 Source = @{
                     Name       = 'Password Complexity Requirements'
                     Data       = $Script:SBDomainPasswordComplexity
@@ -392,8 +392,8 @@
                     }
                 }
             }
-            Trusts                           = @{
-                Enable = $false
+            Trusts                             = @{
+                Enable = $true
                 Source = @{
                     Name       = "Trust Availability"
                     Data       = $Script:SBDomainTrustsData
@@ -415,8 +415,8 @@
                     }
                 }
             }
-            DNSScavengingForPrimaryDNSServer = @{
-                Enable = $false
+            DNSScavengingForPrimaryDNSServer   = @{
+                Enable = $true
                 Source = @{
                     Name       = "DNS Scavenging - Primary DNS Server"
                     Data       = $Script:SBDomainDnsScavenging
@@ -473,8 +473,8 @@
                     }
                 }
             }
-            DNSForwaders                     = @{
-                Enable = $false
+            DNSForwaders                       = @{
+                Enable = $true
                 Source = @{
                     Name       = "DNS Forwarders"
                     Data       = $Script:SBDomainDNSForwaders
@@ -498,8 +498,8 @@
                     }
                 }
             }
-            DnsZonesAging                    = @{
-                Enable = $false
+            DnsZonesAging                      = @{
+                Enable = $true
                 Source = @{
                     Name       = "Aging primary DNS Zone"
                     Data       = $Script:SBDomainDnsZones
@@ -533,10 +533,92 @@
                     }
                 }
             }
+            KerberosAccountAge                 = @{
+                Enable = $true
+                Source = @{
+                    Name       = "Kerberos Account Age"
+                    Data       = $Script:KeberosAccountTimeChange
+                    Area       = ''
+                    Parameters = @{
+
+                    }
+                }
+                Tests  = [ordered] @{
+                    EnabledAgingEnabled = @{
+                        Enable      = $true
+                        Name        = 'Kerberos Last Password Change Should be less than 180 days'
+                        Parameters  = @{
+                            Property      = 'PasswordLastSet'
+                            ExpectedValue = (Get-Date).AddDays(-180)
+                            OperationType = 'gt'
+                        }
+                        Explanation = ''
+                    }
+                }
+            }
+            SecurityGroupsAccountOperators     = @{
+                Enable = $true
+                Source = @{
+                    Name           = "Groups: Account operators should be empty"
+                    Data           = $Script:GroupsAccountOperators
+                    Area           = ''
+                    Parameters     = @{
+
+                    }
+                    ExpectedOutput = $false
+                    Explanation    = "The Account Operators group should not be used. Custom delegate instead. This group is a great 'backdoor' priv group for attackers. Microsoft even says don't use this group!"
+                }
+            }
+            SecurityUsersAcccountAdministrator = @{
+                Enable = $true
+                Source = @{
+                    Name       = "Users: Administrator"
+                    Data       = $Script:UsersAccountAdministrator
+                    Area       = ''
+                    Parameters = @{
+
+                    }
+                }
+                Tests  = [ordered] @{
+                    PasswordLastSet = @{
+                        Enable      = $true
+                        Name        = 'Administrator Last Password Change Should be less than 360 days ago'
+                        Parameters  = @{
+                            Property      = 'PasswordLastSet'
+                            ExpectedValue = (Get-Date).AddDays(-360)
+                            OperationType = 'gt'
+                        }
+                        Explanation = 'Administrator account should be disabled or LastPasswordChange should be less than 1 year ago.'
+                    }
+                }
+            }
         }
     }
     DomainControllers = @{
         Sources = [ordered] @{
+            WindowsRemoteManagement     = @{
+                Enable = $true
+                Source = @{
+                    Name       = 'Windows Remote Management'
+                    Data       = $Script:WindowsRemoteManagement
+                    Area       = ''
+                    Parameters = @{
+
+                    }
+                }
+                Tests  = [ordered] @{
+                    OperatingSystem = @{
+                        Enable     = $true
+                        Name       = 'Test submits an identification request that determines whether the WinRM service is running.'
+                        Parameters = @{
+                            Property      = 'Status'
+                            ExpectedValue = $true
+                            OperationType = 'eq'
+                        }
+                    }
+                }
+            }
+
             OperatingSystem             = @{
                 Enable = $true
                 Source = @{
@@ -550,7 +632,7 @@
                 Tests  = [ordered] @{
                     OperatingSystem = @{
                         Enable     = $true
-                        Name       = 'Operating system higher than 2012'
+                        Name       = 'Operating system Windows Server 2012 and up'
                         Parameters = @{
                             Property              = 'OperatingSystem'
                             ExpectedValue         = 'Microsoft Windows Server 2019*', 'Microsoft Windows Server 2016*', 'Microsoft Windows Server 2012*'
@@ -567,7 +649,7 @@
             }
 
             RespondsToPowerShellQueries = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = "Responds to PowerShell Queries"
                     Data       = $Script:SBDomainControllersRespondsPS
@@ -579,7 +661,7 @@
                 # When there are no tests only one test is done - whether data is returned or not.
             }
             Services                    = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = 'Service Status'
                     Data       = $Script:SBDomainControllersServices
@@ -612,7 +694,7 @@
             }
 
             LDAP                        = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = 'LDAP Connectivity'
                     Data       = $Script:SBDomainControllersLDAP
@@ -666,7 +748,7 @@
 
             }
             Pingable                    = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = 'Ping Connectivity'
                     Data       = $Script:SBDomainControllersPing
@@ -689,11 +771,11 @@
                     }
                 }
             }
-            Port53                      = @{
-                Enable = $false
+            Ports                       = @{
+                Enable = $true
                 Source = @{
-                    Name       = 'PORT 53 (DNS)'
-                    Data       = $Script:SBDomainControllersPort53
+                    Name       = 'AD TCP Ports are open' # UDP Testing is unreliable for now
+                    Data       = $Script:TestServerPorts
                     Area       = ''
                     Parameters = @{
 
@@ -705,15 +787,40 @@
                         Name       = 'Port is OPEN'
                         #Data     = $Script:SBDomainControllersPort53Test
                         Parameters = @{
-                            Property      = 'TcpTestSucceeded'
-                            ExpectedValue = $true
-                            OperationType = 'eq'
+                            Property              = 'Status'
+                            ExpectedValue         = $true
+                            OperationType         = 'eq'
+                            PropertyExtendedValue = 'Summary'
+                        }
+                    }
+                }
+            }
+            PortsRDP                    = @{
+                Enable = $true
+                Source = @{
+                    Name       = 'RDP Ports is open'
+                    Data       = $Script:TestServerPortsRDP
+                    Area       = ''
+                    Parameters = @{
+
+                    }
+                }
+                Tests  = @{
+                    Ping = @{
+                        Enable     = $true
+                        Name       = 'Port is OPEN'
+                        #Data     = $Script:SBDomainControllersPort53Test
+                        Parameters = @{
+                            Property              = 'Status'
+                            ExpectedValue         = $true
+                            OperationType         = 'eq'
+                            PropertyExtendedValue = 'Summary'
                         }
                     }
                 }
             }
             DiskSpace                   = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = 'Disk Free'
                     Data       = $Script:SBDomainControllersDiskSpace
@@ -748,7 +855,7 @@
                 }
             }
             TimeSynchronizationInternal = @{
-                Enable             = $false
+                Enable             = $true
                 Source             = @{
                     Name       = "Time Synchronization Internal"
                     Data       = $Script:SBDomainTimeSynchronizationInternal
@@ -773,7 +880,7 @@
                 MicrosoftMaterials = 'https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc773263(v=ws.10)#w2k3tr_times_tools_uhlp'
             }
             TimeSynchronizationExternal = @{
-                Enable             = $false
+                Enable             = $true
                 Source             = @{
                     Name       = "Time Synchronization External"
                     Data       = $Script:SBDomainTimeSynchronizationExternal
@@ -798,12 +905,12 @@
                 MicrosoftMaterials = 'https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc773263(v=ws.10)#w2k3tr_times_tools_uhlp'
             }
             WindowsFirewall             = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name        = "Windows Firewall"
                     Data        = $Script:SBDomainControllersFirewall
                     Area        = 'Connectivity'
-                    Description = 'Verify windows firewall is enabled for all network cards'
+                    Description = 'Verify windows firewall should be enabled for all network cards'
                     Parameters  = @{
 
                     }
@@ -811,7 +918,7 @@
                 Tests  = [ordered] @{
                     TimeSynchronizationTest = @{
                         Enable     = $true
-                        Name       = 'Windows Firewall is enabled on network card'
+                        Name       = 'Windows Firewall should be enabled on network card'
                         #  Data     = $Script:SBDomainTimeSynchronizationTest1
                         Parameters = @{
                             Property              = 'FirewallStatus'
@@ -819,6 +926,75 @@
                             OperationType         = 'eq'
                             PropertyExtendedValue = 'FirewallProfile'
                         }
+                    }
+                }
+            }
+            WindowsUpdates              = @{
+                Enable = $true
+                Source = @{
+                    Name       = "Windows Updates"
+                    Data       = $Script:TestWindowsUpdates
+                    Area       = ''
+                    Parameters = @{
+
+                    }
+                }
+                Tests  = [ordered] @{
+                    PasswordLastSet = @{
+                        Enable      = $true
+                        Name        = 'Last Windows Updates should be less than 60 days ago'
+                        Parameters  = @{
+                            Property      = 'InstalledOn'
+                            ExpectedValue = (Get-Date).AddDays(-60)
+                            OperationType = 'gt'
+                        }
+                        Explanation = 'Last installed update should be less than 60 days ago.'
+                    }
+                }
+            }
+            DnsResolveInternal                 = @{
+                Enable = $true
+                Source = @{
+                    Name       = "Resolves internal DNS queries"
+                    Data       = $Script:ResolveDNSInternal
+                    Area       = ''
+                    Parameters = @{
+
+                    }
+                }
+                Tests  = [ordered] @{
+                    ResolveDNSInternal = @{
+                        Enable      = $true
+                        Name        = 'Should resolve Internal DNS'
+                        Parameters  = @{
+                            Property      = 'Status'
+                            ExpectedValue = $true
+                            OperationType = 'eq'
+                        }
+                        Explanation = 'DNS should resolve internal domains correctly.'
+                    }
+                }
+            }
+            DnsResolveExternal                 = @{
+                Enable = $true
+                Source = @{
+                    Name       = "Resolves external DNS queries"
+                    Data       = $Script:ResolveDNSExternal
+                    Area       = ''
+                    Parameters = @{
+
+                    }
+                }
+                Tests  = [ordered] @{
+                    ResolveDNSExternal = @{
+                        Enable      = $true
+                        Name        = 'Should resolve External DNS'
+                        Parameters  = @{
+                            Property      = 'IPAddress'
+                            ExpectedValue = '37.59.176.139'
+                            OperationType = 'eq'
+                        }
+                        Explanation = 'DNS should resolve external queries properly.'
                     }
                 }
             }

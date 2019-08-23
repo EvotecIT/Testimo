@@ -14,7 +14,7 @@ $Script:SBDomainControllersServices = {
     }
 }
 #>
-
+# "ADWS", "BITS", "CertPropSvc", "CryptSvc", "Dfs", "DFSR", "DNS", "Dnscache", "eventlog", "gpsvc", "kdc", "LanmanServer", "LanmanWorkstation", "Netlogon", "NTDS", "NtFrs", "RpcEptMapper", "RpcSs", "SamSs", "W32Time"
 
 $Script:SBDomainControllersServices = {
     $Services = @('ADWS', 'DNS', 'DFS', 'DFSR', 'Eventlog', 'EventSystem', 'KDC', 'LanManWorkstation', 'LanManServer', 'NetLogon', 'NTDS', 'RPCSS', 'SAMSS', 'W32Time')
