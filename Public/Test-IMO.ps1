@@ -9,6 +9,7 @@ function Test-IMO {
     )
     $global:ProgressPreference = 'SilentlyContinue'
     $Script:TestResults = [System.Collections.Generic.List[PSCustomObject]]::new()
+    $Script:TestimoConfiguration.Debug.ShowErrors = $ShowErrors
     $Script:TestimoConfiguration.Exclusions.Domains = $ExludeDomains
     $Script:TestimoConfiguration.Exclusions.DomainControllers = $ExludeDomainControllers
 
@@ -42,4 +43,3 @@ function Test-IMO {
         $Script:TestResults
     }
 }
-
