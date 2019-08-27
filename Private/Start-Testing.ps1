@@ -53,9 +53,17 @@
                 }
                 # $Data = & $CurrentSource['Data'] -DomainController $DomainController
                 $Time = Start-TimeLog
-                $Object = Start-TestProcessing -Test $CurrentSource['Source']['Name'] -Level $Level -OutputRequired -Domain $Domain -DomainController $DomainController {
-                    & $CurrentSource['Source']['Data'] -DomainController $DomainController -Domain $Domain
+                if ($CurrentSource['Source']['Parameters']) {
+                    $SourceParameters = $CurrentSource['Source']['Parameters']
+                    $Object = Start-TestProcessing -Test $CurrentSource['Source']['Name'] -Level $Level -OutputRequired -Domain $Domain -DomainController $DomainController {
+                        & $CurrentSource['Source']['Data'] @SourceParameters -DomainController $DomainController -Domain $Domain
+                    }
+                } else {
+                    $Object = Start-TestProcessing -Test $CurrentSource['Source']['Name'] -Level $Level -OutputRequired -Domain $Domain -DomainController $DomainController {
+                        & $CurrentSource['Source']['Data'] -DomainController $DomainController -Domain $Domain
+                    }
                 }
+
                 # If there's no output from Source Data all other tests will fail
                 if ($Object) {
                     $FailAllTests = $false

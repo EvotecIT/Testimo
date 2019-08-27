@@ -6,7 +6,7 @@
     Forest            = @{
         Sources = [ordered]  @{
             OptionalFeatures     = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name       = 'Optional Features'
                     Data       = $Script:SBForestOptionalFeatures
@@ -67,7 +67,7 @@
                 }
             }
             LastBackup           = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name       = 'Forest Backup'
                     Data       = $Script:SBForestLastBackup
@@ -89,7 +89,7 @@
                 }
             }
             Sites                = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name       = 'Sites Verification'
                     Area       = 'Sites'
@@ -123,7 +123,7 @@
                 }
             }
             SiteLinks            = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name       = 'Site Links'
                     Data       = $Script:SBForestSiteLinks
@@ -157,7 +157,7 @@
                 }
             }
             SiteLinksConnections = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name       = 'Site Links Connections'
                     Data       = $Script:SBForestSiteLinksConnections
@@ -200,7 +200,7 @@
                 }
             }
             Roles                = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name       = 'Roles availability'
                     Data       = $Script:SBForestRoles
@@ -237,7 +237,7 @@
     Domain            = @{
         Sources = [ordered] @{
             Roles                              = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name       = 'Roles availability'
                     Data       = $Script:SBDomainRoles
@@ -279,8 +279,109 @@
                     }
                 }
             }
-            PasswordComplexity                 = @{
+            WellKnownFolders                   = @{
                 Enable = $true
+                Source = @{
+                    Name       = 'Well known folders'
+                    Data       = $Script:SBDomainWellKnownFolders
+                    Area       = ''
+                    Parameters = @{
+
+                    }
+                }
+                Tests  = [ordered] @{
+                    UsersContainer = @{
+                        Enable     = $true
+                        Name       = "Users Container shouldn't be at default"
+                        Parameters = @{
+                            WhereObject = { $_.Name -eq 'UsersContainer' }
+                            ExpectedValue         = $false
+                            Property              = 'Status'
+                            OperationType         = 'eq'
+                            PropertyExtendedValue = '1'
+                        }
+                    }
+                    ComputersContainer = @{
+                        Enable     = $true
+                        Name       = "Computers Container shouldn't be at default"
+                        Parameters = @{
+                            WhereObject = { $_.Name -eq 'ComputersContainer' }
+                            ExpectedValue         = $false
+                            Property              = 'Status'
+                            OperationType         = 'eq'
+                            PropertyExtendedValue = '1'
+                        }
+                    }
+                    DomainControllersContainer = @{
+                        Enable     = $true
+                        Name       = "Domain Controllers Container should be at default location"
+                        Parameters = @{
+                            WhereObject = { $_.Name -eq 'DomainControllersContainer' }
+                            ExpectedValue         = $true
+                            Property              = 'Status'
+                            OperationType         = 'eq'
+                            PropertyExtendedValue = '1'
+                        }
+                    }
+                    DeletedObjectsContainer = @{
+                        Enable     = $true
+                        Name       = "Deleted Objects Container should be at default location"
+                        Parameters = @{
+                            WhereObject = { $_.Name -eq 'DeletedObjectsContainer' }
+                            ExpectedValue         = $true
+                            Property              = 'Status'
+                            OperationType         = 'eq'
+                            PropertyExtendedValue = '1'
+                        }
+                    }
+                    SystemsContainer = @{
+                        Enable     = $true
+                        Name       = "Systems Container should be at default location"
+                        Parameters = @{
+                            WhereObject = { $_.Name -eq 'SystemsContainer' }
+                            ExpectedValue         = $true
+                            Property              = 'Status'
+                            OperationType         = 'eq'
+                            PropertyExtendedValue = '1'
+                        }
+                    }
+                    LostAndFoundContainer = @{
+                        Enable     = $true
+                        Name       = "Lost And Found Container should be at default location"
+                        Parameters = @{
+                            WhereObject = { $_.Name -eq 'LostAndFoundContainer' }
+                            ExpectedValue         = $true
+                            Property              = 'Status'
+                            OperationType         = 'eq'
+                            PropertyExtendedValue = '1'
+                        }
+                    }
+                    QuotasContainer = @{
+                        Enable     = $true
+                        Name       = "Quotas Container shouldn be at default location"
+                        Parameters = @{
+                            WhereObject = { $_.Name -eq 'QuotasContainer' }
+                            ExpectedValue         = $true
+                            Property              = 'Status'
+                            OperationType         = 'eq'
+                            PropertyExtendedValue = '1'
+                        }
+                    }
+                    ForeignSecurityPrincipalsContainer = @{
+                        Enable     = $true
+                        Name       = "Foreign Security Principals Container should be at default location"
+                        Parameters = @{
+                            WhereObject = { $_.Name -eq 'ForeignSecurityPrincipalsContainer' }
+                            ExpectedValue         = $true
+                            Property              = 'Status'
+                            OperationType         = 'eq'
+                            PropertyExtendedValue = '1'
+                        }
+                    }
+                }
+            }
+            PasswordComplexity                 = @{
+                Enable = $false
                 Source = @{
                     Name       = 'Password Complexity Requirements'
                     Data       = $Script:SBDomainPasswordComplexity
@@ -367,14 +468,14 @@
                         Name       = 'Reversible Encryption Enabled'
                         Parameters = @{
                             Property      = 'Reversible Encryption Enabled'
-                            ExpectedValue = $true
+                            ExpectedValue = $false
                             OperationType = 'eq'
                         }
                     }
                 }
             }
             Trusts                             = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name       = "Trust Availability"
                     Data       = $Script:SBDomainTrustsData
@@ -397,7 +498,7 @@
                 }
             }
             DNSScavengingForPrimaryDNSServer   = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name       = "DNS Scavenging - Primary DNS Server"
                     Data       = $Script:SBDomainDnsScavenging
@@ -451,7 +552,7 @@
                 }
             }
             DNSForwaders                       = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name       = "DNS Forwarders"
                     Data       = $Script:SBDomainDNSForwaders
@@ -476,7 +577,7 @@
                 }
             }
             DnsZonesAging                      = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name       = "Aging primary DNS Zone"
                     Data       = $Script:SBDomainDnsZones
@@ -511,7 +612,7 @@
                 }
             }
             KerberosAccountAge                 = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name       = "Kerberos Account Age"
                     Data       = $Script:SBKeberosAccountTimeChange
@@ -534,7 +635,7 @@
                 }
             }
             SecurityGroupsAccountOperators     = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name           = "Groups: Account operators should be empty"
                     Data           = $Script:SBGroupsAccountOperators
@@ -547,7 +648,7 @@
                 }
             }
             SecurityUsersAcccountAdministrator = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name       = "Users: Administrator"
                     Data       = $Script:SBUsersAccountAdministrator
@@ -574,7 +675,7 @@
     DomainControllers = @{
         Sources = [ordered] @{
             WindowsRemoteManagement     = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name       = 'Windows Remote Management'
                     Data       = $Script:SBWindowsRemoteManagement
@@ -597,7 +698,7 @@
             }
 
             OperatingSystem             = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name       = 'Operating System'
                     Data       = $Script:SBComputerOperatingSystem
@@ -626,7 +727,7 @@
             }
 
             RespondsToPowerShellQueries = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name       = "Responds to PowerShell Queries"
                     Data       = $Script:SBDomainControllersRespondsPS
@@ -638,7 +739,7 @@
                 # When there are no tests only one test is done - whether data is returned or not.
             }
             Services                    = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name       = 'Service Status'
                     Data       = $Script:SBDomainControllersServices
@@ -671,7 +772,7 @@
             }
 
             LDAP                        = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name       = 'LDAP Connectivity'
                     Data       = $Script:SBDomainControllersLDAP
@@ -725,7 +826,7 @@
 
             }
             Pingable                    = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name       = 'Ping Connectivity'
                     Data       = $Script:SBDomainControllersPing
@@ -749,7 +850,7 @@
                 }
             }
             Ports                       = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name       = 'AD TCP Ports are open' # UDP Testing is unreliable for now
                     Data       = $Script:SBTestServerPorts
@@ -773,7 +874,7 @@
                 }
             }
             PortsRDP                    = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name       = 'RDP Ports is open'
                     Data       = $Script:SBTestServerPortsRDP
@@ -797,7 +898,7 @@
                 }
             }
             DiskSpace                   = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name       = 'Disk Free'
                     Data       = $Script:SBDomainControllersDiskSpace
@@ -832,7 +933,7 @@
                 }
             }
             TimeSynchronizationInternal = @{
-                Enable             = $true
+                Enable             = $false
                 Source             = @{
                     Name       = "Time Synchronization Internal"
                     Data       = $Script:SBDomainTimeSynchronizationInternal
@@ -857,7 +958,7 @@
                 MicrosoftMaterials = 'https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc773263(v=ws.10)#w2k3tr_times_tools_uhlp'
             }
             TimeSynchronizationExternal = @{
-                Enable             = $true
+                Enable             = $false
                 Source             = @{
                     Name       = "Time Synchronization External"
                     Data       = $Script:SBDomainTimeSynchronizationExternal
@@ -882,7 +983,7 @@
                 MicrosoftMaterials = 'https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc773263(v=ws.10)#w2k3tr_times_tools_uhlp'
             }
             WindowsFirewall             = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name        = "Windows Firewall"
                     Data        = $Script:SBDomainControllersFirewall
@@ -907,7 +1008,7 @@
                 }
             }
             WindowsUpdates              = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name       = "Windows Updates"
                     Data       = $Script:SBTestWindowsUpdates
@@ -930,7 +1031,7 @@
                 }
             }
             DnsResolveInternal          = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name       = "Resolves internal DNS queries"
                     Data       = $Script:SBResolveDNSInternal
@@ -944,16 +1045,17 @@
                         Enable      = $true
                         Name        = 'Should resolve Internal DNS'
                         Parameters  = @{
-                            Property      = 'Status'
-                            ExpectedValue = $true
-                            OperationType = 'eq'
+                            Property              = 'Status'
+                            ExpectedValue         = $true
+                            OperationType         = 'eq'
+                            PropertyExtendedValue = 'IPAddresses'
                         }
                         Explanation = 'DNS should resolve internal domains correctly.'
                     }
                 }
             }
             DnsResolveExternal          = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name       = "Resolves external DNS queries"
                     Data       = $Script:SBResolveDNSExternal
@@ -975,8 +1077,33 @@
                     }
                 }
             }
+            DnsNameServes               = @{
+                Enable = $true
+                Source = @{
+                    Name       = "Name servers for primary domain zone"
+                    Data       = $Script:SBServerDnsNameServers # (Get-Help <Command> -Parameter *).Name
+                    Area       = ''
+                    Parameters = @{
+
+                    }
+                }
+                Tests  = [ordered] @{
+                    DnsNameServersIdentical = @{
+                        Enable      = $true
+                        Name        = 'DNS Name servers for primary zone are identical'
+                        Parameters  = @{
+                            Property              = 'Status'
+                            ExpectedValue         = $True
+                            OperationType         = 'eq'
+                            PropertyExtendedValue = 'Comment'
+                        }
+                        Explanation = 'DNS Name servers for primary zone should be equal to Domain Controllers for a Domain.'
+                    }
+                }
+            }
         }
     }
+    <#
     AnyServers        = @{
         Sources = [ordered] @{
             Services = @{
@@ -1012,6 +1139,7 @@
             }
         }
     }
+    #>
     Debug             = @{
         ShowErrors = $false
     }
