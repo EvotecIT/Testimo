@@ -3,14 +3,34 @@
     param()
     try {
         $Forest = Get-ADForest -ErrorAction Stop
-        $ForestInformation = foreach ($_ in $Forest) {
-            if ($_.Domains -notin $Script:TestimoConfiguration['Exclusions']['Domains']) {
-                $_.Domains.ToLower()
-                $_
+
+        $Domains = foreach ($_ in $Forest.Domains) {
+            if ($_ -notin $Script:TestimoConfiguration['Exclusions']['Domains']) {
+                $_.ToLower()
             }
         }
-        $ForestInformation
+
+        [ordered] @{
+            Name                  = $Forest.Name
+            #RootDomain          = $Forest.RootDomain
+            ForestMode            = $Forest.ForestMode
+            Domains               = $Domains
+            PartitionsContainer   = $Forest.PartitionsContainer
+            DomainNamingMaster    = $Forest.DomainNamingMaster
+            SchemaMaster          = $Forest.SchemaMaster
+            GlobalCatalogs        = $Forest.GlobalCatalogs
+            Sites                 = $Forest.Sites
+            SPNSuffixes           = $Forest.SPNSuffixes
+            UPNSuffixes           = $Forest.UPNSuffixes
+            ApplicationPartitions = $Forest.ApplicationPartitions
+            CrossForestReferences = $Forest.CrossForestReferences
+        }
+
     } catch {
         return
     }
 }
+
+
+
+

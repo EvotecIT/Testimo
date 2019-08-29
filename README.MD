@@ -197,3 +197,45 @@ With option to be able to process output - for example to email
 ```powershell
 Test-Imo -ReturnResults
 ```
+
+### Dependencies
+
+When you use `Install-Module` option what happens in the backgrouns is that Windows will use [PowershellGallery](https://www.powershellgallery.com/) (hosted by Microsoft) to download **Testimo** and any dependencies this module needs.
+As it stands all dependencies except one (**DSInternals**) are my other PowerShell Modules.
+Why I am using it this way? Because I don't want to write multiple times same code over and over.
+
+- [ ] Testimo - this module
+  - [ ] [PSWinDocumentation.AD](https://github.com/EvotecIT/PSWinDocumentation.AD) - PowerShell Module that's main purpose is deliver formmated/compressive Active Directory data for documentation purposes. It's read only.
+  - [ ] [PSWinDocumentation.DNS](https://github.com/EvotecIT/PSWinDocumentation.DNS) - PowerShell Module that's main purpose is deliver formmated/compressive DNS data for documentation purposes (it's a bit unfinished product but it works as far Testimo is concerned). It's read only.
+  - [ ] [ADEssentials](https://github.com/EvotecIT/ADEssentials) - PowerShell Module that's supposed to hold a bunch of useful Get/Set tools for Active Directory.
+  - [ ] [PSSharedGoods](https://github.com/EvotecIT/PSSharedGoods) - PowerShell Module with lots of different, helpfull functions that I have gathered over the years
+    - [ ] [PSWriteColor](https://github.com/EvotecIT/PSWriteColor) - PowerShell Module responsible for Console Colors
+    - [ ] [Connectimo](https://github.com/EvotecIT/Connectimo) - PowerShell Module responsible for Connecting to O365 - while it's not in use in this project PSSharedGoods depends on it, so it's here. No function is used from it.
+  - [ ] [DSInternals](https://github.com/MichaelGrafnetter/DSInternals) - Directory Services Internals PowerShell Module and Framework by Michael Grafnetter - it's main purpose is to verify Active Directory Passwords
+
+
+### Removal
+
+In case you decide that **Testimo** is not for you, you can easily clean it up.
+Unfortunetly since **Testimo** uses all those dependencies as mentioned above you will have to remove all those modules one by one.
+Additionally if you have been using **Testimo** and you update it using `Update-Module` command and other modules got updated as well, it's possible there will be more then 1 version of said modules.
+Keep in mind that if you already use some of my modules some of the stuff may be already there and needed for different modules. Be careful when removing **PowerShellModules**.
+
+#### Option 1
+
+- [ ] Finding where modules are stored `(Get-Module -ListAvailable Testimo).ModuleBase`
+- [ ] Manually deleting all folders Testimo, and other dependant modules
+
+#### Option 2
+
+- [ ] Run `Uninstall-Module`
+
+```powershell
+$Modules = @('Testimo', 'PSWinDocumentation.AD','PSWinDocumentation.DNS','ADEssentials', 'PSSharedGoods','PSWriteColor', 'Connectimo', 'DSInternals' )
+foreach ($Module in $Modules) {
+    Uninstall-Module $Module -Force
+}
+```
+
+Due to multiple versions per each module you may need to rerun this couple of times to remove all those mdoules.
+If there will be enough complains/requests I could try to create bundle of Testimo for it to be portable (as in predownload modules for you and put it in one GitHub for download).

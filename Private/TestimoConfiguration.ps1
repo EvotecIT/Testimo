@@ -6,7 +6,7 @@
     Forest            = @{
         Sources = [ordered]  @{
             OptionalFeatures     = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = 'Optional Features'
                     Data       = $Script:SBForestOptionalFeatures
@@ -45,7 +45,7 @@
                 }
             }
             Replication          = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = 'Forest Replication'
                     Data       = $Script:SBForestReplication
@@ -67,7 +67,7 @@
                 }
             }
             LastBackup           = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = 'Forest Backup'
                     Data       = $Script:SBForestLastBackup
@@ -89,7 +89,7 @@
                 }
             }
             Sites                = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = 'Sites Verification'
                     Area       = 'Sites'
@@ -123,7 +123,7 @@
                 }
             }
             SiteLinks            = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = 'Site Links'
                     Data       = $Script:SBForestSiteLinks
@@ -157,7 +157,7 @@
                 }
             }
             SiteLinksConnections = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = 'Site Links Connections'
                     Data       = $Script:SBForestSiteLinksConnections
@@ -200,7 +200,7 @@
                 }
             }
             Roles                = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = 'Roles availability'
                     Data       = $Script:SBForestRoles
@@ -233,7 +233,7 @@
                 }
             }
             TombstoneLifetime    = @{
-                Enable           = $false
+                Enable           = $true
                 Source           = @{
                     Name       = 'Tombstone Lifetime'
                     Data       = $Script:SBDomainTombstoneLifetime
@@ -262,7 +262,7 @@
     Domain            = @{
         Sources = [ordered] @{
             Roles                              = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = 'Roles availability'
                     Data       = $Script:SBDomainRoles
@@ -305,7 +305,7 @@
                 }
             }
             WellKnownFolders                   = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = 'Well known folders'
                     Data       = $Script:SBDomainWellKnownFolders
@@ -406,7 +406,7 @@
                 }
             }
             PasswordComplexity                 = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = 'Password Complexity Requirements'
                     Data       = $Script:SBDomainPasswordComplexity
@@ -500,7 +500,7 @@
                 }
             }
             Trusts                             = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = "Trust Availability"
                     Data       = $Script:SBDomainTrustsData
@@ -523,7 +523,7 @@
                 }
             }
             OrphanedForeignSecurityPrincipals  = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name           = "Orphaned Foreign Security Principals"
                     Data           = $Script:SBDomainOrphanedFSP
@@ -532,7 +532,7 @@
                 }
             }
             EmptyOrganizationalUnits           = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name           = "Orphaned/Empty Organizational Units"
                     Data           = $Script:SBDomainEmptyOrganizationalUnits
@@ -541,7 +541,7 @@
                 }
             }
             DNSScavengingForPrimaryDNSServer   = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = "DNS Scavenging - Primary DNS Server"
                     Data       = $Script:SBDomainDnsScavenging
@@ -595,7 +595,7 @@
                 }
             }
             DNSForwaders                       = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = "DNS Forwarders"
                     Data       = $Script:SBDomainDNSForwaders
@@ -620,7 +620,7 @@
                 }
             }
             DnsZonesAging                      = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = "Aging primary DNS Zone"
                     Data       = $Script:SBDomainDnsZones
@@ -655,7 +655,7 @@
                 }
             }
             KerberosAccountAge                 = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = "Kerberos Account Age"
                     Data       = $Script:SBKeberosAccountTimeChange
@@ -707,7 +707,7 @@
                 }
             }
             SecurityUsersAcccountAdministrator = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = "Users: Administrator"
                     Data       = $Script:SBUsersAccountAdministrator
@@ -734,7 +734,7 @@
     DomainControllers = @{
         Sources = [ordered] @{
             WindowsRemoteManagement     = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = 'Windows Remote Management'
                     Data       = $Script:SBWindowsRemoteManagement
@@ -757,7 +757,7 @@
             }
 
             OperatingSystem             = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = 'Operating System'
                     Data       = $Script:SBComputerOperatingSystem
@@ -785,7 +785,7 @@
                 }
             }
             Services                    = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = 'Service Status'
                     Data       = $Script:SBDomainControllersServices
@@ -1168,7 +1168,7 @@
             }
 
             LDAP                        = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = 'LDAP Connectivity'
                     Data       = $Script:SBDomainControllersLDAP
@@ -1222,7 +1222,7 @@
 
             }
             Pingable                    = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = 'Ping Connectivity'
                     Data       = $Script:SBDomainControllersPing
@@ -1246,7 +1246,7 @@
                 }
             }
             Ports                       = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = 'AD TCP Ports are open' # UDP Testing is unreliable for now
                     Data       = $Script:SBTestServerPorts
@@ -1270,7 +1270,7 @@
                 }
             }
             PortsRDP                    = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = 'RDP Ports is open'
                     Data       = $Script:SBTestServerPortsRDP
@@ -1294,7 +1294,7 @@
                 }
             }
             DiskSpace                   = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = 'Disk Free'
                     Data       = $Script:SBDomainControllersDiskSpace
@@ -1329,7 +1329,7 @@
                 }
             }
             TimeSettings                = [ordered] @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = "Time Settings"
                     Data       = $Script:SBDomainControllersTimeSettings
@@ -1395,7 +1395,7 @@
 
             }
             TimeSynchronizationInternal = @{
-                Enable             = $false
+                Enable             = $true
                 Source             = @{
                     Name       = "Time Synchronization Internal"
                     Data       = $Script:SBDomainTimeSynchronizationInternal
@@ -1419,7 +1419,7 @@
                 MicrosoftMaterials = 'https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc773263(v=ws.10)#w2k3tr_times_tools_uhlp'
             }
             TimeSynchronizationExternal = @{
-                Enable             = $false
+                Enable             = $true
                 Source             = @{
                     Name       = "Time Synchronization External"
                     Data       = $Script:SBDomainTimeSynchronizationExternal
@@ -1444,7 +1444,7 @@
                 MicrosoftMaterials = 'https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc773263(v=ws.10)#w2k3tr_times_tools_uhlp'
             }
             WindowsFirewall             = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name        = "Windows Firewall"
                     Data        = $Script:SBDomainControllersFirewall
@@ -1469,7 +1469,7 @@
                 }
             }
             WindowsUpdates              = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = "Windows Updates"
                     Data       = $Script:SBTestWindowsUpdates
@@ -1492,7 +1492,7 @@
                 }
             }
             DnsResolveInternal          = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = "Resolves internal DNS queries"
                     Data       = $Script:SBResolveDNSInternal
@@ -1516,7 +1516,7 @@
                 }
             }
             DnsResolveExternal          = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = "Resolves external DNS queries"
                     Data       = $Script:SBResolveDNSExternal
@@ -1539,7 +1539,7 @@
                 }
             }
             DnsNameServes               = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = "Name servers for primary domain zone"
                     Data       = $Script:SBServerDnsNameServers # (Get-Help <Command> -Parameter *).Name
@@ -1563,7 +1563,7 @@
                 }
             }
             SMBProtocols                = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name       = 'SMB Protocols'
                     Data       = $Script:SBDomainControllersSMB
