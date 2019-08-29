@@ -4,7 +4,10 @@
         [ScriptBlock] $Execute,
         [string] $Scope,
         [string] $Domain,
-        [string] $DomainController
+        [string] $DomainController,
+        [bool] $IsPDC,
+        [Object] $ForestInformation,
+        [Object] $DomainInformation
     )
     $GlobalTime = Start-TimeLog
 
@@ -36,56 +39,105 @@
         $SummaryText = "Forest"
     }
 
+    # Build requirements variables
+    [bool] $IsDomainRoot = $ForestInformation.Name -eq $Domain
+
 
     Out-Begin -Type 'i' -Text $SummaryText -Level ($LevelSummary - 3) -Domain $Domain -DomainController $DomainController
     Out-Status -Text $SummaryText -Status $null -ExtendedValue '' -Domain $Domain -DomainController $DomainController
 
     $TestsSummaryTogether = @(
         foreach ($Source in $($Script:TestimoConfiguration.$Scope.Sources.Keys)) {
-            $CurrentSource = $Script:TestimoConfiguration.$Scope.Sources[$Source]
-            if ($CurrentSource['Enable'] -eq $true) {
-                [Array] $AllTests = $CurrentSource['Tests'].Keys
+            $CurrentSection = $Script:TestimoConfiguration.$Scope.Sources[$Source]
+            if ($CurrentSection['Enable'] -eq $true) {
+                $CurrentSource = $CurrentSection['Source']
+                [Array] $AllTests = $CurrentSection['Tests'].Keys
                 $TestsSummary = [PSCustomobject] @{
                     Passed  = 0
                     Failed  = 0
                     Skipped = 0
                     Total   = 0 # $AllTests.Count + 1 # +1 includes availability of data test
                 }
-                # $Data = & $CurrentSource['Data'] -DomainController $DomainController
                 $Time = Start-TimeLog
-                if ($CurrentSource['Source']['Parameters']) {
-                    $SourceParameters = $CurrentSource['Source']['Parameters']
-                    $Object = Start-TestProcessing -Test $CurrentSource['Source']['Name'] -Level $Level -OutputRequired -Domain $Domain -DomainController $DomainController {
-                        & $CurrentSource['Source']['Data'] @SourceParameters -DomainController $DomainController -Domain $Domain
+                # Check if requirements are met
+                if ($CurrentSource['Requirements']) {
+                    if ($null -ne $CurrentSource['Requirements']['IsDomainRoot']) {
+                        if (-not $CurrentSource['Requirements']['IsDomainRoot'] -eq $IsDomainRoot) {
+                            #$TestsSummary.Skipped = $TestsSummary.Skipped + 1
+                            #$TestsSummary.Total = $TestsSummary.Failed + $TestsSummary.Passed + $TestsSummary.Skipped
+                            #$TestsSummary
+                            continue
+                        }
+                    }
+                    if ($null -ne $CurrentSource['Requirements']['IsPDC']) {
+                        if (-not $CurrentSource['Requirements']['IsPDC'] -eq $IsPDC) {
+                            #$TestsSummary.Skipped = $TestsSummary.Skipped + 1
+                            #$TestsSummary.Total = $TestsSummary.Failed + $TestsSummary.Passed + $TestsSummary.Skipped
+                            #$TestsSummary
+                            continue
+                        }
+                    }
+                    # return TestsSummary doesn't make sense at the moment. Since there is no information we're trying to execute Source in the end there will be just information a test was skipped without more insight
+                    # We need to either inform that test was skipped and deliver output which I am not sure makes sense
+                    # To be decided
+                }
+                if ($CurrentSource['Parameters']) {
+                    $SourceParameters = $CurrentSource['Parameters']
+                    $Object = Start-TestProcessing -Test $CurrentSource['Name'] -Level $Level -OutputRequired -Domain $Domain -DomainController $DomainController {
+                        & $CurrentSource['Data'] @SourceParameters -DomainController $DomainController -Domain $Domain
                     }
                 } else {
-                    $Object = Start-TestProcessing -Test $CurrentSource['Source']['Name'] -Level $Level -OutputRequired -Domain $Domain -DomainController $DomainController {
-                        & $CurrentSource['Source']['Data'] -DomainController $DomainController -Domain $Domain
+                    $Object = Start-TestProcessing -Test $CurrentSource['Name'] -Level $Level -OutputRequired -Domain $Domain -DomainController $DomainController {
+                        & $CurrentSource['Data'] -DomainController $DomainController -Domain $Domain
                     }
                 }
 
                 # If there's no output from Source Data all other tests will fail
-                if ($Object) {
+                if ($Object -and ($null -eq $CurrentSource['ExpectedOutput'] -or $CurrentSource['ExpectedOutput'] -eq $true)) {
+                    # Output is provided and we did expect it or didn't provide expectation
                     $FailAllTests = $false
-                    Out-Begin -Text $CurrentSource['Source']['Name'] -Level $LevelTest -Domain $Domain -DomainController $DomainController
-                    Out-Status -Text $CurrentSource['Source']['Name'] -Status $true -ExtendedValue 'Data is available.' -Domain $Domain -DomainController $DomainController
+                    Out-Begin -Text $CurrentSource['Name'] -Level $LevelTest -Domain $Domain -DomainController $DomainController
+                    Out-Status -Text $CurrentSource['Name'] -Status $true -ExtendedValue 'Data is available.' -Domain $Domain -DomainController $DomainController
                     $TestsSummary.Passed = $TestsSummary.Passed + 1
-                } elseif ($null -eq $Object -and $CurrentSource['Source']['ExpectedOutput'] -eq $false) {
+
+                } elseif ($Object -and $CurrentSource['ExpectedOutput'] -eq $false) {
+                    # Output is provided, but we expected no output - failing test
+
+                    $FailAllTests = $true
+                    Out-Failure -Text $CurrentSource['Name'] -Level $LevelTest -ExtendedValue 'Data is available. This is a bad thing.' -Domain $Domain -DomainController $DomainController
+                    $TestsSummary.Failed = $TestsSummary.Failed + 1
+
+                } elseif ($null -eq $Object -and $CurrentSource['ExpectedOutput'] -eq $false) {
                     # This tests whether there was an output from Source or not.
                     # Sometimes it makes sense to ask for data and get null/empty in return
                     # you just need to make sure to define ExpectedOutput = $false in source definition
                     $FailAllTests = $false
-                    Out-Begin -Text $CurrentSource['Source']['Name'] -Level $LevelTest -Domain $Domain -DomainController $DomainController
-                    Out-Status -Text $CurrentSource['Source']['Name'] -Status $true -ExtendedValue 'No data returned, which is a good thing.' -Domain $Domain -DomainController $DomainController
+                    Out-Begin -Text $CurrentSource['Name'] -Level $LevelTest -Domain $Domain -DomainController $DomainController
+                    Out-Status -Text $CurrentSource['Name'] -Status $true -ExtendedValue 'No data returned, which is a good thing.' -Domain $Domain -DomainController $DomainController
                     $TestsSummary.Passed = $TestsSummary.Passed + 1
                 } else {
                     $FailAllTests = $true
-                    Out-Failure -Text $CurrentSource['Source']['Name'] -Level $LevelTest -ExtendedValue 'No data available.' -Domain $Domain -DomainController $DomainController
+                    Out-Failure -Text $CurrentSource['Name'] -Level $LevelTest -ExtendedValue 'No data available.' -Domain $Domain -DomainController $DomainController
                     $TestsSummary.Failed = $TestsSummary.Failed + 1
                 }
                 foreach ($Test in $AllTests) {
-                    $CurrentTest = $CurrentSource['Tests'][$Test]
+                    $CurrentTest = $CurrentSection['Tests'][$Test]
                     if ($CurrentTest['Enable'] -eq $True) {
+                        # Check for requirements
+                        if ($CurrentTest['Requirements']) {
+                            if ($null -ne $CurrentTest['Requirements']['IsDomainRoot']) {
+                                if (-not $CurrentTest['Requirements']['IsDomainRoot'] -eq $IsDomainRoot) {
+                                    $TestsSummary.Skipped = $TestsSummary.Skipped + 1
+                                    continue
+                                }
+                            }
+                            if ($null -ne $CurrentTest['Requirements']['IsPDC']) {
+                                if (-not $CurrentTest['Requirements']['IsPDC'] -eq $IsPDC) {
+                                    $TestsSummary.Skipped = $TestsSummary.Skipped + 1
+                                    continue
+                                }
+                            }
+                        }
                         if (-not $FailAllTests) {
                             if ($CurrentTest['Parameters']) {
                                 $Parameters = $CurrentTest['Parameters']
@@ -111,7 +163,7 @@
                 }
                 $TestsSummary.Total = $TestsSummary.Failed + $TestsSummary.Passed + $TestsSummary.Skipped
                 $TestsSummary
-                Out-Summary -Text $CurrentSource['Source']['Name'] -Time $Time -Level $LevelSummary -Domain $Domain -DomainController $DomainController -TestsSummary $TestsSummary
+                Out-Summary -Text $CurrentSource['Name'] -Time $Time -Level $LevelSummary -Domain $Domain -DomainController $DomainController -TestsSummary $TestsSummary
             }
         }
         if ($Execute) {

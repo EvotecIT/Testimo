@@ -67,13 +67,20 @@ To do tests I use modules that I own, often using internal, not documented funct
     - _ldap for PDC in `_tcp.pdc._msdcs.contoso.com`
 ---
 
-### Actions
+### Commennts
 
 Following action, that have **Status** `Tested` are verified and working.
 Keep in mind not all tests apply to each environment.
 I'm adding those to be flexible and be able to test things as needed.
-Each of those tests will need additional description and recommendation.
+Each of those tests will need additional description and recommendation, most likely with links and steps to fix.
 Some of the tests are very basic and will need feedback, work on making it a robust test.
+Nothing is written in stone for now. Things can change day by day.
+
+### Things to consider
+
+- Criticality of Tests - some tests are critical, some are less critical
+- Recommended, Default, Sane - not all tests are equal or make sense in all conditions
+
 
 | Type              | Name                                                   | Area             | Description                                                                                  | Status          | Details                                                             |
 | ----------------- | ------------------------------------------------------ | ---------------- | -------------------------------------------------------------------------------------------- | --------------- | ------------------------------------------------------------------- |
@@ -89,6 +96,7 @@ Some of the tests are very basic and will need feedback, work on making it a rob
 | Forest            | Site Links                                             | Site Links       | Verify each `site link uses notifications`                                                   | Tested          |                                                                     |
 | Forest            | Site Links                                             | Site Links       | Verify each `site link do not use notification`                                              | Tested          |                                                                     |
 | Forest            | Roles availability                                     | FMSO             | Verify each `FSMO holder is [reachable]`                                                     | Tested          |                                                                     |
+| Forest            | Tombstone Lifetime                                     | Features         | Verify `Tombstone lifetime is greater or equal 180 days`                                     | Tested          |                                                                     |
 | Domain            | Password Complexity Requirements                       | Password         | Verify Password `Complexity Policy should be [Enabled]`                                      | Tested          |                                                                     |
 | Domain            | Password Complexity Requirements                       | Password         | Verify Password `Length should be [greater than X]`                                          | Tested          |                                                                     |
 | Domain            | Password Complexity Requirements                       | Password         | Verify Password `Threshold should be [greater than X]`                                       | Tested          |                                                                     |
@@ -101,6 +109,7 @@ Some of the tests are very basic and will need feedback, work on making it a rob
 | Domain            | Trust Unconstrained TGTDelegation                      | Security         | Verify each `Trust TGTDelegation is set to True`                                             | Tested          |                                                                     |
 | Domain            | Kerberos Account Age                                   | Security         | Verify `Kerberos Last Password Change Should be less than 180 days`                          | Tested          |                                                                     |
 | Domain            | Groups: Account Operators                              | Security         | Verify `Group is empty`                                                                      | Tested          |                                                                     |
+| Domain            | Groups: Schema Admins                                  | Security         | Verify `Group is empty`                                                                      | Tested          |                                                                     |
 | Domain            | User: Administrator                                    | Security         | Verify `Last Password Change should be less than 360 days or account disabled`               | Tested          |                                                                     |
 | Domain            |                                                        | PrivAccounts     | Verify Privileged Groups `contains only desired members`                                     | Not implemented |                                                                     |
 | Domain            |                                                        | PrivAccounts     | Verify Privileged Users permissions `are set to defaults`                                    | Not implemented |                                                                     |
@@ -120,33 +129,42 @@ Some of the tests are very basic and will need feedback, work on making it a rob
 | Domain            | Well known folder - LostAndFoundContainer              | WellKnownFolders | Verify `folder is at it's defaults.`                                                         | Tested          |                                                                     |
 | Domain            | Well known folder - QuotasContainer                    | WellKnownFolders | Verify `folder is at it's defaults.`                                                         | Tested          |                                                                     |
 | Domain            | Well known folder - ForeignSecurityPrincipalsContainer | WellKnownFolders | Verify `folder is at it's defaults.`                                                         | Tested          |                                                                     |
+| Domain            | Orphaned Foreign Security Principals                   | Cleanup          | Verify `there are no orphaned FSP objects.`                                                  | Tested          |                                                                     |
+| Domain            | Orphaned/Empty Organizational Units                    | Cleanup          | Verify `there are no orphaned Organizational Units`                                          | Tested          |                                                                     |
+| Domain Controller | Service Status                                         | Services         | Verify all `{Services} are [running]`                                                        | Tested          |                                                                     |
+| Domain Controller | Service Status                                         | Services         | Verify all `{Services} are set to [automatic startup]`                                       | Tested          |                                                                     |
+| Domain Controller | Service Status (Print Spooler)                         | Security         | Verify `Print Spooler Service is set to disabled`                                            | Tested          |                                                                     |
+| Domain Controller | Service Status (Print Spooler)                         | Security         | Verify `Print Spooler Service is stopped`                                                    | Tested          |                                                                     |
 | Domain Controller | Ping Connectivity                                      | Connectivity     | Verify `DC is [reachable]`                                                                   | Tested          |                                                                     |
-| Domain Controller | Service Status                                         | Services         | Verify all `{Services} are [running]`                                                        | Tested          | Needs rework                                                        |
-| Domain Controller | Service Status                                         | Services         | Verify all `{Services} are set to [automatic startup]`                                       | Tested          | Needs rework                                                        |
+| Domain Controller | Ports                                                  | Connectivity     | Verify `Following ports 53, 88, 135, 139, 389, 445, 464, 636, 3268, 3269, 9389 are open`     | Tested          |                                                                     |
+| Domain Controller | Ports RDP                                              | Connectivity     | Verify `Following ports 3389 (RDP) is open`                                                  | Tested          |                                                                     |
 | Domain Controller | LDAP Connectivity                                      | Connectivity     | Verify all `{LDAP Ports} are open]`                                                          | Tested          |                                                                     |
 | Domain Controller | LDAP Connectivity                                      | Connectivity     | Verify all `{LDAP SSL Ports} are open]`                                                      | Tested          |                                                                     |
+| Domain Controller | Windows Firewall                                       | Connectivity     | Verify `windows firewall is enabled` for all network cards                                   | Tested          |                                                                     |
+| Domain Controller | Windows Remote Management                              | Connectivity     | Verify `Windows Remote Management identification requests are managed`                       | Tested          |                                                                     |
 | Domain Controller | Resolves internal DNS queries                          | DNS              | Verify `DNS on DC [resolves Internal DNS]`                                                   | Tested          | Resolve $Domain, requires to match ALL DC's IPV4                    |
 | Domain Controller | Resolves external DNS queries                          | DNS              | Verify `DNS on DC [resolves External DNS]`                                                   | Tested          | Resolve evotec.xyz - requires to match IPV4                         |
 | Domain Controller | Name servers for primary domain zone                   | DNS              | Verify `DNS Name servers for primary zone are identical`                                     | Tested          |                                                                     |
 | Domain Controller | Responds to PowerShell Queries                         | PowerShell       | Verify DC `responds to PowerShell queries`                                                   | Tested          |                                                                     |
-| Domain Controller | Ports                                                  | Connectivity     | Verify `Following ports 53, 88, 135, 139, 389, 445, 464, 636, 3268, 3269, 9389 are open`     | Tested          |                                                                     |
-| Domain Controller | Ports RDP                                              | Connectivity     | Verify `Following ports 3389 (RDP) is open`                                                  | Tested          |                                                                     |
-| Domain Controller |                                                        | Time             | Verify `PDC should [sync time to external source]`                                           |                 |                                                                     |
-| Domain Controller |                                                        | Time             | Verify `Non-PDC should [sync time to PDC emulator]`                                          |                 |                                                                     |
-| Domain Controller |                                                        | Time             | Verify `Virtualized DCs should [sync to hypervisor during boot time only]`                   |                 |                                                                     |
+| Domain Controller | TimeSettings                                           | Time             | Verify `PDC should [sync time to external source]`                                           | Tested          |                                                                     |
+| Domain Controller | TimeSettings                                           | Time             | Verify `Non-PDC should [sync time to PDC emulator]`                                          | Tested          |                                                                     |
+| Domain Controller | TimeSettings                                           | Time             | Verify `Virtualized DCs should [sync to hypervisor during boot time only]`                   | Tested          |                                                                     |
 | Domain Controller | Time Synchronization Internal                          | Time             | Verify `Time Synchronization Difference to PDC [less than X seconds]`                        | Tested          |                                                                     |
 | Domain Controller | Time Synchronization External                          | Time             | Verify `Time Synchronization Difference to pool.ntp.org [less than X seconds]`               | Tested          |                                                                     |
 | Domain Controller | Disk Free                                              | Computer         | Verify `OS partition Free space is [at least X %]`                                           | Tested          | Partially - tests all drives                                        |
 | Domain Controller | Disk Free                                              | Computer         | Verify `NTDS partition Free space is [at least X %]`                                         | Tested          | Partially - tests all drives                                        |
-| Domain Controller | Windows Firewall                                       | Connectivity     | Verify `windows firewall is enabled` for all network cards                                   | Tested          |                                                                     |
-| Domain Controller | Windows Remote Management                              | Connectivity     | Verify `Windows Remote Management identification requests are managed`                       | Tested          |                                                                     |
 | Domain Controller | Operating System                                       | Computer         | Verify `Windows Operating system is Windows 2012 or higher`                                  | Tested          |                                                                     |
 | Domain Controller | Windows Updates                                        | Computer         | Verify `Last patch was installed less than 60 days ago`                                      | Tested          |                                                                     |
+| Domain Controller | SMB Protocols                                          | Security         | Verify `SMB v1 protocol is disabled`                                                         | Tested          |                                                                     |
+| Domain Controller | SMB Protocols                                          | Security         | Verify `SMB v2 protocol is enabled`                                                          | Tested          |                                                                     |
+| Domain Controller | DFSR AutoRecovery                                      | Security         | Verify `DFSR AutoRecovery is enabled`                                                        | Tested          |                                                                     |
 
-### Things to consider
+## Known Issues / By Design
 
-- Criticality of Tests - some tests are critical, some are less critical
-- Recommended, Default, Sane - not all tests are equal or make sense in all conditions
+- Requirements for Sources work differently then for Tests
+  - For Sources when Requirements are not met Testimo skips it totally from output
+  - For Tests when Requirements are not met Testimo marks it as skipped
+
 
 ## To install
 

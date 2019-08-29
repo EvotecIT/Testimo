@@ -8,20 +8,20 @@
         $AllDomainControllers = (Get-ADDomainController -Server $Domain -Filter { IsReadOnly -eq $false } ).HostName
         try {
             $Hosts = Get-DnsServerResourceRecord -ZoneName $Domain -ComputerName $DomainController -RRType NS -ErrorAction Stop
-            $Output = (($Hosts | Where-Object { $_.HostName -eq '@' }).RecordData.NameServer) -replace ".$"
-            $Compare = (Compare-Object -ReferenceObject $AllDomainControllers -DifferenceObject $Output)
+            $NameServers = (($Hosts | Where-Object { $_.HostName -eq '@' }).RecordData.NameServer) -replace ".$"
+            $Compare = ((Compare-Object -ReferenceObject $AllDomainControllers -DifferenceObject $NameServers -IncludeEqual).SideIndicator -notin @('=>', '<='))
 
             [PSCustomObject] @{
                 DomainControllers = $AllDomainControllers
-                NameServers       = $Output
-                Status            = $null -eq $Compare
-                Comment           = $null
+                NameServers       = $NameServers
+                Status            = $Compare
+                Comment           = "Name servers found $($NameServers -join ', ')"
             }
         } catch {
             [PSCustomObject] @{
                 DomainControllers = $AllDomainControllers
                 NameServers       = $null
-                Status            = $null -eq $Compare
+                Status            = $false
                 Comment           = $_.Exception.Message
             }
         }
@@ -41,3 +41,8 @@ $Script:SBServerDnsNameServers = {
 
 
 #$ScriptBlock = { get-vm }
+
+#Test-DNSNameServers -DomainController 'dc1.ad.evotec.pl' -Domain 'ad.evotec.pl'
+#Test-DNSNameServers -DomainController 'adrodc.ad.evotec.pl' -Domain 'ad.evotec.pl'
+
+

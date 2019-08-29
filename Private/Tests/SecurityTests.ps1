@@ -27,3 +27,8 @@ $Script:SBUsersAccountAdministrator = {
         }
     }
 }
+
+$Script:SBGroupSchemaAdmins = {
+    $DomainSID = (Get-ADDomain -Server $Domain).DomainSID
+    Get-ADGroupMember -Recursive -Server $Domain -Identity "$DomainSID-518"
+}

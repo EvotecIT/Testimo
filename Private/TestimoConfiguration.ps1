@@ -232,6 +232,31 @@
                     }
                 }
             }
+            TombstoneLifetime    = @{
+                Enable           = $false
+                Source           = @{
+                    Name       = 'Tombstone Lifetime'
+                    Data       = $Script:SBDomainTombstoneLifetime
+                    Area       = ''
+                    Parameters = @{
+
+                    }
+                }
+                Tests            = [ordered] @{
+                    TombstoneLifetime = @{
+                        Enable     = $true
+                        Name       = 'TombstoneLifetime should be set to minimum of 180 days'
+                        Parameters = @{
+                            ExpectedValue = 180
+                            Property      = 'TombstoneLifeTime'
+                            OperationType = 'ge'
+                        }
+                    }
+                }
+                RecommendedLinks = @(
+                    'https://helpcenter.netwrix.com/Configure_IT_Infrastructure/AD/AD_Tombstone.html'
+                )
+            }
         }
     }
     Domain            = @{
@@ -280,7 +305,7 @@
                 }
             }
             WellKnownFolders                   = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name       = 'Well known folders'
                     Data       = $Script:SBDomainWellKnownFolders
@@ -290,77 +315,77 @@
                     }
                 }
                 Tests  = [ordered] @{
-                    UsersContainer = @{
+                    UsersContainer                     = @{
                         Enable     = $true
                         Name       = "Users Container shouldn't be at default"
                         Parameters = @{
-                            WhereObject = { $_.Name -eq 'UsersContainer' }
+                            WhereObject           = { $_.Name -eq 'UsersContainer' }
                             ExpectedValue         = $false
                             Property              = 'Status'
                             OperationType         = 'eq'
                             PropertyExtendedValue = '1'
                         }
                     }
-                    ComputersContainer = @{
+                    ComputersContainer                 = @{
                         Enable     = $true
                         Name       = "Computers Container shouldn't be at default"
                         Parameters = @{
-                            WhereObject = { $_.Name -eq 'ComputersContainer' }
+                            WhereObject           = { $_.Name -eq 'ComputersContainer' }
                             ExpectedValue         = $false
                             Property              = 'Status'
                             OperationType         = 'eq'
                             PropertyExtendedValue = '1'
                         }
                     }
-                    DomainControllersContainer = @{
+                    DomainControllersContainer         = @{
                         Enable     = $true
                         Name       = "Domain Controllers Container should be at default location"
                         Parameters = @{
-                            WhereObject = { $_.Name -eq 'DomainControllersContainer' }
+                            WhereObject           = { $_.Name -eq 'DomainControllersContainer' }
                             ExpectedValue         = $true
                             Property              = 'Status'
                             OperationType         = 'eq'
                             PropertyExtendedValue = '1'
                         }
                     }
-                    DeletedObjectsContainer = @{
+                    DeletedObjectsContainer            = @{
                         Enable     = $true
                         Name       = "Deleted Objects Container should be at default location"
                         Parameters = @{
-                            WhereObject = { $_.Name -eq 'DeletedObjectsContainer' }
+                            WhereObject           = { $_.Name -eq 'DeletedObjectsContainer' }
                             ExpectedValue         = $true
                             Property              = 'Status'
                             OperationType         = 'eq'
                             PropertyExtendedValue = '1'
                         }
                     }
-                    SystemsContainer = @{
+                    SystemsContainer                   = @{
                         Enable     = $true
                         Name       = "Systems Container should be at default location"
                         Parameters = @{
-                            WhereObject = { $_.Name -eq 'SystemsContainer' }
+                            WhereObject           = { $_.Name -eq 'SystemsContainer' }
                             ExpectedValue         = $true
                             Property              = 'Status'
                             OperationType         = 'eq'
                             PropertyExtendedValue = '1'
                         }
                     }
-                    LostAndFoundContainer = @{
+                    LostAndFoundContainer              = @{
                         Enable     = $true
                         Name       = "Lost And Found Container should be at default location"
                         Parameters = @{
-                            WhereObject = { $_.Name -eq 'LostAndFoundContainer' }
+                            WhereObject           = { $_.Name -eq 'LostAndFoundContainer' }
                             ExpectedValue         = $true
                             Property              = 'Status'
                             OperationType         = 'eq'
                             PropertyExtendedValue = '1'
                         }
                     }
-                    QuotasContainer = @{
+                    QuotasContainer                    = @{
                         Enable     = $true
                         Name       = "Quotas Container shouldn be at default location"
                         Parameters = @{
-                            WhereObject = { $_.Name -eq 'QuotasContainer' }
+                            WhereObject           = { $_.Name -eq 'QuotasContainer' }
                             ExpectedValue         = $true
                             Property              = 'Status'
                             OperationType         = 'eq'
@@ -371,7 +396,7 @@
                         Enable     = $true
                         Name       = "Foreign Security Principals Container should be at default location"
                         Parameters = @{
-                            WhereObject = { $_.Name -eq 'ForeignSecurityPrincipalsContainer' }
+                            WhereObject           = { $_.Name -eq 'ForeignSecurityPrincipalsContainer' }
                             ExpectedValue         = $true
                             Property              = 'Status'
                             OperationType         = 'eq'
@@ -495,6 +520,24 @@
                         Name   = 'Trust Unconstrained TGTDelegation'
                         Data   = $Script:SBDomainTrustsUnconstrainedDelegation
                     }
+                }
+            }
+            OrphanedForeignSecurityPrincipals  = @{
+                Enable = $false
+                Source = @{
+                    Name           = "Orphaned Foreign Security Principals"
+                    Data           = $Script:SBDomainOrphanedFSP
+                    Area           = 'Cleanup'
+                    ExpectedOutput = $false
+                }
+            }
+            EmptyOrganizationalUnits           = @{
+                Enable = $false
+                Source = @{
+                    Name           = "Orphaned/Empty Organizational Units"
+                    Data           = $Script:SBDomainEmptyOrganizationalUnits
+                    Area           = 'Cleanup'
+                    ExpectedOutput = $false
                 }
             }
             DNSScavengingForPrimaryDNSServer   = @{
@@ -635,7 +678,7 @@
                 }
             }
             SecurityGroupsAccountOperators     = @{
-                Enable = $false
+                Enable = $true
                 Source = @{
                     Name           = "Groups: Account operators should be empty"
                     Data           = $Script:SBGroupsAccountOperators
@@ -645,6 +688,22 @@
                     }
                     ExpectedOutput = $false
                     Explanation    = "The Account Operators group should not be used. Custom delegate instead. This group is a great 'backdoor' priv group for attackers. Microsoft even says don't use this group!"
+                }
+            }
+            SecurityGroupsSchemaAdmins         = @{
+                Enable = $true
+                Source = @{
+                    Name           = "Groups: Schema Admins should be empty"
+                    Data           = $Script:SBGroupSchemaAdmins
+                    Area           = ''
+                    Parameters     = @{
+
+                    }
+                    Requirements   = @{
+                        IsDomainRoot = $true
+                    }
+                    ExpectedOutput = $false
+                    Explanation    = "Schema Admins should be empty."
                 }
             }
             SecurityUsersAcccountAdministrator = @{
@@ -725,19 +784,6 @@
                     }
                 }
             }
-
-            RespondsToPowerShellQueries = @{
-                Enable = $false
-                Source = @{
-                    Name       = "Responds to PowerShell Queries"
-                    Data       = $Script:SBDomainControllersRespondsPS
-                    Area       = ''
-                    Parameters = @{
-
-                    }
-                }
-                # When there are no tests only one test is done - whether data is returned or not.
-            }
             Services                    = @{
                 Enable = $false
                 Source = @{
@@ -748,6 +794,355 @@
 
                     }
                 }
+                Tests  = [ordered] @{
+                    ADWSServiceStatus                 = @{
+                        Enable     = $true
+                        Name       = 'ADWS Service is RUNNING'
+                        #Data       = $Script:SBDomainControllersServicesTestStatus
+                        Parameters = @{
+                            WhereObject   = { $_.Name -eq 'ADWS' }
+                            Property      = 'Status'
+                            ExpectedValue = 'Running'
+                            OperationType = 'eq'
+                        }
+
+                    }
+                    ADWSServiceStartType              = @{
+                        Enable     = $true
+                        Name       = 'ADWS Service START TYPE is Automatic'
+                        #Data       = $Script:SBDomainControllersServicesTestStartType
+                        Parameters = @{
+                            WhereObject   = { $_.Name -eq 'ADWS' }
+                            Property      = 'StartType'
+                            ExpectedValue = 'Automatic'
+                            OperationType = 'eq'
+                        }
+                    }
+                    DNSServiceStatus                  = @{
+                        Enable     = $true
+                        Name       = 'DNS Service is RUNNING'
+                        #Data       = $Script:SBDomainControllersServicesTestStatus
+                        Parameters = @{
+                            WhereObject   = { $_.Name -eq 'DNS' }
+                            Property      = 'Status'
+                            ExpectedValue = 'Running'
+                            OperationType = 'eq'
+                        }
+
+                    }
+                    DNSServiceStartType               = @{
+                        Enable     = $true
+                        Name       = 'DNS Service START TYPE is Automatic'
+                        #Data       = $Script:SBDomainControllersServicesTestStartType
+                        Parameters = @{
+                            WhereObject   = { $_.Name -eq 'DNS' }
+                            Property      = 'StartType'
+                            ExpectedValue = 'Automatic'
+                            OperationType = 'eq'
+                        }
+                    }
+                    DFSServiceStatus                  = @{
+                        Enable     = $true
+                        Name       = 'DFS Service is RUNNING'
+                        #Data       = $Script:SBDomainControllersServicesTestStatus
+                        Parameters = @{
+                            WhereObject   = { $_.Name -eq 'DFS' }
+                            Property      = 'Status'
+                            ExpectedValue = 'Running'
+                            OperationType = 'eq'
+                        }
+
+                    }
+                    DFSServiceStartType               = @{
+                        Enable     = $true
+                        Name       = 'DFS Service START TYPE is Automatic'
+                        #Data       = $Script:SBDomainControllersServicesTestStartType
+                        Parameters = @{
+                            WhereObject   = { $_.Name -eq 'DFS' }
+                            Property      = 'StartType'
+                            ExpectedValue = 'Automatic'
+                            OperationType = 'eq'
+                        }
+                    }
+                    DFSRServiceStatus                 = @{
+                        Enable     = $true
+                        Name       = 'DFSR Service is RUNNING'
+                        #Data       = $Script:SBDomainControllersServicesTestStatus
+                        Parameters = @{
+                            WhereObject   = { $_.Name -eq 'DFSR' }
+                            Property      = 'Status'
+                            ExpectedValue = 'Running'
+                            OperationType = 'eq'
+                        }
+
+                    }
+                    DFSRServiceStartType              = @{
+                        Enable     = $true
+                        Name       = 'DFSR Service START TYPE is Automatic'
+                        #Data       = $Script:SBDomainControllersServicesTestStartType
+                        Parameters = @{
+                            WhereObject   = { $_.Name -eq 'DFSR' }
+                            Property      = 'StartType'
+                            ExpectedValue = 'Automatic'
+                            OperationType = 'eq'
+                        }
+                    }
+                    EventlogServiceStatus             = @{
+                        Enable     = $true
+                        Name       = 'Eventlog Service is RUNNING'
+                        #Data       = $Script:SBDomainControllersServicesTestStatus
+                        Parameters = @{
+                            WhereObject   = { $_.Name -eq 'Eventlog' }
+                            Property      = 'Status'
+                            ExpectedValue = 'Running'
+                            OperationType = 'eq'
+                        }
+
+                    }
+                    EventlogServiceStartType          = @{
+                        Enable     = $true
+                        Name       = 'Eventlog Service START TYPE is Automatic'
+                        #Data       = $Script:SBDomainControllersServicesTestStartType
+                        Parameters = @{
+                            WhereObject   = { $_.Name -eq 'Eventlog' }
+                            Property      = 'StartType'
+                            ExpectedValue = 'Automatic'
+                            OperationType = 'eq'
+                        }
+                    }
+                    EventSystemServiceStatus          = @{
+                        Enable     = $true
+                        Name       = 'EventSystem Service is RUNNING'
+                        #Data       = $Script:SBDomainControllersServicesTestStatus
+                        Parameters = @{
+                            WhereObject   = { $_.Name -eq 'EventSystem' }
+                            Property      = 'Status'
+                            ExpectedValue = 'Running'
+                            OperationType = 'eq'
+                        }
+
+                    }
+                    EventSystemServiceStartType       = @{
+                        Enable     = $true
+                        Name       = 'EventSystem Service START TYPE is Automatic'
+                        #Data       = $Script:SBDomainControllersServicesTestStartType
+                        Parameters = @{
+                            WhereObject   = { $_.Name -eq 'EventSystem' }
+                            Property      = 'StartType'
+                            ExpectedValue = 'Automatic'
+                            OperationType = 'eq'
+                        }
+                    }
+                    KDCServiceStatus                  = @{
+                        Enable     = $true
+                        Name       = 'KDC Service is RUNNING'
+                        #Data       = $Script:SBDomainControllersServicesTestStatus
+                        Parameters = @{
+                            WhereObject   = { $_.Name -eq 'KDC' }
+                            Property      = 'Status'
+                            ExpectedValue = 'Running'
+                            OperationType = 'eq'
+                        }
+
+                    }
+                    KDCServiceStartType               = @{
+                        Enable     = $true
+                        Name       = 'KDC Service START TYPE is Automatic'
+                        #Data       = $Script:SBDomainControllersServicesTestStartType
+                        Parameters = @{
+                            WhereObject   = { $_.Name -eq 'KDC' }
+                            Property      = 'StartType'
+                            ExpectedValue = 'Automatic'
+                            OperationType = 'eq'
+                        }
+                    }
+                    LanManWorkstationServiceStatus    = @{
+                        Enable     = $true
+                        Name       = 'LanManWorkstation Service is RUNNING'
+                        #Data       = $Script:SBDomainControllersServicesTestStatus
+                        Parameters = @{
+                            WhereObject   = { $_.Name -eq 'LanManWorkstation' }
+                            Property      = 'Status'
+                            ExpectedValue = 'Running'
+                            OperationType = 'eq'
+                        }
+
+                    }
+                    LanManWorkstationServiceStartType = @{
+                        Enable     = $true
+                        Name       = 'LanManWorkstation Service START TYPE is Automatic'
+                        #Data       = $Script:SBDomainControllersServicesTestStartType
+                        Parameters = @{
+                            WhereObject   = { $_.Name -eq 'LanManWorkstation' }
+                            Property      = 'StartType'
+                            ExpectedValue = 'Automatic'
+                            OperationType = 'eq'
+                        }
+                    }
+                    LanManServerServiceStatus         = @{
+                        Enable     = $true
+                        Name       = 'LanManServer Service is RUNNING'
+                        #Data       = $Script:SBDomainControllersServicesTestStatus
+                        Parameters = @{
+                            WhereObject   = { $_.Name -eq 'LanManServer' }
+                            Property      = 'Status'
+                            ExpectedValue = 'Running'
+                            OperationType = 'eq'
+                        }
+
+                    }
+                    LanManServerServiceStartType      = @{
+                        Enable     = $true
+                        Name       = 'LanManServer Service START TYPE is Automatic'
+                        #Data       = $Script:SBDomainControllersServicesTestStartType
+                        Parameters = @{
+                            WhereObject   = { $_.Name -eq 'LanManServer' }
+                            Property      = 'StartType'
+                            ExpectedValue = 'Automatic'
+                            OperationType = 'eq'
+                        }
+                    }
+                    NetLogonServiceStatus             = @{
+                        Enable     = $true
+                        Name       = 'NetLogon Service is RUNNING'
+                        #Data       = $Script:SBDomainControllersServicesTestStatus
+                        Parameters = @{
+                            WhereObject   = { $_.Name -eq 'NetLogon' }
+                            Property      = 'Status'
+                            ExpectedValue = 'Running'
+                            OperationType = 'eq'
+                        }
+
+                    }
+                    NetLogonServiceStartType          = @{
+                        Enable     = $true
+                        Name       = 'NetLogon Service START TYPE is Automatic'
+                        #Data       = $Script:SBDomainControllersServicesTestStartType
+                        Parameters = @{
+                            WhereObject   = { $_.Name -eq 'NetLogon' }
+                            Property      = 'StartType'
+                            ExpectedValue = 'Automatic'
+                            OperationType = 'eq'
+                        }
+                    }
+                    NTDSServiceStatus                 = @{
+                        Enable     = $true
+                        Name       = 'NTDS Service is RUNNING'
+                        #Data       = $Script:SBDomainControllersServicesTestStatus
+                        Parameters = @{
+                            WhereObject   = { $_.Name -eq 'NTDS' }
+                            Property      = 'Status'
+                            ExpectedValue = 'Running'
+                            OperationType = 'eq'
+                        }
+
+                    }
+                    NTDSServiceStartType              = @{
+                        Enable     = $true
+                        Name       = 'NTDS Service START TYPE is Automatic'
+                        #Data       = $Script:SBDomainControllersServicesTestStartType
+                        Parameters = @{
+                            WhereObject   = { $_.Name -eq 'NTDS' }
+                            Property      = 'StartType'
+                            ExpectedValue = 'Automatic'
+                            OperationType = 'eq'
+                        }
+                    }
+                    RPCSSServiceStatus                = @{
+                        Enable     = $true
+                        Name       = 'RPCSS Service is RUNNING'
+                        #Data       = $Script:SBDomainControllersServicesTestStatus
+                        Parameters = @{
+                            WhereObject   = { $_.Name -eq 'RPCSS' }
+                            Property      = 'Status'
+                            ExpectedValue = 'Running'
+                            OperationType = 'eq'
+                        }
+
+                    }
+                    RPCSSServiceStartType             = @{
+                        Enable     = $true
+                        Name       = 'RPCSS Service START TYPE is Automatic'
+                        #Data       = $Script:SBDomainControllersServicesTestStartType
+                        Parameters = @{
+                            WhereObject   = { $_.Name -eq 'RPCSS' }
+                            Property      = 'StartType'
+                            ExpectedValue = 'Automatic'
+                            OperationType = 'eq'
+                        }
+                    }
+                    SAMSSServiceStatus                = @{
+                        Enable     = $true
+                        Name       = 'SAMSS Service is RUNNING'
+                        #Data       = $Script:SBDomainControllersServicesTestStatus
+                        Parameters = @{
+                            WhereObject   = { $_.Name -eq 'SAMSS' }
+                            Property      = 'Status'
+                            ExpectedValue = 'Running'
+                            OperationType = 'eq'
+                        }
+
+                    }
+                    SAMSSServiceStartType             = @{
+                        Enable     = $true
+                        Name       = 'SAMSS Service START TYPE is Automatic'
+                        #Data       = $Script:SBDomainControllersServicesTestStartType
+                        Parameters = @{
+                            WhereObject   = { $_.Name -eq 'SAMSS' }
+                            Property      = 'StartType'
+                            ExpectedValue = 'Automatic'
+                            OperationType = 'eq'
+                        }
+                    }
+                    SpoolerServiceStatus              = @{
+                        Enable     = $true
+                        Name       = 'Spooler Service is STOPPED'
+                        #Data       = $Script:SBDomainControllersServicesTestStatus
+                        Parameters = @{
+                            WhereObject   = { $_.Name -eq 'Spooler' }
+                            Property      = 'Status'
+                            ExpectedValue = 'Stopped'
+                            OperationType = 'eq'
+                        }
+
+                    }
+                    SpoolerServiceStartType           = @{
+                        Enable     = $true
+                        Name       = 'Spooler Service START TYPE is DISABLED'
+                        #Data       = $Script:SBDomainControllersServicesTestStartType
+                        Parameters = @{
+                            WhereObject   = { $_.Name -eq 'Spooler' }
+                            Property      = 'StartType'
+                            ExpectedValue = 'Disabled'
+                            OperationType = 'eq'
+                        }
+                    }
+                    W32TimeServiceStatus              = @{
+                        Enable     = $true
+                        Name       = 'W32Time Service is RUNNING'
+                        #Data       = $Script:SBDomainControllersServicesTestStatus
+                        Parameters = @{
+                            WhereObject   = { $_.Name -eq 'W32Time' }
+                            Property      = 'Status'
+                            ExpectedValue = 'Running'
+                            OperationType = 'eq'
+                        }
+
+                    }
+                    W32TimeServiceStartType           = @{
+                        Enable     = $true
+                        Name       = 'W32Time Service START TYPE is Automatic'
+                        #Data       = $Script:SBDomainControllersServicesTestStartType
+                        Parameters = @{
+                            WhereObject   = { $_.Name -eq 'W32Time' }
+                            Property      = 'StartType'
+                            ExpectedValue = 'Automatic'
+                            OperationType = 'eq'
+                        }
+                    }
+                }
+
+                <#
                 Tests  = [ordered] @{
                     ServiceStatus    = @{
                         Enable     = $true
@@ -769,6 +1164,7 @@
                         }
                     }
                 }
+                #>
             }
 
             LDAP                        = @{
@@ -932,6 +1328,72 @@
                     }
                 }
             }
+            TimeSettings                = [ordered] @{
+                Enable = $false
+                Source = @{
+                    Name       = "Time Settings"
+                    Data       = $Script:SBDomainControllersTimeSettings
+                    Area       = ''
+                    Parameters = @{
+
+                    }
+                }
+                Tests  = [ordered] @{
+                    NTPServerEnabled = @{
+                        Enable     = $true
+                        Name       = 'NtpServer must be enabled.'
+                        Parameters = @{
+                            WhereObject   = { $_.ComputerName -eq $DomainController }
+                            Property      = 'NtpServerEnabled'
+                            ExpectedValue = $true
+                            OperationType = 'eq'
+                        }
+                    }
+                    VMTimeProvider   = @{
+                        Enable     = $true
+                        Name       = 'Virtual Machine Time Provider should be disabled.'
+                        Parameters = @{
+                            WhereObject   = { $_.ComputerName -eq $DomainController }
+                            Property      = 'VMTimeProvider'
+                            ExpectedValue = $false
+                            OperationType = 'eq'
+                        }
+                    }
+                    NtpTypeNonPDC    = [ordered]  @{
+                        Enable       = $true
+                        Name         = 'NTP Server should be set to Domain Hierarchy'
+                        Requirements = @{
+                            IsPDC = $false
+                        }
+                        Parameters   = @{
+                            WhereObject   = { $_.ComputerName -eq $DomainController }
+                            Property      = 'NtpType'
+                            ExpectedValue = 'NT5DS'
+                            OperationType = 'eq'
+
+                        }
+                    }
+                    NtpTypePDC       = [ordered] @{
+                        Enable       = $true
+                        Name         = 'NTP Server should be set to AllSync'
+                        Requirements = @{
+                            IsPDC = $true
+                        }
+                        Parameters   = @{
+                            WhereObject   = { $_.ComputerName -eq $DomainController }
+                            Property      = 'NtpType'
+                            ExpectedValue = 'AllSync'
+                            OperationType = 'eq'
+
+                        }
+                    }
+
+
+
+                }
+
+
+            }
             TimeSynchronizationInternal = @{
                 Enable             = $false
                 Source             = @{
@@ -946,7 +1408,6 @@
                     TimeSynchronizationTest = @{
                         Enable     = $true
                         Name       = 'Time Difference'
-                        # Data     = $Script:SBDomainTimeSynchronizationTest1
                         Parameters = @{
                             Property              = 'TimeDifferenceSeconds'
                             ExpectedValue         = 1
@@ -1078,7 +1539,7 @@
                 }
             }
             DnsNameServes               = @{
-                Enable = $true
+                Enable = $false
                 Source = @{
                     Name       = "Name servers for primary domain zone"
                     Data       = $Script:SBServerDnsNameServers # (Get-Help <Command> -Parameter *).Name
@@ -1101,37 +1562,57 @@
                     }
                 }
             }
-        }
-    }
-    <#
-    AnyServers        = @{
-        Sources = [ordered] @{
-            Services = @{
+            SMBProtocols                = @{
                 Enable = $false
                 Source = @{
-                    Name       = 'Service Status'
-                    Data       = $Script:SBDomainControllersServices
+                    Name       = 'SMB Protocols'
+                    Data       = $Script:SBDomainControllersSMB
+                    Area       = ''
                     Parameters = @{
 
                     }
                 }
                 Tests  = [ordered] @{
-                    ServiceStatus    = @{
+                    EnableSMB1Protocol = @{
                         Enable     = $true
-                        Name       = 'Service is RUNNING'
-                        Data       = $Script:SBDomainControllersServicesTestStatus
+                        Name       = 'SMB v1 Protocol should be disabled'
                         Parameters = @{
-                            ExpectedValue = 'Running'
+                            Property      = 'EnableSMB1Protocol'
+                            ExpectedValue = $false
                             OperationType = 'eq'
                         }
+                    }
+                    EnableSMB2Protocol = @{
+                        Enable     = $true
+                        Name       = 'SMB v2 Protocol should be enabled'
+                        Parameters = @{
+                            Property      = 'EnableSMB2Protocol'
+                            ExpectedValue = $true
+                            OperationType = 'eq'
+                        }
+                    }
+                }
+            }
+            DFSRAutoRecovery            = @{
+                Enable = $true
+                Source = @{
+                    Name             = 'DFSR AutoRecovery'
+                    Data             = $Script:SBDomainControllersDFSR
+                    Area             = ''
+                    Parameters       = @{
 
                     }
-                    ServiceStartType = @{
+                    RecommendedLinks = @(
+                        'https://secureinfra.blog/2019/04/30/field-notes-a-quick-tip-on-dfsr-automatic-recovery-while-you-prepare-for-an-ad-domain-upgrade/'
+                    )
+                }
+                Tests  = [ordered] @{
+                    EnableSMB1Protocol = @{
                         Enable     = $true
-                        Name       = 'Service START TYPE is Automatic'
-                        Data       = $Script:SBDomainControllersServicesTestStartType
+                        Name       = 'DFSR AutoRecovery should be enabled'
                         Parameters = @{
-                            ExpectedValue = 'Automatic'
+                            Property      = 'StopReplicationOnAutoRecovery'
+                            ExpectedValue = 0
                             OperationType = 'eq'
                         }
                     }
@@ -1139,7 +1620,6 @@
             }
         }
     }
-    #>
     Debug             = @{
         ShowErrors = $false
     }

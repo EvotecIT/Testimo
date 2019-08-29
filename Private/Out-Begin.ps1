@@ -1,4 +1,5 @@
 ﻿function Out-Begin {
+    [CmdletBinding()]
     param(
         [string] $Text,
         [int] $Level,

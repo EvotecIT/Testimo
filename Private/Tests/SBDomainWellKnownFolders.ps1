@@ -24,4 +24,3 @@
     Compare-MultipleObjects -Object @($DefaultWellKnownFolders, $CurrentWellKnownFolders) -SkipProperties #| ft
 }
 #@($DefaultWellKnownFolders, $CurrentWellKnownFolders) | Out-HtmlView -Compare -HighlightDifferences
-

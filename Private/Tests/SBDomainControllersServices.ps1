@@ -17,10 +17,11 @@ $Script:SBDomainControllersServices = {
 # "ADWS", "BITS", "CertPropSvc", "CryptSvc", "Dfs", "DFSR", "DNS", "Dnscache", "eventlog", "gpsvc", "kdc", "LanmanServer", "LanmanWorkstation", "Netlogon", "NTDS", "NtFrs", "RpcEptMapper", "RpcSs", "SamSs", "W32Time"
 
 $Script:SBDomainControllersServices = {
-    $Services = @('ADWS', 'DNS', 'DFS', 'DFSR', 'Eventlog', 'EventSystem', 'KDC', 'LanManWorkstation', 'LanManServer', 'NetLogon', 'NTDS', 'RPCSS', 'SAMSS', 'W32Time')
+    $Services = @('ADWS', 'DNS', 'DFS', 'DFSR', 'Eventlog', 'EventSystem', 'KDC', 'LanManWorkstation', 'LanManServer', 'NetLogon', 'NTDS', 'RPCSS', 'SAMSS', 'Spooler', 'W32Time')
     Get-PSService -Computers $DomainController -Services $Services
 }
 
+<#
 $Script:SBDomainControllersServicesTestStatus = {
     foreach ($_ in $Object) {
         # 12
@@ -34,3 +35,4 @@ $Script:SBDomainControllersServicesTestStartType = {
         Test-Value -TestName "Service $($_.Name) Start Type" -Property 'StartType' -Object $_ -ExpectedValue 'Automatic' -Level $LevelTest -Domain $Domain -DomainController $DomainController #-SearchObjectProperty 'Name' -SearchObjectValue $Service -Property 'StartType' -ExpectedValue 'Automatic'
     }
 }
+#>

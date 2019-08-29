@@ -8,6 +8,7 @@ function Test-IMO {
         [switch] $ShowErrors
     )
     $global:ProgressPreference = 'SilentlyContinue'
+    $global:ErrorActionPreference = 'Stop'
     $Script:TestResults = [System.Collections.Generic.List[PSCustomObject]]::new()
     $Script:TestimoConfiguration.Debug.ShowErrors = $ShowErrors
     $Script:TestimoConfiguration.Exclusions.Domains = $ExludeDomains
@@ -22,19 +23,19 @@ function Test-IMO {
         Out-Status -Status $null -Domain $Domain -DomainController $DomainController -ExtendedValue ($Script:TestimoConfiguration.Exclusions.DomainControllers -join ', ')
     }
 
-    $Domains = & $Script:SBForest
+    $ForestInformation = Get-TestimoForest
 
     # Tests related to FOREST
-    $null = Start-Testing -Scope 'Forest' {
+    $null = Start-Testing -Scope 'Forest' -ForestInformation $ForestInformation {
         # Tests related to DOMAIN
-        foreach ($Domain in $Domains) {
-            #$null = & $Script:SBDomain -Domain $Domain
+        foreach ($Domain in $ForestInformation.Domains) {
+            $DomainInformation = Get-TestimoDomain -Domain $Domain
 
-            Start-Testing -Scope 'Domain' -Domain $Domain {
+            Start-Testing -Scope 'Domain' -Domain $Domain -DomainInformation $DomainInformation -ForestInformation $ForestInformation {
                 # Tests related to DOMAIN CONTROLLERS
-                $DomainControllers = & $Script:SBDomainControllers -Domain $Domain
-                foreach ($DomainController in $DomainControllers) {
-                    Start-Testing -Scope 'DomainControllers' -Domain $Domain -DomainController $DomainController
+                $DomainControllers = Get-TestimoDomainControllers -Domain $Domain
+                foreach ($DC in $DomainControllers) {
+                    Start-Testing -Scope 'DomainControllers' -Domain $Domain -DomainController $DC.Name -IsPDC $DC.IsPDC -DomainInformation $DomainInformation -ForestInformation ForestInformation
                 }
             }
         }
