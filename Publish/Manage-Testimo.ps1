@@ -17,7 +17,7 @@ $Configuration = @{
             # Script module or binary module file associated with this manifest.
             RootModule           = 'Testimo.psm1'
             # Version number of this module.
-            ModuleVersion        = '0.0.16'
+            ModuleVersion        = '0.0.17'
             # Supported PSEditions
             CompatiblePSEditions = @('Desktop')
             # ID used to uniquely identify this module
@@ -150,7 +150,7 @@ $Configuration = @{
         }
         BuildDocumentation = $false
         PublishModule      = @{
-            Enabled      = $false
+            Enabled      = $true
             Prerelease   = ''
             RequireForce = $false
         }

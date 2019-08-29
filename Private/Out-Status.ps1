@@ -16,7 +16,7 @@
         [ConsoleColor[]] $Color = [ConsoleColor]::Cyan, [ConsoleColor]::Red, [ConsoleColor]::Cyan, [ConsoleColor]::Cyan, [ConsoleColor]::Red, [ConsoleColor]::Cyan
     } else {
         [string] $TextStatus = 'Informative'
-        [ConsoleColor[]] $Color = [ConsoleColor]::Cyan, [ConsoleColor]::DarkGray, [ConsoleColor]::Cyan, [ConsoleColor]::Cyan, [ConsoleColor]::DarkMagenta, [ConsoleColor]::Cyan
+        [ConsoleColor[]] $Color = [ConsoleColor]::Cyan, [ConsoleColor]::DarkGray, [ConsoleColor]::Cyan, [ConsoleColor]::Cyan, [ConsoleColor]::Magenta, [ConsoleColor]::Cyan
     }
     if ($ExtendedValue) {
         Write-Color -Text ' [', $TextStatus, ']', " [", $ExtendedValue, "]" -Color $Color
