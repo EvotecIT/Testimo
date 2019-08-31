@@ -29,7 +29,3 @@
         SiteLinksTotalCount          = ($SiteLinks | Where-Object { $_.EnabledConnection -eq $true } ).Count
     }
 }
-
-$Script:SBForestSiteLinksConnections = {
-    Test-ADSiteLinks -Splitter ', '
-}
