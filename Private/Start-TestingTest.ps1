@@ -5,7 +5,8 @@
         $Test,
         [int] $Level,
         [string] $Domain,
-        [string] $DomainController
+        [string] $DomainController,
+        [string] $ReferenceID
     )
     if ($Execute) {
         if ($Script:TestimoConfiguration.Debug.ShowErrors) {
@@ -21,7 +22,7 @@
             if (-not $ErrorMessage) {
 
             } else {
-                Out-Failure -Text $CurrentTest['TestName'] -Level $Level -ExtendedValue $ErrorMessage -Domain $Domain -DomainController $DomainController
+                Out-Failure -Text $CurrentTest['TestName'] -Level $Level -ExtendedValue $ErrorMessage -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
             }
         }
     }

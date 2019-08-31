@@ -11,10 +11,10 @@
         [Array] $ExpectedValue,
         [string[]] $PropertyExtendedValue,
         [string] $OperationResult,
-        [int] $ExpectedCount = -1
+        [int] $ExpectedCount = -1,
+        [string] $ReferenceID
     )
     Out-Begin -Text $TestName -Level $Level -Domain $Domain -DomainController $DomainController #($Level * 3)
-
 
     $TestedValue = $Object
     foreach ($V in $Property) {
@@ -126,7 +126,7 @@
                 $ReportExtended = $ReportExtended.$V
             }
         }
-        Out-Status -Text $TestName -Status $ReportResult -ExtendedValue $ReportExtended -Domain $Domain -DomainController $DomainController
+        Out-Status -Text $TestName -Status $ReportResult -ExtendedValue $ReportExtended -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
         return $ReportResult
     }
     if ($Script:TestimoConfiguration.Debug.ShowErrors) {
@@ -135,7 +135,7 @@
         try {
             & $ScriptBlock
         } catch {
-            Out-Status -Text $TestName -Status $false -ExtendedValue $_.Exception.Message -Domain $Domain -DomainController $DomainController
+            Out-Status -Text $TestName -Status $false -ExtendedValue $_.Exception.Message -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
             return $False
         }
     }

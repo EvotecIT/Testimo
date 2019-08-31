@@ -9,7 +9,8 @@
         [switch] $IsTest,
         [switch] $Simple,
         [string] $Domain,
-        [string] $DomainController
+        [string] $DomainController,
+        [string] $ReferenceID
     )
 
     if ($Execute) {
@@ -49,9 +50,9 @@
                 $TestResult = $ExpectedStatus -eq $Output.Status
             }
 
-            Out-Status -Text $Test -Status $TestResult -ExtendedValue $O.Extended -Domain $Domain -DomainController $DomainController
+            Out-Status -Text $Test -Status $TestResult -ExtendedValue $O.Extended -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
         } else {
-            Out-Status -Text $Test -Status $false -ExtendedValue $ErrorMessage -Domain $Domain -DomainController $DomainController
+            Out-Status -Text $Test -Status $false -ExtendedValue $ErrorMessage -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
         }
     }
 }

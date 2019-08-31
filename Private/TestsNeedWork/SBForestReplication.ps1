@@ -9,6 +9,7 @@ $Script:SBForestReplication = {
 }
 #>
 
+<#
 $Script:SBForestReplication = {
     Get-WinADForestReplication -WarningAction SilentlyContinue
 }
@@ -22,3 +23,4 @@ $Script:SBForestReplicationTest1 = {
         Test-Value -TestName "Replication from $($_.Server) to $($_.ServerPartner)" -Property 'Status' -PropertyExtendedValue 'StatusMessage' -ExpectedValue $True -Level $LevelTest -Object $_ -Domain $Domain -DomainController $DomainController #@args
     }
 }
+#>

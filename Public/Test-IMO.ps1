@@ -5,8 +5,13 @@ function Test-IMO {
         [switch] $ReturnResults,
         [string[]] $ExludeDomains,
         [string[]] $ExludeDomainControllers,
-        [switch] $ShowErrors
+        [switch] $ShowErrors,
+        [switch] $ExtendedResults
     )
+    $Script:Reporting = [ordered] @{
+
+    }
+
     $global:ProgressPreference = 'SilentlyContinue'
     $global:ErrorActionPreference = 'Stop'
     $Script:TestResults = [System.Collections.Generic.List[PSCustomObject]]::new()
@@ -40,7 +45,14 @@ function Test-IMO {
             }
         }
     }
-    if ($ReturnResults) {
-        $Script:TestResults
+    if ($ExtendedResults) {
+        @{
+            Results    = $Script:TestResults
+            ReportData = $Script:Reporting
+        }
+    } else {
+        if ($ReturnResults) {
+            $Script:TestResults
+        }
     }
 }

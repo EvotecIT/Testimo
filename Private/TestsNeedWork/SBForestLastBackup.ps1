@@ -8,7 +8,7 @@ $Script:SBForestLastBackup = {
     }
 }
 #>
-
+<#
 $Script:SBForestLastBackup = {
     Get-WinADLastBackup
 }
@@ -20,3 +20,4 @@ $Script:SBForestLastBackupTest = {
         Test-Value -Level $LevelTest -TestName "Last Backup $($_.NamingContext)" -Object $_ -Property 'LastBackupDaysAgo' -PropertyExtendedValue 'LastBackup' -OperationType 'lt' -ExpectedValue 2 -Domain $Domain -DomainController $DomainController
     }
 }
+#>

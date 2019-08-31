@@ -1,4 +1,5 @@
-﻿function Test-ADSites {
+﻿<#
+function Test-ADSites {
     param(
 
     )
@@ -19,3 +20,4 @@
 $Script:SBForestSites = {
     Test-ADSites
 }
+#>

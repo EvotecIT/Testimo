@@ -1,12 +1,16 @@
 ﻿function Out-Status {
     [CmdletBinding()]
     param(
+        [string] $TestID,
         [string] $Text,
         [nullable[bool]] $Status,
         [string] $Section,
         [string] $ExtendedValue,
         [string] $Domain,
-        [string] $DomainController
+        [string] $DomainController,
+        [System.Collections.IDictionary] $SourceDetails,
+        [System.Collections.IDictionary] $TestDetails,
+        [string] $ReferenceID
     )
     if ($Status -eq $true) {
         [string] $TextStatus = 'Pass'
@@ -36,16 +40,16 @@
         $TestText = "Forest | $Text"
     }
     if ($null -ne $Status) {
-        $Script:TestResults.Add(
-            [PSCustomObject]@{
-                Name             = $TestText
-                Type             = $TestType
-                #Section          = $Section
-                Domain           = $Domain
-                DomainController = $DomainController
-                Status           = $Status
-                Extended         = $ExtendedValue
-            }
-        )
+        $Output = [PSCustomObject]@{
+            #ReferenceID      = $ReferenceID
+            Name             = $TestText
+            Type             = $TestType
+            Domain           = $Domain
+            DomainController = $DomainController
+            Status           = $Status
+            Extended         = $ExtendedValue
+        }
+        $Script:Reporting[$ReferenceID]['Results'].Add($Output)
+        $Script:TestResults.Add($Output)
     }
 }

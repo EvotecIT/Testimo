@@ -44,5 +44,3 @@ $Script:SBServerDnsNameServers = {
 
 #Test-DNSNameServers -DomainController 'dc1.ad.evotec.pl' -Domain 'ad.evotec.pl'
 #Test-DNSNameServers -DomainController 'adrodc.ad.evotec.pl' -Domain 'ad.evotec.pl'
-
-
