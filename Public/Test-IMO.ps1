@@ -40,7 +40,7 @@ function Test-IMO {
                 # Tests related to DOMAIN CONTROLLERS
                 $DomainControllers = Get-TestimoDomainControllers -Domain $Domain
                 foreach ($DC in $DomainControllers) {
-                    Start-Testing -Scope 'DomainControllers' -Domain $Domain -DomainController $DC.Name -IsPDC $DC.IsPDC -DomainInformation $DomainInformation -ForestInformation ForestInformation
+                    Start-Testing -Scope 'DomainControllers' -Domain $Domain -DomainController $DC.Name -IsPDC $DC.IsPDC -DomainInformation $DomainInformation -ForestInformation $ForestInformation
                 }
             }
         }

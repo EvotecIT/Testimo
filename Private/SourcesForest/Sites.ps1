@@ -1,5 +1,5 @@
 ﻿$Sites = @{
-    Enable = $false
+    Enable = $true
     Source = @{
         Name       = 'Sites Verification'
         Area       = 'Sites'

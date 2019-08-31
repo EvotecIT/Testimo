@@ -28,19 +28,3 @@
 
     }
 }
-
-$Script:SBServerDnsNameServers = {
-    Test-DNSNameServers @args
-}
-
-#$Test = Test-DNSNameServers -DomainController DC1 -Domain 'ad.evotec.pl'
-#$Test
-
-#Test-DNSNameServers
-
-
-
-#$ScriptBlock = { get-vm }
-
-#Test-DNSNameServers -DomainController 'dc1.ad.evotec.pl' -Domain 'ad.evotec.pl'
-#Test-DNSNameServers -DomainController 'adrodc.ad.evotec.pl' -Domain 'ad.evotec.pl'

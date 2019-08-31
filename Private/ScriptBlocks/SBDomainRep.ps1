@@ -32,9 +32,9 @@
                 "Member(CN=Topology)" = $null
                 "DFSErrors"           = 0
                 "DFSEvents"           = $null
-                "DFSLocalSetting"     = '' #$LocalSettingsObj
-                "DomainSystemVolume"  = '' #$SubscriberObj
-                "SYSVOLSubscription"  = '' #$SubscriptionObj
+                "DFSLocalSetting"     = ''
+                "DomainSystemVolume"  = ''
+                "SYSVOLSubscription"  = ''
             }
             try {
                 $MemberReference = (Get-ADObject $Subscriber -Properties msDFSR-MemberReference -Server $Domain -ErrorAction Stop).'msDFSR-MemberReference' -like "CN=$DCName,*"

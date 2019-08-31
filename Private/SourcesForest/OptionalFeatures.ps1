@@ -1,5 +1,5 @@
 ﻿$OptionalFeatures = [ordered] @{
-    Enable = $false
+    Enable = $true
     Source = [ordered] @{
         Name    = 'Optional Features'
         Data    = {

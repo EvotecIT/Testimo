@@ -49,16 +49,26 @@
     $TestsSummaryTogether = @(
         foreach ($Source in $($Script:TestimoConfiguration.$Scope.Keys)) {
             $CurrentSection = $Script:TestimoConfiguration.$Scope[$Source]
+            if ($null -eq $CurrentSection) {
+                # Probably should write some tests
+                Write-Warning "Source $Source in scope: $Scope is defined improperly. Please verify."
+                continue
+            }
             if ($CurrentSection['Enable'] -eq $true) {
-                $CurrentSource = $CurrentSection['Source']
-                [Array] $AllTests = $CurrentSection['Tests'].Keys
+                $ReferenceID = Get-RandomStringName -Size 8
                 $TestsSummary = [PSCustomobject] @{
                     Passed  = 0
                     Failed  = 0
                     Skipped = 0
                     Total   = 0 # $AllTests.Count + 1 # +1 includes availability of data test
                 }
-                $ReferenceID = Get-RandomStringName -Size 8
+
+                if (-not $CurrentSection['Source']) {
+                    Write-Warning "Source $Source in scope: $Scope is defined improperly. Please verify."
+                    continue
+                }
+                $CurrentSource = $CurrentSection['Source']
+                [Array] $AllTests = $CurrentSection['Tests'].Keys
 
                 $Time = Start-TimeLog
                 # Check if requirements are met
@@ -87,6 +97,7 @@
                 $Script:Reporting[$ReferenceID] = @{
                     Name    = $CurrentSource['Name']
                     Data    = $Object
+                    SourceCode = $CurrentSource['Data']
                     Results = [System.Collections.Generic.List[PSCustomObject]]::new()
                 }
 
