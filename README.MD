@@ -176,7 +176,7 @@ That's it. Whenever there's new version you simply run the command and you can e
 
 **The important thing** is if something works for you on production, keep using it till you test the new version on a test computer. I do changes that may not be big, but big enough that auto-update will break your code. For example, small rename to a parameter and your code stops working! Be responsible!
 
-### To use after installation
+## To use after installation
 
 With output to screen only
 
@@ -193,6 +193,67 @@ With option to be able to process output - for example to email
 ```powershell
 Test-Imo -ReturnResults
 ```
+
+## Changing default configuration
+
+**Testimo** comes with a preset rules that may not apply to your enrivovment.
+You may want to change some things like disabling some tests or changing some values (to an extent).
+There are 3 ways to do it.
+Depending on how you want to save/edit/pass configuration to TestIMO - I leave it up to you.
+
+### Straight to FILE/JSON
+
+```powershell
+Get-TestimoConfiguration -FilePath $PSScriptRoot\Configuration\TestimoConfiguration.json
+```
+
+#### Straight to JSON
+
+```powershell
+Get-TestimoConfiguration -AsJson
+```
+
+#### Output to Hashtable so you can edit it freely and keep in ps1
+
+```powershell
+$OutputOrderedDictionary = Get-TestimoConfiguration
+$OutputOrderedDictionary.Forest.OptionalFeatures.Tests.RecycleBinEnabled.Enable = $false
+$OutputOrderedDictionary.Forest.OptionalFeatures.Tests.LapsAvailable.Enable = $true
+$OutputOrderedDictionary.Forest.OptionalFeatures.Tests.LapsAvailable.Parameters.ExpectedValue = $false
+```
+
+## Using Test-IMO with non-default configuration
+
+Following configuration allows you to:
+- Edit default TestImo configuration with some other values
+- Exclude one of the domains
+- Return Results for future processing
+- Limit sources to only 4 types (you could also limit that via Hashtable but this way is quicker for adhoc enabling/disabling)
+
+```powershell
+Import-Module Testimo
+
+$OutputOrderedDictionary = Get-TestimoConfiguration
+$OutputOrderedDictionary.Forest.OptionalFeatures.Tests.RecycleBinEnabled.Enable = $false
+$OutputOrderedDictionary.Forest.OptionalFeatures.Tests.LapsAvailable.Enable = $true
+$OutputOrderedDictionary.Forest.OptionalFeatures.Tests.LapsAvailable.Parameters.ExpectedValue = $false
+
+$Sources = @(
+    #'ForestFSMORoles'
+    'ForestOptionalFeatures'
+    'ForestBackup'
+    #'ForestOrphanedAdmins'
+    'DomainPasswordComplexity'
+    #'DomainKerberosAccountAge'
+    #'DomainDNSScavengingForPrimaryDNSServer'
+    'DCWindowsUpdates'
+)
+
+$TestResults = Test-IMO -ReturnResults -ExcludeDomains 'ad.evotec.pl' -Sources $Sources -Configuration $OutputOrderedDictionary
+$TestResults | Format-Table -AutoSize *
+```
+
+Be sure to checkout **Examples** section for more **How-To**.
 
 ### Dependencies
 
