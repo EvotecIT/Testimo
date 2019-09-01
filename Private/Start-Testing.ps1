@@ -94,13 +94,6 @@
                     # To be decided
                 }
 
-                $Script:Reporting[$ReferenceID] = @{
-                    Name    = $CurrentSource['Name']
-                    Data    = $Object
-                    SourceCode = $CurrentSource['Data']
-                    Results = [System.Collections.Generic.List[PSCustomObject]]::new()
-                }
-
                 if ($CurrentSource['Parameters']) {
                     $SourceParameters = $CurrentSource['Parameters']
                     $Object = Start-TestProcessing -Test $CurrentSource['Name'] -Level $Level -OutputRequired -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID {
@@ -110,6 +103,13 @@
                     $Object = Start-TestProcessing -Test $CurrentSource['Name'] -Level $Level -OutputRequired -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID {
                         & $CurrentSource['Data'] -DomainController $DomainController -Domain $Domain
                     }
+                }
+
+                $Script:Reporting[$ReferenceID] = @{
+                    Name    = $CurrentSource['Name']
+                    Data    = $Object
+                    SourceCode = $CurrentSource['Data']
+                    Results = [System.Collections.Generic.List[PSCustomObject]]::new()
                 }
 
                 # If there's no output from Source Data all other tests will fail

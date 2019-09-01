@@ -1,8 +1,8 @@
-﻿$DNSForwaders                       = @{
+﻿$DNSForwaders = @{
     Enable = $true
     Source = @{
-        Name       = "DNS Forwarders"
-        Data       = {
+        Name    = "DNS Forwarders"
+        Data    = {
             $PSWinDocumentationDNS = Import-Module PSWinDocumentation.DNS -PassThru
 
             & $PSWinDocumentationDNS {
