@@ -1,6 +1,8 @@
 ﻿function Get-TestimoConfiguration {
+    [CmdletBinding()]
     param(
-
+        [switch] $AsJson,
+        [string] $FilePath
     )
     $NewConfig = [ordered] @{ }
 
@@ -12,7 +14,7 @@
             $NewConfig[$Scope][$Source]['Enable'] = $Script:TestimoConfiguration[$Scope][$Source]['Enable']
 
             if ($null -ne $Script:TestimoConfiguration[$Scope][$Source]['Source']['ExpectedOutput']) {
-                $NewConfig[$Scope][$Source]['Source'] = [ordered] @{}
+                $NewConfig[$Scope][$Source]['Source'] = [ordered] @{ }
                 $NewConfig[$Scope][$Source]['Source']['ExpectedOutput'] = $Script:TestimoConfiguration[$Scope][$Source]['Source']['ExpectedOutput']
             }
 
@@ -43,5 +45,12 @@
             }
         }
     }
-    $NewConfig
+    if ($FilePath) {
+        $NewConfig | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $FilePath
+        return
+    }
+    if ($AsJSON) {
+        return $NewConfig | ConvertTo-Json -Depth 10
+    }
+    return $NewConfig
 }

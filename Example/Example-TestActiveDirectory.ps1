@@ -1,11 +1,5 @@
 ﻿Import-Module .\Testimo.psd1 -Force #-Verbose
 
-
-#Get-TestimoConfiguration | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $PSScriptRoot\TestimoConfiguration.json
-
-#return
-
-#return
 $Sources = @(
     #'ForestFSMORoles'
     #'ForestOptionalFeatures'
@@ -15,22 +9,9 @@ $Sources = @(
     #'DomainDNSScavengingForPrimaryDNSServer'
 )
 
-#Set-TestimoSources -Source 'ForestOptionalFeatures' -Test 'RecycleBinEnabled' -Status $false
 
-#Set-TestimoSources -Source 'DomainPasswordComplexity'
-
-#$TestResults = Test-IMO -ReturnResults -ExcludeDomains 'ad.evotec.pl' -ExtendedResults #-Sources $Sources   #-ShowErrors #-ExludeDomainControllers 'ADRODC.ad.evotec.pl'
-#$TestResults | Format-Table -AutoSize *
-
-#Get-TestimoSources -Source 'DomainPasswordComplexity'
-
-
-#Set-TestsStatus -Sources $Sources
-
-
-
-#$TestResults.ReportData.'1bmncuyz'.SourceCode.Tostring()
-
+$TestResults = Test-IMO -ReturnResults -ExcludeDomains 'ad.evotec.pl' -ExtendedResults #-Sources $Sources   #-ShowErrors #-ExludeDomainControllers 'ADRODC.ad.evotec.pl'
+$TestResults | Format-Table -AutoSize *
 
 New-HTML -FilePath $PSScriptRoot\ShowMeTheMoney.html {
     New-HTMLTab -Name 'Summary' {

@@ -7,7 +7,15 @@
             $OrphanedObjects = $AllFSP | Where-Object { $_.TranslatedName -eq $null }
             $OrphanedObjects
         }
-        Area           = 'Cleanup'
         ExpectedOutput = $false
+        Details = [ordered] @{
+            Area             = 'Cleanup'
+            Explanation      = ''
+            Recommendation   = ''
+            RiskLevel        = 10
+            RecommendedLinks = @(
+
+            )
+        }
     }
 }

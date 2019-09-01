@@ -1,4 +1,5 @@
 ﻿function Out-Failure {
+    [CmdletBinding()]
     param(
         [string] $Text,
         [int] $Level,

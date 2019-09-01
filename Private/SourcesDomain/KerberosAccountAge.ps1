@@ -5,9 +5,14 @@
         Data       = {
             Get-ADUser -Identity krbtgt -Properties Created, PasswordLastSet, msDS-KeyVersionNumber -Server $Domain
         }
-        Area       = ''
-        Parameters = @{
+        Details = [ordered] @{
+            Area             = ''
+            Explanation      = ''
+            Recommendation   = ''
+            RiskLevel        = 10
+            RecommendedLinks = @(
 
+            )
         }
     }
     Tests  = [ordered] @{
@@ -19,7 +24,6 @@
                 ExpectedValue = '(Get-Date).AddDays(-180)'
                 OperationType = 'gt'
             }
-            Explanation = ''
         }
     }
 }

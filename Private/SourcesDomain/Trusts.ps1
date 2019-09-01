@@ -9,6 +9,15 @@
                 Get-WinADDomainTrusts -Domain $Domain
             } -Domain $Domain
         }
+        Details = [ordered] @{
+            Area             = ''
+            Explanation      = ''
+            Recommendation   = ''
+            RiskLevel        = 10
+            RecommendedLinks = @(
+
+            )
+        }
     }
     Tests  = [ordered] @{
         TrustsConnectivity            = @{

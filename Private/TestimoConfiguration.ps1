@@ -1,7 +1,7 @@
 ﻿$Script:TestimoConfiguration = [ordered] @{
     Exclusions        = [ordered] @{
-        #Domains = 'ad.evotec.pl'
-        #DomainControllers = 'AD3.ad.evotec.xyz'
+        Domains           = @()
+        DomainControllers = @()
     }
     Forest            = [ordered]@{
         OptionalFeatures     = $OptionalFeatures

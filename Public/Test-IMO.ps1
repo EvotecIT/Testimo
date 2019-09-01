@@ -8,11 +8,12 @@ function Test-IMO {
         [string[]] $ExcludeDomainControllers,
         [switch] $ReturnResults,
         [switch] $ShowErrors,
-        [switch] $ExtendedResults
+        [switch] $ExtendedResults,
+        [Object] $Configuration
     )
-    $Script:Reporting = [ordered] @{
+    $Script:Reporting = [ordered] @{ }
 
-    }
+    Import-TestimoConfiguration -Configuration $Configuration
 
     $global:ProgressPreference = 'SilentlyContinue'
     $global:ErrorActionPreference = 'Stop'
@@ -61,23 +62,7 @@ function Test-IMO {
     }
 }
 
-$ArgumentCompleterForestTests = {
-    param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
-
-    ($TestimoConfiguration.Forest.Keys)
-}
-$ArgumentCompleterDomainTests = {
-    param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
-
-    ($TestimoConfiguration.Domain.Keys)
-}
-$ArgumentCompleterDomainControllerTests = {
-    param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
-
-    ($TestimoConfiguration.DomainControllers.Keys)
-}
-
-$New = {
+[scriptblock] $SourcesAutoCompleter = {
     param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
 
     $ForestKeys = $TestimoConfiguration.Domain.Keys
@@ -97,69 +82,5 @@ $New = {
     )
     $TestSources | Sort-Object
 }
-Register-ArgumentCompleter -CommandName Test-IMO -ParameterName Sources -ScriptBlock $New
-Register-ArgumentCompleter -CommandName Test-IMO -ParameterName ExcludeSources -ScriptBlock $New
-
-<#
-Register-ArgumentCompleter -CommandName Test-IMO -ParameterName ForestTests -ScriptBlock $ArgumentCompleterForestTests
-Register-ArgumentCompleter -CommandName Test-IMO -ParameterName DomainTests -ScriptBlock $ArgumentCompleterDomainTests
-Register-ArgumentCompleter -CommandName Test-IMO -ParameterName DomainControllerTests -ScriptBlock $ArgumentCompleterDomainControllerTests
-Register-ArgumentCompleter -CommandName Test-IMO -ParameterName ExcludeForestTests -ScriptBlock $ArgumentCompleterForestTests
-Register-ArgumentCompleter -CommandName Test-IMO -ParameterName ExcludeDomainTests -ScriptBlock $ArgumentCompleterDomainTests
-Register-ArgumentCompleter -CommandName Test-IMO -ParameterName ExcludeDomainControllerTests -ScriptBlock $ArgumentCompleterDomainControllerTests
-
-
-
-
-
-#$ForestKeys
-
-function Set-Testimo {
-    [CmdletBinding()]
-    param(
-        [string] $Source,
-        [string] $Tests
-    )
-}
-
-
-#>
-
-
-#Register-ArgumentCompleter -CommandName 'Set-Testimo' -ParameterName Source -ScriptBlock $ArgumentCompleterForestTests
-#Register-ArgumentCompleter -CommandName 'Set-Testimo' -ParameterName Tests -ScriptBlock $New
-
-<#
-
-Register-ArgumentCompleter -ParameterName Source -ScriptBlock {
-    param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameter)
-
-    $FoodNameFilter = $fakeBoundParameter.FoodName
-
-    $TestimoConfiguration.Forest.Keys | Where-Object { $_ -like "${wordToComplete}*" } | Where-Object {
-        $Foods.$_ -like "${FoodNameFilter}*"
-    } | ForEach-Object {
-        New-Object System.Management.Automation.CompletionResult (
-            $_,
-            $_,
-            'ParameterValue',
-            $_
-        )
-    }
-}
-
-Register-ArgumentCompleter -ParameterName Tests -ScriptBlock {
-    param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameter)
-
-    $TypeFilter = $fakeBoundParameter.FoodType
-
-    $Foods.Keys | Where-Object { $_ -like "${TypeFilter}*" } | ForEach-Object { $Foods.$_ | Where-Object { $_ -like "${wordToComplete}*" } } | Sort-Object -Unique | ForEach-Object {
-        New-Object System.Management.Automation.CompletionResult (
-            $_,
-            $_,
-            'ParameterValue',
-            $_
-        )
-    }
-}
-#>
+Register-ArgumentCompleter -CommandName Test-IMO -ParameterName Sources -ScriptBlock $SourcesAutoCompleter
+Register-ArgumentCompleter -CommandName Test-IMO -ParameterName ExcludeSources -ScriptBlock $SourcesAutoCompleter

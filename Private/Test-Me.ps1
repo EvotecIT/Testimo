@@ -1,4 +1,5 @@
 ﻿function Test-Me {
+    [CmdletBinding()]
     param(
         [string] $OperationType,
         [string] $TestName,

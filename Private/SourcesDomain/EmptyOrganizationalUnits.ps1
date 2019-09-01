@@ -12,7 +12,15 @@
 
             $OrganizationalUnits | Where-Object { ($AllUsedOU -notcontains $_) -and -not (Get-ADOrganizationalUnit -Filter * -SearchBase $_ -SearchScope 1 -Server $Domain) }
         }
-        Area           = 'Cleanup'
         ExpectedOutput = $false
+        Details = [ordered] @{
+            Area             = 'Cleanup'
+            Explanation      = ''
+            Recommendation   = ''
+            RiskLevel        = 10
+            RecommendedLinks = @(
+
+            )
+        }
     }
 }

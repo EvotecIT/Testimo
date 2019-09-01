@@ -1,4 +1,5 @@
 ﻿function ConvertTo-Source {
+    [CmdletBinding()]
     param(
         [string] $Source
     )

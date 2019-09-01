@@ -1,0 +1,1041 @@
+{
+    "Forest":  {
+                   "OptionalFeatures":  {
+                                            "Enable":  true,
+                                            "Tests":  {
+                                                          "RecycleBinEnabled":  {
+                                                                                    "Enable":  true,
+                                                                                    "Parameters":  {
+                                                                                                       "Property":  "Recycle Bin Enabled",
+                                                                                                       "ExpectedValue":  true,
+                                                                                                       "OperationType":  "eq"
+                                                                                                   }
+                                                                                },
+                                                          "LapsAvailable":  {
+                                                                                "Enable":  true,
+                                                                                "Parameters":  {
+                                                                                                   "Property":  "Laps Enabled",
+                                                                                                   "ExpectedValue":  true,
+                                                                                                   "OperationType":  "eq"
+                                                                                               }
+                                                                            },
+                                                          "PrivAccessManagement":  {
+                                                                                       "Enable":  true,
+                                                                                       "Parameters":  {
+                                                                                                          "Property":  "Privileged Access Management Feature Enabled",
+                                                                                                          "ExpectedValue":  true,
+                                                                                                          "OperationType":  "eq"
+                                                                                                      }
+                                                                                   }
+                                                      }
+                                        },
+                   "Backup":  {
+                                  "Enable":  true,
+                                  "Tests":  {
+                                                "LastBackupTests":  {
+                                                                        "Enable":  true,
+                                                                        "Parameters":  {
+                                                                                           "Property":  "LastBackupDaysAgo",
+                                                                                           "ExpectedValue":  2,
+                                                                                           "OperationType":  "lt"
+                                                                                       }
+                                                                    }
+                                            }
+                              },
+                   "Sites":  {
+                                 "Enable":  true,
+                                 "Tests":  {
+                                               "SitesWithoutDC":  {
+                                                                      "Enable":  true,
+                                                                      "Parameters":  {
+                                                                                         "Property":  "SitesWithoutDC",
+                                                                                         "ExpectedValue":  0,
+                                                                                         "OperationType":  "eq"
+                                                                                     }
+                                                                  },
+                                               "SitesWithoutSubnets":  {
+                                                                           "Enable":  true,
+                                                                           "Parameters":  {
+                                                                                              "Property":  "SitesWithoutSubnets",
+                                                                                              "ExpectedValue":  0,
+                                                                                              "OperationType":  "eq"
+                                                                                          }
+                                                                       }
+                                           }
+                             },
+                   "SiteLinks":  {
+                                     "Enable":  true,
+                                     "Tests":  {
+                                                   "MinimalReplicationFrequency":  {
+                                                                                       "Enable":  true,
+                                                                                       "Parameters":  {
+                                                                                                          "Property":  "ReplicationFrequencyInMinutes",
+                                                                                                          "ExpectedValue":  60,
+                                                                                                          "OperationType":  "lt"
+                                                                                                      }
+                                                                                   },
+                                                   "UseNotificationsForLinks":  {
+                                                                                    "Enable":  true,
+                                                                                    "Parameters":  {
+                                                                                                       "Property":  "Options",
+                                                                                                       "ExpectedValue":  "UseNotify",
+                                                                                                       "OperationType":  "contains"
+                                                                                                   }
+                                                                                }
+                                               }
+                                 },
+                   "SiteLinksConnections":  {
+                                                "Enable":  true,
+                                                "Tests":  {
+                                                              "AutomaticSiteLinks":  {
+                                                                                         "Enable":  true,
+                                                                                         "Parameters":  {
+                                                                                                            "Property":  "SiteLinksManualCount",
+                                                                                                            "ExpectedValue":  0,
+                                                                                                            "OperationType":  "eq"
+                                                                                                        }
+                                                                                     },
+                                                              "SiteLinksNotifications":  {
+                                                                                             "Enable":  true,
+                                                                                             "Parameters":  {
+                                                                                                                "Property":  "SiteLinksNotUsingNotifyCount",
+                                                                                                                "ExpectedValue":  0,
+                                                                                                                "OperationType":  "eq"
+                                                                                                            }
+                                                                                         },
+                                                              "SiteLinksDoNotUseNotifications":  {
+                                                                                                     "Enable":  false,
+                                                                                                     "Parameters":  {
+                                                                                                                        "Property":  "SiteLinksUseNotifyCount",
+                                                                                                                        "ExpectedValue":  0,
+                                                                                                                        "OperationType":  "eq"
+                                                                                                                    }
+                                                                                                 }
+                                                          }
+                                            },
+                   "FSMORoles":  {
+                                     "Enable":  true,
+                                     "Tests":  {
+                                                   "SchemaMasterAvailability":  {
+                                                                                    "Enable":  true,
+                                                                                    "Parameters":  {
+                                                                                                       "Property":  "SchemaMasterAvailability",
+                                                                                                       "ExpectedValue":  true,
+                                                                                                       "OperationType":  "eq"
+                                                                                                   }
+                                                                                },
+                                                   "DomainNamingMasterAvailability":  {
+                                                                                          "Enable":  true,
+                                                                                          "Parameters":  {
+                                                                                                             "Property":  "DomainNamingMasterAvailability",
+                                                                                                             "ExpectedValue":  true,
+                                                                                                             "OperationType":  "eq"
+                                                                                                         }
+                                                                                      }
+                                               }
+                                 },
+                   "TombstoneLifetime":  {
+                                             "Enable":  true,
+                                             "Tests":  {
+                                                           "TombstoneLifetime":  {
+                                                                                     "Enable":  true,
+                                                                                     "Parameters":  {
+                                                                                                        "Property":  "TombstoneLifeTime",
+                                                                                                        "ExpectedValue":  180,
+                                                                                                        "OperationType":  "ge"
+                                                                                                    }
+                                                                                 }
+                                                       }
+                                         },
+                   "OrphanedAdmins":  {
+                                          "Enable":  true,
+                                          "Source":  {
+                                                         "ExpectedOutput":  false
+                                                     },
+                                          "Tests":  {
+
+                                                    }
+                                      },
+                   "Replication":  {
+                                       "Enable":  true,
+                                       "Tests":  {
+                                                     "ReplicationTests":  {
+                                                                              "Enable":  true,
+                                                                              "Parameters":  {
+                                                                                                 "Property":  "Status",
+                                                                                                 "ExpectedValue":  true,
+                                                                                                 "OperationType":  "eq"
+                                                                                             }
+                                                                          }
+                                                 }
+                                   }
+               },
+    "Domain":  {
+                   "FSMORoles":  {
+                                     "Enable":  true,
+                                     "Tests":  {
+                                                   "PDCEmulator":  {
+                                                                       "Enable":  true,
+                                                                       "Parameters":  {
+                                                                                          "Property":  "PDCEmulatorAvailability",
+                                                                                          "ExpectedValue":  true,
+                                                                                          "OperationType":  "eq"
+                                                                                      }
+                                                                   },
+                                                   "RIDMaster":  {
+                                                                     "Enable":  true,
+                                                                     "Parameters":  {
+                                                                                        "Property":  "RIDMasterAvailability",
+                                                                                        "ExpectedValue":  true,
+                                                                                        "OperationType":  "eq"
+                                                                                    }
+                                                                 },
+                                                   "InfrastructureMaster":  {
+                                                                                "Enable":  true,
+                                                                                "Parameters":  {
+                                                                                                   "Property":  "InfrastructureMasterAvailability",
+                                                                                                   "ExpectedValue":  true,
+                                                                                                   "OperationType":  "eq"
+                                                                                               }
+                                                                            }
+                                               }
+                                 },
+                   "WellKnownFolders":  {
+                                            "Enable":  true,
+                                            "Tests":  {
+                                                          "UsersContainer":  {
+                                                                                 "Enable":  true,
+                                                                                 "Parameters":  {
+                                                                                                    "Property":  "Status",
+                                                                                                    "ExpectedValue":  false,
+                                                                                                    "OperationType":  "eq"
+                                                                                                }
+                                                                             },
+                                                          "ComputersContainer":  {
+                                                                                     "Enable":  true,
+                                                                                     "Parameters":  {
+                                                                                                        "Property":  "Status",
+                                                                                                        "ExpectedValue":  false,
+                                                                                                        "OperationType":  "eq"
+                                                                                                    }
+                                                                                 },
+                                                          "DomainControllersContainer":  {
+                                                                                             "Enable":  true,
+                                                                                             "Parameters":  {
+                                                                                                                "Property":  "Status",
+                                                                                                                "ExpectedValue":  true,
+                                                                                                                "OperationType":  "eq"
+                                                                                                            }
+                                                                                         },
+                                                          "DeletedObjectsContainer":  {
+                                                                                          "Enable":  true,
+                                                                                          "Parameters":  {
+                                                                                                             "Property":  "Status",
+                                                                                                             "ExpectedValue":  true,
+                                                                                                             "OperationType":  "eq"
+                                                                                                         }
+                                                                                      },
+                                                          "SystemsContainer":  {
+                                                                                   "Enable":  true,
+                                                                                   "Parameters":  {
+                                                                                                      "Property":  "Status",
+                                                                                                      "ExpectedValue":  true,
+                                                                                                      "OperationType":  "eq"
+                                                                                                  }
+                                                                               },
+                                                          "LostAndFoundContainer":  {
+                                                                                        "Enable":  true,
+                                                                                        "Parameters":  {
+                                                                                                           "Property":  "Status",
+                                                                                                           "ExpectedValue":  true,
+                                                                                                           "OperationType":  "eq"
+                                                                                                       }
+                                                                                    },
+                                                          "QuotasContainer":  {
+                                                                                  "Enable":  true,
+                                                                                  "Parameters":  {
+                                                                                                     "Property":  "Status",
+                                                                                                     "ExpectedValue":  true,
+                                                                                                     "OperationType":  "eq"
+                                                                                                 }
+                                                                              },
+                                                          "ForeignSecurityPrincipalsContainer":  {
+                                                                                                     "Enable":  true,
+                                                                                                     "Parameters":  {
+                                                                                                                        "Property":  "Status",
+                                                                                                                        "ExpectedValue":  true,
+                                                                                                                        "OperationType":  "eq"
+                                                                                                                    }
+                                                                                                 }
+                                                      }
+                                        },
+                   "PasswordComplexity":  {
+                                              "Enable":  true,
+                                              "Tests":  {
+                                                            "ComplexityEnabled":  {
+                                                                                      "Enable":  true,
+                                                                                      "Parameters":  {
+                                                                                                         "Property":  "Complexity Enabled",
+                                                                                                         "ExpectedValue":  true,
+                                                                                                         "OperationType":  "eq"
+                                                                                                     }
+                                                                                  },
+                                                            "LockoutDuration":  {
+                                                                                    "Enable":  true,
+                                                                                    "Parameters":  {
+                                                                                                       "Property":  "Lockout Duration",
+                                                                                                       "ExpectedValue":  30,
+                                                                                                       "OperationType":  "ge"
+                                                                                                   }
+                                                                                },
+                                                            "LockoutObservationWindow":  {
+                                                                                             "Enable":  true,
+                                                                                             "Parameters":  {
+                                                                                                                "Property":  "Lockout Observation Window",
+                                                                                                                "ExpectedValue":  30,
+                                                                                                                "OperationType":  "ge"
+                                                                                                            }
+                                                                                         },
+                                                            "LockoutThreshold":  {
+                                                                                     "Enable":  true,
+                                                                                     "Parameters":  {
+                                                                                                        "Property":  "Lockout Threshold",
+                                                                                                        "ExpectedValue":  5,
+                                                                                                        "OperationType":  "gt"
+                                                                                                    }
+                                                                                 },
+                                                            "MaxPasswordAge":  {
+                                                                                   "Enable":  true,
+                                                                                   "Parameters":  {
+                                                                                                      "Property":  "Max Password Age",
+                                                                                                      "ExpectedValue":  60,
+                                                                                                      "OperationType":  "le"
+                                                                                                  }
+                                                                               },
+                                                            "MinPasswordLength":  {
+                                                                                      "Enable":  true,
+                                                                                      "Parameters":  {
+                                                                                                         "Property":  "Min Password Length",
+                                                                                                         "ExpectedValue":  8,
+                                                                                                         "OperationType":  "gt"
+                                                                                                     }
+                                                                                  },
+                                                            "MinPasswordAge":  {
+                                                                                   "Enable":  true,
+                                                                                   "Parameters":  {
+                                                                                                      "Property":  "Min Password Age",
+                                                                                                      "ExpectedValue":  1,
+                                                                                                      "OperationType":  "le"
+                                                                                                  }
+                                                                               },
+                                                            "PasswordHistoryCount":  {
+                                                                                         "Enable":  true,
+                                                                                         "Parameters":  {
+                                                                                                            "Property":  "Password History Count",
+                                                                                                            "ExpectedValue":  10,
+                                                                                                            "OperationType":  "ge"
+                                                                                                        }
+                                                                                     },
+                                                            "ReversibleEncryptionEnabled":  {
+                                                                                                "Enable":  true,
+                                                                                                "Parameters":  {
+                                                                                                                   "Property":  "Reversible Encryption Enabled",
+                                                                                                                   "ExpectedValue":  false,
+                                                                                                                   "OperationType":  "eq"
+                                                                                                               }
+                                                                                            }
+                                                        }
+                                          },
+                   "Trusts":  {
+                                  "Enable":  true,
+                                  "Tests":  {
+                                                "TrustsConnectivity":  {
+                                                                           "Enable":  true,
+                                                                           "Parameters":  {
+                                                                                              "Property":  "Trust Status",
+                                                                                              "ExpectedValue":  "OK",
+                                                                                              "OperationType":  "eq"
+                                                                                          }
+                                                                       },
+                                                "TrustsUnconstrainedDelegation":  {
+                                                                                      "Enable":  true,
+                                                                                      "Parameters":  {
+                                                                                                         "Property":  "TGTDelegation",
+                                                                                                         "ExpectedValue":  true,
+                                                                                                         "OperationType":  "eq"
+                                                                                                     }
+                                                                                  }
+                                            }
+                              },
+                   "OrphanedForeignSecurityPrincipals":  {
+                                                             "Enable":  true,
+                                                             "Source":  {
+                                                                            "ExpectedOutput":  false
+                                                                        },
+                                                             "Tests":  {
+
+                                                                       }
+                                                         },
+                   "EmptyOrganizationalUnits":  {
+                                                    "Enable":  true,
+                                                    "Source":  {
+                                                                   "ExpectedOutput":  false
+                                                               },
+                                                    "Tests":  {
+
+                                                              }
+                                                },
+                   "DNSScavengingForPrimaryDNSServer":  {
+                                                            "Enable":  true,
+                                                            "Tests":  {
+                                                                          "ScavengingCount":  {
+                                                                                                  "Enable":  true,
+                                                                                                  "Parameters":  {
+
+                                                                                                                 }
+                                                                                              },
+                                                                          "ScavengingInterval":  {
+                                                                                                     "Enable":  true,
+                                                                                                     "Parameters":  {
+                                                                                                                        "Property":  [
+                                                                                                                                         "ScavengingInterval",
+                                                                                                                                         "Days"
+                                                                                                                                     ],
+                                                                                                                        "ExpectedValue":  7,
+                                                                                                                        "OperationType":  "le"
+                                                                                                                    }
+                                                                                                 },
+                                                                          "Scavenging State":  {
+                                                                                                   "Enable":  true,
+                                                                                                   "Parameters":  {
+                                                                                                                      "Property":  "ScavengingState",
+                                                                                                                      "ExpectedValue":  true,
+                                                                                                                      "OperationType":  "eq"
+                                                                                                                  }
+                                                                                               },
+                                                                          "Last Scavenge Time":  {
+                                                                                                     "Enable":  true,
+                                                                                                     "Parameters":  {
+                                                                                                                        "Property":  "LastScavengeTime",
+                                                                                                                        "ExpectedValue":  "(Get-Date).AddDays(-7)",
+                                                                                                                        "OperationType":  "lt"
+                                                                                                                    }
+                                                                                                 }
+                                                                      }
+                                                        },
+                   "DNSForwaders":  {
+                                        "Enable":  true,
+                                        "Tests":  {
+                                                      "SameForwarders":  {
+                                                                             "Enable":  true,
+                                                                             "Parameters":  {
+                                                                                                "Property":  "Status",
+                                                                                                "ExpectedValue":  true,
+                                                                                                "OperationType":  "eq"
+                                                                                            }
+                                                                         }
+                                                  }
+                                    },
+                   "DnsZonesAging":  {
+                                         "Enable":  true,
+                                         "Tests":  {
+                                                       "EnabledAgingEnabled":  {
+                                                                                   "Enable":  true,
+                                                                                   "Parameters":  {
+                                                                                                      "Property":  "Source",
+                                                                                                      "ExpectedValue":  true,
+                                                                                                      "OperationType":  "eq"
+                                                                                                  }
+                                                                               },
+                                                       "EnabledAgingIdentical":  {
+                                                                                     "Enable":  true,
+                                                                                     "Parameters":  {
+                                                                                                        "Property":  "Status",
+                                                                                                        "ExpectedValue":  true,
+                                                                                                        "OperationType":  "eq"
+                                                                                                    }
+                                                                                 }
+                                                   }
+                                     },
+                   "KerberosAccountAge":  {
+                                              "Enable":  true,
+                                              "Tests":  {
+                                                            "EnabledAgingEnabled":  {
+                                                                                        "Enable":  true,
+                                                                                        "Parameters":  {
+                                                                                                           "Property":  "PasswordLastSet",
+                                                                                                           "ExpectedValue":  "(Get-Date).AddDays(-180)",
+                                                                                                           "OperationType":  "gt"
+                                                                                                       }
+                                                                                    }
+                                                        }
+                                          },
+                   "SecurityGroupsAccountOperators":  {
+                                                          "Enable":  true,
+                                                          "Source":  {
+                                                                         "ExpectedOutput":  false
+                                                                     },
+                                                          "Tests":  {
+
+                                                                    }
+                                                      },
+                   "SecurityGroupsSchemaAdmins":  {
+                                                      "Enable":  true,
+                                                      "Source":  {
+                                                                     "ExpectedOutput":  false
+                                                                 },
+                                                      "Tests":  {
+
+                                                                }
+                                                  },
+                   "SecurityUsersAcccountAdministrator":  {
+                                                              "Enable":  true,
+                                                              "Tests":  {
+                                                                            "PasswordLastSet":  {
+                                                                                                    "Enable":  true,
+                                                                                                    "Parameters":  {
+                                                                                                                       "Property":  "PasswordLastSet",
+                                                                                                                       "ExpectedValue":  "(Get-Date).AddDays(-360)",
+                                                                                                                       "OperationType":  "gt"
+                                                                                                                   }
+                                                                                                }
+                                                                        }
+                                                          }
+               },
+    "DomainControllers":  {
+                              "WindowsRemoteManagement":  {
+                                                              "Enable":  true,
+                                                              "Tests":  {
+                                                                            "OperatingSystem":  {
+                                                                                                    "Enable":  null,
+                                                                                                    "Parameters":  {
+                                                                                                                       "Property":  "Status",
+                                                                                                                       "ExpectedValue":  true,
+                                                                                                                       "OperationType":  "eq"
+                                                                                                                   }
+                                                                                                }
+                                                                        }
+                                                          },
+                              "OperatingSystem":  {
+                                                      "Enable":  true,
+                                                      "Tests":  {
+                                                                    "OperatingSystem":  {
+                                                                                            "Enable":  true,
+                                                                                            "Parameters":  {
+                                                                                                               "Property":  "OperatingSystem",
+                                                                                                               "ExpectedValue":  [
+                                                                                                                                     "Microsoft Windows Server 2019*",
+                                                                                                                                     "Microsoft Windows Server 2016*",
+                                                                                                                                     "Microsoft Windows Server 2012*"
+                                                                                                                                 ],
+                                                                                                               "OperationType":  "like"
+                                                                                                           }
+                                                                                        }
+                                                                }
+                                                  },
+                              "Services":  {
+                                               "Enable":  true,
+                                               "Tests":  {
+                                                             "ADWSServiceStatus":  {
+                                                                                       "Enable":  true,
+                                                                                       "Parameters":  {
+                                                                                                          "Property":  "Status",
+                                                                                                          "ExpectedValue":  "Running",
+                                                                                                          "OperationType":  "eq"
+                                                                                                      }
+                                                                                   },
+                                                             "ADWSServiceStartType":  {
+                                                                                          "Enable":  true,
+                                                                                          "Parameters":  {
+                                                                                                             "Property":  "StartType",
+                                                                                                             "ExpectedValue":  "Automatic",
+                                                                                                             "OperationType":  "eq"
+                                                                                                         }
+                                                                                      },
+                                                             "DNSServiceStatus":  {
+                                                                                      "Enable":  true,
+                                                                                      "Parameters":  {
+                                                                                                         "Property":  "Status",
+                                                                                                         "ExpectedValue":  "Running",
+                                                                                                         "OperationType":  "eq"
+                                                                                                     }
+                                                                                  },
+                                                             "DNSServiceStartType":  {
+                                                                                         "Enable":  true,
+                                                                                         "Parameters":  {
+                                                                                                            "Property":  "StartType",
+                                                                                                            "ExpectedValue":  "Automatic",
+                                                                                                            "OperationType":  "eq"
+                                                                                                        }
+                                                                                     },
+                                                             "DFSServiceStatus":  {
+                                                                                      "Enable":  true,
+                                                                                      "Parameters":  {
+                                                                                                         "Property":  "Status",
+                                                                                                         "ExpectedValue":  "Running",
+                                                                                                         "OperationType":  "eq"
+                                                                                                     }
+                                                                                  },
+                                                             "DFSServiceStartType":  {
+                                                                                         "Enable":  true,
+                                                                                         "Parameters":  {
+                                                                                                            "Property":  "StartType",
+                                                                                                            "ExpectedValue":  "Automatic",
+                                                                                                            "OperationType":  "eq"
+                                                                                                        }
+                                                                                     },
+                                                             "DFSRServiceStatus":  {
+                                                                                       "Enable":  true,
+                                                                                       "Parameters":  {
+                                                                                                          "Property":  "Status",
+                                                                                                          "ExpectedValue":  "Running",
+                                                                                                          "OperationType":  "eq"
+                                                                                                      }
+                                                                                   },
+                                                             "DFSRServiceStartType":  {
+                                                                                          "Enable":  true,
+                                                                                          "Parameters":  {
+                                                                                                             "Property":  "StartType",
+                                                                                                             "ExpectedValue":  "Automatic",
+                                                                                                             "OperationType":  "eq"
+                                                                                                         }
+                                                                                      },
+                                                             "EventlogServiceStatus":  {
+                                                                                           "Enable":  true,
+                                                                                           "Parameters":  {
+                                                                                                              "Property":  "Status",
+                                                                                                              "ExpectedValue":  "Running",
+                                                                                                              "OperationType":  "eq"
+                                                                                                          }
+                                                                                       },
+                                                             "EventlogServiceStartType":  {
+                                                                                              "Enable":  true,
+                                                                                              "Parameters":  {
+                                                                                                                 "Property":  "StartType",
+                                                                                                                 "ExpectedValue":  "Automatic",
+                                                                                                                 "OperationType":  "eq"
+                                                                                                             }
+                                                                                          },
+                                                             "EventSystemServiceStatus":  {
+                                                                                              "Enable":  true,
+                                                                                              "Parameters":  {
+                                                                                                                 "Property":  "Status",
+                                                                                                                 "ExpectedValue":  "Running",
+                                                                                                                 "OperationType":  "eq"
+                                                                                                             }
+                                                                                          },
+                                                             "EventSystemServiceStartType":  {
+                                                                                                 "Enable":  true,
+                                                                                                 "Parameters":  {
+                                                                                                                    "Property":  "StartType",
+                                                                                                                    "ExpectedValue":  "Automatic",
+                                                                                                                    "OperationType":  "eq"
+                                                                                                                }
+                                                                                             },
+                                                             "KDCServiceStatus":  {
+                                                                                      "Enable":  true,
+                                                                                      "Parameters":  {
+                                                                                                         "Property":  "Status",
+                                                                                                         "ExpectedValue":  "Running",
+                                                                                                         "OperationType":  "eq"
+                                                                                                     }
+                                                                                  },
+                                                             "KDCServiceStartType":  {
+                                                                                         "Enable":  true,
+                                                                                         "Parameters":  {
+                                                                                                            "Property":  "StartType",
+                                                                                                            "ExpectedValue":  "Automatic",
+                                                                                                            "OperationType":  "eq"
+                                                                                                        }
+                                                                                     },
+                                                             "LanManWorkstationServiceStatus":  {
+                                                                                                    "Enable":  true,
+                                                                                                    "Parameters":  {
+                                                                                                                       "Property":  "Status",
+                                                                                                                       "ExpectedValue":  "Running",
+                                                                                                                       "OperationType":  "eq"
+                                                                                                                   }
+                                                                                                },
+                                                             "LanManWorkstationServiceStartType":  {
+                                                                                                       "Enable":  true,
+                                                                                                       "Parameters":  {
+                                                                                                                          "Property":  "StartType",
+                                                                                                                          "ExpectedValue":  "Automatic",
+                                                                                                                          "OperationType":  "eq"
+                                                                                                                      }
+                                                                                                   },
+                                                             "LanManServerServiceStatus":  {
+                                                                                               "Enable":  true,
+                                                                                               "Parameters":  {
+                                                                                                                  "Property":  "Status",
+                                                                                                                  "ExpectedValue":  "Running",
+                                                                                                                  "OperationType":  "eq"
+                                                                                                              }
+                                                                                           },
+                                                             "LanManServerServiceStartType":  {
+                                                                                                  "Enable":  true,
+                                                                                                  "Parameters":  {
+                                                                                                                     "Property":  "StartType",
+                                                                                                                     "ExpectedValue":  "Automatic",
+                                                                                                                     "OperationType":  "eq"
+                                                                                                                 }
+                                                                                              },
+                                                             "NetLogonServiceStatus":  {
+                                                                                           "Enable":  true,
+                                                                                           "Parameters":  {
+                                                                                                              "Property":  "Status",
+                                                                                                              "ExpectedValue":  "Running",
+                                                                                                              "OperationType":  "eq"
+                                                                                                          }
+                                                                                       },
+                                                             "NetLogonServiceStartType":  {
+                                                                                              "Enable":  true,
+                                                                                              "Parameters":  {
+                                                                                                                 "Property":  "StartType",
+                                                                                                                 "ExpectedValue":  "Automatic",
+                                                                                                                 "OperationType":  "eq"
+                                                                                                             }
+                                                                                          },
+                                                             "NTDSServiceStatus":  {
+                                                                                       "Enable":  true,
+                                                                                       "Parameters":  {
+                                                                                                          "Property":  "Status",
+                                                                                                          "ExpectedValue":  "Running",
+                                                                                                          "OperationType":  "eq"
+                                                                                                      }
+                                                                                   },
+                                                             "NTDSServiceStartType":  {
+                                                                                          "Enable":  true,
+                                                                                          "Parameters":  {
+                                                                                                             "Property":  "StartType",
+                                                                                                             "ExpectedValue":  "Automatic",
+                                                                                                             "OperationType":  "eq"
+                                                                                                         }
+                                                                                      },
+                                                             "RPCSSServiceStatus":  {
+                                                                                        "Enable":  true,
+                                                                                        "Parameters":  {
+                                                                                                           "Property":  "Status",
+                                                                                                           "ExpectedValue":  "Running",
+                                                                                                           "OperationType":  "eq"
+                                                                                                       }
+                                                                                    },
+                                                             "RPCSSServiceStartType":  {
+                                                                                           "Enable":  true,
+                                                                                           "Parameters":  {
+                                                                                                              "Property":  "StartType",
+                                                                                                              "ExpectedValue":  "Automatic",
+                                                                                                              "OperationType":  "eq"
+                                                                                                          }
+                                                                                       },
+                                                             "SAMSSServiceStatus":  {
+                                                                                        "Enable":  true,
+                                                                                        "Parameters":  {
+                                                                                                           "Property":  "Status",
+                                                                                                           "ExpectedValue":  "Running",
+                                                                                                           "OperationType":  "eq"
+                                                                                                       }
+                                                                                    },
+                                                             "SAMSSServiceStartType":  {
+                                                                                           "Enable":  true,
+                                                                                           "Parameters":  {
+                                                                                                              "Property":  "StartType",
+                                                                                                              "ExpectedValue":  "Automatic",
+                                                                                                              "OperationType":  "eq"
+                                                                                                          }
+                                                                                       },
+                                                             "SpoolerServiceStatus":  {
+                                                                                          "Enable":  true,
+                                                                                          "Parameters":  {
+                                                                                                             "Property":  "Status",
+                                                                                                             "ExpectedValue":  "Stopped",
+                                                                                                             "OperationType":  "eq"
+                                                                                                         }
+                                                                                      },
+                                                             "SpoolerServiceStartType":  {
+                                                                                             "Enable":  true,
+                                                                                             "Parameters":  {
+                                                                                                                "Property":  "StartType",
+                                                                                                                "ExpectedValue":  "Disabled",
+                                                                                                                "OperationType":  "eq"
+                                                                                                            }
+                                                                                         },
+                                                             "W32TimeServiceStatus":  {
+                                                                                          "Enable":  true,
+                                                                                          "Parameters":  {
+                                                                                                             "Property":  "Status",
+                                                                                                             "ExpectedValue":  "Running",
+                                                                                                             "OperationType":  "eq"
+                                                                                                         }
+                                                                                      },
+                                                             "W32TimeServiceStartType":  {
+                                                                                             "Enable":  true,
+                                                                                             "Parameters":  {
+                                                                                                                "Property":  "StartType",
+                                                                                                                "ExpectedValue":  "Automatic",
+                                                                                                                "OperationType":  "eq"
+                                                                                                            }
+                                                                                         }
+                                                         }
+                                           },
+                              "LDAP":  {
+                                           "Enable":  true,
+                                           "Tests":  {
+                                                         "PortLDAP":  {
+                                                                          "Enable":  true,
+                                                                          "Parameters":  {
+                                                                                             "Property":  "LDAP",
+                                                                                             "ExpectedValue":  true,
+                                                                                             "OperationType":  "eq"
+                                                                                         }
+                                                                      },
+                                                         "PortLDAPS":  {
+                                                                           "Enable":  true,
+                                                                           "Parameters":  {
+                                                                                              "Property":  "LDAPS",
+                                                                                              "ExpectedValue":  true,
+                                                                                              "OperationType":  "eq"
+                                                                                          }
+                                                                       },
+                                                         "PortLDAP_GC":  {
+                                                                             "Enable":  true,
+                                                                             "Parameters":  {
+                                                                                                "Property":  "GlobalCatalogLDAP",
+                                                                                                "ExpectedValue":  true,
+                                                                                                "OperationType":  "eq"
+                                                                                            }
+                                                                         },
+                                                         "PortLDAPS_GC":  {
+                                                                              "Enable":  true,
+                                                                              "Parameters":  {
+                                                                                                 "Property":  "GlobalCatalogLDAPS",
+                                                                                                 "ExpectedValue":  true,
+                                                                                                 "OperationType":  "eq"
+                                                                                             }
+                                                                          }
+                                                     }
+                                       },
+                              "Pingable":  {
+                                               "Enable":  true,
+                                               "Tests":  {
+                                                             "Ping":  {
+                                                                          "Enable":  true,
+                                                                          "Parameters":  {
+                                                                                             "Property":  "PingSucceeded",
+                                                                                             "ExpectedValue":  true,
+                                                                                             "OperationType":  "eq"
+                                                                                         }
+                                                                      }
+                                                         }
+                                           },
+                              "Ports":  {
+                                            "Enable":  true,
+                                            "Tests":  {
+                                                          "Ping":  {
+                                                                       "Enable":  true,
+                                                                       "Parameters":  {
+                                                                                          "Property":  "Status",
+                                                                                          "ExpectedValue":  true,
+                                                                                          "OperationType":  "eq"
+                                                                                      }
+                                                                   }
+                                                      }
+                                        },
+                              "PortsRDP":  {
+                                               "Enable":  true,
+                                               "Tests":  {
+                                                             "Ping":  {
+                                                                          "Enable":  true,
+                                                                          "Parameters":  {
+                                                                                             "Property":  "Status",
+                                                                                             "ExpectedValue":  true,
+                                                                                             "OperationType":  "eq"
+                                                                                         }
+                                                                      }
+                                                         }
+                                           },
+                              "DiskSpace":  {
+                                                "Enable":  true,
+                                                "Tests":  {
+                                                              "FreePercent":  {
+                                                                                  "Enable":  true,
+                                                                                  "Parameters":  {
+                                                                                                     "Property":  "FreePercent",
+                                                                                                     "ExpectedValue":  10,
+                                                                                                     "OperationType":  "gt"
+                                                                                                 }
+                                                                              },
+                                                              "FreeSpace":  {
+                                                                                "Enable":  true,
+                                                                                "Parameters":  {
+                                                                                                   "Property":  "FreeSpace",
+                                                                                                   "ExpectedValue":  10,
+                                                                                                   "OperationType":  "gt"
+                                                                                               }
+                                                                            }
+                                                          }
+                                            },
+                              "TimeSettings":  {
+                                                   "Enable":  true,
+                                                   "Tests":  {
+                                                                 "NTPServerEnabled":  {
+                                                                                          "Enable":  true,
+                                                                                          "Parameters":  {
+                                                                                                             "Property":  "NtpServerEnabled",
+                                                                                                             "ExpectedValue":  true,
+                                                                                                             "OperationType":  "eq"
+                                                                                                         }
+                                                                                      },
+                                                                 "VMTimeProvider":  {
+                                                                                        "Enable":  true,
+                                                                                        "Parameters":  {
+                                                                                                           "Property":  "VMTimeProvider",
+                                                                                                           "ExpectedValue":  false,
+                                                                                                           "OperationType":  "eq"
+                                                                                                       }
+                                                                                    },
+                                                                 "NtpTypeNonPDC":  {
+                                                                                       "Enable":  true,
+                                                                                       "Parameters":  {
+                                                                                                          "Property":  "NtpType",
+                                                                                                          "ExpectedValue":  "NT5DS",
+                                                                                                          "OperationType":  "eq"
+                                                                                                      }
+                                                                                   },
+                                                                 "NtpTypePDC":  {
+                                                                                    "Enable":  true,
+                                                                                    "Parameters":  {
+                                                                                                       "Property":  "NtpType",
+                                                                                                       "ExpectedValue":  "AllSync",
+                                                                                                       "OperationType":  "eq"
+                                                                                                   }
+                                                                                }
+                                                             }
+                                               },
+                              "TimeSynchronizationInternal":  {
+                                                                  "Enable":  true,
+                                                                  "Tests":  {
+                                                                                "TimeSynchronizationTest":  {
+                                                                                                                "Enable":  true,
+                                                                                                                "Parameters":  {
+                                                                                                                                   "Property":  "TimeDifferenceSeconds",
+                                                                                                                                   "ExpectedValue":  1,
+                                                                                                                                   "OperationType":  "le"
+                                                                                                                               }
+                                                                                                            }
+                                                                            }
+                                                              },
+                              "TimeSynchronizationExternal":  {
+                                                                  "Enable":  true,
+                                                                  "Tests":  {
+                                                                                "TimeSynchronizationTest":  {
+                                                                                                                "Enable":  true,
+                                                                                                                "Parameters":  {
+                                                                                                                                   "Property":  "TimeDifferenceSeconds",
+                                                                                                                                   "ExpectedValue":  1,
+                                                                                                                                   "OperationType":  "le"
+                                                                                                                               }
+                                                                                                            }
+                                                                            }
+                                                              },
+                              "WindowsFirewall":  {
+                                                      "Enable":  true,
+                                                      "Tests":  {
+                                                                    "TimeSynchronizationTest":  {
+                                                                                                    "Enable":  true,
+                                                                                                    "Parameters":  {
+                                                                                                                       "Property":  "FirewallStatus",
+                                                                                                                       "ExpectedValue":  true,
+                                                                                                                       "OperationType":  "eq"
+                                                                                                                   }
+                                                                                                }
+                                                                }
+                                                  },
+                              "WindowsUpdates":  {
+                                                     "Enable":  true,
+                                                     "Tests":  {
+                                                                   "PasswordLastSet":  {
+                                                                                           "Enable":  true,
+                                                                                           "Parameters":  {
+                                                                                                              "Property":  "InstalledOn",
+                                                                                                              "ExpectedValue":  "(Get-Date).AddDays(-60)",
+                                                                                                              "OperationType":  "gt"
+                                                                                                          }
+                                                                                       }
+                                                               }
+                                                 },
+                              "DnsResolveInternal":  {
+                                                         "Enable":  true,
+                                                         "Tests":  {
+                                                                       "ResolveDNSInternal":  {
+                                                                                                  "Enable":  true,
+                                                                                                  "Parameters":  {
+                                                                                                                     "Property":  "Status",
+                                                                                                                     "ExpectedValue":  true,
+                                                                                                                     "OperationType":  "eq"
+                                                                                                                 }
+                                                                                              }
+                                                                   }
+                                                     },
+                              "DnsResolveExternal":  {
+                                                         "Enable":  true,
+                                                         "Tests":  {
+                                                                       "ResolveDNSExternal":  {
+                                                                                                  "Enable":  true,
+                                                                                                  "Parameters":  {
+                                                                                                                     "Property":  "IPAddress",
+                                                                                                                     "ExpectedValue":  "37.59.176.139",
+                                                                                                                     "OperationType":  "eq"
+                                                                                                                 }
+                                                                                              }
+                                                                   }
+                                                     },
+                              "DnsNameServes":  {
+                                                    "Enable":  true,
+                                                    "Tests":  {
+                                                                  "DnsNameServersIdentical":  {
+                                                                                                  "Enable":  true,
+                                                                                                  "Parameters":  {
+                                                                                                                     "Property":  "Status",
+                                                                                                                     "ExpectedValue":  true,
+                                                                                                                     "OperationType":  "eq"
+                                                                                                                 }
+                                                                                              }
+                                                              }
+                                                },
+                              "SMBProtocols":  {
+                                                   "Enable":  true,
+                                                   "Tests":  {
+                                                                 "EnableSMB1Protocol":  {
+                                                                                            "Enable":  true,
+                                                                                            "Parameters":  {
+                                                                                                               "Property":  "EnableSMB1Protocol",
+                                                                                                               "ExpectedValue":  false,
+                                                                                                               "OperationType":  "eq"
+                                                                                                           }
+                                                                                        },
+                                                                 "EnableSMB2Protocol":  {
+                                                                                            "Enable":  true,
+                                                                                            "Parameters":  {
+                                                                                                               "Property":  "EnableSMB2Protocol",
+                                                                                                               "ExpectedValue":  true,
+                                                                                                               "OperationType":  "eq"
+                                                                                                           }
+                                                                                        }
+                                                             }
+                                               },
+                              "DFSRAutoRecovery":  {
+                                                       "Enable":  true,
+                                                       "Tests":  {
+                                                                     "EnableSMB1Protocol":  {
+                                                                                                "Enable":  true,
+                                                                                                "Parameters":  {
+                                                                                                                   "Property":  "StopReplicationOnAutoRecovery",
+                                                                                                                   "ExpectedValue":  0,
+                                                                                                                   "OperationType":  "eq"
+                                                                                                               }
+                                                                                            }
+                                                                 }
+                                                   }
+                          }
+}
