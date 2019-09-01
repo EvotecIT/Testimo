@@ -1,5 +1,5 @@
 ﻿$DnsZonesAging                      = @{
-    Enable = $false
+    Enable = $true
     Source = @{
         Name       = "Aging primary DNS Zone"
         Data       = {

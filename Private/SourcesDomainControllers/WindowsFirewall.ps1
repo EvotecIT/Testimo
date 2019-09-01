@@ -7,9 +7,7 @@
         }
         Area        = 'Connectivity'
         Description = 'Verify windows firewall should be enabled for all network cards'
-        Parameters  = @{
 
-        }
     }
     Tests  = [ordered] @{
         TimeSynchronizationTest = @{

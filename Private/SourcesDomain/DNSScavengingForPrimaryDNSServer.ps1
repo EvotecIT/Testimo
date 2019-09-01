@@ -1,5 +1,5 @@
-﻿$DNSScavengingForPrimaryDNSServer   = @{
-    Enable = $false
+﻿$DNSScavengingForPrimaryDNSServer = @{
+    Enable = $true
     Source = @{
         Name       = "DNS Scavenging - Primary DNS Server"
         Data       = {
@@ -58,9 +58,28 @@
             Parameters = @{
                 # this date should be the same as in Scavending Interval
                 Property      = 'LastScavengeTime'
-                ExpectedValue = (Get-Date).AddDays(-7)
+                # we need to use string which will be converted to ScriptBlock later on due to configuration export to JSON
+                ExpectedValue = '(Get-Date).AddDays(-7)'
                 OperationType = 'lt'
             }
         }
     }
 }
+
+<#
+$Domain = 'ad.evotec.xyz'
+
+
+$PSWinDocumentationDNS = Import-Module PSWinDocumentation.DNS -PassThru
+
+& $PSWinDocumentationDNS {
+    param($Domain)
+    # this gets all DNS Servers but limits it only to those repsponsible for scavenging
+    # There should be only 1 such server
+
+    $Object = Get-WinDnsServerScavenging -Domain $Domain
+    $Object | Where-Object { $_.ScavengingInterval -ne 0 -and $null -ne $_.ScavengingInterval }
+
+} $Domain
+
+#>

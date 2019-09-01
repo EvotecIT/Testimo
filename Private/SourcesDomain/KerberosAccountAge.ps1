@@ -1,5 +1,5 @@
-﻿$KerberosAccountAge                 = @{
-    Enable = $false
+﻿$KerberosAccountAge = @{
+    Enable = $true
     Source = @{
         Name       = "Kerberos Account Age"
         Data       = {
@@ -16,7 +16,7 @@
             Name        = 'Kerberos Last Password Change Should be less than 180 days'
             Parameters  = @{
                 Property      = 'PasswordLastSet'
-                ExpectedValue = (Get-Date).AddDays(-180)
+                ExpectedValue = '(Get-Date).AddDays(-180)'
                 OperationType = 'gt'
             }
             Explanation = ''

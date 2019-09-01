@@ -1,5 +1,5 @@
 ﻿$SecurityGroupsAccountOperators     = @{
-    Enable = $false
+    Enable = $true
     Source = @{
         Name           = "Groups: Account operators should be empty"
         Data           = {

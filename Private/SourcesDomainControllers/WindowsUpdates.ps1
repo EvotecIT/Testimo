@@ -16,7 +16,7 @@
             Name        = 'Last Windows Updates should be less than 60 days ago'
             Parameters  = @{
                 Property      = 'InstalledOn'
-                ExpectedValue = (Get-Date).AddDays(-60)
+                ExpectedValue = '(Get-Date).AddDays(-60)'
                 OperationType = 'gt'
             }
             Explanation = 'Last installed update should be less than 60 days ago.'

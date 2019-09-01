@@ -1,8 +1,8 @@
-﻿$TombstoneLifetime    = @{
+﻿$TombstoneLifetime = @{
     Enable           = $true
     Source           = @{
-        Name       = 'Tombstone Lifetime'
-        Data       = {
+        Name = 'Tombstone Lifetime'
+        Data = {
             # Check tombstone lifetime (if blank value is 60)
             # Recommended value 720
             # Minimum value 180

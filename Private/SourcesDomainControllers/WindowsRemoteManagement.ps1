@@ -5,10 +5,6 @@
         Data       = {
             Test-WinRM -ComputerName $DomainController
         }
-        Area       = ''
-        Parameters = @{
-
-        }
     }
     Tests  = [ordered] @{
         OperatingSystem = @{

@@ -58,35 +58,71 @@
                 $TestResult = $Object.Count -lt $ExpectedCount
             }
             $TextTestedValue = $Object.Count
-            $ExpectedValue = $ExpectedCount
+            $TextExpectedValue = $ExpectedCount
+            #$ExpectedValue = $ExpectedCount
 
         } elseif ($null -ne $ExpectedValue) {
+            $OutputValues = [System.Collections.Generic.List[Object]]::new()
             if ($null -eq $TestedValue -and $null -ne $ExpectedValue) {
                 # if testedvalue is null and expected value is not null that means there's no sense in testing things
                 # it should fail
-                $TestResult = $false
-                $TextTestedValue = 'Null'
-            } else {
-                [Array] $TestResult = for ($i = 0; $i -lt $ExpectedValue.Count; $i++) {
-                    if ($OperationType -eq 'lt') {
-                        $TestedValue -lt $ExpectedValue[$i]
-                    } elseif ($OperationType -eq 'gt') {
-                        $TestedValue -gt $ExpectedValue[$i]
-                    } elseif ($OperationType -eq 'ge') {
-                        $TestedValue -ge $ExpectedValue[$i]
-                    } elseif ($OperationType -eq 'le') {
-                        $TestedValue -le $ExpectedValue[$i]
-                    } elseif ($OperationType -eq 'like') {
-                        $TestedValue -like $ExpectedValue[$i]
-                    } elseif ($OperationType -eq 'contains') {
-                        $TestedValue -contains $ExpectedValue[$i]
-                    } elseif ($OperationType -eq 'in') {
-                        $ExpectedValue -in $ExpectedValue[$i]
-                    } elseif ($OperationType -eq 'notin') {
-                        $ExpectedValue -notin $ExpectedValue[$i]
+                $TestResult = for ($i = 0; $i -lt $ExpectedValue.Count; $i++) {
+                    $false # return fail
+
+                    # We need to add this to be able to convert values as below for output purposes only.
+                    if ($ExpectedValue[$i] -is [string] -and $ExpectedValue[$i] -like '*Get-Date*') {
+                        [scriptblock] $DateConversion = [scriptblock]::Create($ExpectedValue[$i])
+                        $CompareValue = & $DateConversion
                     } else {
-                        $TestedValue -eq $ExpectedValue[$i]
+                        $CompareValue = $ExpectedValue[$I]
                     }
+                    # gather comparevalue for display purposes
+                    $OutputValues.Add($CompareValue)
+
+                }
+                $TextExpectedValue = $OutputValues -join ', '
+                $TextTestedValue = 'Null'
+
+            } else {
+
+                if ($OperationType -eq 'notin') {
+                    $ExpectedValue -notin $TestedValue
+                    $TextExpectedValue = $ExpectedValue
+                } elseif ($OperationType -eq 'in') {
+                    $ExpectedValue -in $TestedValue
+                    $TextExpectedValue = $ExpectedValue
+                } else {
+                    [Array] $TestResult = for ($i = 0; $i -lt $ExpectedValue.Count; $i++) {
+
+                        # this check is introduced to convert Get-Date in ExpectedValue to proper values
+                        # normally it wouldn't be nessecary but since we're exporting configuration to JSON
+                        # it would export currentdatetime to JSON and we don't want that.
+                        if ($ExpectedValue[$i] -is [string] -and $ExpectedValue[$i] -like '*Get-Date*') {
+                            [scriptblock] $DateConversion = [scriptblock]::Create($ExpectedValue[$i])
+                            $CompareValue = & $DateConversion
+                        } else {
+                            $CompareValue = $ExpectedValue[$I]
+                        }
+
+                        if ($OperationType -eq 'lt') {
+                            $TestedValue -lt $CompareValue
+                        } elseif ($OperationType -eq 'gt') {
+                            $TestedValue -gt $CompareValue
+                        } elseif ($OperationType -eq 'ge') {
+                            $TestedValue -ge $CompareValue
+                        } elseif ($OperationType -eq 'le') {
+                            $TestedValue -le $CompareValue
+                        } elseif ($OperationType -eq 'like') {
+                            $TestedValue -like $CompareValue
+                        } elseif ($OperationType -eq 'contains') {
+                            $TestedValue -contains $CompareValue
+                        } else {
+                            $TestedValue -eq $CompareValue
+                        }
+                        # gather comparevalue for display purposes
+                        $OutputValues.Add($CompareValue)
+                    }
+                    $TextExpectedValue = $OutputValues -join ', '
                 }
                 $TextTestedValue = $TestedValue
             }
@@ -104,18 +140,18 @@
             if ($OperationResult -eq 'OR') {
                 if ($TestResult -contains $true) {
                     $ReportResult = $true
-                    $ReportExtended = "Expected value ($($Operators[$OperationType])): $($ExpectedValue)"
+                    $ReportExtended = "Expected value ($($Operators[$OperationType])): $($TextExpectedValue)"
                 } else {
                     $ReportResult = $false
-                    $ReportExtended = "Expected value ($($Operators[$OperationType])): $ExpectedValue, Found value: $($TextTestedValue)"
+                    $ReportExtended = "Expected value ($($Operators[$OperationType])): $TextExpectedValue, Found value: $($TextTestedValue)"
                 }
             } else {
                 if ($TestResult -notcontains $false) {
                     $ReportResult = $true
-                    $ReportExtended = "Expected value ($($Operators[$OperationType])): $($ExpectedValue)"
+                    $ReportExtended = "Expected value ($($Operators[$OperationType])): $($TextExpectedValue)"
                 } else {
                     $ReportResult = $false
-                    $ReportExtended = "Expected value ($($Operators[$OperationType])): $ExpectedValue, Found value: $($TextTestedValue)"
+                    $ReportExtended = "Expected value ($($Operators[$OperationType])): $TextExpectedValue, Found value: $($TextTestedValue)"
                 }
 
             }

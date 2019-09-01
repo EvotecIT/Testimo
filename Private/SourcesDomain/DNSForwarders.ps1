@@ -1,5 +1,5 @@
 ﻿$DNSForwaders                       = @{
-    Enable = $false
+    Enable = $true
     Source = @{
         Name       = "DNS Forwarders"
         Data       = {

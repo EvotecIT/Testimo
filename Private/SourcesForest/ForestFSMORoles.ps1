@@ -5,9 +5,14 @@
         Data       = {
             Test-ADRolesAvailability
         }
-        Area       = ''
-        Parameters = @{
+        Details = [ordered] @{
+            Area             = 'Features'
+            Explanation      = ''
+            Recommendation   = ''
+            RiskLevel        = 10
+            RecommendedLinks = @(
 
+            )
         }
     }
     Tests  = [ordered] @{

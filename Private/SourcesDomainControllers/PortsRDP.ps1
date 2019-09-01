@@ -10,7 +10,6 @@
         Ping = [ordered] @{
             Enable     = $true
             Name       = 'Port is OPEN'
-            #Data     = $Script:SBDomainControllersPort53Test
             Parameters = @{
                 Property              = 'Status'
                 ExpectedValue         = $true

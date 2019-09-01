@@ -16,7 +16,7 @@
             Name       = 'Operating system Windows Server 2012 and up'
             Parameters = @{
                 Property              = 'OperatingSystem'
-                ExpectedValue         = 'Microsoft Windows Server 2019*', 'Microsoft Windows Server 2016*', 'Microsoft Windows Server 2012*'
+                ExpectedValue         = @('Microsoft Windows Server 2019*', 'Microsoft Windows Server 2016*', 'Microsoft Windows Server 2012*')
                 OperationType         = 'like'
                 # this means Expected Value will require at least one $true comparison
                 # anything else will require all values to match $true

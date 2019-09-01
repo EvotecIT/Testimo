@@ -1,5 +1,5 @@
 ﻿$WellKnownFolders = @{
-    Enable = $false
+    Enable = $true
     Source = @{
         Name       = 'Well known folders'
         Data       = {

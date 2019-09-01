@@ -1,5 +1,5 @@
 ﻿$PasswordComplexity = @{
-    Enable = $false
+    Enable = $true
     Source = @{
         Name       = 'Password Complexity Requirements'
         Data       = {
@@ -18,7 +18,7 @@
                 OperationType = 'eq'
             }
         }
-        'Lockout Duration'              = @{
+        'LockoutDuration'              = @{
             Enable     = $true
             Name       = 'Lockout Duration'
             Parameters = @{
@@ -27,7 +27,7 @@
                 OperationType = 'ge'
             }
         }
-        'Lockout Observation Window'    = @{
+        'LockoutObservationWindow'    = @{
             Enable     = $true
             Name       = 'Lockout Observation Window'
             Parameters = @{
@@ -36,7 +36,7 @@
                 OperationType = 'ge'
             }
         }
-        'Lockout Threshold'             = @{
+        'LockoutThreshold'             = @{
             Enable     = $true
             Name       = 'Lockout Threshold'
             Parameters = @{
@@ -45,7 +45,7 @@
                 OperationType = 'gt'
             }
         }
-        'Max Password Age'              = @{
+        'MaxPasswordAge'              = @{
             Enable     = $true
             Name       = 'Max Password Age'
             Parameters = @{
@@ -54,7 +54,7 @@
                 OperationType = 'le'
             }
         }
-        'Min Password Length'           = @{
+        'MinPasswordLength'           = @{
             Enable     = $true
             Name       = 'Min Password Length'
             Parameters = @{
@@ -63,7 +63,7 @@
                 OperationType = 'gt'
             }
         }
-        'Min Password Age'              = @{
+        'MinPasswordAge'              = @{
             Enable     = $true
             Name       = 'Min Password Age'
             Parameters = @{
@@ -72,7 +72,7 @@
                 OperationType = 'le'
             }
         }
-        'Password History Count'        = @{
+        'PasswordHistoryCount'        = @{
             Enable     = $true
             Name       = 'Password History Count'
             Parameters = @{
@@ -81,7 +81,7 @@
                 OperationType = 'ge'
             }
         }
-        'Reversible Encryption Enabled' = @{
+        'ReversibleEncryptionEnabled' = @{
             Enable     = $true
             Name       = 'Reversible Encryption Enabled'
             Parameters = @{

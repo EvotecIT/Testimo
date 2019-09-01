@@ -61,7 +61,7 @@ $Configuration = @{
             Sort           = 'NONE'
             FormatCodePSM1 = @{
                 Enabled           = $true
-                RemoveComments    = $true
+                RemoveComments    = $false
                 FormatterSettings = @{
                     IncludeRules = @(
                         'PSPlaceOpenBrace',

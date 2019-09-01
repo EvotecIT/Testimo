@@ -1,5 +1,5 @@
 ﻿$SecurityUsersAcccountAdministrator = @{
-    Enable = $false
+    Enable = $true
     Source = @{
         Name       = "Users: Administrator"
         Data       = {
@@ -33,7 +33,7 @@
             Name        = 'Administrator Last Password Change Should be less than 360 days ago'
             Parameters  = @{
                 Property      = 'PasswordLastSet'
-                ExpectedValue = (Get-Date).AddDays(-360)
+                ExpectedValue = '(Get-Date).AddDays(-360)'
                 OperationType = 'gt'
             }
             Explanation = 'Administrator account should be disabled or LastPasswordChange should be less than 1 year ago.'

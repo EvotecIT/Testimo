@@ -1,5 +1,5 @@
 ﻿$Trusts = @{
-    Enable = $false
+    Enable = $true
     Source = @{
         Name = "Trust Availability"
         Data = {

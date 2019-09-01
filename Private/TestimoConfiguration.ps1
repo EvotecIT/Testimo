@@ -4,7 +4,6 @@
         #DomainControllers = 'AD3.ad.evotec.xyz'
     }
     Forest            = [ordered]@{
-
         OptionalFeatures     = $OptionalFeatures
         Backup               = $ForestBackup
         Sites                = $Sites
@@ -14,11 +13,9 @@
         TombstoneLifetime    = $TombstoneLifetime
         OrphanedAdmins       = $OrphanedAdmins
         Replication          = $Replication
-
     }
     Domain            = [ordered] @{
-
-        DomainFSMORoles                    = $DomainFSMORoles
+        FSMORoles                          = $DomainFSMORoles
         WellKnownFolders                   = $WellKnownFolders
         PasswordComplexity                 = $PasswordComplexity
         Trusts                             = $Trusts
@@ -31,10 +28,8 @@
         SecurityGroupsAccountOperators     = $SecurityGroupsAccountOperators
         SecurityGroupsSchemaAdmins         = $SecurityGroupsSchemaAdmins
         SecurityUsersAcccountAdministrator = $SecurityUsersAcccountAdministrator
-
     }
     DomainControllers = [ordered] @{
-
         WindowsRemoteManagement     = $WindowsRemoteManagement
         OperatingSystem             = $OperatingSystem
         Services                    = $Services
@@ -52,7 +47,6 @@
         DnsResolveExternal          = $DNSResolveExternal
         DnsNameServes               = $DNSNameServers
         SMBProtocols                = $SMBProtocols
-
         DFSRAutoRecovery            = $DFSAutoRecovery
     }
     Debug             = [ordered] @{

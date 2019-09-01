@@ -5,6 +5,15 @@
         Data = {
             Get-WinADLastBackup
         }
+        Details = [ordered] @{
+            Area             = 'Backup'
+            Explanation      = ''
+            Recommendation   = ''
+            RiskLevel        = 10
+            RecommendedLinks = @(
+
+            )
+        }
     }
     Tests  = [ordered] @{
         LastBackupTests = @{
