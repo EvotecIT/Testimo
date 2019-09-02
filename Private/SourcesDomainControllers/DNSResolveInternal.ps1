@@ -18,10 +18,6 @@
             } -ArgumentList $DomainController
             $Output
         }
-        Area       = ''
-        Parameters = @{
-
-        }
     }
     Tests  = [ordered] @{
         ResolveDNSInternal = @{

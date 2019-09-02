@@ -1,4 +1,5 @@
 ﻿function Test-ADSiteLinks {
+    [cmdletBinding()]
     param(
         [string] $Splitter
     )

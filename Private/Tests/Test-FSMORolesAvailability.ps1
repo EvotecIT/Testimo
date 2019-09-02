@@ -1,4 +1,5 @@
 ﻿function Test-FSMORolesAvailability {
+    [cmdletBinding()]
     param(
         [string] $Domain = $Env:USERDNSDOMAIN
     )

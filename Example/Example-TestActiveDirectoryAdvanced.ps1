@@ -7,6 +7,7 @@ $Sources = @(
     'DomainPasswordComplexity'
     'DomainKerberosAccountAge'
     'DomainDNSScavengingForPrimaryDNSServer'
+    'DomainSysVolDFSR'
 )
 
 $TestResults = Test-IMO -ReturnResults -ExcludeDomains 'ad.evotec.pl' -ExtendedResults -Sources $Sources

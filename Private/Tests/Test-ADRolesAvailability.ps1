@@ -1,4 +1,5 @@
 ﻿function Test-ADRolesAvailability {
+    [cmdletBinding()]
     param(
         [string] $Domain
     )

@@ -28,6 +28,7 @@
         SecurityGroupsAccountOperators     = $SecurityGroupsAccountOperators
         SecurityGroupsSchemaAdmins         = $SecurityGroupsSchemaAdmins
         SecurityUsersAcccountAdministrator = $SecurityUsersAcccountAdministrator
+        SysVolDFSR                         = $SysVolDFSR
     }
     DomainControllers = [ordered] @{
         WindowsRemoteManagement     = $WindowsRemoteManagement
