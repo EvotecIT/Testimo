@@ -48,10 +48,11 @@ $Configuration = @{
             ProjectUri           = 'https://github.com/EvotecIT/Testimo'
 
             RequiredModules      = @(
-                @{ ModuleName = 'PSSharedGoods'; ModuleVersion = "0.0.91"; Guid = 'ee272aa8-baaa-4edf-9f45-b6d6f7d844fe' }
+                @{ ModuleName = 'PSSharedGoods'; ModuleVersion = "0.0.93"; Guid = 'ee272aa8-baaa-4edf-9f45-b6d6f7d844fe' }
                 @{ ModuleName = 'PSWinDocumentation.AD'; ModuleVersion = "0.1.14"; Guid = 'a46f9775-04d2-4423-9631-01cfda42b95d' }
                 @{ ModuleName = 'PSWinDocumentation.DNS'; ModuleVersion = "0.0.8"; Guid = '462dd5e2-f32a-4263-bff5-22edf28882d0' }
-                @{ ModuleName = 'ADEssentials'; ModuleVersion = "0.0.12"; Guid = '9fc9fd61-7f11-4f4b-a527-084086f1905f' }
+                @{ ModuleName = 'ADEssentials'; ModuleVersion = "0.0.14"; Guid = '9fc9fd61-7f11-4f4b-a527-084086f1905f' }
+                @{ ModuleName = 'PSEventViewer'; ModuleVersion = "1.0.6"; Guid = '5df72a79-cdf6-4add-b38d-bcacf26fb7bc' }
             )
         }
     }
@@ -61,7 +62,7 @@ $Configuration = @{
             Sort           = 'NONE'
             FormatCodePSM1 = @{
                 Enabled           = $true
-                RemoveComments    = $false
+                RemoveComments    = $true
                 FormatterSettings = @{
                     IncludeRules = @(
                         'PSPlaceOpenBrace',

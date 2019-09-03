@@ -3,7 +3,7 @@
 # this will get you available sources
 Get-TestimoSources
 
-<# Currently something like this. You can use this list to ExcludeSources or define Sources for Test-IMO
+<# Currently something like this. You can use this list to ExcludeSources or define Sources for Invoke-Testimo
 DCDFSRAutoRecovery
 DCDiskSpace                                                                                                                                                                                      ailed: 1, Skipped: 0]
 DCDnsNameServes

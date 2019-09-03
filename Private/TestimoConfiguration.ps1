@@ -4,18 +4,18 @@
         DomainControllers = @()
     }
     Forest            = [ordered]@{
-        OptionalFeatures     = $OptionalFeatures
         Backup               = $ForestBackup
+        Replication          = $Replication
+        OptionalFeatures     = $OptionalFeatures
         Sites                = $Sites
         SiteLinks            = $SiteLinks
         SiteLinksConnections = $SiteLinksConnections
-        FSMORoles            = $ForestFSMORoles
-        TombstoneLifetime    = $TombstoneLifetime
+        Roles                = $ForestFSMORoles
         OrphanedAdmins       = $OrphanedAdmins
-        Replication          = $Replication
+        TombstoneLifetime    = $TombstoneLifetime
     }
     Domain            = [ordered] @{
-        FSMORoles                          = $DomainFSMORoles
+        Roles                              = $DomainFSMORoles
         WellKnownFolders                   = $WellKnownFolders
         PasswordComplexity                 = $PasswordComplexity
         GroupPolicyMissingPermissions      = $GroupPolicyMissingPermissions

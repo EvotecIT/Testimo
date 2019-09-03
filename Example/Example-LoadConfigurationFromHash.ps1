@@ -16,5 +16,5 @@ $Sources = @(
     'DCWindowsUpdates'
 )
 
-$TestResults = Test-IMO -ReturnResults -ExcludeDomains 'ad.evotec.pl' -ExtendedResults -Sources $Sources -Configuration $OutputOrderedDictionary
+$TestResults = Invoke-Testimo -ReturnResults -ExcludeDomains 'ad.evotec.pl' -ExtendedResults -Sources $Sources -Configuration $OutputOrderedDictionary
 $TestResults | Format-Table -AutoSize *

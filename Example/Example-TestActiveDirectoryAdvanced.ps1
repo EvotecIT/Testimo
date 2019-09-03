@@ -16,7 +16,7 @@ $Sources = @(
 #$ExludeDomainControllers = 'ad1.ad.evotec.xyz', 'ad2.ad.evotec.xyz'
 #$ExludeDomainControllers = 'dc1.ad.evotec.pl','adpreview2019.ad.evotec.pl'
 
-$TestResults = Test-IMO -ReturnResults  -ExtendedResults -Sources $Sources #-ExcludeDomains 'ad.evotec.xyz' -ExcludeDomainControllers $ExludeDomainControllers
+$TestResults = Invoke-Testimo -ReturnResults  -ExtendedResults -Sources $Sources #-ExcludeDomains 'ad.evotec.xyz' -ExcludeDomainControllers $ExludeDomainControllers
 $TestResults | Format-Table -AutoSize *
 
 return

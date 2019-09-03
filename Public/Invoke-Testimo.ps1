@@ -1,5 +1,5 @@
-function Test-IMO {
-    [alias('Test-ImoAD')]
+function Invoke-Testimo {
+    [alias('Test-ImoAD', 'Test-IMO')]
     [CmdletBinding()]
     param(
         [string[]] $Sources,
@@ -82,5 +82,5 @@ function Test-IMO {
     )
     $TestSources | Sort-Object
 }
-Register-ArgumentCompleter -CommandName Test-IMO -ParameterName Sources -ScriptBlock $SourcesAutoCompleter
-Register-ArgumentCompleter -CommandName Test-IMO -ParameterName ExcludeSources -ScriptBlock $SourcesAutoCompleter
+Register-ArgumentCompleter -CommandName Invoke-Testimo -ParameterName Sources -ScriptBlock $SourcesAutoCompleter
+Register-ArgumentCompleter -CommandName Invoke-Testimo -ParameterName ExcludeSources -ScriptBlock $SourcesAutoCompleter

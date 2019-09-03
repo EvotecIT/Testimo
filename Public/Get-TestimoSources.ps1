@@ -28,28 +28,3 @@
         $TestSources | Sort-Object
     }
 }
-
-function Set-TestimoSources {
-    [CmdletBinding()]
-    param(
-        [string] $Source,
-        [string] $Test,
-        [nullable[bool]] $Status,
-        [System.Collections.IDictionary] $Parameters
-    )
-
-    $DetectedSource = ConvertTo-Source -Source $Source
-    $Scope = $DetectedSource.Scope
-    $Name = $DetectedSource.Name
-
-    if ($null -ne $Scope -and $Null -ne $Name) {
-
-        if ($null -ne $Status) {
-            $Script:TestimoConfiguration.$Scope[$Name]['Enable'] = $Status
-        }
-
-        $Script:TestimoConfiguration.$Scope[$Name]['Tests'][$Test]['Parameters'] = $Parameters
-    } else {
-        Write-Warning "Set-TestimoSources - Source detection failed. Skipping."
-    }
-}

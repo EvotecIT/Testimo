@@ -13,5 +13,5 @@ $Sources = @(
     'DCWindowsUpdates'
 )
 
-$TestResults = Test-IMO -ReturnResults -ExcludeDomains 'ad.evotec.pl' -ExtendedResults -Configuration $ConfigurationFile -Sources $Sources
+$TestResults = Invoke-Testimo -ReturnResults -ExcludeDomains 'ad.evotec.pl' -ExtendedResults -Configuration $ConfigurationFile -Sources $Sources
 $TestResults | Format-Table -AutoSize *

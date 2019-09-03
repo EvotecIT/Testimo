@@ -19,24 +19,16 @@
 
 # Testimo - PowerShell Module
 
-## Goals
-
-Testimo is an **alpha product**. That means I change things daily, without warning. I'm playing with few approaches for testing Infrastructrure, including Active Directory. At the moment most tests are for Active Directory only.
-Based on [Active Directory CheckList](https://github.com/mczerniawski/Active-Directory-CheckList) and some more. Feel free to submit your own ideas either via Issues or direct PR.
+Testimo is a PowerShell Module to help with basic/more advanced testing of Active Directory and maybe in future other types of servers.
+Testimo is an **alpha product** and as such things do change.
+It's goal is to be fully automated solution where one can run the command and get results without executing 50 little functions.
 
 Things to know:
-- [x] Currently there's no user exposed configuration - only internal one. It will be added later on.
-- [x] Currently all tests are enabled when used from PowerShellGallery, on GitHub it may be 50 / 50
-- [x] Configuration hash is not written in stone and can change rapidly
+- [x] Configuration hash is not written in stone and can change rapidly as Testimo gets tested
 - [x] Ideas are VERY welcome
 - [x] There's a big mess in files/function names - I'm still testing things out creating some random stuff
-
-## TODO
-
-- Loading configuration
-- Saving configuration
-- More tests
-- More flexibility
+- [x] There are lots of details missing for tests, and some things may not work as you want - please report issues or if you know how, fix them
+- [x] I don't know EVERYTHING - I'm very open to help with making Testimo more robust, detailed and easy to use
 
 ### Legend
 ---
@@ -73,11 +65,17 @@ Nothing is written in stone for now. Things can change day by day.
 - Criticality of Tests - some tests are critical, some are less critical
 - Recommended, Default, Sane - not all tests are equal or make sense in all conditions
 
+Some tests are based on:
+- [Active Directory CheckList](https://github.com/mczerniawski/Active-Directory-CheckList)
+- [AD Health & Checkup] (https://arnaudloos.com/AD-Health-Check/)
+- Some tests I've defined myself
+- Feel free to submit your own ideas either via Issues or direct PR.
+
 
 | Type              | Name                                                   | Area             | Description                                                                                  | Status          |
 | ----------------- | ------------------------------------------------------ | ---------------- | -------------------------------------------------------------------------------------------- | --------------- |
-| Forest            | Forest Backup                                          | Backup           | Verify `last backup time should be [less than X days]`                                       | Tested          |
-| Forest            | Forest Replication                                     | Connectivity     | Verify each `DC in replication site can [reach other replication members]`                   | Tested          |
+| Forest            | Backup                                                 | Backup           | Verify `last backup time should be [less than X days]`                                       | Tested          |
+| Forest            | Replication                                            | Connectivity     | Verify each `DC in replication site can [reach other replication members]`                   | Tested          |
 | Forest            | Optional Features                                      | Features         | Verify Optional Feature `Recycle Bin should be [Enabled]`                                    | Tested          |
 | Forest            | Optional Features                                      | Features         | Verify Optional Feature `Privileged Access Management Feature should be [Enabled]`           | Tested          |
 | Forest            |                                                        | Features         | Verify Optional Feature `Bitlocker allows storing recovery key in AD should be [Configured]` | Not implemented |
@@ -86,9 +84,11 @@ Nothing is written in stone for now. Things can change day by day.
 | Forest            | Sites Verification                                     | Sites            | Verify each `site has at least [one domain controller configured]`                           | Tested          |
 | Forest            | Site Links                                             | Site Links       | Verify each `site link is automatic`                                                         | Tested          |
 | Forest            | Site Links                                             | Site Links       | Verify each `site link uses notifications`                                                   | Tested          |
-| Forest            | Site Links                                             | Site Links       | Verify each `site link do not use notification`                                              | Tested          |
-| Forest            | Roles availability                                     | FMSO             | Verify each `FSMO holder is [reachable]`                                                     | Tested          |
+| Forest            | Site Links                                             | Site Links       | Verify each `site link does not use notifications`                                           | Tested          |
+| Forest            | Roles                                                  | Connectivity     | Verify each `FSMO holder is [reachable]`                                                     | Tested          |
+| Forest            | Orphaned/Empty Admins                                  | Security         | Verify there are no Orphaned Admins (users/groups/computers)                                 | Tested          |
 | Forest            | Tombstone Lifetime                                     | Features         | Verify `Tombstone lifetime is greater or equal 180 days`                                     | Tested          |
+| Domain            | Roles                                                  | Connectivity     | Verify each `FSMO holder is [reachable]`                                                     | Tested          |
 | Domain            | Password Complexity Requirements                       | Password         | Verify Password `Complexity Policy should be [Enabled]`                                      | Tested          |
 | Domain            | Password Complexity Requirements                       | Password         | Verify Password `Length should be [greater than X]`                                          | Tested          |
 | Domain            | Password Complexity Requirements                       | Password         | Verify Password `Threshold should be [greater than X]`                                       | Tested          |
@@ -109,10 +109,10 @@ Nothing is written in stone for now. Things can change day by day.
 | Domain            | DNS Scavenging - Primary DNS Server                    | DNS              | Verify `DNS Scavenging is set to [X days]`                                                   | Tested          |
 | Domain            | DNS Scavenging - Primary DNS Server                    | DNS              | Verify `DNS Scavenging State is set to True`                                                 | Tested          |
 | Domain            | DNS Scavenging - Primary DNS Server                    | DNS              | Verify `DNS Scavenging Time is less than [X days]`                                           | Tested          |
+| Domain            | DNS Zone Aging                                         | DNS              | Verify `DNS Zone Aging is set`                                                               | Tested          |
 | Domain            |                                                        | DNS              | Verify `{DNS entries} in _msdcs zone [point to all DCs]`                                     | Not implemented |
 | Domain            |                                                        | DNS              | Verify `DNS Reverse Lookup zones are [configured for all site subnets]`                      | Not implemented |
 | Domain            |                                                        | DHCP             | Verify at least `one DHCP is [authorized in domain]`                                         | Not implemented |
-| Domain            | Roles availability                                     | FMSO             | Verify each `FSMO holder is [reachable]`                                                     | Tested          |
 | Domain            | Well known folder - UsersContainer                     | WellKnownFolders | Verify `folder is not at it's defaults.`                                                     | Tested          |
 | Domain            | Well known folder - ComputersContainer                 | WellKnownFolders | Verify `folder is not at it's defaults.`                                                     | Tested          |
 | Domain            | Well known folder - DomainControllersContainer         | WellKnownFolders | Verify `folder is at it's defaults. `                                                        | Tested          |
@@ -123,13 +123,16 @@ Nothing is written in stone for now. Things can change day by day.
 | Domain            | Well known folder - ForeignSecurityPrincipalsContainer | WellKnownFolders | Verify `folder is at it's defaults.`                                                         | Tested          |
 | Domain            | Orphaned Foreign Security Principals                   | Cleanup          | Verify `there are no orphaned FSP objects.`                                                  | Tested          |
 | Domain            | Orphaned/Empty Organizational Units                    | Cleanup          | Verify `there are no orphaned Organizational Units`                                          | Tested          |
+| Domain            | Group Policy Missing Permissions                       | Configuration    | Verify Authenticated Users/Domain Computers are on each and every Group Policy               | Tested          |
+| Domain            | DFSR Sysvol                                            | Configuration    | Verify `SYSVOL is DFSR`                                                                      | Tested          |
 | Domain Controller | Service Status                                         | Services         | Verify all `{Services} are [running]`                                                        | Tested          |
 | Domain Controller | Service Status                                         | Services         | Verify all `{Services} are set to [automatic startup]`                                       | Tested          |
 | Domain Controller | Service Status (Print Spooler)                         | Security         | Verify `Print Spooler Service is set to disabled`                                            | Tested          |
 | Domain Controller | Service Status (Print Spooler)                         | Security         | Verify `Print Spooler Service is stopped`                                                    | Tested          |
 | Domain Controller | Ping Connectivity                                      | Connectivity     | Verify `DC is [reachable]`                                                                   | Tested          |
 | Domain Controller | Ports                                                  | Connectivity     | Verify `Following ports 53, 88, 135, 139, 389, 445, 464, 636, 3268, 3269, 9389 are open`     | Tested          |
-| Domain Controller | Ports RDP                                              | Connectivity     | Verify `Following ports 3389 (RDP) is open`                                                  | Tested          |
+| Domain Controller | RDP Ports                                              | Connectivity     | Verify `Following ports 3389 (RDP) is open`                                                  | Tested          |
+| Domain Controller | RDP Security                                           | Connectivity     | Verify `NLA is enabled`                                                                      | Tested          |
 | Domain Controller | LDAP Connectivity                                      | Connectivity     | Verify all `{LDAP Ports} are open]`                                                          | Tested          |
 | Domain Controller | LDAP Connectivity                                      | Connectivity     | Verify all `{LDAP SSL Ports} are open]`                                                      | Tested          |
 | Domain Controller | Windows Firewall                                       | Connectivity     | Verify `windows firewall is enabled` for all network cards                                   | Tested          |
@@ -149,14 +152,15 @@ Nothing is written in stone for now. Things can change day by day.
 | Domain Controller | Windows Updates                                        | Computer         | Verify `Last patch was installed less than 60 days ago`                                      | Tested          |
 | Domain Controller | SMB Protocols                                          | Security         | Verify `SMB v1 protocol is disabled`                                                         | Tested          |
 | Domain Controller | SMB Protocols                                          | Security         | Verify `SMB v2 protocol is enabled`                                                          | Tested          |
+| Domain Controller | SMB Shares                                             | Security         | Verify `default SMB shares NETLOGON/SYSVOL are visible`                                      | Tested          |
 | Domain Controller | DFSR AutoRecovery                                      | Security         | Verify `DFSR AutoRecovery is enabled`                                                        | Tested          |
+| Domain Controller | Windows Roles and Features                             | Security         | Verify `Windows Features for AD/DNS/File Services are enabled`                               | Tested          |
 
 ## Known Issues / By Design
 
 - Requirements for Sources work differently then for Tests
   - For Sources when Requirements are not met Testimo skips it totally from output
   - For Tests when Requirements are not met Testimo marks it as skipped
-
 
 ## To install
 
@@ -181,7 +185,7 @@ That's it. Whenever there's new version you simply run the command and you can e
 With output to screen only
 
 ```powershell
-Test-Imo
+Invoke-Testimo
 ```
 
 ![Image](https://evotec.xyz/wp-content/uploads/2019/08/img_5d68310c9f9a5.png)
@@ -191,7 +195,7 @@ Test-Imo
 With option to be able to process output - for example to email
 
 ```powershell
-Test-Imo -ReturnResults
+Invoke-Testimo -ReturnResults
 ```
 
 ## Changing default configuration
@@ -222,7 +226,7 @@ $OutputOrderedDictionary.Forest.OptionalFeatures.Tests.LapsAvailable.Enable = $t
 $OutputOrderedDictionary.Forest.OptionalFeatures.Tests.LapsAvailable.Parameters.ExpectedValue = $false
 ```
 
-## Using Test-IMO with non-default configuration
+## Using Invoke-Testimo with non-default configuration
 
 Following configuration allows you to:
 - Edit default TestImo configuration with some other values
@@ -249,13 +253,16 @@ $Sources = @(
     'DCWindowsUpdates'
 )
 
-$TestResults = Test-IMO -ReturnResults -ExcludeDomains 'ad.evotec.pl' -Sources $Sources -Configuration $OutputOrderedDictionary
+$TestResults = Invoke-Testimo -ReturnResults -ExcludeDomains 'ad.evotec.pl' -Sources $Sources -Configuration $OutputOrderedDictionary
 $TestResults | Format-Table -AutoSize *
 ```
 
 Be sure to checkout **Examples** section for more **How-To**.
 
 ### Dependencies
+
+- [x] PowerShell 5.1 - I know, bummer right?
+- [x] RSAT if run externally from Windows 10 machine
 
 When you use `Install-Module` option what happens in the backgrouns is that Windows will use [PowershellGallery](https://www.powershellgallery.com/) (hosted by Microsoft) to download **Testimo** and any dependencies this module needs.
 As it stands all dependencies except one (**DSInternals**) are my other PowerShell Modules.
