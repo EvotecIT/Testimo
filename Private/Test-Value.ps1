@@ -1,7 +1,7 @@
 ﻿function Test-Value {
     [CmdletBinding()]
     param(
-        [Object] $Object,
+        [Array] $Object,
         [string] $TestName,
         [string[]] $Property,
         [Object] $ExpectedValue,
@@ -22,6 +22,9 @@
         if ($ExpectedCount) {
             if ($OverwriteName) {
                 $TestName = & $OverwriteName
+            }
+            if ($WhereObject) {
+                $Object = $Object | Where-Object $WhereObject
             }
             Test-Me -Object $Object -ExpectedCount $ExpectedCount -OperationType $OperationType -TestName $TestName -Level $Level -Domain $Domain -DomainController $DomainController -Property $Property -ExpectedValue $ExpectedValue -PropertyExtendedValue $PropertyExtendedValue -OperationResult $OperationResult -ReferenceID $ReferenceID
         } else {

@@ -8,7 +8,7 @@
         [string] $DomainController,
         [string[]] $Property,
         [Object] $TestedValue,
-        [Object] $Object,
+        [Array] $Object,
         [Array] $ExpectedValue,
         [string[]] $PropertyExtendedValue,
         [string] $OperationResult,
@@ -56,7 +56,8 @@
                 # Useless - doesn't make any sense
                 $TestResult = $ExpectedCount -notin $Object.Count
             } else {
-                $TestResult = $Object.Count -lt $ExpectedCount
+                $OperationType = 'eq' # Adding this for display purposes
+                $TestResult = $Object.Count -eq $ExpectedCount
             }
             $TextTestedValue = $Object.Count
             $TextExpectedValue = $ExpectedCount
@@ -118,6 +119,7 @@
                         } elseif ($OperationType -eq 'contains') {
                             $TestedValue -contains $CompareValue
                         } else {
+                            $OperationType = 'eq' # Adding this for display purposes
                             $TestedValue -eq $CompareValue
                         }
                         # gather comparevalue for display purposes

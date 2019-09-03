@@ -1,14 +1,16 @@
-﻿$PortsRDP = [ordered] @{
-    Enable = $true
+﻿# This is already done in RDPSecurity as well, stays disabled by default.
+
+$RDPPorts = [ordered] @{
+    Enable = $false
     Source = [ordered] @{
-        Name       = 'RDP Ports is open'
-        Data       = {
+        Name = 'RDP Port is open'
+        Data = {
             Test-ComputerPort -ComputerName $DomainController -PortTCP 3389 -WarningAction SilentlyContinue
         }
     }
     Tests  = [ordered] @{
-        Ping = [ordered] @{
-            Enable     = $true
+        PortOpen = [ordered] @{
+            Enable     = $false
             Name       = 'Port is OPEN'
             Parameters = @{
                 Property              = 'Status'

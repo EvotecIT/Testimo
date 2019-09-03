@@ -37,17 +37,20 @@
         LDAP                        = $LDAP
         Pingable                    = $Pingable
         Ports                       = $Ports
-        PortsRDP                    = $PortsRDP
+        RDPPorts                    = $RDPPorts
+        RDPSecurity                 = $RDPSecurity
         DiskSpace                   = $DiskSpace
         TimeSettings                = $TimeSettings
         TimeSynchronizationInternal = $TimeSynchronizationInternal
         TimeSynchronizationExternal = $TimeSynchronizationExternal
         WindowsFirewall             = $WindowsFirewall
         WindowsUpdates              = $WindowsUpdates
+        WindowsRolesAndFeatures     = $WindowsRolesAndFeatures
         DnsResolveInternal          = $DNSResolveInternal
         DnsResolveExternal          = $DNSResolveExternal
         DnsNameServes               = $DNSNameServers
         SMBProtocols                = $SMBProtocols
+        SMBShares                   = $SMBShares
         DFSRAutoRecovery            = $DFSAutoRecovery
     }
     Debug             = [ordered] @{

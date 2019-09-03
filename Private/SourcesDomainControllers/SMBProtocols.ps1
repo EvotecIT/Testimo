@@ -5,10 +5,6 @@
         Data       = {
             Get-ComputerSMB -ComputerName $DomainController
         }
-        Area       = ''
-        Parameters = @{
-
-        }
     }
     Tests  = [ordered] @{
         EnableSMB1Protocol = @{

@@ -19,12 +19,13 @@
             }
         }
         Details = [ordered] @{
-            Area             = ''
-            Explanation      = ''
+            Area             = 'Configuration'
+            Explanation      = 'DFS-R should be available.'
             Recommendation   = ''
             RiskLevel        = 10
             RecommendedLinks = @(
                 'https://blogs.technet.microsoft.com/askds/2009/01/05/dfsr-sysvol-migration-faq-useful-trivia-that-may-save-your-follicles/'
+                'https://dirteam.com/sander/2019/04/10/knowledgebase-in-place-upgrading-domain-controllers-to-windows-server-2019-while-still-using-ntfrs-breaks-sysvol-replication-and-dslocator/'
             )
         }
     }

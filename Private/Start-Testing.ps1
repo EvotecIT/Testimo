@@ -94,6 +94,13 @@
                     # To be decided
                 }
 
+                # build data output for extended results
+                $Script:Reporting[$ReferenceID] = @{
+                    Name       = $CurrentSource['Name']
+                    SourceCode = $CurrentSource['Data']
+                    Results    = [System.Collections.Generic.List[PSCustomObject]]::new()
+                }
+
                 if ($CurrentSource['Parameters']) {
                     $SourceParameters = $CurrentSource['Parameters']
                     $Object = Start-TestProcessing -Test $CurrentSource['Name'] -Level $Level -OutputRequired -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID {
@@ -104,13 +111,8 @@
                         & $CurrentSource['Data'] -DomainController $DomainController -Domain $Domain
                     }
                 }
-
-                $Script:Reporting[$ReferenceID] = @{
-                    Name    = $CurrentSource['Name']
-                    Data    = $Object
-                    SourceCode = $CurrentSource['Data']
-                    Results = [System.Collections.Generic.List[PSCustomObject]]::new()
-                }
+                # Add data output to extended results
+                $Script:Reporting[$ReferenceID]['Data'] = $Object
 
                 # If there's no output from Source Data all other tests will fail
                 if ($Object -and ($null -eq $CurrentSource['ExpectedOutput'] -or $CurrentSource['ExpectedOutput'] -eq $true)) {
