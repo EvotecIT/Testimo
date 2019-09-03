@@ -14,7 +14,6 @@
         TimeSynchronizationTest = @{
             Enable     = $true
             Name       = 'Time Difference'
-            #  Data     = $Script:SBDomainTimeSynchronizationTest1
             Parameters = @{
                 Property              = 'TimeDifferenceSeconds'
                 ExpectedValue         = 1

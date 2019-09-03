@@ -8,10 +8,6 @@
             }
             $Output
         }
-        Area       = ''
-        Parameters = @{
-
-        }
     }
     Tests  = [ordered] @{
         ResolveDNSExternal = @{

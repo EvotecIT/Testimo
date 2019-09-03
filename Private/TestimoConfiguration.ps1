@@ -18,6 +18,7 @@
         FSMORoles                          = $DomainFSMORoles
         WellKnownFolders                   = $WellKnownFolders
         PasswordComplexity                 = $PasswordComplexity
+        GroupPolicyMissingPermissions      = $GroupPolicyMissingPermissions
         Trusts                             = $Trusts
         OrphanedForeignSecurityPrincipals  = $OrphanedForeignSecurityPrincipals
         EmptyOrganizationalUnits           = $EmptyOrganizationalUnits

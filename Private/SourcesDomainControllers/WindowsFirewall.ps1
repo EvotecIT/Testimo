@@ -10,7 +10,7 @@
 
     }
     Tests  = [ordered] @{
-        TimeSynchronizationTest = @{
+        WindowsFirewall = @{
             Enable     = $true
             Name       = 'Windows Firewall should be enabled on network card'
             Parameters = @{

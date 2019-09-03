@@ -10,6 +10,7 @@ $Sources = @(
     #'DomainSysVolDFSR'
     #'DCRDPSecurity'
     #'DCSMBShares'
+    'DomainGroupPolicyMissingPermissions'
     'DCWindowsRolesAndFeatures'
 )
 #$ExludeDomainControllers = 'ad1.ad.evotec.xyz', 'ad2.ad.evotec.xyz'

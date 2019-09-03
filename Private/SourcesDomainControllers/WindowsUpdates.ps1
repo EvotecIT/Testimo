@@ -7,7 +7,7 @@
         }
     }
     Tests  = [ordered] @{
-        PasswordLastSet = @{
+        WindowsUpdates = @{
             Enable      = $true
             Name        = 'Last Windows Updates should be less than X days ago'
             Parameters  = @{
