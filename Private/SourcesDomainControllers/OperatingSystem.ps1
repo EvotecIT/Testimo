@@ -5,10 +5,6 @@
         Data       = {
             Get-ComputerOperatingSystem -ComputerName $DomainController -WarningAction SilentlyContinue
         }
-        Area       = ''
-        Parameters = @{
-
-        }
     }
     Tests  = [ordered] @{
         OperatingSystem = @{

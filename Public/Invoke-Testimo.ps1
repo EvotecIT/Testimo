@@ -2,8 +2,17 @@ function Invoke-Testimo {
     [alias('Test-ImoAD', 'Test-IMO')]
     [CmdletBinding()]
     param(
+        [ValidateScript(
+            {
+                $_ -in (& $SourcesAutoCompleter)
+            }
+        )]
         [string[]] $Sources,
-        [string[]] $ExcludeSources,
+        [ValidateScript(
+            {
+                $_ -in (& $SourcesAutoCompleter)
+            }
+        )] [string[]] $ExcludeSources,
         [string[]] $ExcludeDomains,
         [string[]] $ExcludeDomainControllers,
         [switch] $ReturnResults,
@@ -65,9 +74,9 @@ function Invoke-Testimo {
 [scriptblock] $SourcesAutoCompleter = {
     param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
 
-    $ForestKeys = $TestimoConfiguration.Domain.Keys
-    $DomainKeys = $TestimoConfiguration.Forest.Keys
-    $DomainControllerKeys = $TestimoConfiguration.DomainControllers.Keys
+    $ForestKeys = $Script:TestimoConfiguration.Forest.Keys
+    $DomainKeys = $Script:TestimoConfiguration.Domain.Keys
+    $DomainControllerKeys = $Script:TestimoConfiguration.DomainControllers.Keys
 
     $TestSources = @(
         foreach ($Key in $ForestKeys) {

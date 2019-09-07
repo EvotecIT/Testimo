@@ -13,7 +13,8 @@
         [string[]] $PropertyExtendedValue,
         [string] $OperationResult,
         [int] $ExpectedCount = -1,
-        [string] $ReferenceID
+        [string] $ReferenceID,
+        [nullable[bool]] $ExpectedOutput
     )
     Out-Begin -Text $TestName -Level $Level -Domain $Domain -DomainController $DomainController #($Level * 3)
 
@@ -22,6 +23,7 @@
         $TestedValue = $TestedValue.$V
     }
 
+    if ($OperationType -eq '') { $OperationType = 'eq' }
 
     $ScriptBlock = {
         $Operators = @{
@@ -56,7 +58,7 @@
                 # Useless - doesn't make any sense
                 $TestResult = $ExpectedCount -notin $Object.Count
             } else {
-                $OperationType = 'eq' # Adding this for display purposes
+               # $OperationType = 'eq' # Adding this for display purposes
                 $TestResult = $Object.Count -eq $ExpectedCount
             }
             $TextTestedValue = $Object.Count
@@ -86,55 +88,66 @@
                 $TextTestedValue = 'Null'
 
             } else {
+                [Array] $TestResult = @(
+                    if ($OperationType -eq 'notin') {
+                        $ExpectedValue -notin $TestedValue
+                        $TextExpectedValue = $ExpectedValue
+                    } elseif ($OperationType -eq 'in') {
+                        $ExpectedValue -in $TestedValue
+                        $TextExpectedValue = $ExpectedValue
+                    } else {
+                        for ($i = 0; $i -lt $ExpectedValue.Count; $i++) {
 
-                if ($OperationType -eq 'notin') {
-                    $ExpectedValue -notin $TestedValue
-                    $TextExpectedValue = $ExpectedValue
-                } elseif ($OperationType -eq 'in') {
-                    $ExpectedValue -in $TestedValue
-                    $TextExpectedValue = $ExpectedValue
-                } else {
-                    [Array] $TestResult = for ($i = 0; $i -lt $ExpectedValue.Count; $i++) {
+                            # this check is introduced to convert Get-Date in ExpectedValue to proper values
+                            # normally it wouldn't be nessecary but since we're exporting configuration to JSON
+                            # it would export currentdatetime to JSON and we don't want that.
+                            if ($ExpectedValue[$i] -is [string] -and $ExpectedValue[$i] -like '*Get-Date*') {
+                                [scriptblock] $DateConversion = [scriptblock]::Create($ExpectedValue[$i])
+                                $CompareValue = & $DateConversion
+                            } else {
+                                $CompareValue = $ExpectedValue[$I]
+                            }
 
-                        # this check is introduced to convert Get-Date in ExpectedValue to proper values
-                        # normally it wouldn't be nessecary but since we're exporting configuration to JSON
-                        # it would export currentdatetime to JSON and we don't want that.
-                        if ($ExpectedValue[$i] -is [string] -and $ExpectedValue[$i] -like '*Get-Date*') {
-                            [scriptblock] $DateConversion = [scriptblock]::Create($ExpectedValue[$i])
-                            $CompareValue = & $DateConversion
-                        } else {
-                            $CompareValue = $ExpectedValue[$I]
+                            if ($OperationType -eq 'lt') {
+                                $TestedValue -lt $CompareValue
+                            } elseif ($OperationType -eq 'gt') {
+                                $TestedValue -gt $CompareValue
+                            } elseif ($OperationType -eq 'ge') {
+                                $TestedValue -ge $CompareValue
+                            } elseif ($OperationType -eq 'le') {
+                                $TestedValue -le $CompareValue
+                            } elseif ($OperationType -eq 'like') {
+                                $TestedValue -like $CompareValue
+                            } elseif ($OperationType -eq 'contains') {
+                                $TestedValue -contains $CompareValue
+                            } else {
+                                #$OperationType = 'eq' # Adding this for display purposes
+                                $TestedValue -eq $CompareValue
+                            }
+                            # gather comparevalue for display purposes
+                            $OutputValues.Add($CompareValue)
                         }
-
-                        if ($OperationType -eq 'lt') {
-                            $TestedValue -lt $CompareValue
-                        } elseif ($OperationType -eq 'gt') {
-                            $TestedValue -gt $CompareValue
-                        } elseif ($OperationType -eq 'ge') {
-                            $TestedValue -ge $CompareValue
-                        } elseif ($OperationType -eq 'le') {
-                            $TestedValue -le $CompareValue
-                        } elseif ($OperationType -eq 'like') {
-                            $TestedValue -like $CompareValue
-                        } elseif ($OperationType -eq 'contains') {
-                            $TestedValue -contains $CompareValue
-                        } else {
-                            $OperationType = 'eq' # Adding this for display purposes
-                            $TestedValue -eq $CompareValue
-                        }
-                        # gather comparevalue for display purposes
-                        $OutputValues.Add($CompareValue)
+                        $TextExpectedValue = $OutputValues -join ', '
                     }
-                    $TextExpectedValue = $OutputValues -join ', '
-                }
-                $TextTestedValue = $TestedValue
+                    $TextTestedValue = $TestedValue
+                )
             }
         } else {
-            # Skipped tests
-            $TestResult = $null
-            $ExtendedTextValue = "Test provided but no tests required."
+            if ($ExpectedOutput -eq $false) {
+                [Array] $TestResult = @(
+                    if ($null -eq $TestedValue) {
+                        $true
+                    } else {
+                        $false
+                    }
+                )
+                $TextExpectedValue = 'No output'
+            } else {
+                # Skipped tests
+                $TestResult = $null
+                $ExtendedTextValue = "Test provided but no tests required."
+            }
         }
-
 
         if ($null -eq $TestResult) {
             $ReportResult = $null

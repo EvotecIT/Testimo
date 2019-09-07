@@ -51,7 +51,7 @@ Things to know:
     - _ldap for PDC in `_tcp.pdc._msdcs.contoso.com`
 ---
 
-### Commennts
+### Comments
 
 Following action, that have **Status** `Tested` are verified and working.
 Keep in mind not all tests apply to each environment.
@@ -62,99 +62,97 @@ Nothing is written in stone for now. Things can change day by day.
 
 ### Things to consider
 
-- Criticality of Tests - some tests are critical, some are less critical
+- Criticality of Tests - some tests are critical, some are less critical, some are informative only
 - Recommended, Default, Sane - not all tests are equal or make sense in all conditions
 
-Some tests are based on:
+Tests are based on:
 - [Active Directory CheckList](https://github.com/mczerniawski/Active-Directory-CheckList)
-- [AD Health & Checkup] (https://arnaudloos.com/AD-Health-Check/)
+- [AD Health & Checkup](https://arnaudloos.com/AD-Health-Check/)
 - Some tests I've defined myself
 - Feel free to submit your own ideas either via Issues or direct PR.
 
 
-| Type              | Name                                                   | Area             | Description                                                                                  | Status          |
-| ----------------- | ------------------------------------------------------ | ---------------- | -------------------------------------------------------------------------------------------- | --------------- |
-| Forest            | Backup                                                 | Backup           | Verify `last backup time should be [less than X days]`                                       | Tested          |
-| Forest            | Replication                                            | Connectivity     | Verify each `DC in replication site can [reach other replication members]`                   | Tested          |
-| Forest            | Optional Features                                      | Features         | Verify Optional Feature `Recycle Bin should be [Enabled]`                                    | Tested          |
-| Forest            | Optional Features                                      | Features         | Verify Optional Feature `Privileged Access Management Feature should be [Enabled]`           | Tested          |
-| Forest            |                                                        | Features         | Verify Optional Feature `Bitlocker allows storing recovery key in AD should be [Configured]` | Not implemented |
-| Forest            | Optional Features                                      | Features         | Verify Optional Feature `Laps should be enabled [Configured]`                                | Tested          |
-| Forest            | Sites Verification                                     | Sites            | Verify each `site has at least [one subnet configured]`                                      | Tested          |
-| Forest            | Sites Verification                                     | Sites            | Verify each `site has at least [one domain controller configured]`                           | Tested          |
-| Forest            | Site Links                                             | Site Links       | Verify each `site link is automatic`                                                         | Tested          |
-| Forest            | Site Links                                             | Site Links       | Verify each `site link uses notifications`                                                   | Tested          |
-| Forest            | Site Links                                             | Site Links       | Verify each `site link does not use notifications`                                           | Tested          |
-| Forest            | Roles                                                  | Connectivity     | Verify each `FSMO holder is [reachable]`                                                     | Tested          |
-| Forest            | Orphaned/Empty Admins                                  | Security         | Verify there are no Orphaned Admins (users/groups/computers)                                 | Tested          |
-| Forest            | Tombstone Lifetime                                     | Features         | Verify `Tombstone lifetime is greater or equal 180 days`                                     | Tested          |
-| Domain            | Roles                                                  | Connectivity     | Verify each `FSMO holder is [reachable]`                                                     | Tested          |
-| Domain            | Password Complexity Requirements                       | Password         | Verify Password `Complexity Policy should be [Enabled]`                                      | Tested          |
-| Domain            | Password Complexity Requirements                       | Password         | Verify Password `Length should be [greater than X]`                                          | Tested          |
-| Domain            | Password Complexity Requirements                       | Password         | Verify Password `Threshold should be [greater than X]`                                       | Tested          |
-| Domain            | Password Complexity Requirements                       | Password         | Verify Password `Lockout Duration should be [greater than X minutes]`                        | Tested          |
-| Domain            | Password Complexity Requirements                       | Password         | Verify Password `Lockout Observation Window should be [greater than X minutes]`              | Tested          |
-| Domain            | Password Complexity Requirements                       | Password         | Verify Password `Minimum Age should be [greater than X]`                                     | Tested          |
-| Domain            | Password Complexity Requirements                       | Password         | Verify Password `History Count should be [greater than X]`                                   | Tested          |
-| Domain            | Password Complexity Requirements                       | Password         | Verify Password `Reversible Encryption should be [Disabled]`                                 | Tested          |
-| Domain            | Trust Availability                                     | Connectivity     | Verify each `Trust status is OK`                                                             | Tested          |
-| Domain            | Trust Unconstrained TGTDelegation                      | Security         | Verify each `Trust TGTDelegation is set to True`                                             | Tested          |
-| Domain            | Kerberos Account Age                                   | Security         | Verify `Kerberos Last Password Change Should be less than 180 days`                          | Tested          |
-| Domain            | Groups: Account Operators                              | Security         | Verify `Group is empty`                                                                      | Tested          |
-| Domain            | Groups: Schema Admins                                  | Security         | Verify `Group is empty`                                                                      | Tested          |
-| Domain            | User: Administrator                                    | Security         | Verify `Last Password Change should be less than 360 days or account disabled`               | Tested          |
-| Domain            |                                                        | PrivAccounts     | Verify Privileged Groups `contains only desired members`                                     | Not implemented |
-| Domain            |                                                        | PrivAccounts     | Verify Privileged Users permissions `are set to defaults`                                    | Not implemented |
-| Domain            | DNS Forwarders                                         | DNS              | Verify `DNS Forwarders are identical on all DNS nodes`                                       | Tested          |
-| Domain            | DNS Scavenging - Primary DNS Server                    | DNS              | Verify `DNS Scavenging is set to [X days]`                                                   | Tested          |
-| Domain            | DNS Scavenging - Primary DNS Server                    | DNS              | Verify `DNS Scavenging State is set to True`                                                 | Tested          |
-| Domain            | DNS Scavenging - Primary DNS Server                    | DNS              | Verify `DNS Scavenging Time is less than [X days]`                                           | Tested          |
-| Domain            | DNS Zone Aging                                         | DNS              | Verify `DNS Zone Aging is set`                                                               | Tested          |
-| Domain            |                                                        | DNS              | Verify `{DNS entries} in _msdcs zone [point to all DCs]`                                     | Not implemented |
-| Domain            |                                                        | DNS              | Verify `DNS Reverse Lookup zones are [configured for all site subnets]`                      | Not implemented |
-| Domain            |                                                        | DHCP             | Verify at least `one DHCP is [authorized in domain]`                                         | Not implemented |
-| Domain            | Well known folder - UsersContainer                     | WellKnownFolders | Verify `folder is not at it's defaults.`                                                     | Tested          |
-| Domain            | Well known folder - ComputersContainer                 | WellKnownFolders | Verify `folder is not at it's defaults.`                                                     | Tested          |
-| Domain            | Well known folder - DomainControllersContainer         | WellKnownFolders | Verify `folder is at it's defaults. `                                                        | Tested          |
-| Domain            | Well known folder - DeletedObjectsContainer            | WellKnownFolders | Verify `folder is at it's defaults.`                                                         | Tested          |
-| Domain            | Well known folder - SystemsContainer                   | WellKnownFolders | Verify `folder is at it's defaults. `                                                        | Tested          |
-| Domain            | Well known folder - LostAndFoundContainer              | WellKnownFolders | Verify `folder is at it's defaults.`                                                         | Tested          |
-| Domain            | Well known folder - QuotasContainer                    | WellKnownFolders | Verify `folder is at it's defaults.`                                                         | Tested          |
-| Domain            | Well known folder - ForeignSecurityPrincipalsContainer | WellKnownFolders | Verify `folder is at it's defaults.`                                                         | Tested          |
-| Domain            | Orphaned Foreign Security Principals                   | Cleanup          | Verify `there are no orphaned FSP objects.`                                                  | Tested          |
-| Domain            | Orphaned/Empty Organizational Units                    | Cleanup          | Verify `there are no orphaned Organizational Units`                                          | Tested          |
-| Domain            | Group Policy Missing Permissions                       | Configuration    | Verify Authenticated Users/Domain Computers are on each and every Group Policy               | Tested          |
-| Domain            | DFSR Sysvol                                            | Configuration    | Verify `SYSVOL is DFSR`                                                                      | Tested          |
-| Domain Controller | Service Status                                         | Services         | Verify all `{Services} are [running]`                                                        | Tested          |
-| Domain Controller | Service Status                                         | Services         | Verify all `{Services} are set to [automatic startup]`                                       | Tested          |
-| Domain Controller | Service Status (Print Spooler)                         | Security         | Verify `Print Spooler Service is set to disabled`                                            | Tested          |
-| Domain Controller | Service Status (Print Spooler)                         | Security         | Verify `Print Spooler Service is stopped`                                                    | Tested          |
-| Domain Controller | Ping Connectivity                                      | Connectivity     | Verify `DC is [reachable]`                                                                   | Tested          |
-| Domain Controller | Ports                                                  | Connectivity     | Verify `Following ports 53, 88, 135, 139, 389, 445, 464, 636, 3268, 3269, 9389 are open`     | Tested          |
-| Domain Controller | RDP Ports                                              | Connectivity     | Verify `Following ports 3389 (RDP) is open`                                                  | Tested          |
-| Domain Controller | RDP Security                                           | Connectivity     | Verify `NLA is enabled`                                                                      | Tested          |
-| Domain Controller | LDAP Connectivity                                      | Connectivity     | Verify all `{LDAP Ports} are open]`                                                          | Tested          |
-| Domain Controller | LDAP Connectivity                                      | Connectivity     | Verify all `{LDAP SSL Ports} are open]`                                                      | Tested          |
-| Domain Controller | Windows Firewall                                       | Connectivity     | Verify `windows firewall is enabled` for all network cards                                   | Tested          |
-| Domain Controller | Windows Remote Management                              | Connectivity     | Verify `Windows Remote Management identification requests are managed`                       | Tested          |
-| Domain Controller | Resolves internal DNS queries                          | DNS              | Verify `DNS on DC [resolves Internal DNS]`                                                   | Tested          |
-| Domain Controller | Resolves external DNS queries                          | DNS              | Verify `DNS on DC [resolves External DNS]`                                                   | Tested          |
-| Domain Controller | Name servers for primary domain zone                   | DNS              | Verify `DNS Name servers for primary zone are identical`                                     | Tested          |
-| Domain Controller | Responds to PowerShell Queries                         | PowerShell       | Verify DC `responds to PowerShell queries`                                                   | Tested          |
-| Domain Controller | TimeSettings                                           | Time             | Verify `PDC should [sync time to external source]`                                           | Tested          |
-| Domain Controller | TimeSettings                                           | Time             | Verify `Non-PDC should [sync time to PDC emulator]`                                          | Tested          |
-| Domain Controller | TimeSettings                                           | Time             | Verify `Virtualized DCs should [sync to hypervisor during boot time only]`                   | Tested          |
-| Domain Controller | Time Synchronization Internal                          | Time             | Verify `Time Synchronization Difference to PDC [less than X seconds]`                        | Tested          |
-| Domain Controller | Time Synchronization External                          | Time             | Verify `Time Synchronization Difference to pool.ntp.org [less than X seconds]`               | Tested          |
-| Domain Controller | Disk Free                                              | Computer         | Verify `OS partition Free space is [at least X %]`                                           | Tested          |
-| Domain Controller | Disk Free                                              | Computer         | Verify `NTDS partition Free space is [at least X %]`                                         | Tested          |
-| Domain Controller | Operating System                                       | Computer         | Verify `Windows Operating system is Windows 2012 or higher`                                  | Tested          |
-| Domain Controller | Windows Updates                                        | Computer         | Verify `Last patch was installed less than 60 days ago`                                      | Tested          |
-| Domain Controller | SMB Protocols                                          | Security         | Verify `SMB v1 protocol is disabled`                                                         | Tested          |
-| Domain Controller | SMB Protocols                                          | Security         | Verify `SMB v2 protocol is enabled`                                                          | Tested          |
-| Domain Controller | SMB Shares                                             | Security         | Verify `default SMB shares NETLOGON/SYSVOL are visible`                                      | Tested          |
-| Domain Controller | DFSR AutoRecovery                                      | Security         | Verify `DFSR AutoRecovery is enabled`                                                        | Tested          |
-| Domain Controller | Windows Roles and Features                             | Security         | Verify `Windows Features for AD/DNS/File Services are enabled`                               | Tested          |
+| Type              | Name                                                   | Area             | Description                                                                              |
+| ----------------- | ------------------------------------------------------ | ---------------- | ---------------------------------------------------------------------------------------- |
+| Forest            | Backup                                                 | Backup           | Verify `last backup time should be [less than X days]`                                   |
+| Forest            | Replication                                            | Connectivity     | Verify each `DC in replication site can [reach other replication members]`               |
+| Forest            | Replication using Repadmin                             | Connectivity     | Verify each `DC in replication site can [reach other replication members]`               |
+| Forest            | Optional Features                                      | Features         | Verify Optional Feature `Recycle Bin should be [Enabled]`                                |
+| Forest            | Optional Features                                      | Features         | Verify Optional Feature `Privileged Access Management Feature should be [Enabled]`       |
+| Forest            | Optional Features                                      | Features         | Verify Optional Feature `Laps should be enabled [Configured]`                            |
+| Forest            | Sites Verification                                     | Sites            | Verify each `site has at least [one subnet configured]`                                  |
+| Forest            | Sites Verification                                     | Sites            | Verify each `site has at least [one domain controller configured]`                       |
+| Forest            | Site Links                                             | Site Links       | Verify each `site link is automatic`                                                     |
+| Forest            | Site Links                                             | Site Links       | Verify each `site link uses notifications`                                               |
+| Forest            | Site Links                                             | Site Links       | Verify each `site link does not use notifications`                                       |
+| Forest            | Roles                                                  | Connectivity     | Verify each `FSMO holder is [reachable]`                                                 |
+| Forest            | Orphaned/Empty Admins                                  | Security         | Verify `there are no Orphaned Admins (users/groups/computers) `                          |
+| Forest            | Tombstone Lifetime                                     | Features         | Verify `Tombstone lifetime is greater or equal 180 days`                                 |
+| Domain            | Roles                                                  | Connectivity     | Verify each `FSMO holder is [reachable]`                                                 |
+| Domain            | Password Complexity Requirements                       | Password         | Verify Password `Complexity Policy should be [Enabled]`                                  |
+| Domain            | Password Complexity Requirements                       | Password         | Verify Password `Length should be [greater than X]`                                      |
+| Domain            | Password Complexity Requirements                       | Password         | Verify Password `Threshold should be [greater than X]`                                   |
+| Domain            | Password Complexity Requirements                       | Password         | Verify Password `Lockout Duration should be [greater than X minutes]`                    |
+| Domain            | Password Complexity Requirements                       | Password         | Verify Password `Lockout Observation Window should be [greater than X minutes]`          |
+| Domain            | Password Complexity Requirements                       | Password         | Verify Password `Minimum Age should be [greater than X]`                                 |
+| Domain            | Password Complexity Requirements                       | Password         | Verify Password `History Count should be [greater than X]`                               |
+| Domain            | Password Complexity Requirements                       | Password         | Verify Password `Reversible Encryption should be [Disabled]`                             |
+| Domain            | Trust Availability                                     | Connectivity     | Verify each `Trust status is OK`                                                         |
+| Domain            | Trust Unconstrained TGTDelegation                      | Security         | Verify each `Trust TGTDelegation is set to True`                                         |
+| Domain            | Kerberos Account Age                                   | Security         | Verify `Kerberos Last Password Change Should be less than 180 days`                      |
+| Domain            | Groups: Account Operators                              | Security         | Verify `Group is empty`                                                                  |
+| Domain            | Groups: Schema Admins                                  | Security         | Verify `Group is empty`                                                                  |
+| Domain            | User: Administrator                                    | Security         | Verify `Last Password Change should be less than 360 days or account disabled`           |
+| Domain            | DNS Forwarders                                         | DNS              | Verify `DNS Forwarders are identical on all DNS nodes`                                   |
+| Domain            | DNS Scavenging - Primary DNS Server                    | DNS              | Verify `DNS Scavenging is set to [X days]`                                               |
+| Domain            | DNS Scavenging - Primary DNS Server                    | DNS              | Verify `DNS Scavenging State is set to True`                                             |
+| Domain            | DNS Scavenging - Primary DNS Server                    | DNS              | Verify `DNS Scavenging Time is less than [X days]`                                       |
+| Domain            | DNS Zone Aging                                         | DNS              | Verify `DNS Zone Aging is set`                                                           |
+| Domain            | Well known folder - UsersContainer                     | WellKnownFolders | Verify `folder is not at it's defaults.`                                                 |
+| Domain            | Well known folder - ComputersContainer                 | WellKnownFolders | Verify `folder is not at it's defaults.`                                                 |
+| Domain            | Well known folder - DomainControllersContainer         | WellKnownFolders | Verify `folder is at it's defaults. `                                                    |
+| Domain            | Well known folder - DeletedObjectsContainer            | WellKnownFolders | Verify `folder is at it's defaults.`                                                     |
+| Domain            | Well known folder - SystemsContainer                   | WellKnownFolders | Verify `folder is at it's defaults. `                                                    |
+| Domain            | Well known folder - LostAndFoundContainer              | WellKnownFolders | Verify `folder is at it's defaults.`                                                     |
+| Domain            | Well known folder - QuotasContainer                    | WellKnownFolders | Verify `folder is at it's defaults.`                                                     |
+| Domain            | Well known folder - ForeignSecurityPrincipalsContainer | WellKnownFolders | Verify `folder is at it's defaults.`                                                     |
+| Domain            | Orphaned Foreign Security Principals                   | Cleanup          | Verify `there are no orphaned FSP objects.`                                              |
+| Domain            | Orphaned/Empty Organizational Units                    | Cleanup          | Verify `there are no orphaned Organizational Units`                                      |
+| Domain            | Group Policy Missing Permissions                       | Configuration    | Verify `Authenticated Users/Domain Computers are on each and every Group Policy`         |
+| Domain            | DFSR Sysvol                                            | Configuration    | Verify `SYSVOL is DFSR`                                                                  |
+| Domain            | NTDS Parameters                                        | Configuration    | Verify `Domain Controller is writable (DSA Not Writable)`                                |
+| Domain Controller | Information                                            | Configuration    | Verify `Is enabled`                                                                      |
+| Domain Controller | Information                                            | Configuration    | Verify `Is global catalog`                                                               |
+| Domain Controller | Service Status                                         | Services         | Verify all `{Services} are [running]`                                                    |
+| Domain Controller | Service Status                                         | Services         | Verify all `{Services} are set to [automatic startup]`                                   |
+| Domain Controller | Service Status (Print Spooler)                         | Security         | Verify `Print Spooler Service is set to disabled`                                        |
+| Domain Controller | Service Status (Print Spooler)                         | Security         | Verify `Print Spooler Service is stopped`                                                |
+| Domain Controller | Ping Connectivity                                      | Connectivity     | Verify `DC is [reachable]`                                                               |
+| Domain Controller | Ports                                                  | Connectivity     | Verify `Following ports 53, 88, 135, 139, 389, 445, 464, 636, 3268, 3269, 9389 are open` |
+| Domain Controller | RDP Ports                                              | Connectivity     | Verify `Following ports 3389 (RDP) is open`                                              |
+| Domain Controller | RDP Security                                           | Connectivity     | Verify `NLA is enabled`                                                                  |
+| Domain Controller | LDAP Connectivity                                      | Connectivity     | Verify all `{LDAP Ports} are open]`                                                      |
+| Domain Controller | LDAP Connectivity                                      | Connectivity     | Verify all `{LDAP SSL Ports} are open]`                                                  |
+| Domain Controller | Windows Firewall                                       | Connectivity     | Verify `windows firewall is enabled` for all network cards                               |
+| Domain Controller | Windows Remote Management                              | Connectivity     | Verify `Windows Remote Management identification requests are managed`                   |
+| Domain Controller | Resolves internal DNS queries                          | DNS              | Verify `DNS on DC [resolves Internal DNS]`                                               |
+| Domain Controller | Resolves external DNS queries                          | DNS              | Verify `DNS on DC [resolves External DNS]`                                               |
+| Domain Controller | Name servers for primary domain zone                   | DNS              | Verify `DNS Name servers for primary zone are identical`                                 |
+| Domain Controller | Responds to PowerShell Queries                         | PowerShell       | Verify DC `responds to PowerShell queries`                                               |
+| Domain Controller | TimeSettings                                           | Time             | Verify `PDC should [sync time to external source]`                                       |
+| Domain Controller | TimeSettings                                           | Time             | Verify `Non-PDC should [sync time to PDC emulator]`                                      |
+| Domain Controller | TimeSettings                                           | Time             | Verify `Virtualized DCs should [sync to hypervisor during boot time only]`               |
+| Domain Controller | Time Synchronization Internal                          | Time             | Verify `Time Synchronization Difference to PDC [less than X seconds]`                    |
+| Domain Controller | Time Synchronization External                          | Time             | Verify `Time Synchronization Difference to pool.ntp.org [less than X seconds]`           |
+| Domain Controller | Disk Free                                              | Computer         | Verify `OS partition Free space is [at least X %]`                                       |
+| Domain Controller | Disk Free                                              | Computer         | Verify `NTDS partition Free space is [at least X %]`                                     |
+| Domain Controller | Operating System                                       | Computer         | Verify `Windows Operating system is Windows 2012 or higher`                              |
+| Domain Controller | Windows Updates                                        | Computer         | Verify `Last patch was installed less than 60 days ago`                                  |
+| Domain Controller | SMB Protocols                                          | Security         | Verify `SMB v1 protocol is disabled`                                                     |
+| Domain Controller | SMB Protocols                                          | Security         | Verify `SMB v2 protocol is enabled`                                                      |
+| Domain Controller | SMB Shares                                             | Security         | Verify `default SMB shares NETLOGON/SYSVOL are visible`                                  |
+| Domain Controller | DFSR AutoRecovery                                      | Security         | Verify `DFSR AutoRecovery is enabled`                                                    |
+| Domain Controller | Windows Roles and Features                             | Security         | Verify `Windows Features for AD/DNS/File Services are enabled`                           |
 
 ## Known Issues / By Design
 
@@ -298,9 +296,9 @@ Keep in mind that if you already use some of my modules some of the stuff may be
 ```powershell
 $Modules = @('Testimo', 'PSWinDocumentation.AD','PSWinDocumentation.DNS','ADEssentials', 'PSSharedGoods','PSWriteColor', 'Connectimo', 'DSInternals' )
 foreach ($Module in $Modules) {
-    Uninstall-Module $Module -Force
+    Uninstall-Module $Module -Force -AllVersions
 }
 ```
 
-Due to multiple versions per each module you may need to rerun this couple of times to remove all those mdoules.
+Due to multiple versions per each module you may need to rerun this couple of times to remove all those mdoules in case there are some problems.
 If there will be enough complains/requests I could try to create bundle of Testimo for it to be portable (as in predownload modules for you and put it in one GitHub for download).

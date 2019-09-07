@@ -14,34 +14,26 @@
         [string] $OperationResult,
         [scriptblock] $WhereObject,
         [string] $ReferenceID,
-        [scriptblock] $OverwriteName
+        [scriptblock] $OverwriteName,
+        [nullable[bool]] $ExpectedOutput
     )
     if ($Object) {
-
-
+        if ($OverwriteName) {
+            $TestName = & $OverwriteName
+        }
+        if ($WhereObject) {
+            $Object = $Object | Where-Object $WhereObject
+        }
         if ($ExpectedCount) {
-            if ($OverwriteName) {
-                $TestName = & $OverwriteName
-            }
-            if ($WhereObject) {
-                $Object = $Object | Where-Object $WhereObject
-            }
-            Test-Me -Object $Object -ExpectedCount $ExpectedCount -OperationType $OperationType -TestName $TestName -Level $Level -Domain $Domain -DomainController $DomainController -Property $Property -ExpectedValue $ExpectedValue -PropertyExtendedValue $PropertyExtendedValue -OperationResult $OperationResult -ReferenceID $ReferenceID
+            Test-Me -Object $Object -ExpectedCount $ExpectedCount -OperationType $OperationType -TestName $TestName -Level $Level -Domain $Domain -DomainController $DomainController -Property $Property -ExpectedValue $ExpectedValue -PropertyExtendedValue $PropertyExtendedValue -OperationResult $OperationResult -ReferenceID $ReferenceID -ExpectedOutput $ExpectedOutput
         } else {
-            if ($WhereObject) {
-                if ($OverwriteName) {
-                    $TestName = & $OverwriteName
-                }
-                $Object = $Object | Where-Object $WhereObject
-                Test-Me -Object $Object -OperationType $OperationType -TestName $TestName -Level $Level -Domain $Domain -DomainController $DomainController -Property $Property -ExpectedValue $ExpectedValue -PropertyExtendedValue $PropertyExtendedValue -OperationResult $OperationResult -ReferenceID $ReferenceID
-            } else {
-                foreach ($_ in $Object) {
-                    if ($OverwriteName) {
-                        $TestName = & $OverwriteName
-                    }
-                    Test-Me -Object $_ -OperationType $OperationType -TestName $TestName -Level $Level -Domain $Domain -DomainController $DomainController -Property $Property -ExpectedValue $ExpectedValue -PropertyExtendedValue $PropertyExtendedValue -OperationResult $OperationResult -ReferenceID $ReferenceID
-                }
+            #if ($WhereObject) {
+            #    Test-Me -Object $Object -OperationType $OperationType -TestName $TestName -Level $Level -Domain $Domain -DomainController $DomainController -Property $Property -ExpectedValue $ExpectedValue -PropertyExtendedValue $PropertyExtendedValue -OperationResult $OperationResult -ReferenceID $ReferenceID -ExpectedOutput $ExpectedOutput
+            #} else {
+            foreach ($_ in $Object) {
+                Test-Me -Object $_ -OperationType $OperationType -TestName $TestName -Level $Level -Domain $Domain -DomainController $DomainController -Property $Property -ExpectedValue $ExpectedValue -PropertyExtendedValue $PropertyExtendedValue -OperationResult $OperationResult -ReferenceID $ReferenceID -ExpectedOutput $ExpectedOutput
             }
+            #}
         }
     } else {
         Write-Warning 'Objected not passed to Test-VALUE.'

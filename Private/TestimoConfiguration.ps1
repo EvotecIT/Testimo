@@ -5,7 +5,8 @@
     }
     Forest            = [ordered]@{
         Backup               = $ForestBackup
-        Replication          = $Replication
+        Replication          = $Replication # this should work 2012+
+        ReplicationStatus    = $ReplicationStatus # Thi is based on repadmin / could be useful for Windows 2008R2
         OptionalFeatures     = $OptionalFeatures
         Sites                = $Sites
         SiteLinks            = $SiteLinks
@@ -32,6 +33,7 @@
         SysVolDFSR                         = $SysVolDFSR
     }
     DomainControllers = [ordered] @{
+        Information                 = $Information
         WindowsRemoteManagement     = $WindowsRemoteManagement
         OperatingSystem             = $OperatingSystem
         Services                    = $Services
@@ -53,6 +55,7 @@
         SMBProtocols                = $SMBProtocols
         SMBShares                   = $SMBShares
         DFSRAutoRecovery            = $DFSAutoRecovery
+        NTDSParameters              = $NTDSParameters
     }
     Debug             = [ordered] @{
         ShowErrors = $false

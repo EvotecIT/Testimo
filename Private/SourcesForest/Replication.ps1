@@ -5,9 +5,6 @@
         Data       = {
             Get-WinADForestReplication -WarningAction SilentlyContinue
         }
-        Parameters = @{
-
-        }
     }
     Tests  = [ordered] @{
         ReplicationTests = @{
