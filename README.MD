@@ -32,27 +32,6 @@ Things to know:
 - [x] There are lots of details missing for tests, and some things may not work as you want - please report issues or if you know how, fix them
 - [x] I don't know EVERYTHING - I'm very open to help with making Testimo more robust, detailed and easy to use
 
-### Legend
----
-- DC = Domain Controller
-- PrivAccounts = Privileged Accounts [Docs.Microsoft.com](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/appendix-b--privileged-accounts-and-groups-in-active-directory)
-- PrivGroups = Privileged Groups [Docs.Microsoft.com](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/appendix-b--privileged-accounts-and-groups-in-active-directory)
-- FSMO = Flexible Single-Master Operation
-- PDC = Domain Controller with PDC Emulator FSMO role
-- `{Services}` = services required by a DC to function properly - `'Active Directory Domain Services','Active Directory Web Services''DFS Replication','DNS Client', 'DNS server','Group Policy Client','Intersite Messaging','Kerberos Key Distribution Center','NetLogon','Windows Time','Workstation'`
-- RODC = Read Only Domain Controller
-- `{DNS entries}` =
-    - _ldap in `{SiteName}._sites.dc._msdcs.contoso.com`
-    - _kerberos `{SiteName}._sites.dc._msdcs.contoso.com`
-    - _ldap in `_tcp.dc._msdcs.contoso.com`
-    - _kerberos in `_tcp.dc._msdcs.contoso.com`
-    - _ldap in `{domain-guid].domains._msdcs.contoso.com`
-    - record type A in `gc._msdcs.contoso.com`
-    - _ldap in `_tcp.{SiteName}._sites.gc._msdcs.contoso.com`
-    - _ldap in `_tcp.gc._msdcs.contoso.com`
-    - _ldap for PDC in `_tcp.pdc._msdcs.contoso.com`
----
-
 ### Comments
 
 Following action, that have **Status** `Tested` are verified and working.
@@ -287,40 +266,48 @@ There are times where you may want to use **Testimo** in Portable way.
 Following function when executed will download all modules to given path and load them for you.
 
 ```PowerShell
-function Get-TestimoPortable {
+function Initialize-ModulePortable {
     [CmdletBinding()]
     param(
+        [alias('ModuleName')][string] $Name,
         [string] $Path = $PSScriptRoot,
         [switch] $Download
     )
+    if (-not $Name) {
+        Write-Warning "Initialize-ModulePortable - Module name not given. Terminating."
+        return
+    }
     if ($Download) {
         try {
-            Save-Module -Name 'Testimo' -LiteralPath $Path -WarningVariable WarningData -WarningAction SilentlyContinue -ErrorAction Stop
+            Save-Module -Name $Name -LiteralPath $Path -WarningVariable WarningData -WarningAction SilentlyContinue -ErrorAction Stop
         } catch {
             $ErrorMessage = $_.Exception.Message
-            if ($ErrorMessage -like "*Unable to save the module 'Testimo'*") {
-                if ($WarningData -like '*Access to the path*DSInternals* is denied.') {
-                    Write-Warning "Get-TestimoPortable - $WarningData"
-                    Write-Warning "Get-TestimoPortable - Can't download DSInternals. Most likely DLL is already loaded. Please restart PowerShell and retry."
-                    return
-                }
-            } else {
-                Write-Warning "Get-TestimoPortable - $WarningData"
-                Write-Warning "Get-TestimoPortable - Error $ErrorMessage"
-                return
+
+            if ($WarningData) {
+                Write-Warning "Initialize-ModulePortable - $WarningData"
             }
+            Write-Warning "Initialize-ModulePortable - Error $ErrorMessage"
+            return
         }
     }
-    $ListModules = Get-ChildItem -LiteralPath $Path -Filter '*.psd1' -Recurse -ErrorAction SilentlyContinue
-    foreach ($Module in $ListModules.FullName) {
-        Import-Module -Name $Module -Force -ErrorAction SilentlyContinue
+
+    $PrimaryModule = Get-ChildItem -LiteralPath "$Path\$Name" -Filter '*.psd1' -Recurse -ErrorAction SilentlyContinue -Depth 1
+    $PrimaryModuleInformation = Get-Module -ListAvailable $PrimaryModule.FullName
+    [Array] $RequiredModules = $PrimaryModuleInformation.RequiredModules.Name
+    foreach ($_ in $RequiredModules) {
+        $ListModules = Get-ChildItem -LiteralPath "$Path\$_" -Filter '*.psd1' -Recurse -ErrorAction SilentlyContinue -Depth 1
+        Import-Module -Name $ListModules.FullName -Force -ErrorAction SilentlyContinue -Verbose
     }
+    Import-Module -Name $PrimaryModule.FullName-Force -ErrorAction SilentlyContinue -Verbose
 }
 
-Get-TestimoPortable -Download -Path $PSScriptRoot
+Initialize-ModulePortable -Name 'Testimo' -Download -Path $PSScriptRoot
+
 ```
 
-After that you can use `Invoke-Testimo` as you normally would. You can also skip **Download** parameter if it already downloaded all the modules.
+After that you can use `Invoke-Testimo` as you normally would.
+You can also skip **Download** parameter if you already downloaded all the modules before.
+This function is also available as part of [PSSharedGoods](https://github.com/EvotecIT/PSSharedGoods) module.
 
 ### Removal
 
@@ -331,12 +318,12 @@ Keep in mind that if you already use some of my modules some of the stuff may be
 
 #### Option 1
 
-- [ ] Finding where modules are stored `(Get-Module -ListAvailable Testimo).ModuleBase`
-- [ ] Manually deleting all folders Testimo, and other dependant modules
+- [x] Finding where modules are stored `(Get-Module -ListAvailable Testimo).ModuleBase`
+- [x] Manually deleting all folders Testimo, and other dependant modules
 
 #### Option 2
 
-- [ ] Run `Uninstall-Module`
+- [x] Run `Uninstall-Module`
 
 ```powershell
 $Modules = @('Testimo', 'PSWinDocumentation.AD','PSWinDocumentation.DNS','ADEssentials', 'PSSharedGoods','PSWriteColor', 'Connectimo', 'DSInternals','Emailimo','PSWriteHTML' )

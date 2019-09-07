@@ -1,33 +1,38 @@
-﻿function Get-TestimoPortable {
+﻿function Initialize-ModulePortable {
     [CmdletBinding()]
     param(
+        [alias('ModuleName')][string] $Name,
         [string] $Path = $PSScriptRoot,
         [switch] $Download
     )
+    if (-not $Name) {
+        Write-Warning "Initialize-ModulePortable - Module name not given. Terminating."
+        return
+    }
     if ($Download) {
         try {
-            Save-Module -Name 'Testimo' -LiteralPath $Path -WarningVariable WarningData -WarningAction SilentlyContinue -ErrorAction Stop
+            Save-Module -Name $Name -LiteralPath $Path -WarningVariable WarningData -WarningAction SilentlyContinue -ErrorAction Stop
         } catch {
             $ErrorMessage = $_.Exception.Message
-            if ($ErrorMessage -like "*Unable to save the module 'Testimo'*") {
-                if ($WarningData -like '*Access to the path*DSInternals* is denied.') {
-                    Write-Warning "Get-TestimoPortable - $WarningData"
-                    Write-Warning "Get-TestimoPortable - Can't download DSInternals. Most likely DLL is already loaded. Please restart PowerShell and retry."
-                    return
-                }
-            } else {
-                Write-Warning "Get-TestimoPortable - $WarningData"
-                Write-Warning "Get-TestimoPortable - Error $ErrorMessage"
-                return
+
+            if ($WarningData) {
+                Write-Warning "Initialize-ModulePortable - $WarningData"
             }
+            Write-Warning "Initialize-ModulePortable - Error $ErrorMessage"
+            return
         }
     }
-    $ListModules = Get-ChildItem -LiteralPath $Path -Filter '*.psd1' -Recurse -ErrorAction SilentlyContinue
-    foreach ($Module in $ListModules.FullName) {
-        Import-Module -Name $Module -Force -ErrorAction SilentlyContinue
+
+    $PrimaryModule = Get-ChildItem -LiteralPath "$Path\$Name" -Filter '*.psd1' -Recurse -ErrorAction SilentlyContinue -Depth 1
+    $PrimaryModuleInformation = Get-Module -ListAvailable $PrimaryModule.FullName
+    [Array] $RequiredModules = $PrimaryModuleInformation.RequiredModules.Name
+    foreach ($_ in $RequiredModules) {
+        $ListModules = Get-ChildItem -LiteralPath "$Path\$_" -Filter '*.psd1' -Recurse -ErrorAction SilentlyContinue -Depth 1
+        Import-Module -Name $ListModules.FullName -Force -ErrorAction SilentlyContinue -Verbose
     }
+    Import-Module -Name $PrimaryModule.FullName-Force -ErrorAction SilentlyContinue -Verbose
 }
 
-Get-TestimoPortable -Download -Path $PSScriptRoot
+Initialize-ModulePortable -Name 'testimo' -Path $PSScriptRoot -Download
 
 # Invoke-Testimo
