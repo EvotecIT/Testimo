@@ -19,14 +19,16 @@
 
 # Testimo - PowerShell Module
 
-Testimo is a PowerShell Module to help with basic/more advanced testing of Active Directory and maybe in future other types of servers.
-Testimo is an **alpha product** and as such things do change.
+**Testimo** is a PowerShell Module to help with basic/more advanced testing of **Active Directory** and maybe in future other types of servers.
+**Testimo** is an **alpha product** and as such things do change.
 It's goal is to be fully automated solution where one can run the command and get results without executing 50 little functions.
+
+If you're new to **Testimo** you should read this blog post!
 
 Things to know:
 - [x] Configuration hash is not written in stone and can change rapidly as Testimo gets tested
 - [x] Ideas are VERY welcome
-- [x] There's a big mess in files/function names - I'm still testing things out creating some random stuff
+- [x] There's a big mess in files/function names - I'm still testing things out creating some random names, will be cleaned up later on
 - [x] There are lots of details missing for tests, and some things may not work as you want - please report issues or if you know how, fix them
 - [x] I don't know EVERYTHING - I'm very open to help with making Testimo more robust, detailed and easy to use
 
@@ -274,8 +276,51 @@ Why I am using it this way? Because I don't want to write multiple times same co
   - [x] [PSSharedGoods](https://github.com/EvotecIT/PSSharedGoods) - PowerShell Module with lots of different, helpfull functions that I have gathered over the years
     - [x] [PSWriteColor](https://github.com/EvotecIT/PSWriteColor) - PowerShell Module responsible for Console Colors
     - [x] [Connectimo](https://github.com/EvotecIT/Connectimo) - PowerShell Module responsible for Connecting to O365 - while it's not in use in this project PSSharedGoods depends on it, so it's here. No function is used from it.
+  - [x] [PSWriteHTML](https://github.com/EvotecIT/PSWriteHTML) - PowerShell Module that creates nice looking reports. Responsible for visual HTML reporting.
+  - [x] [Emailimo](https://github.com/EvotecIT/Emailimo) - PowerShell Module that creates nice looking emails. Responsible for emails in Testimo.
 
 In **Testimo** I'm using internal functions from some of the modules, without any real documentation.
+
+### Portable Testimo
+
+There are times where you may want to use **Testimo** in Portable way.
+Following function when executed will download all modules to given path and load them for you.
+
+```PowerShell
+function Get-TestimoPortable {
+    [CmdletBinding()]
+    param(
+        [string] $Path = $PSScriptRoot,
+        [switch] $Download
+    )
+    if ($Download) {
+        try {
+            Save-Module -Name 'Testimo' -LiteralPath $Path -WarningVariable WarningData -WarningAction SilentlyContinue -ErrorAction Stop
+        } catch {
+            $ErrorMessage = $_.Exception.Message
+            if ($ErrorMessage -like "*Unable to save the module 'Testimo'*") {
+                if ($WarningData -like '*Access to the path*DSInternals* is denied.') {
+                    Write-Warning "Get-TestimoPortable - $WarningData"
+                    Write-Warning "Get-TestimoPortable - Can't download DSInternals. Most likely DLL is already loaded. Please restart PowerShell and retry."
+                    return
+                }
+            } else {
+                Write-Warning "Get-TestimoPortable - $WarningData"
+                Write-Warning "Get-TestimoPortable - Error $ErrorMessage"
+                return
+            }
+        }
+    }
+    $ListModules = Get-ChildItem -LiteralPath $Path -Filter '*.psd1' -Recurse -ErrorAction SilentlyContinue
+    foreach ($Module in $ListModules.FullName) {
+        Import-Module -Name $Module -Force -ErrorAction SilentlyContinue
+    }
+}
+
+Get-TestimoPortable -Download -Path $PSScriptRoot
+```
+
+After that you can use `Invoke-Testimo` as you normally would. You can also skip **Download** parameter if it already downloaded all the modules.
 
 ### Removal
 
@@ -294,11 +339,10 @@ Keep in mind that if you already use some of my modules some of the stuff may be
 - [ ] Run `Uninstall-Module`
 
 ```powershell
-$Modules = @('Testimo', 'PSWinDocumentation.AD','PSWinDocumentation.DNS','ADEssentials', 'PSSharedGoods','PSWriteColor', 'Connectimo', 'DSInternals' )
+$Modules = @('Testimo', 'PSWinDocumentation.AD','PSWinDocumentation.DNS','ADEssentials', 'PSSharedGoods','PSWriteColor', 'Connectimo', 'DSInternals','Emailimo','PSWriteHTML' )
 foreach ($Module in $Modules) {
     Uninstall-Module $Module -Force -AllVersions
 }
 ```
 
 Due to multiple versions per each module you may need to rerun this couple of times to remove all those mdoules in case there are some problems.
-If there will be enough complains/requests I could try to create bundle of Testimo for it to be portable (as in predownload modules for you and put it in one GitHub for download).

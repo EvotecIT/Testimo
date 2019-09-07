@@ -96,10 +96,14 @@
 
                 # build data output for extended results
                 $Script:Reporting[$ReferenceID] = @{
-                    Name       = $CurrentSource['Name']
-                    SourceCode = $CurrentSource['Data']
-                    Results    = [System.Collections.Generic.List[PSCustomObject]]::new()
+                    Name             = $CurrentSource['Name']
+                    SourceCode       = $CurrentSource['Data']
+                    Results          = [System.Collections.Generic.List[PSCustomObject]]::new()
+                    Domain           = $Domain
+                    DomainController = $DomainController
                 }
+
+
 
                 if ($CurrentSource['Parameters']) {
                     $SourceParameters = $CurrentSource['Parameters']

@@ -21,6 +21,8 @@ function Invoke-Testimo {
         [Object] $Configuration
     )
     $Script:Reporting = [ordered] @{ }
+    $Script:Reporting['Forest'] = [ordered] @{ }
+    $Script:Reporting['Domains'] = [ordered] @{ }
 
     Import-TestimoConfiguration -Configuration $Configuration
 
@@ -48,12 +50,15 @@ function Invoke-Testimo {
     $null = Start-Testing -Scope 'Forest' -ForestInformation $ForestInformation {
         # Tests related to DOMAIN
         foreach ($Domain in $ForestInformation.Domains) {
+            $Script:Reporting['Domains'][$Domain] = [ordered] @{ }
+            $Script:Reporting['Domains'][$Domain]['DomainControllers'] = [ordered] @{ }
             $DomainInformation = Get-TestimoDomain -Domain $Domain
 
             Start-Testing -Scope 'Domain' -Domain $Domain -DomainInformation $DomainInformation -ForestInformation $ForestInformation {
                 # Tests related to DOMAIN CONTROLLERS
                 $DomainControllers = Get-TestimoDomainControllers -Domain $Domain
                 foreach ($DC in $DomainControllers) {
+                    $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DC] = [ordered] @{ }
                     Start-Testing -Scope 'DomainControllers' -Domain $Domain -DomainController $DC.Name -IsPDC $DC.IsPDC -DomainInformation $DomainInformation -ForestInformation $ForestInformation
                 }
             }

@@ -22,6 +22,22 @@ $Sources = @(
 #$TestResults = Invoke-Testimo -ReturnResults  -ExtendedResults -Sources $Sources -ExcludeDomains 'ad.evotec.pl' #-ExcludeDomainControllers $ExludeDomainControllers
 #$TestResults | Format-Table -AutoSize *
 
+
+#$TestResults['Results'] | ft -AutoSize
+
+$TestResults['ReportData'] | ft -AutoSize
+
+$TestResults['ReportData']['Forest'] | ft -a
+$TestResults['ReportData']['Domains'] | ft -a
+
+foreach ($Domain in $TestResults['ReportData']['Domains'].Keys) {
+    $TestResults['ReportData']['Domains'][$Domain] | ft -a
+
+
+}
+
+return
+
 if ($TestResults -and $TestResults['Results']) {
     [Array] $PassedTests = $TestResults['Results'] | Where-Object { $_.Status -eq $true }
     [Array] $FailedTests = $TestResults['Results'] | Where-Object { $_.Status -ne $true }
@@ -52,13 +68,13 @@ if ($TestResults -and $TestResults['Results']) {
                     New-HTMLContainer {
                         #New-HTMLPanel {
 
-                       # }
+                        # }
                         #New-HTMLPanel {
-                            if ($TestResults.ReportData[$Key]['SourceCode']) {
-                                #New-HTMLContent -HeaderText 'Source Code for Test' {
-                                    New-HTMLCodeBlock -Code $TestResults.ReportData[$Key]['SourceCode'] -Style 'PowerShell' -Theme enlighter
-                                #}
-                            }
+                        if ($TestResults.ReportData[$Key]['SourceCode']) {
+                            #New-HTMLContent -HeaderText 'Source Code for Test' {
+                            New-HTMLCodeBlock -Code $TestResults.ReportData[$Key]['SourceCode'] -Style 'PowerShell' -Theme enlighter
+                            #}
+                        }
                         #}
                         New-HTMLChart {
                             New-ChartPie -Name 'Passed' -Value ($PassedTestsSingular.Count) -Color ForestGreen
@@ -66,15 +82,15 @@ if ($TestResults -and $TestResults['Results']) {
                         }
                     }
                     New-HTMLContainer {
-                       ## New-HTMLSection -HeaderText "Tests data" {
-                            New-HTMLTable -DataTable $TestResults.ReportData[$Key]['Data']
+                        ## New-HTMLSection -HeaderText "Tests data" {
+                        New-HTMLTable -DataTable $TestResults.ReportData[$Key]['Data']
                         #}
                         #New-HTMLSection -HeaderText "Tests results" {
-                            New-HTMLTable -DataTable $TestResults.ReportData[$Key]['Results'] {
-                                New-HTMLTableCondition -Name 'Status' -Value $true -Color Green -Row
-                                New-HTMLTableCondition -Name 'Status' -Value $false -Color Red -Row
-                            }
-                       # }
+                        New-HTMLTable -DataTable $TestResults.ReportData[$Key]['Results'] {
+                            New-HTMLTableCondition -Name 'Status' -Value $true -Color Green -Row
+                            New-HTMLTableCondition -Name 'Status' -Value $false -Color Red -Row
+                        }
+                        # }
                     }
                 }
             }
