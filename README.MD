@@ -222,13 +222,13 @@ $OutputOrderedDictionary.Forest.OptionalFeatures.Tests.LapsAvailable.Enable = $t
 $OutputOrderedDictionary.Forest.OptionalFeatures.Tests.LapsAvailable.Parameters.ExpectedValue = $false
 
 $Sources = @(
-    #'ForestFSMORoles'
+    'ForestFSMORoles'
     'ForestOptionalFeatures'
     'ForestBackup'
-    #'ForestOrphanedAdmins'
+    'ForestOrphanedAdmins'
     'DomainPasswordComplexity'
-    #'DomainKerberosAccountAge'
-    #'DomainDNSScavengingForPrimaryDNSServer'
+    'DomainKerberosAccountAge'
+    'DomainDNSScavengingForPrimaryDNSServer'
     'DCWindowsUpdates'
 )
 
@@ -260,49 +260,16 @@ Why I am using it this way? Because I don't want to write multiple times same co
 
 In **Testimo** I'm using internal functions from some of the modules, without any real documentation.
 
-### Portable Testimo
+### Portability
 
 There are times where you may want to use **Testimo** in Portable way.
 Following function when executed will download all modules to given path and load them for you.
+Following [blog post](https://evotec.xyz/making-powershellgallery-modules-portable/) shows the way.
+It was written specifically for Testimo.
+
 
 ```PowerShell
-function Initialize-ModulePortable {
-    [CmdletBinding()]
-    param(
-        [alias('ModuleName')][string] $Name,
-        [string] $Path = $PSScriptRoot,
-        [switch] $Download
-    )
-    if (-not $Name) {
-        Write-Warning "Initialize-ModulePortable - Module name not given. Terminating."
-        return
-    }
-    if ($Download) {
-        try {
-            Save-Module -Name $Name -LiteralPath $Path -WarningVariable WarningData -WarningAction SilentlyContinue -ErrorAction Stop
-        } catch {
-            $ErrorMessage = $_.Exception.Message
-
-            if ($WarningData) {
-                Write-Warning "Initialize-ModulePortable - $WarningData"
-            }
-            Write-Warning "Initialize-ModulePortable - Error $ErrorMessage"
-            return
-        }
-    }
-
-    $PrimaryModule = Get-ChildItem -LiteralPath "$Path\$Name" -Filter '*.psd1' -Recurse -ErrorAction SilentlyContinue -Depth 1
-    $PrimaryModuleInformation = Get-Module -ListAvailable $PrimaryModule.FullName
-    [Array] $RequiredModules = $PrimaryModuleInformation.RequiredModules.Name
-    foreach ($_ in $RequiredModules) {
-        $ListModules = Get-ChildItem -LiteralPath "$Path\$_" -Filter '*.psd1' -Recurse -ErrorAction SilentlyContinue -Depth 1
-        Import-Module -Name $ListModules.FullName -Force -ErrorAction SilentlyContinue -Verbose
-    }
-    Import-Module -Name $PrimaryModule.FullName-Force -ErrorAction SilentlyContinue -Verbose
-}
-
-Initialize-ModulePortable -Name 'Testimo' -Download -Path $PSScriptRoot
-
+Initialize-ModulePortable -Name 'Testimo' -Path "$PSScriptRoot\TestimoPortable" -Download
 ```
 
 After that you can use `Invoke-Testimo` as you normally would.
