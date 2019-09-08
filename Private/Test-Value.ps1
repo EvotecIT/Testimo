@@ -18,19 +18,22 @@
         [nullable[bool]] $ExpectedOutput
     )
     if ($Object) {
-        if ($OverwriteName) {
-            $TestName = & $OverwriteName
-        }
         if ($WhereObject) {
             $Object = $Object | Where-Object $WhereObject
         }
         if ($ExpectedCount) {
+            if ($OverwriteName) {
+                $TestName = & $OverwriteName
+            }
             Test-Me -Object $Object -ExpectedCount $ExpectedCount -OperationType $OperationType -TestName $TestName -Level $Level -Domain $Domain -DomainController $DomainController -Property $Property -ExpectedValue $ExpectedValue -PropertyExtendedValue $PropertyExtendedValue -OperationResult $OperationResult -ReferenceID $ReferenceID -ExpectedOutput $ExpectedOutput
         } else {
             #if ($WhereObject) {
             #    Test-Me -Object $Object -OperationType $OperationType -TestName $TestName -Level $Level -Domain $Domain -DomainController $DomainController -Property $Property -ExpectedValue $ExpectedValue -PropertyExtendedValue $PropertyExtendedValue -OperationResult $OperationResult -ReferenceID $ReferenceID -ExpectedOutput $ExpectedOutput
             #} else {
             foreach ($_ in $Object) {
+                if ($OverwriteName) {
+                    $TestName = & $OverwriteName
+                }
                 Test-Me -Object $_ -OperationType $OperationType -TestName $TestName -Level $Level -Domain $Domain -DomainController $DomainController -Property $Property -ExpectedValue $ExpectedValue -PropertyExtendedValue $PropertyExtendedValue -OperationResult $OperationResult -ReferenceID $ReferenceID -ExpectedOutput $ExpectedOutput
             }
             #}

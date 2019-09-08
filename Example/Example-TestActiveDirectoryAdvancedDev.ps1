@@ -1,23 +1,34 @@
 ﻿Import-Module .\Testimo.psd1 -Force #-Verbose
 
 $Sources = @(
-    'ForestRoles'
-    'ForestOptionalFeatures'
-    'ForestOrphanedAdmins'
-    'DomainPasswordComplexity'
-    'DomainKerberosAccountAge'
-    'DomainDNSScavengingForPrimaryDNSServer'
-    'DomainSysVolDFSR'
-    'DCRDPSecurity'
-    'DCSMBShares'
-    'DomainGroupPolicyMissingPermissions'
-    'DCWindowsRolesAndFeatures'
-    'DCNTDSParameters'
-    'DCInformation'
-    'ForestReplicationStatus'
+    #'ForestRoles'
+    #'ForestOptionalFeatures'
+    #'ForestOrphanedAdmins'
+    #'DomainPasswordComplexity'
+    #'DomainKerberosAccountAge'
+    #'DomainDNSScavengingForPrimaryDNSServer'
+    #'DomainSysVolDFSR'
+    #'DCRDPSecurity'
+    #'DCSMBShares'
+    #'DomainGroupPolicyMissingPermissions'
+    #'DCWindowsRolesAndFeatures'
+    #'DCNTDSParameters'
+    #'DCInformation'
+    #'ForestReplicationStatus'
 )
+#$ExludeDomainControllers = 'ad1.ad.evotec.xyz', 'ad2.ad.evotec.xyz'
+#$ExludeDomainControllers = 'dc1.ad.evotec.pl','adpreview2019.ad.evotec.pl'
 
-$TestResults = Invoke-Testimo -ReturnResults  -ExtendedResults -Sources $Sources #-ExcludeDomains 'ad.evotec.pl' #-ExcludeDomainControllers $ExludeDomainControllers
+$TestResults1 = Invoke-Testimo -ReturnResults  -ExtendedResults -Sources $Sources -ExcludeDomains 'ad.evotec.pl' #-ExcludeDomainControllers $ExludeDomainControllers
+$TestResults1
+
+#$TestResults | Format-Table -AutoSize *
+#$TestResults['Results'] | Format-Table -AutoSize
+#$TestResults['Summary'] | Format-Table -AutoSize
+#$TestResults['Forest'] | Format-Table -AutoSize
+#$TestResults['Domains'] | Format-Table -AutoSize
+
+return
 
 New-HTML -FilePath $PSScriptRoot\Output\TestimoSummary.html -UseCssLinks -UseJavaScriptLinks {
     [Array] $PassedTests = $TestResults['Results'] | Where-Object { $_.Status -eq $true }
@@ -26,14 +37,12 @@ New-HTML -FilePath $PSScriptRoot\Output\TestimoSummary.html -UseCssLinks -UseJav
         New-HTMLSection -HeaderText "Tests results" -HeaderBackGroundColor DarkGray {
             New-HTMLPanel {
                 New-HTMLChart {
-                    New-ChartPie -Name 'Passed' -Value ($TestResults['Summary'].Passed) -Color ForestGreen
-                    New-ChartPie -Name 'Failed' -Value ($TestResults['Summary'].Failed) -Color OrangeRed
-                    New-ChartPie -Name 'Failed' -Value ($TestResults['Summary'].Skipped) -Color LightBlue
+                    New-ChartPie -Name 'Passed' -Value ($PassedTests.Count) -Color ForestGreen
+                    New-ChartPie -Name 'Failed' -Value ($FailedTests.Count) -Color OrangeRed
                 }
                 New-HTMLTable -DataTable $TestResults['Summary'] -HideFooter -DisableSearch {
                     New-HTMLTableContent -ColumnName 'Passed' -BackGroundColor ForestGreen -Color White
                     New-HTMLTableContent -ColumnName 'Failed' -BackGroundColor OrangeRed -Color White
-                    New-HTMLTableContent -ColumnName 'Skipped' -BackGroundColor LightBlue -Color White
                 }
             }
             New-HTMLPanel {
@@ -55,7 +64,7 @@ New-HTML -FilePath $PSScriptRoot\Output\TestimoSummary.html -UseCssLinks -UseJav
             [Array] $PassedTestsSingular = $TestResults['Forest']['Tests'][$Source]['Results'] | Where-Object { $_.Status -eq $true }
             [Array] $FailedTestsSingular = $TestResults['Forest']['Tests'][$Source]['Results'] | Where-Object { $_.Status -ne $true }
 
-            New-HTMLSection -HeaderText $Name -HeaderBackGroundColor DarkGray -CanCollapse {
+            New-HTMLSection -HeaderText $Name -HeaderBackGroundColor DarkGray {
                 New-HTMLContainer {
                     New-HTMLPanel {
                         New-HTMLChart {
@@ -89,7 +98,7 @@ New-HTML -FilePath $PSScriptRoot\Output\TestimoSummary.html -UseCssLinks -UseJav
                 [Array] $PassedTestsSingular = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results'] | Where-Object { $_.Status -eq $true }
                 [Array] $FailedTestsSingular = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results'] | Where-Object { $_.Status -ne $true }
 
-                New-HTMLSection -HeaderText $Name -HeaderBackGroundColor DarkGray -CanCollapse {
+                New-HTMLSection -HeaderText $Name -HeaderBackGroundColor DarkGray {
                     New-HTMLContainer {
                         New-HTMLPanel {
                             New-HTMLChart {
@@ -111,7 +120,7 @@ New-HTML -FilePath $PSScriptRoot\Output\TestimoSummary.html -UseCssLinks -UseJav
                 }
             }
             foreach ($DC in $TestResults['Domains'][$Domain]['DomainControllers'].Keys) {
-                New-HTMLSection -HeaderText "Domain Controller - $DC" -HeaderBackGroundColor DarkSlateGray -CanCollapse {
+                New-HTMLSection -HeaderText "Domain Controller - $DC" -HeaderBackGroundColor DarkSlateGray {
                     New-HTMLContainer {
                         foreach ($Source in  $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'].Keys) {
                             $Name = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Name']

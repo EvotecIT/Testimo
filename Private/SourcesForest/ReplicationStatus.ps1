@@ -15,7 +15,7 @@
                 Property              = 'Number of Failures'
                 OperationType         = 'eq'
                 PropertyExtendedValue = 'Last Success Time'
-                OverwriteName         = { "Replication from $($_.'Source DSA') to $($_.'Destination DSA')" }
+                OverwriteName         = { "Replication from $($_.'Source DSA') to $($_.'Destination DSA'), Naming Context: $($_.'Naming Context')" }
             }
         }
     }

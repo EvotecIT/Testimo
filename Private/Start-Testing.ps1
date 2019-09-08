@@ -55,7 +55,7 @@
                 continue
             }
             if ($CurrentSection['Enable'] -eq $true) {
-                $ReferenceID = Get-RandomStringName -Size 8
+                $ReferenceID = $Source #Get-RandomStringName -Size 8
                 $TestsSummary = [PSCustomobject] @{
                     Passed  = 0
                     Failed  = 0
@@ -95,14 +95,45 @@
                 }
 
                 # build data output for extended results
-                $Script:Reporting[$ReferenceID] = @{
-                    Name             = $CurrentSource['Name']
-                    SourceCode       = $CurrentSource['Data']
-                    Results          = [System.Collections.Generic.List[PSCustomObject]]::new()
-                    Domain           = $Domain
-                    DomainController = $DomainController
-                }
 
+                if ($Domain -and $DomainController) {
+                    $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID] = [ordered] @{
+                        Name             = $CurrentSource['Name']
+                        SourceCode       = $CurrentSource['Data']
+                        Details          = $CurrentSource['Details']
+                        Results          = [System.Collections.Generic.List[PSCustomObject]]::new()
+                        Domain           = $Domain
+                        DomainController = $DomainController
+                    }
+                } elseif ($Domain) {
+                    $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID] = [ordered] @{
+                        Name             = $CurrentSource['Name']
+                        SourceCode       = $CurrentSource['Data']
+                        Details          = $CurrentSource['Details']
+                        Results          = [System.Collections.Generic.List[PSCustomObject]]::new()
+                        Domain           = $Domain
+                        DomainController = $DomainController
+                    }
+                } else {
+                    $Script:Reporting['Forest']['Tests'][$ReferenceID] = [ordered] @{
+                        Name             = $CurrentSource['Name']
+                        SourceCode       = $CurrentSource['Data']
+                        Details          = $CurrentSource['Details']
+                        Results          = [System.Collections.Generic.List[PSCustomObject]]::new()
+                        Domain           = $Domain
+                        DomainController = $DomainController
+                    }
+                }
+                <#
+                   $Script:Reporting[$ReferenceID] = @{
+                        Name             = $CurrentSource['Name']
+                        SourceCode       = $CurrentSource['Data']
+                        Details          = $CurrentSource['Details']
+                        Results          = [System.Collections.Generic.List[PSCustomObject]]::new()
+                        Domain           = $Domain
+                        DomainController = $DomainController
+                    }
+                #>
 
 
                 if ($CurrentSource['Parameters']) {
@@ -116,8 +147,13 @@
                     }
                 }
                 # Add data output to extended results
-                $Script:Reporting[$ReferenceID]['Data'] = $Object
-
+                if ($Domain -and $DomainController) {
+                    $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['Data'] = $Object
+                } elseif ($Domain) {
+                    $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['Data'] = $Object
+                } else {
+                    $Script:Reporting['Forest']['Tests'][$ReferenceID]['Data'] = $Object
+                }
                 # If there's no output from Source Data all other tests will fail
                 if ($Object -and ($null -eq $CurrentSource['ExpectedOutput'] -or $CurrentSource['ExpectedOutput'] -eq $true)) {
                     # Output is provided and we did expect it or didn't provide expectation
@@ -203,6 +239,14 @@
         Total   = ($TestsSummaryTogether.Total | Measure-Object -Sum).Sum
     }
     $TestsSummaryFinal
+
+    if ($Domain -and $DomainController) {
+        $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Summary'] = $TestsSummaryFinal
+    } elseif ($Domain) {
+        $Script:Reporting['Domains'][$Domain]['Summary'] = $TestsSummaryFinal
+    } else {
+        $Script:Reporting['Summary'] = $TestsSummaryFinal
+    }
 
     Out-Summary -Text $SummaryText -Time $GlobalTime -Level ($LevelSummary - 3) -Domain $Domain -DomainController $DomainController -TestsSummary $TestsSummaryFinal
 }

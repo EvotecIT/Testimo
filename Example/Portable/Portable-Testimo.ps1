@@ -1,4 +1,5 @@
 ﻿# This function is also part of the module PSSharedGoods. If you have it, you don't need to copy paste anything except the command below
+# Install-Module PSSharedGoods
 
 function Initialize-ModulePortable {
     [CmdletBinding()]
