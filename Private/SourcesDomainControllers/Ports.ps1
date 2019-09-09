@@ -1,8 +1,8 @@
 ﻿$Ports = [ordered] @{
     Enable = $true
     Source = [ordered] @{
-        Name       = 'AD TCP Ports are open' # UDP Testing is unreliable for now
-        Data       = {
+        Name = 'TCP Ports are open/closed as required' # UDP Testing is unreliable for now
+        Data = {
             # Port 389, 636, 3268, 3269 are tested as LDAP Ports with proper LDAP
             $TcpPorts = @(53, 88, 135, 139, 389, 445, 464, 636, 3268, 3269, 9389)
             # $TcpPorts = @(25, 53, 88, 464, 5722, 9389)
@@ -30,11 +30,111 @@
         }
     }
     Tests  = [ordered] @{
-        Ping = [ordered] @{
+        Port53 = [ordered] @{
             Enable     = $true
             Name       = 'Port is OPEN'
-            #Data     = $Script:SBDomainControllersPort53Test
             Parameters = @{
+                WhereObject           = { $_.Port -eq '53' }
+                Property              = 'Status'
+                ExpectedValue         = $true
+                OperationType         = 'eq'
+                PropertyExtendedValue = 'Summary'
+            }
+        }
+        Port88 = [ordered] @{
+            Enable     = $true
+            Name       = 'Port is OPEN'
+            Parameters = @{
+                WhereObject           = { $_.Port -eq '88' }
+                Property              = 'Status'
+                ExpectedValue         = $true
+                OperationType         = 'eq'
+                PropertyExtendedValue = 'Summary'
+            }
+        }
+        Port135 = [ordered] @{
+            Enable     = $true
+            Name       = 'Port is OPEN'
+            Parameters = @{
+                WhereObject           = { $_.Port -eq '135' }
+                Property              = 'Status'
+                ExpectedValue         = $true
+                OperationType         = 'eq'
+                PropertyExtendedValue = 'Summary'
+            }
+        }
+        Port139 = [ordered] @{
+            Enable     = $true
+            Name       = 'Port is OPEN'
+            Parameters = @{
+                WhereObject           = { $_.Port -eq '139' }
+                Property              = 'Status'
+                ExpectedValue         = $false
+                OperationType         = 'eq'
+                PropertyExtendedValue = 'Summary'
+            }
+        }
+        Port445 = [ordered] @{
+            Enable     = $true
+            Name       = 'Port is OPEN'
+            Parameters = @{
+                WhereObject           = { $_.Port -eq '445' }
+                Property              = 'Status'
+                ExpectedValue         = $true
+                OperationType         = 'eq'
+                PropertyExtendedValue = 'Summary'
+            }
+        }
+        Port464 = [ordered] @{
+            Enable     = $true
+            Name       = 'Port is OPEN'
+            Parameters = @{
+                WhereObject           = { $_.Port -eq '464' }
+                Property              = 'Status'
+                ExpectedValue         = $true
+                OperationType         = 'eq'
+                PropertyExtendedValue = 'Summary'
+            }
+        }
+        Port636 = [ordered] @{
+            Enable     = $true
+            Name       = 'Port is OPEN'
+            Parameters = @{
+                WhereObject           = { $_.Port -eq '636' }
+                Property              = 'Status'
+                ExpectedValue         = $true
+                OperationType         = 'eq'
+                PropertyExtendedValue = 'Summary'
+            }
+        }
+
+        Port3268 = [ordered] @{
+            Enable     = $true
+            Name       = 'Port is OPEN'
+            Parameters = @{
+                WhereObject           = { $_.Port -eq '3268' }
+                Property              = 'Status'
+                ExpectedValue         = $true
+                OperationType         = 'eq'
+                PropertyExtendedValue = 'Summary'
+            }
+        }
+        Port3269 = [ordered] @{
+            Enable     = $true
+            Name       = 'Port is OPEN'
+            Parameters = @{
+                WhereObject           = { $_.Port -eq '3269' }
+                Property              = 'Status'
+                ExpectedValue         = $true
+                OperationType         = 'eq'
+                PropertyExtendedValue = 'Summary'
+            }
+        }
+        Port9389 = [ordered] @{
+            Enable     = $true
+            Name       = 'Port is OPEN'
+            Parameters = @{
+                WhereObject           = { $_.Port -eq '9389' }
                 Property              = 'Status'
                 ExpectedValue         = $true
                 OperationType         = 'eq'
