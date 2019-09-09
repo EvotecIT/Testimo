@@ -38,6 +38,7 @@ Things to know:
 - 0.0.21 - Unreleased
   - [x] Ports - Checking for port 139 - Require PORT CLOSED ([#29 - tnx	SP3269](https://github.com/EvotecIT/Testimo/issues/29))
   - [x] NetworkSettings - Netbios TCPIP settings on network card - Require DISABLED ([#29 - tnx	SP3269](https://github.com/EvotecIT/Testimo/issues/29))
+  - [x] EmptyOrganizationalUnits - fix for lacking Contacts ([#32 - tnx JasonCook599](https://github.com/EvotecIT/Testimo/pull/32))
 
 - 0.0.20 - 9.09.2019
   - [x] Fix for configuration loading from JSON file ([#30](https://github.com/EvotecIT/Testimo/issues/30) - tnx Alex)
