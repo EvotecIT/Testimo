@@ -5,6 +5,15 @@
         Data       = {
             Test-WinRM -ComputerName $DomainController
         }
+        Details = [ordered] @{
+            Area             = ''
+            Explanation      = ''
+            Recommendation   = ''
+            RiskLevel        = 10
+            RecommendedLinks = @(
+
+            )
+        }
     }
     Tests  = [ordered] @{
         WindowsRemoteManagement = @{

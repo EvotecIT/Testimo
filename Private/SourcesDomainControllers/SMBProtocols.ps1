@@ -5,6 +5,15 @@
         Data       = {
             Get-ComputerSMB -ComputerName $DomainController
         }
+        Details = [ordered] @{
+            Area             = ''
+            Explanation      = ''
+            Recommendation   = ''
+            RiskLevel        = 10
+            RecommendedLinks = @(
+
+            )
+        }
     }
     Tests  = [ordered] @{
         EnableSMB1Protocol = @{

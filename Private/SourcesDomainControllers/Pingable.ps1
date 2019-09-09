@@ -5,9 +5,14 @@
         Data       = {
             Test-NetConnection -ComputerName $DomainController -WarningAction SilentlyContinue
         }
-        Area       = ''
-        Parameters = @{
+        Details = [ordered] @{
+            Area             = ''
+            Explanation      = ''
+            Recommendation   = ''
+            RiskLevel        = 10
+            RecommendedLinks = @(
 
+            )
         }
     }
     Tests  = @{

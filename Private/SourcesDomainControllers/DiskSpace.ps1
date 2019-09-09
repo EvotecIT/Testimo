@@ -5,6 +5,15 @@
         Data       = {
             Get-ComputerDiskLogical -ComputerName $DomainController -OnlyLocalDisk -WarningAction SilentlyContinue
         }
+        Details = [ordered] @{
+            Area             = ''
+            Explanation      = ''
+            Recommendation   = ''
+            RiskLevel        = 10
+            RecommendedLinks = @(
+
+            )
+        }
     }
     Tests  = @{
         FreeSpace   = @{

@@ -5,6 +5,15 @@
         Data       = {
             Test-LDAP -ComputerName $DomainController -WarningAction SilentlyContinue
         }
+        Details = [ordered] @{
+            Area             = ''
+            Explanation      = ''
+            Recommendation   = ''
+            RiskLevel        = 10
+            RecommendedLinks = @(
+
+            )
+        }
     }
     Tests  = [ordered] @{
         PortLDAP     = @{

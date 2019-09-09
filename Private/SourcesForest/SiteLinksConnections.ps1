@@ -5,9 +5,14 @@
         Data       = {
             Test-ADSiteLinks -Splitter ', '
         }
-        Area       = 'Sites'
-        Parameters = @{
+        Details = [ordered] @{
+            Area             = ''
+            Explanation      = ''
+            Recommendation   = ''
+            RiskLevel        = 10
+            RecommendedLinks = @(
 
+            )
         }
     }
     Tests  = [ordered] @{

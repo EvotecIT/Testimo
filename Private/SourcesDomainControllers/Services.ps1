@@ -6,9 +6,14 @@
             $Services = @('ADWS', 'DNS', 'DFS', 'DFSR', 'Eventlog', 'EventSystem', 'KDC', 'LanManWorkstation', 'LanManServer', 'NetLogon', 'NTDS', 'RPCSS', 'SAMSS', 'Spooler', 'W32Time')
             Get-PSService -Computers $DomainController -Services $Services
         }
-        Area       = ''
-        Parameters = @{
+        Details = [ordered] @{
+            Area             = ''
+            Explanation      = ''
+            Recommendation   = ''
+            RiskLevel        = 10
+            RecommendedLinks = @(
 
+            )
         }
     }
     Tests  = [ordered] @{

@@ -5,9 +5,14 @@
         Data       = {
             Get-ComputerTime -TimeTarget $DomainController -TimeSource 'pool.ntp.org' -WarningAction SilentlyContinue
         }
-        Area       = ''
-        Parameters = @{
+        Details = [ordered] @{
+            Area             = ''
+            Explanation      = ''
+            Recommendation   = ''
+            RiskLevel        = 10
+            RecommendedLinks = @(
 
+            )
         }
     }
     Tests              = [ordered] @{

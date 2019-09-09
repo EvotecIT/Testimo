@@ -1,6 +1,6 @@
 ﻿$TombstoneLifetime = @{
     Enable           = $true
-    Source           = @{
+    Source           = [ordered]@{
         Name = 'Tombstone Lifetime'
         Data = {
             # Check tombstone lifetime (if blank value is 60)
@@ -16,6 +16,15 @@
                     TombstoneLifeTime = $Output
                 }
             }
+        }
+        Details = [ordered] @{
+            Area             = ''
+            Explanation      = ''
+            Recommendation   = ''
+            RiskLevel        = 10
+            RecommendedLinks = @(
+
+            )
         }
     }
     Tests            = [ordered] @{

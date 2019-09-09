@@ -1,13 +1,19 @@
 ﻿$WindowsFirewall = @{
     Enable = $true
     Source = @{
-        Name        = "Windows Firewall"
-        Data        = {
+        Name    = "Windows Firewall"
+        Data    = {
             Get-ComputerNetwork -ComputerName $DomainController
         }
-        Area        = 'Connectivity'
-        Description = 'Verify windows firewall should be enabled for all network cards'
+        Details = [ordered] @{
+            Area             = 'Connectivity'
+            Explanation      = 'Verify windows firewall should be enabled for all network cards'
+            Recommendation   = ''
+            RiskLevel        = 10
+            RecommendedLinks = @(
 
+            )
+        }
     }
     Tests  = [ordered] @{
         WindowsFirewall = @{

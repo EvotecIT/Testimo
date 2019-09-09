@@ -5,16 +5,20 @@
         Data       = {
             Get-WinADSiteLinks
         }
-        Area       = 'Sites'
-        Parameters = @{
+        Details = [ordered] @{
+            Area             = ''
+            Explanation      = ''
+            Recommendation   = ''
+            RiskLevel        = 10
+            RecommendedLinks = @(
 
+            )
         }
     }
     Tests  = [ordered] @{
         MinimalReplicationFrequency = @{
             Enable      = $true
             Name        = 'Replication Frequency should be set to maximum 60 minutes'
-            Description = ''
             Parameters  = @{
                 Property      = 'ReplicationFrequencyInMinutes'
                 ExpectedValue = 60
@@ -24,7 +28,6 @@
         UseNotificationsForLinks    = @{
             Enable      = $true
             Name        = 'Automatic site links should use notifications'
-            Description = ''
             Parameters  = @{
                 Property              = 'Options'
                 ExpectedValue         = 'UseNotify'

@@ -6,6 +6,15 @@
         Data = {
             Test-DNSNameServers -Domain $Domain -DomainController $DomainController
         }
+        Details = [ordered] @{
+            Area             = ''
+            Explanation      = ''
+            Recommendation   = ''
+            RiskLevel        = 10
+            RecommendedLinks = @(
+
+            )
+        }
     }
     Tests  = [ordered] @{
         DnsNameServersIdentical = @{

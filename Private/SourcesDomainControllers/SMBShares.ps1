@@ -5,6 +5,15 @@
         Data       = {
             Get-ComputerSMBShare -ComputerName $DomainController
         }
+        Details = [ordered] @{
+            Area             = ''
+            Explanation      = ''
+            Recommendation   = ''
+            RiskLevel        = 10
+            RecommendedLinks = @(
+
+            )
+        }
     }
     Tests  = [ordered] @{
         AdminShare   = @{

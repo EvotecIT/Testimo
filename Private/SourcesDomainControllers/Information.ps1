@@ -32,6 +32,15 @@ $Information = @{
         Data = {
             Get-ADDomainController -Server $DomainController
         }
+        Details = [ordered] @{
+            Area             = ''
+            Explanation      = ''
+            Recommendation   = ''
+            RiskLevel        = 10
+            RecommendedLinks = @(
+
+            )
+        }
     }
     Tests  = [ordered] @{
         IsEnabled = @{

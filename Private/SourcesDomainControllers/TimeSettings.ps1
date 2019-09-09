@@ -5,9 +5,14 @@
         Data       = {
             Get-TimeSetttings -ComputerName $DomainController -Domain $Domain
         }
-        Area       = ''
-        Parameters = @{
+        Details = [ordered] @{
+            Area             = ''
+            Explanation      = ''
+            Recommendation   = ''
+            RiskLevel        = 10
+            RecommendedLinks = @(
 
+            )
         }
     }
     Tests  = [ordered] @{

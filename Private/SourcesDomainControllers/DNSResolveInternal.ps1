@@ -18,6 +18,15 @@
             } -ArgumentList $DomainController
             $Output
         }
+        Details = [ordered] @{
+            Area             = ''
+            Explanation      = ''
+            Recommendation   = ''
+            RiskLevel        = 10
+            RecommendedLinks = @(
+
+            )
+        }
     }
     Tests  = [ordered] @{
         ResolveDNSInternal = @{

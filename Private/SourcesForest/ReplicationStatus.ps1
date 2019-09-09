@@ -5,6 +5,15 @@
         Data = {
             repadmin /showrepl * /csv | ConvertFrom-Csv
         }
+        Details = [ordered] @{
+            Area             = ''
+            Explanation      = ''
+            Recommendation   = ''
+            RiskLevel        = 10
+            RecommendedLinks = @(
+
+            )
+        }
     }
     Tests  = [ordered] @{
         ReplicationTests = @{
