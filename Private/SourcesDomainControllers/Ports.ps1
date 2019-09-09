@@ -28,6 +28,15 @@
                 Test-ComputerPort -ComputerName $DomainController -PortTCP 25, 88, 389, 464, 636, 5722, 9389 -PortUDP 88, 123, 389, 464
             #>
         }
+        Details = [ordered] @{
+            Area             = ''
+            Explanation      = ''
+            Recommendation   = ''
+            RiskLevel        = 10
+            RecommendedLinks = @(
+
+            )
+        }
     }
     Tests  = [ordered] @{
         Port53 = [ordered] @{
@@ -72,6 +81,11 @@
                 ExpectedValue         = $false
                 OperationType         = 'eq'
                 PropertyExtendedValue = 'Summary'
+            }
+            Details = @{
+                Explanation = ''
+                Recommendation = ''
+                RecommendedLinks = @()
             }
         }
         Port445 = [ordered] @{
