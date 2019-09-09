@@ -23,7 +23,7 @@
 **Testimo** is an **alpha product** and as such things do change.
 It's goal is to be fully automated solution where one can run the command and get results without executing 50 little functions.
 
-If you're new to **Testimo** you should read this blog post!
+If you're new to **Testimo** you should read this [blog post](https://evotec.xyz/what-do-we-say-to-health-checking-active-directory/)!
 
 Things to know:
 - [x] Configuration hash is not written in stone and can change rapidly as Testimo gets tested
@@ -31,6 +31,15 @@ Things to know:
 - [x] There's a big mess in files/function names - I'm still testing things out creating some random names, will be cleaned up later on
 - [x] There are lots of details missing for tests, and some things may not work as you want - please report issues or if you know how, fix them
 - [x] I don't know EVERYTHING - I'm very open to help with making Testimo more robust, detailed and easy to use
+
+
+### ChangeLog
+
+- 0.0.20 - 9.09.2019
+  - [x] Fix for configuration loading from JSON file ([#30](https://github.com/EvotecIT/Testimo/issues/30) - tnx Alex)
+
+- 0.0.19 - 8.09.2019
+  - [x] First public release - More information in [blog post](https://evotec.xyz/what-do-we-say-to-health-checking-active-directory/)!
 
 ### Comments
 
