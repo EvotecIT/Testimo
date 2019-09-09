@@ -9,10 +9,10 @@
         }
         Details = [ordered] @{
             Area             = 'Features'
-            Explanation      = ''
-            Recommendation   = ''
+            Description      = ''
+            Resolution   = ''
             RiskLevel        = 10
-            RecommendedLinks = @(
+            Resources = @(
 
             )
         }

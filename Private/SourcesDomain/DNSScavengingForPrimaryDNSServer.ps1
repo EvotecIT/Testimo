@@ -1,8 +1,8 @@
 ﻿$DNSScavengingForPrimaryDNSServer = @{
     Enable = $true
     Source = @{
-        Name       = "DNS Scavenging - Primary DNS Server"
-        Data       = {
+        Name    = "DNS Scavenging - Primary DNS Server"
+        Data    = {
             $PSWinDocumentationDNS = Import-Module PSWinDocumentation.DNS -PassThru
 
             & $PSWinDocumentationDNS {
@@ -16,11 +16,13 @@
             } $Domain
         }
         Details = [ordered] @{
-            Area             = ''
-            Explanation      = ''
-            Recommendation   = ''
-            RiskLevel        = 10
-            RecommendedLinks = @(
+            Area        = ''
+            Category    = ''
+            Severity    = ''
+            RiskLevel   = 0
+            Description = ''
+            Resolution  = ''
+            Resources   = @(
 
             )
         }
@@ -33,7 +35,7 @@
                 ExpectedCount = 1
                 OperationType = 'eq'
             }
-            Explanation = 'Scavenging Count should be 1. There should be 1 DNS server per domain responsible for scavenging. If this returns false, every other test fails.'
+            Description = 'Scavenging Count should be 1. There should be 1 DNS server per domain responsible for scavenging. If this returns false, every other test fails.'
         }
         ScavengingInterval   = @{
             Enable     = $true
@@ -52,9 +54,9 @@
                 ExpectedValue = $true
                 OperationType = 'eq'
             }
-            Explanation            = 'Scavenging State is responsible for enablement of scavenging for all new zones created.'
+            Description            = 'Scavenging State is responsible for enablement of scavenging for all new zones created.'
             RecommendedValue       = $true
-            ExplanationRecommended = 'It should be enabled so all new zones are subject to scavanging.'
+            DescriptionRecommended = 'It should be enabled so all new zones are subject to scavanging.'
             DefaultValue           = $false
         }
         'Last Scavenge Time' = @{

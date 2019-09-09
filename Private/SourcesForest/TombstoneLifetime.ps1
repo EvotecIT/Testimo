@@ -19,10 +19,10 @@
         }
         Details = [ordered] @{
             Area             = ''
-            Explanation      = ''
-            Recommendation   = ''
+            Description      = ''
+            Resolution   = ''
             RiskLevel        = 10
-            RecommendedLinks = @(
+            Resources = @(
 
             )
         }
@@ -38,7 +38,7 @@
             }
         }
     }
-    RecommendedLinks = @(
+    Resources = @(
         'https://helpcenter.netwrix.com/Configure_IT_Infrastructure/AD/AD_Tombstone.html'
     )
 }

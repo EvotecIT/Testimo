@@ -8,10 +8,10 @@
         }
         Details = [ordered] @{
             Area             = ''
-            Explanation      = ''
-            Recommendation   = ''
+            Description      = ''
+            Resolution   = ''
             RiskLevel        = 10
-            RecommendedLinks = @(
+            Resources = @(
 
             )
         }
@@ -26,7 +26,7 @@
                 OperationType         = 'eq'
                 PropertyExtendedValue = 'Comment'
             }
-            Explanation = 'DNS Name servers for primary zone should be equal to Domain Controllers for a Domain.'
+            Description = 'DNS Name servers for primary zone should be equal to Domain Controllers for a Domain.'
         }
     }
 }

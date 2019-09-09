@@ -7,10 +7,10 @@
         }
         Details = [ordered] @{
             Area             = ''
-            Explanation      = ''
-            Recommendation   = ''
+            Description      = ''
+            Resolution   = ''
             RiskLevel        = 10
-            RecommendedLinks = @(
+            Resources = @(
                 'https://secureinfra.blog/2019/04/30/field-notes-a-quick-tip-on-dfsr-automatic-recovery-while-you-prepare-for-an-ad-domain-upgrade/'
             )
         }

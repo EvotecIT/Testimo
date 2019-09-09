@@ -12,13 +12,16 @@
         ExpectedOutput = $false
 
         Details        = [ordered] @{
-            Area             = ''
-            Explanation      = "Schema Admins group should be empty. If you need to manage schema you can always add user for the time of modification."
-            Recommendation   = 'Keep Schema group empty.'
-            RiskLevel        = 10
-            RecommendedLinks = @(
+            Area        = ''
+            Category    = ''
+            Severity    = ''
+            RiskLevel   = 0
+            Description = "Schema Admins group should be empty. If you need to manage schema you can always add user for the time of modification."
+            Resolution  = 'Keep Schema group empty.'
+            Resources   = @(
                 'https://www.stigviewer.com/stig/active_directory_forest/2016-12-19/finding/V-72835'
             )
+
         }
     }
 }

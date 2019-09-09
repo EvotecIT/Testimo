@@ -9,11 +9,13 @@
         }
         ExpectedOutput = $false
         Details = [ordered] @{
-            Area             = 'Cleanup'
-            Explanation      = ''
-            Recommendation   = ''
-            RiskLevel        = 10
-            RecommendedLinks = @(
+            Area        = ''
+            Category    = ''
+            Severity    = ''
+            RiskLevel   = 0
+            Description = ''
+            Resolution  = ''
+            Resources   = @(
 
             )
         }

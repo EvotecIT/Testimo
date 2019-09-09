@@ -7,10 +7,10 @@
         }
         Details = [ordered] @{
             Area             = 'Connectivity'
-            Explanation      = ''
-            Recommendation   = ''
+            Description      = ''
+            Resolution   = ''
             RiskLevel        = 10
-            RecommendedLinks = @(
+            Resources = @(
                 'https://lazywinadmin.com/2014/04/powershell-getset-network-level.html'
                 'https://devblogs.microsoft.com/scripting/weekend-scripter-report-on-network-level-authentication/'
             )

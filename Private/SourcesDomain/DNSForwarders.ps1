@@ -12,11 +12,13 @@
             } $Domain
         }
         Details = [ordered] @{
-            Area             = ''
-            Explanation      = ''
-            Recommendation   = ''
-            RiskLevel        = 10
-            RecommendedLinks = @(
+            Area        = ''
+            Category    = ''
+            Severity    = ''
+            RiskLevel   = 0
+            Description = ''
+            Resolution  = ''
+            Resources   = @(
 
             )
         }
@@ -32,7 +34,7 @@
                 OperationType         = 'eq'
                 PropertyExtendedValue = 'Source'
             }
-            Explanation = 'DNS forwarders within one domain should have identical setup'
+            Description = 'DNS forwarders within one domain should have identical setup'
         }
     }
 }

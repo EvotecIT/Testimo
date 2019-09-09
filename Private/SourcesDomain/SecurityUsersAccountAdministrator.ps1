@@ -23,11 +23,13 @@
             }
         }
         Details = [ordered] @{
-            Area             = ''
-            Explanation      = ''
-            Recommendation   = ''
-            RiskLevel        = 10
-            RecommendedLinks = @(
+            Area        = ''
+            Category    = ''
+            Severity    = ''
+            RiskLevel   = 0
+            Description = ''
+            Resolution  = ''
+            Resources   = @(
 
             )
         }
@@ -41,7 +43,7 @@
                 ExpectedValue = '(Get-Date).AddDays(-360)'
                 OperationType = 'gt'
             }
-            Explanation = 'Administrator account should be disabled or LastPasswordChange should be less than 1 year ago.'
+            Description = 'Administrator account should be disabled or LastPasswordChange should be less than 1 year ago.'
         }
     }
 }

@@ -12,11 +12,13 @@
             } $Domain
         }
         Details = [ordered] @{
-            Area             = ''
-            Explanation      = ''
-            Recommendation   = ''
-            RiskLevel        = 10
-            RecommendedLinks = @(
+            Area        = ''
+            Category    = ''
+            Severity    = ''
+            RiskLevel   = 0
+            Description = ''
+            Resolution  = ''
+            Resources   = @(
 
             )
         }
@@ -31,7 +33,7 @@
                 ExpectedValue = $true
                 OperationType = 'eq'
             }
-            Explanation = 'Primary DNS zone should have aging enabled.'
+            Description = 'Primary DNS zone should have aging enabled.'
         }
         EnabledAgingIdentical = @{
             Enable      = $true
@@ -42,7 +44,7 @@
                 ExpectedValue = $true
                 OperationType = 'eq'
             }
-            Explanation = 'Primary DNS zone should have aging enabled, on all DNS servers.'
+            Description = 'Primary DNS zone should have aging enabled, on all DNS servers.'
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿$WellKnownFolders = @{
     Enable = $true
     Source = @{
-        Name       = 'Well known folders'
-        Data       = {
+        Name    = 'Well known folders'
+        Data    = {
             $DomainInformation = Get-ADDomain -Server $Domain
             $WellKnownFolders = $DomainInformation | Select-Object -Property UsersContainer, ComputersContainer, DomainControllersContainer, DeletedObjectsContainer, SystemsContainer, LostAndFoundContainer, QuotasContainer, ForeignSecurityPrincipalsContainer
             $CurrentWellKnownFolders = [ordered] @{ }
@@ -25,11 +25,13 @@
             Compare-MultipleObjects -Object @($DefaultWellKnownFolders, $CurrentWellKnownFolders) -SkipProperties
         }
         Details = [ordered] @{
-            Area             = ''
-            Explanation      = ''
-            Recommendation   = ''
-            RiskLevel        = 10
-            RecommendedLinks = @(
+            Area        = ''
+            Category    = ''
+            Severity    = ''
+            RiskLevel   = 0
+            Description = ''
+            Resolution  = ''
+            Resources   = @(
 
             )
         }

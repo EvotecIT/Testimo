@@ -20,10 +20,10 @@
         }
         Details = [ordered] @{
             Area             = ''
-            Explanation      = ''
-            Recommendation   = ''
+            Description      = ''
+            Resolution   = ''
             RiskLevel        = 10
-            RecommendedLinks = @(
+            Resources = @(
 
             )
         }
@@ -38,7 +38,7 @@
                 OperationType         = 'eq'
                 PropertyExtendedValue = 'IPAddresses'
             }
-            Explanation = 'DNS should resolve internal domains correctly.'
+            Description = 'DNS should resolve internal domains correctly.'
         }
     }
 }

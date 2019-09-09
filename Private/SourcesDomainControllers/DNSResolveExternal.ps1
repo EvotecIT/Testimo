@@ -10,10 +10,10 @@
         }
         Details = [ordered] @{
             Area             = ''
-            Explanation      = ''
-            Recommendation   = ''
+            Description      = ''
+            Resolution   = ''
             RiskLevel        = 10
-            RecommendedLinks = @(
+            Resources = @(
 
             )
         }
@@ -27,7 +27,7 @@
                 ExpectedValue = '37.59.176.139'
                 OperationType = 'eq'
             }
-            Explanation = 'DNS should resolve external queries properly.'
+            Description = 'DNS should resolve external queries properly.'
         }
     }
 }

@@ -46,7 +46,7 @@
         TimeSettings                = $TimeSettings
         TimeSynchronizationInternal = $TimeSynchronizationInternal
         TimeSynchronizationExternal = $TimeSynchronizationExternal
-        WindowsFirewall             = $WindowsFirewall
+        NetworkCardSettings         = $NetworkCardSettings
         WindowsUpdates              = $WindowsUpdates
         WindowsRolesAndFeatures     = $WindowsRolesAndFeatures
         DnsResolveInternal          = $DNSResolveInternal
