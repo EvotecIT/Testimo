@@ -1,8 +1,8 @@
 ﻿$Ports = [ordered] @{
     Enable = $true
     Source = [ordered] @{
-        Name = 'TCP Ports are open/closed as required' # UDP Testing is unreliable for now
-        Data = {
+        Name    = 'TCP Ports are open/closed as required' # UDP Testing is unreliable for now
+        Data    = {
             # Port 389, 636, 3268, 3269 are tested as LDAP Ports with proper LDAP
             $TcpPorts = @(53, 88, 135, 139, 389, 445, 464, 636, 3268, 3269, 9389)
             # $TcpPorts = @(25, 53, 88, 464, 5722, 9389)
@@ -29,17 +29,19 @@
             #>
         }
         Details = [ordered] @{
-            Area             = ''
-            Explanation      = ''
-            Recommendation   = ''
-            RiskLevel        = 10
-            RecommendedLinks = @(
+            Area        = ''
+            Category    = ''
+            Severity    = ''
+            RiskLevel   = 0
+            Description = ''
+            Resolution  = ''
+            Resources   = @(
 
             )
         }
     }
     Tests  = [ordered] @{
-        Port53 = [ordered] @{
+        Port53   = [ordered] @{
             Enable     = $true
             Name       = 'Port is OPEN'
             Parameters = @{
@@ -50,7 +52,7 @@
                 PropertyExtendedValue = 'Summary'
             }
         }
-        Port88 = [ordered] @{
+        Port88   = [ordered] @{
             Enable     = $true
             Name       = 'Port is OPEN'
             Parameters = @{
@@ -61,7 +63,7 @@
                 PropertyExtendedValue = 'Summary'
             }
         }
-        Port135 = [ordered] @{
+        Port135  = [ordered] @{
             Enable     = $true
             Name       = 'Port is OPEN'
             Parameters = @{
@@ -72,7 +74,7 @@
                 PropertyExtendedValue = 'Summary'
             }
         }
-        Port139 = [ordered] @{
+        Port139  = [ordered] @{
             Enable     = $true
             Name       = 'Port is OPEN'
             Parameters = @{
@@ -82,13 +84,22 @@
                 OperationType         = 'eq'
                 PropertyExtendedValue = 'Summary'
             }
-            Details = @{
-                Explanation = ''
-                Recommendation = ''
-                RecommendedLinks = @()
+            Details    = [ordered] @{
+                Area        = ''
+                Category    = ''
+                Severity    = ''
+                RiskLevel   = 0
+                Description = @'
+                NetBIOS over TCP/IP is a networking protocol that allows legacy computer applications relying on the NetBIOS to be used on modern TCP/IP networks.
+                Enabling NetBios might help an attackers access shared directories, files and also gain sensitive information such as computer name, domain, or workgroup.
+'@
+                Resolution  = 'Disable NETBIOS over TCPIP'
+                Resources   = @(
+                    'http://woshub.com/how-to-disable-netbios-over-tcpip-and-llmnr-using-gpo/'
+                )
             }
         }
-        Port445 = [ordered] @{
+        Port445  = [ordered] @{
             Enable     = $true
             Name       = 'Port is OPEN'
             Parameters = @{
@@ -99,7 +110,7 @@
                 PropertyExtendedValue = 'Summary'
             }
         }
-        Port464 = [ordered] @{
+        Port464  = [ordered] @{
             Enable     = $true
             Name       = 'Port is OPEN'
             Parameters = @{
@@ -110,7 +121,7 @@
                 PropertyExtendedValue = 'Summary'
             }
         }
-        Port636 = [ordered] @{
+        Port636  = [ordered] @{
             Enable     = $true
             Name       = 'Port is OPEN'
             Parameters = @{
