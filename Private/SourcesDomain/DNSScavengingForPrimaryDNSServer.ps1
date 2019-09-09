@@ -66,7 +66,7 @@
                 # this date should be the same as in Scavending Interval
                 Property      = 'LastScavengeTime'
                 # we need to use string which will be converted to ScriptBlock later on due to configuration export to JSON
-                ExpectedValue = '(Get-Date).AddDays(-7)'
+                ExpectedValue = '(Get-Date).AddDays(7)'
                 OperationType = 'lt'
             }
         }
