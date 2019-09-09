@@ -31,6 +31,8 @@
         SecurityGroupsSchemaAdmins         = $SecurityGroupsSchemaAdmins
         SecurityUsersAcccountAdministrator = $SecurityUsersAcccountAdministrator
         SysVolDFSR                         = $SysVolDFSR
+        'DNSZonesForest0ADEL'              = $DNSZonesForest0ADEL
+        'DNSZonesDomain0ADEL'              = $DNSZonesDomain0ADEL
     }
     DomainControllers = [ordered] @{
         Information                 = $Information
