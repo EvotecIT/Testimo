@@ -9,8 +9,8 @@
         if ($Configuration -is [System.Collections.IDictionary]) {
             $Option = 'Hashtable'
             $LoadedConfiguration = $Configuration
-        } elseif ($Object -is [string]) {
-            if (Test-Path -LiteralPath $Object) {
+        } elseif ($Configuration -is [string]) {
+            if (Test-Path -LiteralPath $Configuration) {
                 $Option = 'File'
                 $FileContent = Get-Content -LiteralPath $Configuration
             } else {
