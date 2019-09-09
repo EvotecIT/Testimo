@@ -27,13 +27,16 @@
 
     $ScriptBlock = {
         $Operators = @{
-            'lt'       = 'LessThan'
-            'gt'       = 'GreaterThan'
-            'le'       = 'LessOrEqual'
-            'ge'       = 'GreaterOrEqual'
-            'eq'       = 'Equal'
-            'contains' = 'Contains'
-            'like'     = 'Like'
+            'lt'          = 'LessThan'
+            'gt'          = 'GreaterThan'
+            'le'          = 'LessOrEqual'
+            'ge'          = 'GreaterOrEqual'
+            'eq'          = 'Equal'
+            'contains'    = 'Contains'
+            'notcontains' = 'Not contains'
+            'like'        = 'Like'
+            'match'       = 'Match'
+            'notmatch'    = 'Not match'
         }
 
         if ($ExpectedCount -ne -1) {
@@ -58,7 +61,7 @@
                 # Useless - doesn't make any sense
                 $TestResult = $ExpectedCount -notin $Object.Count
             } else {
-               # $OperationType = 'eq' # Adding this for display purposes
+                # $OperationType = 'eq' # Adding this for display purposes
                 $TestResult = $Object.Count -eq $ExpectedCount
             }
             $TextTestedValue = $Object.Count
@@ -120,6 +123,12 @@
                                 $TestedValue -like $CompareValue
                             } elseif ($OperationType -eq 'contains') {
                                 $TestedValue -contains $CompareValue
+                            } elseif ($OperationType -eq 'notcontains') {
+                                $TestedValue -notcontains $CompareValue
+                            } elseif ($OperationType -eq 'match') {
+                                $TestedValue -match $CompareValue
+                            } elseif ($OperationType -eq 'notmatch') {
+                                $TestedValue -notmatch $CompareValue
                             } else {
                                 #$OperationType = 'eq' # Adding this for display purposes
                                 $TestedValue -eq $CompareValue
