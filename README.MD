@@ -35,6 +35,10 @@ Things to know:
 
 ### ChangeLog
 
+- 0.0.22 - unreleased
+  - Tests
+    - [x] DCPorts - typo fix OPEN vs CLOSED
+
 - 0.0.21 - 10.09.2019
   - Tests
     - [x] DCPorts - Checking for port 139 - Require PORT CLOSED ([#29 - tnx	SP3269](https://github.com/EvotecIT/Testimo/issues/29))
