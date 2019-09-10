@@ -76,7 +76,7 @@
         }
         Port139  = [ordered] @{
             Enable     = $true
-            Name       = 'Port is OPEN'
+            Name       = 'Port is CLOSED'
             Parameters = @{
                 WhereObject           = { $_.Port -eq '139' }
                 Property              = 'Status'
