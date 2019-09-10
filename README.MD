@@ -45,6 +45,7 @@ Things to know:
     - [x] DCNetworkSettings - Netbios TCPIP settings on network card - Require DISABLED ([#29 - tnx	SP3269](https://github.com/EvotecIT/Testimo/issues/29))
     - [x] DCWindowsFirewall - was renamed to DCNetworkSettings
     - [x] DomainEmptyOrganizationalUnits - fix for lacking Contacts ([#32 - tnx JasonCook599](https://github.com/EvotecIT/Testimo/pull/32))
+    - [x] DNSScavengingForPrimaryDNSServer - fix LT should be GT ([#33 - tnx JasonCook599](https://github.com/EvotecIT/Testimo/pull/33))
     - [x] DomainDNSZonesForest0ADEL - Added new test
     - [x] DomainDNSZonesDomain0ADEL - Added new test
   - Engine
