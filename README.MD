@@ -35,13 +35,14 @@ Things to know:
 
 ### ChangeLog
 
-- 0.0.21 - Unreleased
+- 0.0.21 - 10.09.2019
   - Tests
-    - [x] Ports - Checking for port 139 - Require PORT CLOSED ([#29 - tnx	SP3269](https://github.com/EvotecIT/Testimo/issues/29))
-    - [x] NetworkSettings - Netbios TCPIP settings on network card - Require DISABLED ([#29 - tnx	SP3269](https://github.com/EvotecIT/Testimo/issues/29))
-    - [x] EmptyOrganizationalUnits - fix for lacking Contacts ([#32 - tnx JasonCook599](https://github.com/EvotecIT/Testimo/pull/32))
-    - [x] DNSZonesForest0ADEL - Added new test
-    - [x] DNSZonesDomain0ADEL - Added new test
+    - [x] DCPorts - Checking for port 139 - Require PORT CLOSED ([#29 - tnx	SP3269](https://github.com/EvotecIT/Testimo/issues/29))
+    - [x] DCNetworkSettings - Netbios TCPIP settings on network card - Require DISABLED ([#29 - tnx	SP3269](https://github.com/EvotecIT/Testimo/issues/29))
+    - [x] DCWindowsFirewall - was renamed to DCNetworkSettings
+    - [x] DomainEmptyOrganizationalUnits - fix for lacking Contacts ([#32 - tnx JasonCook599](https://github.com/EvotecIT/Testimo/pull/32))
+    - [x] DomainDNSZonesForest0ADEL - Added new test
+    - [x] DomainDNSZonesDomain0ADEL - Added new test
   - Engine
     - [x] Support for match/notmatch/notcontains
 
@@ -53,7 +54,6 @@ Things to know:
 
 ### Comments
 
-Following action, that have **Status** `Tested` are verified and working.
 Keep in mind not all tests apply to each environment.
 I'm adding those to be flexible and be able to test things as needed.
 Each of those tests will need additional description and recommendation, most likely with links and steps to fix.
