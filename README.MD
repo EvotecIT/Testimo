@@ -35,7 +35,7 @@ Things to know:
 
 ### ChangeLog
 
-- 0.0.22 - unreleased
+- 0.0.22 - 10.09.2019
   - Tests
     - [x] DCPorts - typo fix OPEN vs CLOSED
 
