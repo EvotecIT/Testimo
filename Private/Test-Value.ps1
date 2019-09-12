@@ -1,21 +1,22 @@
 ﻿function Test-Value {
     [CmdletBinding()]
     param(
+        [string] $Domain,
+        [string] $DomainController,
         [Array] $Object,
         [string] $TestName,
-        [string[]] $Property,
-        [Object] $ExpectedValue,
-        [string[]] $PropertyExtendedValue,
         [string] $OperationType,
         [int] $Level,
-        [string] $Domain,
-        [Object] $DomainController,
-        [int] $ExpectedCount,
+        [string[]] $Property,
+        [string[]] $PropertyExtendedValue,
+        [Object] $ExpectedValue,
+        [int] $ExpectedCount = -1,
         [string] $OperationResult,
-        [scriptblock] $WhereObject,
         [string] $ReferenceID,
-        [scriptblock] $OverwriteName,
-        [nullable[bool]] $ExpectedOutput
+        [nullable[bool]] $ExpectedOutput,
+
+        [scriptblock] $WhereObject,
+        [scriptblock] $OverwriteName
     )
     if ($Object) {
         if ($WhereObject) {
