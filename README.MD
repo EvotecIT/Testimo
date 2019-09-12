@@ -35,6 +35,16 @@ Things to know:
 
 ### ChangeLog
 
+- 0.0.23 - Unreleased
+  - Tests
+    - [x] Added DCEventLog
+      - [x] Check for Application Log - LogMode/LogFull
+      - [x] Check for System Log - LogMode/LogFull
+      - [x] Check for Security Log - Size/SizeMax/LogMode/LogFull
+      - [x] Check for Security Log - Default Security Permissions
+  - Engine
+    -
+
 - 0.0.22 - 10.09.2019
   - Tests
     - [x] DCPorts - typo fix OPEN vs CLOSED
