@@ -4,7 +4,7 @@
         DomainControllers = @()
     }
     Forest            = [ordered]@{
-        Backup               = $ForestBackup
+        Backup               = $Backup
         Replication          = $Replication # this should work 2012+
         ReplicationStatus    = $ReplicationStatus # Thi is based on repadmin / could be useful for Windows 2008R2
         OptionalFeatures     = $OptionalFeatures
