@@ -1,18 +1,22 @@
 ﻿$ReplicationStatus = @{
     Enable = $true
     Source = @{
-        Name = 'Forest Replication using RepAdmin'
-        Data = {
+        Name         = 'Forest Replication using RepAdmin'
+        Data         = {
             repadmin /showrepl * /csv | ConvertFrom-Csv
         }
-        Details = [ordered] @{
-            Area             = ''
-            Description      = ''
-            Resolution   = ''
-            RiskLevel        = 10
-            Resources = @(
+        Details      = [ordered] @{
+            Area        = ''
+            Description = ''
+            Resolution  = ''
+            RiskLevel   = 10
+            Resources   = @(
 
             )
+        }
+        Requirements = @{
+            CommandAvailable = 'repadmin'
+            OperatingSystem  = '*2008*'
         }
     }
     Tests  = [ordered] @{
