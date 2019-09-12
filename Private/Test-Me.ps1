@@ -13,9 +13,7 @@
         [int] $ExpectedCount = -1,
         [string] $OperationResult,
         [string] $ReferenceID,
-        [nullable[bool]] $ExpectedOutput,
-
-        [Object] $TestedValue
+        [nullable[bool]] $ExpectedOutput
     )
     Out-Begin -Text $TestName -Level $Level -Domain $Domain -DomainController $DomainController #($Level * 3)
 
@@ -40,7 +38,7 @@
 
 
         } else {
-            $TestedValue = $Object
+            [Object] $TestedValue = $Object
             foreach ($V in $Property) {
                 $TestedValue = $TestedValue.$V
             }
