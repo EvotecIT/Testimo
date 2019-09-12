@@ -37,6 +37,7 @@
     DomainControllers = [ordered] @{
         Information                 = $Information
         WindowsRemoteManagement     = $WindowsRemoteManagement
+        EventLogs                   = $EventLogs
         OperatingSystem             = $OperatingSystem
         Services                    = $Services
         LDAP                        = $LDAP
