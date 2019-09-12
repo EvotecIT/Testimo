@@ -61,12 +61,10 @@
                 # Useless - doesn't make any sense
                 $TestResult = $ExpectedCount -notin $Object.Count
             } else {
-                # $OperationType = 'eq' # Adding this for display purposes
                 $TestResult = $Object.Count -eq $ExpectedCount
             }
             $TextTestedValue = $Object.Count
             $TextExpectedValue = $ExpectedCount
-            #$ExpectedValue = $ExpectedCount
 
         } elseif ($null -ne $ExpectedValue) {
             $OutputValues = [System.Collections.Generic.List[Object]]::new()
@@ -130,7 +128,6 @@
                             } elseif ($OperationType -eq 'notmatch') {
                                 $TestedValue -notmatch $CompareValue
                             } else {
-                                #$OperationType = 'eq' # Adding this for display purposes
                                 $TestedValue -eq $CompareValue
                             }
                             # gather comparevalue for display purposes
