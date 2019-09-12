@@ -8,9 +8,6 @@
             $IdentityDomain = "CN=Infrastructure,DC=DomainDnsZones,$(($DomainInformation).DistinguishedName)"
             $FSMORoleOwner = (Get-ADObject -Identity $IdentityDomain -Properties fSMORoleOwner -Server $Domain)
             $FSMORoleOwner
-            #If ($FSMORoleOwner -match "0ADEL:") {
-            #    $FSMORoleOwner
-            #}
         }
         Details = [ordered] @{
             Area        = 'Configuration'
