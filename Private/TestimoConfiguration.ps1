@@ -58,7 +58,7 @@
         DnsNameServes               = $DNSNameServers
         SMBProtocols                = $SMBProtocols
         SMBShares                   = $SMBShares
-        DFSRAutoRecovery            = $DFSAutoRecovery
+        DFS                         = $DFS
         NTDSParameters              = $NTDSParameters
     }
     Debug             = [ordered] @{
