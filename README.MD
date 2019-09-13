@@ -40,10 +40,11 @@ Things to know:
     - [x] Added DCEventLog
       - [x] Check for Application Log - LogMode/LogFull
       - [x] Check for System Log - LogMode/LogFull
+      - [x] Check for PowerShell Log - LogMode/LogFull
       - [x] Check for Security Log - Size/SizeMax/LogMode/LogFull
       - [x] Check for Security Log - Default Security Permissions
   - Engine
-    -
+    - Added checks for potential NULL after Where-Object (fails tests now, while before it would ignore it)
 
 - 0.0.22 - 10.09.2019
   - Tests
