@@ -36,6 +36,17 @@
                 foreach ($Key in ($LoadedConfiguration.$Scope).Keys) {
                     $Script:TestimoConfiguration[$Scope][$Key]['Enable'] = $LoadedConfiguration.$Scope.$Key.Enable
 
+                    if ($null -ne $LoadedConfiguration[$Scope][$Key]['Source']) {
+                        if ($null -ne $LoadedConfiguration[$Scope][$Key]['Source']['ExpectedOutput']) {
+                            $Script:TestimoConfiguration[$Scope][$Key]['Source']['ExpectedOutput'] = $LoadedConfiguration.$Scope.$Key['Source']['ExpectedOutput']
+                        }
+                        if ($null -ne $LoadedConfiguration[$Scope][$Key]['Source']['Parameters']) {
+                            foreach ($Parameter in [string] $LoadedConfiguration[$Scope][$Key]['Source']['Parameters'].Keys) {
+                                $Script:TestimoConfiguration[$Scope][$Key]['Source']['Parameters'][$Parameter] = $LoadedConfiguration[$Scope][$Key]['Source']['Parameters'][$Parameter]
+                            }
+                        }
+                    }
+
                     foreach ($Test in $LoadedConfiguration.$Scope.$Key.Tests.Keys) {
                         $Script:TestimoConfiguration[$Scope][$Key]['Tests'][$Test]['Enable'] = $LoadedConfiguration.$Scope.$Key.Tests.$Test.Enable
 
@@ -57,6 +68,17 @@
 
                 foreach ($Key in ($LoadedConfiguration.$Scope).PSObject.Properties.Name) {
                     $Script:TestimoConfiguration[$Scope][$Key]['Enable'] = $LoadedConfiguration.$Scope.$Key.Enable
+
+                    if ($null -ne $LoadedConfiguration[$Scope][$Key]['Source']) {
+                        if ($null -ne $LoadedConfiguration.$Scope.$Key.'Source'.'ExpectedOutput') {
+                            $Script:TestimoConfiguration[$Scope][$Key]['Source']['ExpectedOutput'] = $LoadedConfiguration.$Scope.$Key.'Source'.'ExpectedOutput'
+                        }
+                        if ($null -ne $LoadedConfiguration.$Scope.$Key.'Source'.'Parameters') {
+                            foreach ($Parameter in $LoadedConfiguration.$Scope.$Key.'Source'.'Parameters'.PSObject.Properties.Name) {
+                                $Script:TestimoConfiguration[$Scope][$Key]['Source']['Parameters'][$Parameter] = $LoadedConfiguration.$Scope.$Key.'Source'.'Parameters'.$Parameter
+                            }
+                        }
+                    }
 
                     foreach ($Test in $LoadedConfiguration.$Scope.$Key.Tests.PSObject.Properties.Name) {
                         $Script:TestimoConfiguration[$Scope][$Key]['Tests'][$Test]['Enable'] = $LoadedConfiguration.$Scope.$Key.Tests.$Test.Enable
