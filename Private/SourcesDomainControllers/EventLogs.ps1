@@ -3,8 +3,7 @@
     Source = @{
         Name    = "Event Logs"
         Data    = {
-            Get-EventsInformation -FilePath $EventLogsDirectory.FullName -LogName 'Application', 'System', 'Security' -Machine $DomainController -WarningAction SilentlyContinue
-
+            Get-EventsInformation -LogName 'Application','System', 'Security','Microsoft-Windows-PowerShell/Operational' -Machine $DomainController -WarningAction SilentlyContinue
         }
         Details = [ordered] @{
             Area        = ''
@@ -37,8 +36,26 @@
                 OperationType = 'eq'
             }
         }
-
-
+        PowershellLogMode                               = @{
+            Enable     = $true
+            Name       = 'PowerShell Log mode is set to AutoBackup'
+            Parameters = @{
+                WhereObject   = { $_.LogName -eq 'Microsoft-Windows-PowerShell/Operational' }
+                Property      = 'LogMode'
+                ExpectedValue = 'AutoBackup'
+                OperationType = 'eq'
+            }
+        }
+        PowerShellLogFull                               = @{
+            Enable     = $true
+            Name       = 'PowerShell log is not full'
+            Parameters = @{
+                WhereObject   = { $_.LogName -eq 'Microsoft-Windows-PowerShell/Operational' }
+                Property      = 'IsLogFull'
+                ExpectedValue = $false
+                OperationType = 'eq'
+            }
+        }
         SystemLogMode                                    = @{
             Enable     = $true
             Name       = 'System Log mode is set to AutoBackup'
