@@ -49,8 +49,8 @@ Things to know:
     - [x] DomainDHCPAuthorized
       - [x] Check added, by default disabled.
     - [x] DCTimeSettings
-      - [x] Fix for Incorrect NTP Interval
-      - [x] Added test for checking NTP Incorrect Interval
+      - [x] Fix for Incorrect NTP Interval [#42 - tnx Jakob West](https://github.com/EvotecIT/Testimo/issues/42)
+      - [x] Added test for checking NTP Incorrect Interval [#42 - tnx Jakob West](https://github.com/EvotecIT/Testimo/issues/42)
       - [x] Should properly read settings via Policy (GPO) - change in PSSharedGoods [#41 - tnx James Rudd](https://github.com/EvotecIT/Testimo/issues/41)
   - Engine
     - Added checks for potential NULL after Where-Object (fails tests now, while before it would ignore it)
