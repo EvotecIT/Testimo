@@ -69,7 +69,7 @@
                 foreach ($Key in ($LoadedConfiguration.$Scope).PSObject.Properties.Name) {
                     $Script:TestimoConfiguration[$Scope][$Key]['Enable'] = $LoadedConfiguration.$Scope.$Key.Enable
 
-                    if ($null -ne $LoadedConfiguration[$Scope][$Key]['Source']) {
+                    if ($null -ne $LoadedConfiguration.$Scope.$Key.'Source') {
                         if ($null -ne $LoadedConfiguration.$Scope.$Key.'Source'.'ExpectedOutput') {
                             $Script:TestimoConfiguration[$Scope][$Key]['Source']['ExpectedOutput'] = $LoadedConfiguration.$Scope.$Key.'Source'.'ExpectedOutput'
                         }
