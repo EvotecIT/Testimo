@@ -46,6 +46,8 @@ Things to know:
     - [x] DCTimeSynchronizationExternal
       - [x] Supports parameters [#41 - tnx James Rudd](https://github.com/EvotecIT/Testimo/issues/41)
       - [x] Should properly read settings via Policy (GPO) - change in PSSharedGoods [#41 - tnx James Rudd](https://github.com/EvotecIT/Testimo/issues/41)
+    - [x] DomainDHCPAuthorized
+      - [x] Check added, by default disabled.
   - Engine
     - Added checks for potential NULL after Where-Object (fails tests now, while before it would ignore it)
     - Added parameters for SourceParameters for use within Sources [#41 - tnx James Rudd](https://github.com/EvotecIT/Testimo/issues/41)

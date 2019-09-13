@@ -33,6 +33,7 @@
         SysVolDFSR                         = $SysVolDFSR
         'DNSZonesForest0ADEL'              = $DNSZonesForest0ADEL
         'DNSZonesDomain0ADEL'              = $DNSZonesDomain0ADEL
+        DHCPAuthorized                     = $DHCPAuthorized
     }
     DomainControllers = [ordered] @{
         Information                 = $Information
