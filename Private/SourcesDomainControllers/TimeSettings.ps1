@@ -26,13 +26,23 @@
                 OperationType = 'eq'
             }
         }
-        NTPServerInterval = @{
+        NTPServerIntervalMissing = @{
             Enable     = $true
-            Name       = 'Ntp Server Interval should be defined'
+            Name       = 'Ntp Server Interval should be set'
             Parameters = @{
                 WhereObject   = { $_.ComputerName -eq $DomainController }
                 Property      = 'NtpServerIntervals'
-                ExpectedValue = 'Incorrect/Missing'
+                ExpectedValue = 'Missing'
+                OperationType = 'notcontains'
+            }
+        }
+        NTPServerIntervalIncorrect = @{
+            Enable     = $true
+            Name       = 'Ntp Server Interval should be within known settings'
+            Parameters = @{
+                WhereObject   = { $_.ComputerName -eq $DomainController }
+                Property      = 'NtpServerIntervals'
+                ExpectedValue = 'Incorrect'
                 OperationType = 'notcontains'
             }
         }
