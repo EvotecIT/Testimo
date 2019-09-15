@@ -37,7 +37,7 @@ Things to know:
 
 - 0.0.23 - Unreleased
   - Tests
-    - [x] Added DCEventLog
+    - [x] DCEventLog - **Added**
       - [x] Check for Application Log - LogMode/LogFull
       - [x] Check for System Log - LogMode/LogFull
       - [x] Check for PowerShell Log - LogMode/LogFull
@@ -45,7 +45,7 @@ Things to know:
       - [x] Check for Security Log - Default Security Permissions
     - [x] DCTimeSynchronizationExternal
       - [x] Supports parameters [#41 - tnx James Rudd](https://github.com/EvotecIT/Testimo/issues/41)
-    - [x] DCDFS
+    - [x] DCDFS - **Added**
       - [x] DFS should be Healthy
       - [x] Central Repository for GPO for Domain should be available
       - [x] Central Repository for GPO for DC should be available
@@ -56,16 +56,18 @@ Things to know:
       - [x] DomainSystemVolume should be TRUE
       - [x] SYSVOLSubscription should be TRUE
       - [x] DFSR AutoRecovery should be enabled (not stopped)
-    - [x] DCDFSRAutoRecovery
+    - [x] DCDFSRAutoRecovery - **DELETED**
       - [x] Moved to DCDFS
-    - [x] DomainDHCPAuthorized
+    - [x] DomainDHCPAuthorized - **Added but DISABLED**
       - [x] Check added, by default disabled.
     - [x] DCTimeSettings
       - [x] Fix for Incorrect NTP Interval [#42 - tnx Jakob West](https://github.com/EvotecIT/Testimo/issues/42)
       - [x] Added test for checking NTP Incorrect Interval [#42 - tnx Jakob West](https://github.com/EvotecIT/Testimo/issues/42)
       - [x] Should properly read settings via Policy (GPO) - change in PSSharedGoods [#41 - tnx James Rudd](https://github.com/EvotecIT/Testimo/issues/41)
-    - [x] DomainGroupPolicyADM
+    - [x] DomainGroupPolicyADM - **Added**
       - [x] Added check for legacy ADM files
+    - [x] DCGroupPolicySYSVOL - **Added**
+      - [x] Added check if all GPO's have their folder on SYSVOL
   - Engine
     - Added checks for potential NULL after Where-Object (fails tests now, while before it would ignore it)
     - Added parameters for SourceParameters for use within Sources [#41 - tnx James Rudd](https://github.com/EvotecIT/Testimo/issues/41)
