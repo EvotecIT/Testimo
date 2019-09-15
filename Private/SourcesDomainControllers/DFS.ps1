@@ -1,11 +1,14 @@
 ﻿$DFS = @{
     Enable = $true
     Source = @{
-        Name    = "SYSVOL/DFS Verification"
-        Data    = {
+        Name       = "SYSVOL/DFS Verification"
+        Data       = {
             Get-WinADDFSHealth -Domains $Domain -DomainControllers $DomainController
         }
-        Details = [ordered] @{
+        Parameters = @{
+            EventDays = 3
+        }
+        Details    = [ordered] @{
             Area        = 'Configuration'
             Category    = 'DFS'
             Severity    = ''
@@ -13,7 +16,13 @@
             Description = ""
             Resolution  = ''
             Resources   = @(
-
+                'https://support.microsoft.com/en-us/help/2218556/how-to-force-an-authoritative-and-non-authoritative-synchronization-fo'
+                'https://www.itprotoday.com/windows-78/fixing-broken-sysvol-replication'
+                'https://www.brisk-it.net/when-dfs-replication-goes-wrong-and-how-to-fix-it/'
+                'https://gallery.technet.microsoft.com/scriptcenter/AD-DFS-Replication-Auto-812a88bc'
+                'https://www.reddit.com/r/sysadmin/comments/7gey4k/resuming_dfs_replication_after_4_years_of_no/'
+                'https://kimconnect.com/fix-dfs-replication-problems/'
+                'https://community.spiceworks.com/topic/2205945-repairing-broken-dfs-replication'
             )
         }
     }
@@ -24,6 +33,15 @@
             Parameters = @{
                 ExpectedValue = $true
                 Property      = 'Status'
+                OperationType = 'eq'
+            }
+        }
+        ReplicationState    = @{
+            Enable     = $true
+            Name       = 'Replication State should be NORMAL'
+            Parameters = @{
+                ExpectedValue = 'Normal'
+                Property      = 'ReplicationState'
                 OperationType = 'eq'
             }
         }
