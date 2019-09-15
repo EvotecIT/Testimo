@@ -34,6 +34,7 @@
         'DNSZonesForest0ADEL'              = $DNSZonesForest0ADEL
         'DNSZonesDomain0ADEL'              = $DNSZonesDomain0ADEL
         DHCPAuthorized                     = $DHCPAuthorized
+        GroupPolicyADM                     = $GroupPolicyADM
     }
     DomainControllers = [ordered] @{
         Information                 = $Information
@@ -60,6 +61,7 @@
         SMBShares                   = $SMBShares
         DFS                         = $DFS
         NTDSParameters              = $NTDSParameters
+        GroupPolicySYSVOL           = $GroupPolicySYSVOL
     }
     Debug             = [ordered] @{
         ShowErrors = $false
