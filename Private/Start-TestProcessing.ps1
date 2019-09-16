@@ -6,7 +6,7 @@
         [switch] $OutputRequired,
         [nullable[bool]] $ExpectedStatus,
         [int] $Level = 0,
-        [switch] $IsTest,
+       # [switch] $IsTest,
         [switch] $Simple,
         [string] $Domain,
         [string] $DomainController,
@@ -14,11 +14,12 @@
     )
 
     if ($Execute) {
-        if ($IsTest) {
-            Out-Begin -Type 't' -Text $Test -Level $Level -Domain $Domain -DomainController $DomainController # ($Level * 3)
-        } else {
-            Out-Begin -Type 'i' -Text $Test -Level $Level -Domain $Domain -DomainController $DomainController # ($Level * 3)
-        }
+       # if ($IsTest) {
+           # Out-Begin -Type 't' -Text $Test -Level $Level -Domain $Domain -DomainController $DomainController
+        #} else {
+            #Out-Begin -Type 'i' -Text $Test -Level $Level -Domain $Domain -DomainController $DomainController
+            Out-Informative -Text $Test -Level $Level -Domain $Domain -DomainController $DomainController -Start
+       # }
         if ($Script:TestimoConfiguration.Debug.ShowErrors) {
             [Array] $Output = & $Execute
             $ErrorMessage = $null
@@ -50,9 +51,13 @@
                 $TestResult = $ExpectedStatus -eq $Output.Status
             }
 
-            Out-Status -Text $Test -Status $TestResult -ExtendedValue $O.Extended -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
+            #Out-Status -Text $Test -Status $TestResult -ExtendedValue $O.Extended -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
+
+
+            Out-Informative -Text $Test -Status $TestResult -ExtendedValue $O.Extended -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -End
         } else {
-            Out-Status -Text $Test -Status $false -ExtendedValue $ErrorMessage -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
+            Out-Informative -Text $Test -Status $TestResult -ExtendedValue $ErrorMessage -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -End
+            #Out-Status -Text $Test -Status $false -ExtendedValue $ErrorMessage -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
         }
     }
 }

@@ -11,7 +11,8 @@ $Sources = @(
     #'DomainKerberosAccountAge'
     #'DomainDNSScavengingForPrimaryDNSServer'
     #'DCWindowsUpdates'
-    'DCTimeSynchronizationExternal'
+    #'DCTimeSynchronizationExternal'
+    'DomainDHCPAuthorized'
 )
 
 $TestResults = Invoke-Testimo -ReturnResults -ExcludeDomains 'ad.evotec.pl' -ExtendedResults -Configuration $ConfigurationFile -Sources $Sources -ShowReport
