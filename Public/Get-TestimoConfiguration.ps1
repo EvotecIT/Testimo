@@ -18,6 +18,11 @@
                 $NewConfig[$Scope][$Source]['Source']['ExpectedOutput'] = $Script:TestimoConfiguration[$Scope][$Source]['Source']['ExpectedOutput']
             }
 
+            if ($null -ne $Script:TestimoConfiguration[$Scope][$Source]['Source']['Parameters']) {
+                $NewConfig[$Scope][$Source]['Source'] = [ordered] @{ }
+                $NewConfig[$Scope][$Source]['Source']['Parameters'] = $Script:TestimoConfiguration[$Scope][$Source]['Source']['Parameters']
+            }
+
             $NewConfig[$Scope][$Source]['Tests'] = [ordered] @{ }
             foreach ($Test in $Script:TestimoConfiguration[$Scope][$Source]['Tests'].Keys) {
                 $NewConfig[$Scope][$Source]['Tests'][$Test] = [ordered] @{ }

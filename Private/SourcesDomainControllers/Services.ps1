@@ -1,17 +1,17 @@
 ﻿$Services = [ordered] @{
     Enable = $true
     Source = @{
-        Name       = 'Service Status'
-        Data       = {
+        Name    = 'Service Status'
+        Data    = {
             $Services = @('ADWS', 'DNS', 'DFS', 'DFSR', 'Eventlog', 'EventSystem', 'KDC', 'LanManWorkstation', 'LanManServer', 'NetLogon', 'NTDS', 'RPCSS', 'SAMSS', 'Spooler', 'W32Time')
             Get-PSService -Computers $DomainController -Services $Services
         }
         Details = [ordered] @{
-            Area             = ''
-            Description      = ''
-            Resolution   = ''
-            RiskLevel        = 10
-            Resources = @(
+            Area        = ''
+            Description = ''
+            Resolution  = ''
+            RiskLevel   = 10
+            Resources   = @(
 
             )
         }
@@ -310,6 +310,18 @@
                 ExpectedValue = 'Stopped'
                 OperationType = 'eq'
             }
+            Details    = [ordered] @{
+                Area        = 'Security'
+                Category    = 'Services'
+                Severity    = ''
+                RiskLevel   = 0
+                Description = 'Due to security concerns SPOOLER should be disabled and stopped. However in some cases it may be required to have SPOOLER service up and running to cleanup stale printer objects from AD.'
+                Resolution  = ''
+                Resources   = @(
+                    'https://adsecurity.org/?p=4056'
+                    'https://docs.microsoft.com/en-us/windows-server/security/windows-services/security-guidelines-for-disabling-system-services-in-windows-server#print-spooler'
+                )
+            }
 
         }
         SpoolerServiceStartType           = @{
@@ -322,7 +334,20 @@
                 ExpectedValue = 'Disabled'
                 OperationType = 'eq'
             }
+            Details    = [ordered] @{
+                Area        = 'Security'
+                Category    = 'Services'
+                Severity    = ''
+                RiskLevel   = 0
+                Description = 'Due to security concerns SPOOLER should be disabled and stopped. However in some cases it may be required to have SPOOLER service up and running to cleanup stale printer objects from AD.'
+                Resolution  = ''
+                Resources   = @(
+                    'https://adsecurity.org/?p=4056'
+                    'https://docs.microsoft.com/en-us/windows-server/security/windows-services/security-guidelines-for-disabling-system-services-in-windows-server#print-spooler'
+                )
+            }
         }
+
         W32TimeServiceStatus              = @{
             Enable     = $true
             Name       = 'W32Time Service is RUNNING'

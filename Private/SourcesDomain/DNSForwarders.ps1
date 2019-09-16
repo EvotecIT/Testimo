@@ -27,7 +27,6 @@
         SameForwarders = @{
             Enable      = $true
             Name        = 'Same DNS Forwarders'
-            # Data     = $Script:SBDomainDNSForwadersTest
             Parameters  = @{
                 Property              = 'Status'
                 ExpectedValue         = $true

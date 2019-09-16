@@ -9,10 +9,35 @@ function Initialize-ModulePortable {
         [switch] $Download,
         [switch] $Import
     )
+    function Get-RequiredModule {
+        param(
+            [string] $Path,
+            [string] $Name
+        )
+        $PrimaryModule = Get-ChildItem -LiteralPath "$Path\$Name" -Filter '*.psd1' -Recurse -ErrorAction SilentlyContinue -Depth 1
+        if ($PrimaryModule) {
+            $Module = Get-Module -ListAvailable $PrimaryModule.FullName -ErrorAction SilentlyContinue -Verbose:$false
+            if ($Module) {
+                [Array] $RequiredModules = $Module.RequiredModules.Name
+                $RequiredModules
+                foreach ($_ in $RequiredModules) {
+                    Get-RequiredModule -Path $Path -Name $_
+                }
+            }
+        } else {
+            Write-Warning "Initialize-ModulePortable - Modules to load not found in $Path"
+        }
+    }
+
     if (-not $Name) {
         Write-Warning "Initialize-ModulePortable - Module name not given. Terminating."
         return
     }
+    if (-not $Download -and -not $Import) {
+        Write-Warning "Initialize-ModulePortable - Please choose Download/Import switch. Terminating."
+        return
+    }
+
     if ($Download) {
         try {
             if (-not $Path -or -not (Test-Path -LiteralPath $Path)) {
@@ -30,37 +55,48 @@ function Initialize-ModulePortable {
         }
     }
 
+    if ($Download -or $Import) {
+        [Array] $Modules = Get-RequiredModule -Path $Path -Name $Name | Where-Object { $null -ne $_ }
+        [array]::Reverse($Modules)
 
-    $PrimaryModule = Get-ChildItem -LiteralPath "$Path\$Name" -Filter '*.psd1' -Recurse -ErrorAction SilentlyContinue -Depth 1
-    if ($PrimaryModule) {
-        $PrimaryModuleInformation = Get-Module -ListAvailable $PrimaryModule.FullName -ErrorAction SilentlyContinue
-        if ($PrimaryModuleInformation) {
-            if ($Import) {
-                [Array] $RequiredModules = $PrimaryModuleInformation.RequiredModules.Name
-                foreach ($_ in $RequiredModules) {
-                    $ListModules = Get-ChildItem -LiteralPath "$Path\$_" -Filter '*.psd1' -Recurse -ErrorAction SilentlyContinue -Depth 1
-                    Import-Module -Name $ListModules.FullName -Force -ErrorAction SilentlyContinue -Verbose
-                }
-                Import-Module -Name $PrimaryModule.FullName -Force -ErrorAction SilentlyContinue -Verbose
+        $CleanedModules = [System.Collections.Generic.List[string]]::new()
+
+        foreach ($_ in $Modules) {
+            if ($CleanedModules -notcontains $_) {
+                $CleanedModules.Add($_)
             }
-            $Content = @"
-    `$Name = '$Name'
-    `$Path = `$PSScriptRoot
-    `$PrimaryModule = Get-ChildItem -LiteralPath "`$Path\`$Name" -Filter '*.psd1' -Recurse -ErrorAction SilentlyContinue -Depth 1
-    `$PrimaryModuleInformation = Get-Module -ListAvailable `$PrimaryModule.FullName
-    [Array] `$RequiredModules = `$PrimaryModuleInformation.RequiredModules.Name
-    foreach (`$_ in `$RequiredModules) {
-        `$ListModules = Get-ChildItem -LiteralPath "`$Path\`$_" -Filter '*.psd1' -Recurse -ErrorAction SilentlyContinue -Depth 1
-        Import-Module -Name `$ListModules.FullName -Force -ErrorAction SilentlyContinue -Verbose
-    }
-    Import-Module -Name `$PrimaryModule.FullName -Force -ErrorAction SilentlyContinue -Verbose
-"@
-            $Content | Set-Content -Path $Path\$Name.ps1 -Force
-        } else {
-            Write-Warning "Initialize-ModulePortable - Primary module is not available. Did you use Download switch?"
         }
-    } else {
-        Write-Warning "Initialize-ModulePortable - Primary module is not available. Did you use Download switch?"
+        $CleanedModules.Add($Name)
+
+        $Items = foreach ($_ in $CleanedModules) {
+            Get-ChildItem -LiteralPath "$Path\$_" -Filter '*.psd1' -Recurse -ErrorAction SilentlyContinue -Depth 1
+        }
+        [Array] $PSD1Files = $Items.FullName
+    }
+    if ($Download) {
+        $ListFiles = foreach ($PSD1 in $PSD1Files) {
+            $PSD1.Replace("$Path", '$PSScriptRoot')
+        }
+        # Build File
+        $Content = @(
+            '$Modules = @('
+            foreach ($_ in $ListFiles) {
+                "   `"$_`""
+            }
+            ')'
+            "foreach (`$_ in `$Modules) {"
+            "   Import-Module `$_ -Verbose:`$false -Force"
+            "}"
+        )
+        $Content | Set-Content -Path $Path\$Name.ps1 -Force
+    }
+    if ($Import) {
+        $ListFiles = foreach ($PSD1 in $PSD1Files) {
+            $PSD1
+        }
+        foreach ($_ in $ListFiles) {
+            Import-Module $_ -Verbose:$false -Force
+        }
     }
 }
 

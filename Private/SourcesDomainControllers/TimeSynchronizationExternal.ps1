@@ -3,14 +3,17 @@
     Source             = @{
         Name       = "Time Synchronization External"
         Data       = {
-            Get-ComputerTime -TimeTarget $DomainController -TimeSource 'pool.ntp.org' -WarningAction SilentlyContinue
+            Get-ComputerTime -TimeTarget $DomainController -WarningAction SilentlyContinue @SourceParameters
         }
-        Details = [ordered] @{
-            Area             = ''
-            Description      = ''
-            Resolution   = ''
-            RiskLevel        = 10
-            Resources = @(
+        Parameters = @{
+            TimeSource = 'pool.ntp.org'
+        }
+        Details    = [ordered] @{
+            Area        = ''
+            Description = ''
+            Resolution  = ''
+            RiskLevel   = 10
+            Resources   = @(
 
             )
         }

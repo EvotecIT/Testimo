@@ -1,4 +1,4 @@
-﻿$ForestBackup = @{
+﻿$Backup = @{
     Enable = $true
     Source = @{
         Name = 'Forest Backup'

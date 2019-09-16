@@ -1,39 +1,40 @@
-﻿function Test-Me {
+﻿function Test-StepTwo{
     [CmdletBinding()]
     param(
-        [string] $OperationType,
-        [string] $TestName,
-        [int] $Level,
         [string] $Domain,
         [string] $DomainController,
-        [string[]] $Property,
-        [Object] $TestedValue,
         [Array] $Object,
-        [Array] $ExpectedValue,
+        [string] $TestName,
+        [string] $OperationType,
+        [int] $Level,
+        [string[]] $Property,
         [string[]] $PropertyExtendedValue,
-        [string] $OperationResult,
+        [Array] $ExpectedValue,
         [int] $ExpectedCount = -1,
+        [string] $OperationResult,
         [string] $ReferenceID,
         [nullable[bool]] $ExpectedOutput
     )
-    Out-Begin -Text $TestName -Level $Level -Domain $Domain -DomainController $DomainController #($Level * 3)
-
-    $TestedValue = $Object
-    foreach ($V in $Property) {
-        $TestedValue = $TestedValue.$V
-    }
-
-    if ($OperationType -eq '') { $OperationType = 'eq' }
+    Out-Begin -Text $TestName -Level $Level -Domain $Domain -DomainController $DomainController
 
     $ScriptBlock = {
         $Operators = @{
-            'lt'       = 'LessThan'
-            'gt'       = 'GreaterThan'
-            'le'       = 'LessOrEqual'
-            'ge'       = 'GreaterOrEqual'
-            'eq'       = 'Equal'
-            'contains' = 'Contains'
-            'like'     = 'Like'
+            'lt'          = 'LessThan'
+            'gt'          = 'GreaterThan'
+            'le'          = 'LessOrEqual'
+            'ge'          = 'GreaterOrEqual'
+            'eq'          = 'Equal'
+            'contains'    = 'Contains'
+            'notcontains' = 'Not contains'
+            'like'        = 'Like'
+            'match'       = 'Match'
+            'notmatch'    = 'Not match'
+        }
+
+
+        [Object] $TestedValue = $Object
+        foreach ($V in $Property) {
+            $TestedValue = $TestedValue.$V
         }
 
         if ($ExpectedCount -ne -1) {
@@ -58,12 +59,10 @@
                 # Useless - doesn't make any sense
                 $TestResult = $ExpectedCount -notin $Object.Count
             } else {
-               # $OperationType = 'eq' # Adding this for display purposes
                 $TestResult = $Object.Count -eq $ExpectedCount
             }
             $TextTestedValue = $Object.Count
             $TextExpectedValue = $ExpectedCount
-            #$ExpectedValue = $ExpectedCount
 
         } elseif ($null -ne $ExpectedValue) {
             $OutputValues = [System.Collections.Generic.List[Object]]::new()
@@ -120,8 +119,13 @@
                                 $TestedValue -like $CompareValue
                             } elseif ($OperationType -eq 'contains') {
                                 $TestedValue -contains $CompareValue
+                            } elseif ($OperationType -eq 'notcontains') {
+                                $TestedValue -notcontains $CompareValue
+                            } elseif ($OperationType -eq 'match') {
+                                $TestedValue -match $CompareValue
+                            } elseif ($OperationType -eq 'notmatch') {
+                                $TestedValue -notmatch $CompareValue
                             } else {
-                                #$OperationType = 'eq' # Adding this for display purposes
                                 $TestedValue -eq $CompareValue
                             }
                             # gather comparevalue for display purposes
@@ -181,6 +185,7 @@
         Out-Status -Text $TestName -Status $ReportResult -ExtendedValue $ReportExtended -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
         return $ReportResult
     }
+
     if ($Script:TestimoConfiguration.Debug.ShowErrors) {
         & $ScriptBlock
     } else {

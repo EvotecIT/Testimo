@@ -5,13 +5,14 @@ $ConfigurationFile = "$PSScriptRoot\Configuration\TestimoConfiguration.json"
 $Sources = @(
     #'ForestFSMORoles'
     'ForestOptionalFeatures'
-    'ForestBackup'
+    #'ForestBackup'
     #'ForestOrphanedAdmins'
-    'DomainPasswordComplexity'
+    #'DomainPasswordComplexity'
     #'DomainKerberosAccountAge'
     #'DomainDNSScavengingForPrimaryDNSServer'
-    'DCWindowsUpdates'
+    #'DCWindowsUpdates'
+    'DCTimeSynchronizationExternal'
 )
 
-$TestResults = Invoke-Testimo -ReturnResults -ExcludeDomains 'ad.evotec.pl' -ExtendedResults -Configuration $ConfigurationFile -Sources $Sources
+$TestResults = Invoke-Testimo -ReturnResults -ExcludeDomains 'ad.evotec.pl' -ExtendedResults -Configuration $ConfigurationFile -Sources $Sources -ShowReport
 $TestResults | Format-Table -AutoSize *

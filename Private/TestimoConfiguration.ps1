@@ -4,7 +4,7 @@
         DomainControllers = @()
     }
     Forest            = [ordered]@{
-        Backup               = $ForestBackup
+        Backup               = $Backup
         Replication          = $Replication # this should work 2012+
         ReplicationStatus    = $ReplicationStatus # Thi is based on repadmin / could be useful for Windows 2008R2
         OptionalFeatures     = $OptionalFeatures
@@ -31,10 +31,14 @@
         SecurityGroupsSchemaAdmins         = $SecurityGroupsSchemaAdmins
         SecurityUsersAcccountAdministrator = $SecurityUsersAcccountAdministrator
         SysVolDFSR                         = $SysVolDFSR
+        'DNSZonesForest0ADEL'              = $DNSZonesForest0ADEL
+        'DNSZonesDomain0ADEL'              = $DNSZonesDomain0ADEL
+        DHCPAuthorized                     = $DHCPAuthorized
     }
     DomainControllers = [ordered] @{
         Information                 = $Information
         WindowsRemoteManagement     = $WindowsRemoteManagement
+        EventLogs                   = $EventLogs
         OperatingSystem             = $OperatingSystem
         Services                    = $Services
         LDAP                        = $LDAP
@@ -54,7 +58,7 @@
         DnsNameServes               = $DNSNameServers
         SMBProtocols                = $SMBProtocols
         SMBShares                   = $SMBShares
-        DFSRAutoRecovery            = $DFSAutoRecovery
+        DFS                         = $DFS
         NTDSParameters              = $NTDSParameters
     }
     Debug             = [ordered] @{
