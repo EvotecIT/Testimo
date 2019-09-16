@@ -14,6 +14,9 @@
                 'https://adsecurity.org/?p=3377'
             )
         }
+        Requirements = @{
+            CommandAvailable = 'Get-WinADLMSettings'
+        }
         ExpectedOutput = $true
     }
     Tests  = [ordered] @{
@@ -181,8 +184,3 @@
         }
     }
 }
-
-
-
-
-Get-WinADLMSettings -DomainController AD1

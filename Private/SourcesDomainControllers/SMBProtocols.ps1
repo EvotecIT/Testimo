@@ -14,6 +14,9 @@
 
             )
         }
+        Requirements = @{
+            CommandAvailable = 'Get-ComputerSMB'
+        }
     }
     Tests  = [ordered] @{
         EnableSMB1Protocol = @{
