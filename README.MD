@@ -90,6 +90,7 @@ Things to know:
     - [x] DomainDNSZonesDomain0ADEL - Added new test
   - Engine
     - [x] Support for match/notmatch/notcontains
+    - [x] Support for Requirements/CommandAvailable
 
 - 0.0.20 - 9.09.2019
   - [x] Fix for configuration loading from JSON file ([#30](https://github.com/EvotecIT/Testimo/issues/30) - tnx Alex)
