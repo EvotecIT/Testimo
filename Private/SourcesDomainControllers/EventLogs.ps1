@@ -3,7 +3,7 @@
     Source = @{
         Name    = "Event Logs"
         Data    = {
-            Get-EventsInformation -LogName 'Application','System', 'Security','Microsoft-Windows-PowerShell/Operational' -Machine $DomainController -WarningAction SilentlyContinue
+            Get-EventsInformation -LogName 'Application', 'System', 'Security', 'Microsoft-Windows-PowerShell/Operational' -Machine $DomainController -WarningAction SilentlyContinue
         }
         Details = [ordered] @{
             Area        = ''
@@ -36,7 +36,7 @@
                 OperationType = 'eq'
             }
         }
-        PowershellLogMode                               = @{
+        PowershellLogMode                                = @{
             Enable     = $true
             Name       = 'PowerShell Log mode is set to AutoBackup'
             Parameters = @{
@@ -46,7 +46,7 @@
                 OperationType = 'eq'
             }
         }
-        PowerShellLogFull                               = @{
+        PowerShellLogFull                                = @{
             Enable     = $true
             Name       = 'PowerShell log is not full'
             Parameters = @{
@@ -167,5 +167,10 @@
 #$D = ConvertFrom-SddlString 'O:BAG:SYD:(A;;0x2;;;S-1-15-2-1)(A;;0x2;;;S-1-15-3-1024-3153509613-960666767-3724611135-2725662640-12138253-543910227-1950414635-4190290187)(A;;0xf0007;;;SY)(A;;0x7;;;BA)(A;;0x7;;;SO)(A;;0x3;;;IU)(A;;0x3;;;SU)(A;;0x3;;;S-1-5-3)(A;;0x3;;;S-1-5-33)(A;;0x1;;;S-1-5-32-573)'
 #$D.DiscretionaryAcl
 
-#Get-PSRegistry -RegistryPath 'HKLM\Software\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging'
+#Get-PSRegistry -RegistryPath 'HKLM\Software\Policies\Microsoft\Windows\PowerShell' | ft -a
+#Get-PSRegistry -RegistryPath 'HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging' -ComputerName AD1 | ft -a
+#Get-PSRegistry -RegistryPath 'HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\Transcription' -ComputerName AD1 | ft -a
+#Get-PSRegistry -RegistryPath 'HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ModuleLogging'   -ComputerName AD1 | ft -a
+#Get-PSRegistry -registrypath 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell' -ComputerName AD1
+#Get-PSRegistry -registrypath 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies'
 #Get-PSRegistry -RegistryPath 'HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell' -Verbose

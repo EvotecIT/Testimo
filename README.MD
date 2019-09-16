@@ -74,6 +74,7 @@ Things to know:
     - Added checks for potential NULL after Where-Object (fails tests now, while before it would ignore it)
     - Added parameters for SourceParameters for use within Sources [#41 - tnx James Rudd](https://github.com/EvotecIT/Testimo/issues/41)
     - Changed export / import configuration to support SourceParameters/ExpectedOutput. [#41 - tnx James Rudd](https://github.com/EvotecIT/Testimo/issues/41)
+    - Support for Requirements/CommandAvailable
 
 - 0.0.22 - 10.09.2019
   - Tests
@@ -90,7 +91,6 @@ Things to know:
     - [x] DomainDNSZonesDomain0ADEL - Added new test
   - Engine
     - [x] Support for match/notmatch/notcontains
-    - [x] Support for Requirements/CommandAvailable
 
 - 0.0.20 - 9.09.2019
   - [x] Fix for configuration loading from JSON file ([#30](https://github.com/EvotecIT/Testimo/issues/30) - tnx Alex)
