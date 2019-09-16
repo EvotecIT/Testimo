@@ -68,6 +68,8 @@ Things to know:
       - [x] Added check for legacy ADM files
     - [x] DCGroupPolicySYSVOL - **Added**
       - [x] Added check if all GPO's have their folder on SYSVOL
+    - [x] DCLanManagerSettings - **Added**
+      - [x] Added checks for Lan Manager Settings
   - Engine
     - Added checks for potential NULL after Where-Object (fails tests now, while before it would ignore it)
     - Added parameters for SourceParameters for use within Sources [#41 - tnx James Rudd](https://github.com/EvotecIT/Testimo/issues/41)
