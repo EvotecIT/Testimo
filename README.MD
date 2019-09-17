@@ -70,6 +70,8 @@ Things to know:
       - [x] Added check if all GPO's have their folder on SYSVOL
     - [x] DCLanManagerSettings - **Added**
       - [x] Added checks for Lan Manager Settings
+    - [x] DCTimeSynchronizationInternal
+      - [x] Added check for LastBootUpTime be less than X (60) days
   - Engine
     - Added checks for potential NULL after Where-Object (fails tests now, while before it would ignore it)
     - Added parameters for SourceParameters for use within Sources [#41 - tnx James Rudd](https://github.com/EvotecIT/Testimo/issues/41)
