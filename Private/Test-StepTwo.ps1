@@ -181,6 +181,7 @@
             foreach ($V in $PropertyExtendedValue) {
                 $ReportExtended = $ReportExtended.$V
             }
+            $ReportExtended = $ReportExtended -join ', '
         }
         Out-Status -Text $TestName -Status $ReportResult -ExtendedValue $ReportExtended -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
         return $ReportResult
