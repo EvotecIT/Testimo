@@ -1,21 +1,21 @@
 ﻿$DiskSpace = @{
     Enable = $true
     Source = @{
-        Name       = 'Disk Free'
-        Data       = {
+        Name    = 'Disk Free'
+        Data    = {
             Get-ComputerDiskLogical -ComputerName $DomainController -OnlyLocalDisk -WarningAction SilentlyContinue
         }
         Details = [ordered] @{
-            Area             = ''
-            Description      = ''
-            Resolution   = ''
-            RiskLevel        = 10
-            Resources = @(
+            Area        = ''
+            Description = ''
+            Resolution  = ''
+            RiskLevel   = 10
+            Resources   = @(
 
             )
         }
     }
-    Tests  = @{
+    Tests  = [ordered] @{
         FreeSpace   = @{
             Enable     = $true
             Name       = 'Free Space in GB'

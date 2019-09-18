@@ -28,6 +28,9 @@
                 Test-ComputerPort -ComputerName $DomainController -PortTCP 25, 88, 389, 464, 636, 5722, 9389 -PortUDP 88, 123, 389, 464
             #>
         }
+        Requirements = @{
+            CommandAvailable = 'Test-NetConnection'
+        }
         Details = [ordered] @{
             Area        = ''
             Category    = ''

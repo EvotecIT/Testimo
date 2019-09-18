@@ -14,6 +14,9 @@
 
             )
         }
+        Requirements = @{
+            CommandAvailable = 'Get-ComputerSMBShare'
+        }
     }
     Tests  = [ordered] @{
         AdminShare   = @{

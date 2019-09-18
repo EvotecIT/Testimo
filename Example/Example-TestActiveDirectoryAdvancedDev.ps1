@@ -71,7 +71,7 @@ New-HTML -FilePath $PSScriptRoot\Output\TestimoSummary.html -UseCssLinks -UseJav
                             New-ChartPie -Name 'Passed' -Value ($PassedTestsSingular.Count) -Color ForestGreen
                             New-ChartPie -Name 'Failed' -Value ($FailedTestsSingular.Count) -Color OrangeRed
                         }
-                        New-HTMLCodeBlock -Code $SourceCode -Style 'PowerShell' -Theme enlighter
+                        New-HTMLCodeBlock -Code $SourceCode -Style 'PowerShell' -Theme enlighter -
                     }
                 }
                 New-HTMLContainer {
