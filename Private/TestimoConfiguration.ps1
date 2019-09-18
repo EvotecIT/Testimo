@@ -63,6 +63,7 @@
         NTDSParameters              = $NTDSParameters
         GroupPolicySYSVOL           = $GroupPolicySYSVOL
         LanManagerSettings          = $LanManagerSettings
+        Diagnostics                 = $Diagnostics
     }
     Debug             = [ordered] @{
         ShowErrors = $false
