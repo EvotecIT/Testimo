@@ -15,7 +15,7 @@
             )
         }
     }
-    Tests  = @{
+    Tests  = [ordered] @{
         Ping = @{
             Enable     = $true
             Name       = 'Responding to PING'

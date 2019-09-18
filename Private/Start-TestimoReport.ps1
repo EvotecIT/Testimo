@@ -12,25 +12,36 @@
         $FilePath = Get-FileName -Extension 'html' -Temporary
     }
 
+    [RGBColors] $ColorPassed = 'LawnGreen'
+    [RGBColors] $ColorSkipped = 'DeepSkyBlue'
+    [RGBColors] $ColorFailed = 'Tomato'
+    [RGBColors] $ColorPassedText = 'Black'
+    [RGBColors] $ColorFailedText = 'Black'
+    [RGBColors] $ColorSkippedText = 'Black'
+
     New-HTML -FilePath $FilePath -UseCssLinks:$UseCssLinks -UseJavaScriptLinks:$UseJavaScriptLinks {
         [Array] $PassedTests = $TestResults['Results'] | Where-Object { $_.Status -eq $true }
-        [Array] $FailedTests = $TestResults['Results'] | Where-Object { $_.Status -ne $true }
+        [Array] $FailedTests = $TestResults['Results'] | Where-Object { $_.Status -eq $false }
+        [Array] $SkippedTests = $TestResults['Results'] | Where-Object { $_.Status -ne $true -and $_.Status -ne $false }
         New-HTMLTab -Name 'Summary' -IconBrands galactic-senate {
             New-HTMLSection -HeaderText "Tests results" -HeaderBackGroundColor DarkGray {
                 New-HTMLPanel {
                     New-HTMLChart {
-                        New-ChartPie -Name 'Passed' -Value ($PassedTests.Count) -Color ForestGreen
-                        New-ChartPie -Name 'Failed' -Value ($FailedTests.Count) -Color OrangeRed
+                        New-ChartPie -Name 'Passed' -Value ($PassedTests.Count) -Color $ColorPassed
+                        New-ChartPie -Name 'Failed' -Value ($FailedTests.Count) -Color $ColorFailed
+                        New-ChartPie -Name 'Skipped' -Value ($SkippedTests.Count) -Color $ColorSkipped
                     }
                     New-HTMLTable -DataTable $TestResults['Summary'] -HideFooter -DisableSearch {
-                        New-HTMLTableContent -ColumnName 'Passed' -BackGroundColor ForestGreen -Color White
-                        New-HTMLTableContent -ColumnName 'Failed' -BackGroundColor OrangeRed -Color White
+                        New-HTMLTableContent -ColumnName 'Passed' -BackGroundColor $ColorPassed -Color $ColorPassedText
+                        New-HTMLTableContent -ColumnName 'Failed' -BackGroundColor $ColorFailed -Color $ColorFailedText
+                        New-HTMLTableContent -ColumnName 'Skipped' -BackGroundColor $ColorSkipped -Color $ColorSkippedText
                     }
                 }
                 New-HTMLPanel {
                     New-HTMLTable -DataTable $TestResults['Results'] {
-                        New-HTMLTableCondition -Name 'Status' -Value $true -Color Green -Row
-                        New-HTMLTableCondition -Name 'Status' -Value $false -Color Red -Row
+                        New-HTMLTableCondition -Name 'Status' -Value $true -BackgroundColor $ColorPassed -Color $ColorPassedText #-Row
+                        New-HTMLTableCondition -Name 'Status' -Value $false -BackgroundColor $ColorFailed -Color $ColorFailedText #-Row
+                        New-HTMLTableCondition -Name 'Status' -Value $null -BackgroundColor $ColorSkipped -Color $ColorSkippedText #-Row
                     }
                 }
             }
@@ -44,14 +55,16 @@
                 $Results = $TestResults['Forest']['Tests'][$Source]['Results']
                 #$Details = $TestResults['Forest']['Tests'][$Source]['Details']
                 [Array] $PassedTestsSingular = $TestResults['Forest']['Tests'][$Source]['Results'] | Where-Object { $_.Status -eq $true }
-                [Array] $FailedTestsSingular = $TestResults['Forest']['Tests'][$Source]['Results'] | Where-Object { $_.Status -ne $true }
+                [Array] $FailedTestsSingular = $TestResults['Forest']['Tests'][$Source]['Results'] | Where-Object { $_.Status -eq $false }
+                [Array] $SkippedTestsSingular = $TestResults['Forest']['Tests'][$Source]['Results'] | Where-Object { $_.Status -ne $true -and $_.Status -ne $false }
 
                 New-HTMLSection -HeaderText $Name -HeaderBackGroundColor DarkGray {
                     New-HTMLContainer {
                         New-HTMLPanel {
                             New-HTMLChart {
-                                New-ChartPie -Name 'Passed' -Value ($PassedTestsSingular.Count) -Color ForestGreen
-                                New-ChartPie -Name 'Failed' -Value ($FailedTestsSingular.Count) -Color OrangeRed
+                                New-ChartPie -Name 'Passed' -Value ($PassedTestsSingular.Count) -Color $ColorPassed
+                                New-ChartPie -Name 'Failed' -Value ($FailedTestsSingular.Count) -Color $ColorFailed
+                                New-ChartPie -Name 'Skipped' -Value ($SkippedTestsSingular.Count) -Color $ColorSkipped
                             }
                             New-HTMLCodeBlock -Code $SourceCode -Style 'PowerShell' -Theme enlighter
                         }
@@ -60,8 +73,9 @@
                         New-HTMLPanel {
                             New-HTMLTable -DataTable $Data
                             New-HTMLTable -DataTable $Results {
-                                New-HTMLTableCondition -Name 'Status' -Value $true -Color Green -Row
-                                New-HTMLTableCondition -Name 'Status' -Value $false -Color Red -Row
+                                New-HTMLTableCondition -Name 'Status' -Value $true -BackgroundColor $ColorPassed -Color $ColorPassedText #-Row
+                                New-HTMLTableCondition -Name 'Status' -Value $false -BackgroundColor $ColorFailed -Color $ColorFailedText #-Row
+                                New-HTMLTableCondition -Name 'Status' -Value $null -BackgroundColor $ColorSkipped -Color $ColorSkippedText #-Row
                             }
                         }
                     }
@@ -78,14 +92,16 @@
                     $Results = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results']
                     # $Details = $TestResults['Domains'][$Domain]['Tests'][$Source]['Details']
                     [Array] $PassedTestsSingular = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results'] | Where-Object { $_.Status -eq $true }
-                    [Array] $FailedTestsSingular = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results'] | Where-Object { $_.Status -ne $true }
+                    [Array] $FailedTestsSingular = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results'] | Where-Object { $_.Status -eq $false }
+                    [Array] $SkippedTestsSingular = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results'] | Where-Object { $_.Status -ne $true -and $_.Status -ne $false }
 
                     New-HTMLSection -HeaderText $Name -HeaderBackGroundColor DarkGray {
                         New-HTMLContainer {
                             New-HTMLPanel {
                                 New-HTMLChart {
-                                    New-ChartPie -Name 'Passed' -Value ($PassedTestsSingular.Count) -Color ForestGreen
-                                    New-ChartPie -Name 'Failed' -Value ($FailedTestsSingular.Count) -Color OrangeRed
+                                    New-ChartPie -Name 'Passed' -Value ($PassedTestsSingular.Count) -Color $ColorPassed
+                                    New-ChartPie -Name 'Failed' -Value ($FailedTestsSingular.Count) -Color $ColorFailed
+                                    New-ChartPie -Name 'Skipped' -Value ($SkippedTestsSingular.Count) -Color $ColorSkipped
                                 }
                                 New-HTMLCodeBlock -Code $SourceCode -Style 'PowerShell' -Theme enlighter
                             }
@@ -94,8 +110,9 @@
                             New-HTMLPanel {
                                 New-HTMLTable -DataTable $Data
                                 New-HTMLTable -DataTable $Results {
-                                    New-HTMLTableCondition -Name 'Status' -Value $true -Color Green -Row
-                                    New-HTMLTableCondition -Name 'Status' -Value $false -Color Red -Row
+                                    New-HTMLTableCondition -Name 'Status' -Value $true -BackgroundColor $ColorPassed -Color $ColorPassedText #-Row
+                                    New-HTMLTableCondition -Name 'Status' -Value $false -BackgroundColor $ColorFailed -Color $ColorFailedText #-Row
+                                    New-HTMLTableCondition -Name 'Status' -Value $null -BackgroundColor $ColorSkipped -Color $ColorSkippedText #-Row
                                 }
                             }
                         }
@@ -111,14 +128,16 @@
                                 $Results = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Results']
                                 #$Details = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Details']
                                 [Array] $PassedTestsSingular = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Results'] | Where-Object { $_.Status -eq $true }
-                                [Array] $FailedTestsSingular = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Results'] | Where-Object { $_.Status -ne $true }
+                                [Array] $FailedTestsSingular = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Results'] | Where-Object { $_.Status -eq $false }
+                                [Array] $SkippedTestsSingular = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Results'] | Where-Object { $_.Status -ne $true -and $_.Status -ne $false }
 
                                 New-HTMLSection -HeaderText $Name -HeaderBackGroundColor DarkGray {
                                     New-HTMLContainer {
                                         New-HTMLPanel {
                                             New-HTMLChart {
-                                                New-ChartPie -Name 'Passed' -Value ($PassedTestsSingular.Count) -Color ForestGreen
-                                                New-ChartPie -Name 'Failed' -Value ($FailedTestsSingular.Count) -Color OrangeRed
+                                                New-ChartPie -Name 'Passed' -Value ($PassedTestsSingular.Count) -Color $ColorPassed
+                                                New-ChartPie -Name 'Failed' -Value ($FailedTestsSingular.Count) -Color $ColorFailed
+                                                New-ChartPie -Name 'Skipped' -Value ($SkippedTestsSingular.Count) -Color $ColorSkipped
                                             }
                                             New-HTMLCodeBlock -Code $SourceCode -Style 'PowerShell' -Theme enlighter
                                         }
@@ -127,8 +146,9 @@
                                         New-HTMLPanel {
                                             New-HTMLTable -DataTable $Data
                                             New-HTMLTable -DataTable $Results {
-                                                New-HTMLTableCondition -Name 'Status' -Value $true -Color Green -Row
-                                                New-HTMLTableCondition -Name 'Status' -Value $false -Color Red -Row
+                                                New-HTMLTableCondition -Name 'Status' -Value $true -BackgroundColor $ColorPassed -Color $ColorPassedText #-Row
+                                                New-HTMLTableCondition -Name 'Status' -Value $false -BackgroundColor $ColorFailed -Color $ColorFailedText #-Row
+                                                New-HTMLTableCondition -Name 'Status' -Value $null -BackgroundColor $ColorSkipped -Color $ColorSkippedText #-Row
                                             }
                                         }
                                     }

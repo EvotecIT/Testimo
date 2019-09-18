@@ -20,15 +20,21 @@
             try {
                 $LoadedConfiguration = $FileContent | ConvertFrom-Json
             } catch {
-                Out-Begin -Text "Loading configuration from JSON failed. Skipping."  -Level 0
-                Out-Status -Status $null -Domain $Domain -DomainController $DomainController -ExtendedValue ("Not JSON or syntax is incorrect.")
+                #Out-Begin -Text "Loading configuration from JSON failed. Skipping."  -Level 0
+                #Out-Status -Status $null -Domain $Domain -DomainController $DomainController -ExtendedValue ("Not JSON or syntax is incorrect.")
+
+                Out-Informative -Text "Loading configuration from JSON failed. Skipping." -Level 0 -Status $null -Domain $Domain -DomainController $DomainController -ExtendedValue ("Not JSON or syntax is incorrect.")
                 return
             }
         } else {
-            Out-Begin -Text "Loading configuratio failed. Skipping."  -Level 0
-            Out-Status -Status $null -Domain $Domain -DomainController $DomainController -ExtendedValue ("Not JSON/Hashtable or syntax is incorrect.")
+            #Out-Begin -Text "Loading configuratio failed. Skipping."  -Level 0
+            #Out-Status -Status $null -Domain $Domain -DomainController $DomainController -ExtendedValue ("Not JSON/Hashtable or syntax is incorrect.")
+
+
+            Out-Informative -Text "Loading configuratio failed. Skipping."  -Level 0 -Status $null -Domain $Domain -DomainController $DomainController -ExtendedValue ("Not JSON/Hashtable or syntax is incorrect.")
         }
-        Out-Begin -Text "Using configuration provided by user" -Level 0
+        #Out-Begin -Text "Using configuration provided by user" -Level 0
+        Out-Informative -Text  "Using configuration provided by user" -Level 0 -Start
         $Scopes = 'Forest', 'Domain', 'DomainControllers'
         foreach ($Scope in $Scopes) {
 
@@ -99,10 +105,16 @@
                 }
             }
         }
-        Out-Status -Status $null -Domain $Domain -DomainController $DomainController -ExtendedValue ("Configuration loaded from $Option")
+        #Out-Status -Status $null -Domain $Domain -DomainController $DomainController -ExtendedValue ("Configuration loaded from $Option")
+
+
+        Out-Informative -Status $null -Domain $Domain -DomainController $DomainController -ExtendedValue ("Configuration loaded from $Option") -End
+
     } else {
-        Out-Begin -Text "Using configuration defaults" -Level 0
-        Out-Status -Status $null -Domain $Domain -DomainController $DomainController -ExtendedValue ("No configuration provided by user")
+        Out-Informative -Text  "Using configuration defaults" -Level 0 -Status $null -ExtendedValue ("No configuration provided by user") #-Domain $Domain -DomainController $DomainController
+
+        # Out-Begin -Text "Using configuration defaults" -Level 0
+        # Out-Status -Status $null -Domain $Domain -DomainController $DomainController -ExtendedValue ("No configuration provided by user")
     }
 }
 

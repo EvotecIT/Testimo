@@ -39,25 +39,22 @@
         $TestType = 'Forest'
         $TestText = "Forest | $Text"
     }
-    if ($null -ne $Status) {
-        $Output = [PSCustomObject]@{
-            #ReferenceID      = $ReferenceID
-            Name             = $TestText
-            Type             = $TestType
-            Domain           = $Domain
-            DomainController = $DomainController
-            Status           = $Status
-            Extended         = $ExtendedValue
-        }
 
-        if ($Domain -and $DomainController) {
-            $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['Results'].Add($Output)
-        } elseif ($Domain) {
-            $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['Results'].Add($Output)
-        } else {
-            $Script:Reporting['Forest']['Tests'][$ReferenceID]['Results'].Add($Output)
-        }
-        #$Script:Reporting[$ReferenceID]['Results'].Add($Output)
-        $Script:TestResults.Add($Output)
+    $Output = [PSCustomObject]@{
+        Name             = $TestText
+        Type             = $TestType
+        Status           = $Status
+        Extended         = $ExtendedValue
+        Domain           = $Domain
+        DomainController = $DomainController
     }
+
+    if ($Domain -and $DomainController) {
+        $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['Results'].Add($Output)
+    } elseif ($Domain) {
+        $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['Results'].Add($Output)
+    } else {
+        $Script:Reporting['Forest']['Tests'][$ReferenceID]['Results'].Add($Output)
+    }
+    $Script:TestResults.Add($Output)
 }

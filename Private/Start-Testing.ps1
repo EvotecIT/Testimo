@@ -43,8 +43,10 @@
     [bool] $IsDomainRoot = $ForestInformation.Name -eq $Domain
 
 
-    Out-Begin -Type 'i' -Text $SummaryText -Level ($LevelSummary - 3) -Domain $Domain -DomainController $DomainController
-    Out-Status -Text $SummaryText -Status $null -ExtendedValue '' -Domain $Domain -DomainController $DomainController
+    # Out-Begin -Type 'i' -Text $SummaryText -Level ($LevelSummary - 3) -Domain $Domain -DomainController $DomainController
+    # Out-Status -Text $SummaryText -Status $null -ExtendedValue '' -Domain $Domain -DomainController $DomainController
+
+    Out-Informative -Text $SummaryText -Status $null -ExtendedValue '' -Domain $Domain -DomainController $DomainController  -Level ($LevelSummary - 3)
 
     $TestsSummaryTogether = @(
         foreach ($Source in $($Script:TestimoConfiguration.$Scope.Keys)) {
@@ -55,6 +57,10 @@
                 continue
             }
             if ($CurrentSection['Enable'] -eq $true) {
+                $Time = Start-TimeLog
+                $CurrentSource = $CurrentSection['Source']
+                [Array] $AllTests = $CurrentSection['Tests'].Keys
+
                 $ReferenceID = $Source #Get-RandomStringName -Size 8
                 $TestsSummary = [PSCustomobject] @{
                     Passed  = 0
@@ -62,38 +68,6 @@
                     Skipped = 0
                     Total   = 0 # $AllTests.Count + 1 # +1 includes availability of data test
                 }
-
-                if (-not $CurrentSection['Source']) {
-                    Write-Warning "Source $Source in scope: $Scope is defined improperly. Please verify."
-                    continue
-                }
-                $CurrentSource = $CurrentSection['Source']
-                [Array] $AllTests = $CurrentSection['Tests'].Keys
-
-                $Time = Start-TimeLog
-                # Check if requirements are met
-                if ($CurrentSource['Requirements']) {
-                    if ($null -ne $CurrentSource['Requirements']['IsDomainRoot']) {
-                        if (-not $CurrentSource['Requirements']['IsDomainRoot'] -eq $IsDomainRoot) {
-                            #$TestsSummary.Skipped = $TestsSummary.Skipped + 1
-                            #$TestsSummary.Total = $TestsSummary.Failed + $TestsSummary.Passed + $TestsSummary.Skipped
-                            #$TestsSummary
-                            continue
-                        }
-                    }
-                    if ($null -ne $CurrentSource['Requirements']['IsPDC']) {
-                        if (-not $CurrentSource['Requirements']['IsPDC'] -eq $IsPDC) {
-                            #$TestsSummary.Skipped = $TestsSummary.Skipped + 1
-                            #$TestsSummary.Total = $TestsSummary.Failed + $TestsSummary.Passed + $TestsSummary.Skipped
-                            #$TestsSummary
-                            continue
-                        }
-                    }
-                    # return TestsSummary doesn't make sense at the moment. Since there is no information we're trying to execute Source in the end there will be just information a test was skipped without more insight
-                    # We need to either inform that test was skipped and deliver output which I am not sure makes sense
-                    # To be decided
-                }
-
                 # build data output for extended results
 
                 if ($Domain -and $DomainController) {
@@ -124,16 +98,49 @@
                         DomainController = $DomainController
                     }
                 }
-                <#
-                   $Script:Reporting[$ReferenceID] = @{
-                        Name             = $CurrentSource['Name']
-                        SourceCode       = $CurrentSource['Data']
-                        Details          = $CurrentSource['Details']
-                        Results          = [System.Collections.Generic.List[PSCustomObject]]::new()
-                        Domain           = $Domain
-                        DomainController = $DomainController
+
+                if (-not $CurrentSection['Source']) {
+                    Write-Warning "Source $Source in scope: $Scope is defined improperly. Please verify."
+                    continue
+                }
+
+                # Check if requirements are met
+                if ($CurrentSource['Requirements']) {
+                    if ($null -ne $CurrentSource['Requirements']['IsDomainRoot']) {
+                        if (-not $CurrentSource['Requirements']['IsDomainRoot'] -eq $IsDomainRoot) {
+                            Out-Skip -Test $CurrentSource['Name'] -DomainController $DomainController `
+                                -Domain $Domain -TestsSummary $TestsSummary -Source $ReferenceID -Level $Level
+                            continue
+                        }
                     }
-                #>
+                    if ($null -ne $CurrentSource['Requirements']['IsPDC']) {
+                        if (-not $CurrentSource['Requirements']['IsPDC'] -eq $IsPDC) {
+                            Out-Skip -Test $CurrentSource['Name'] -DomainController $DomainController `
+                                -Domain $Domain -TestsSummary $TestsSummary -Source $ReferenceID -Level $Level
+                            continue
+                        }
+                    }
+                    if ($null -ne $CurrentSource['Requirements']['OperatingSystem']) {
+
+
+                    }
+                    if ($null -ne $CurrentSource['Requirements']['CommandAvailable']) {
+                        [Array] $Commands = foreach ($Command in $CurrentSource['Requirements']['CommandAvailable']) {
+                            $OutputCommand = Get-Command -Name $Command -ErrorAction SilentlyContinue
+                            if (-not $OutputCommand) {
+                                $false
+                            }
+                        }
+                        if ($Commands -contains $false) {
+                            $CommandsTested = $CurrentSource['Requirements']['CommandAvailable'] -join ', '
+                            Out-Skip -Test $CurrentSource['Name'] -DomainController $DomainController `
+                                -Domain $Domain -TestsSummary $TestsSummary -Source $ReferenceID -Level $Level `
+                                -Reason "Skipping - At least one command unavailable ($CommandsTested)"
+                            continue
+                        }
+                    }
+                }
+
 
 
                 if ($CurrentSource['Parameters']) {
@@ -207,11 +214,7 @@
                                 $Parameters = $null
                             }
                             $TestsResults = Start-TestingTest -Test $CurrentTest['Name'] -Level $LevelTest -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID {
-                                if ($CurrentTest['Data'] -is [ScriptBlock]) {
-                                    & $CurrentTest['Data'] -Object $Object -Domain $Domain -DomainController $DomainController @Parameters -Level $LevelTest #-TestName $CurrentTest['TestName']
-                                } else {
-                                    Test-Value -Object $Object -Domain $Domain -DomainController $DomainController @Parameters -Level $LevelTest -TestName $CurrentTest['Name'] -ReferenceID $ReferenceID
-                                }
+                                Test-StepOne -Object $Object -Domain $Domain -DomainController $DomainController @Parameters -Level $LevelTest -TestName $CurrentTest['Name'] -ReferenceID $ReferenceID
                             }
                             $TestsSummary.Passed = $TestsSummary.Passed + ($TestsResults | Where-Object { $_ -eq $true }).Count
                             $TestsSummary.Failed = $TestsSummary.Failed + ($TestsResults | Where-Object { $_ -eq $false }).Count
