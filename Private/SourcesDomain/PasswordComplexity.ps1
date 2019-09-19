@@ -1,8 +1,8 @@
 ﻿$PasswordComplexity = @{
     Enable = $true
     Source = @{
-        Name       = 'Password Complexity Requirements'
-        Data       = {
+        Name    = 'Password Complexity Requirements'
+        Data    = {
             # Imports all commands / including private ones from PSWinDocumentation.AD
             $ADModule = Import-Module PSWinDocumentation.AD -PassThru
             & $ADModule { param($Domain); Get-WinADDomainDefaultPasswordPolicy -Domain $Domain } $Domain
@@ -20,16 +20,27 @@
         }
     }
     Tests  = [ordered] @{
-        ComplexityEnabled               = @{
+        ComplexityEnabled             = @{
             Enable     = $true
             Name       = 'Complexity Enabled'
+            Details    = [ordered] @{
+                Area        = ''
+                Category    = ''
+                Severity    = ''
+                RiskLevel   = 0
+                Description = ''
+                Resolution  = ''
+                Resources   = @(
+
+                )
+            }
             Parameters = @{
                 Property      = 'Complexity Enabled'
                 ExpectedValue = $true
                 OperationType = 'eq'
             }
         }
-        'LockoutDuration'              = @{
+        'LockoutDuration'             = @{
             Enable     = $true
             Name       = 'Lockout Duration'
             Parameters = @{
@@ -47,7 +58,7 @@
                 OperationType = 'ge'
             }
         }
-        'LockoutThreshold'             = @{
+        'LockoutThreshold'            = @{
             Enable     = $true
             Name       = 'Lockout Threshold'
             Parameters = @{
