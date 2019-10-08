@@ -3,7 +3,7 @@
     Source = [ordered] @{
         Name    = 'RDP Security'
         Data    = {
-            Get-ComputerRDP -ComputerName $DomainController
+            Get-ComputerRDP -ComputerName $DomainController -WarningAction SilentlyContinue
         }
         Details = [ordered] @{
             Area             = 'Connectivity'

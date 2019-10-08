@@ -17,7 +17,7 @@ $Configuration = @{
             # Script module or binary module file associated with this manifest.
             RootModule           = 'Testimo.psm1'
             # Version number of this module.
-            ModuleVersion        = '0.0.22'
+            ModuleVersion        = '0.0.23'
             # Supported PSEditions
             CompatiblePSEditions = @('Desktop')
             # ID used to uniquely identify this module
@@ -48,12 +48,12 @@ $Configuration = @{
             ProjectUri           = 'https://github.com/EvotecIT/Testimo'
 
             RequiredModules      = @(
-                @{ ModuleName = 'PSSharedGoods'; ModuleVersion = "0.0.102"; Guid = 'ee272aa8-baaa-4edf-9f45-b6d6f7d844fe' }
+                @{ ModuleName = 'PSSharedGoods'; ModuleVersion = "0.0.103"; Guid = 'ee272aa8-baaa-4edf-9f45-b6d6f7d844fe' }
                 @{ ModuleName = 'PSWinDocumentation.AD'; ModuleVersion = "0.1.14"; Guid = 'a46f9775-04d2-4423-9631-01cfda42b95d' }
                 @{ ModuleName = 'PSWinDocumentation.DNS'; ModuleVersion = "0.0.8"; Guid = '462dd5e2-f32a-4263-bff5-22edf28882d0' }
                 @{ ModuleName = 'ADEssentials'; ModuleVersion = "0.0.19"; Guid = '9fc9fd61-7f11-4f4b-a527-084086f1905f' }
                 @{ ModuleName = 'PSEventViewer'; ModuleVersion = "1.0.7"; Guid = '5df72a79-cdf6-4add-b38d-bcacf26fb7bc' }
-                @{ ModuleName = 'PSWriteHTML'; ModuleVersion = "0.0.52"; Guid = 'a7bdf640-f5cb-4acf-9de0-365b322d245c' }
+                @{ ModuleName = 'PSWriteHTML'; ModuleVersion = "0.0.55"; Guid = 'a7bdf640-f5cb-4acf-9de0-365b322d245c' }
                 @{ ModuleName = 'Emailimo'; ModuleVersion = "0.0.9"; Guid = '3e94ee8d-4851-467e-8f84-17e518f8f865' }
             )
         }
