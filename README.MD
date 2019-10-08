@@ -37,6 +37,45 @@ Things to know:
 
 - 0.0.23 - 08.10.2019
   - Tests
+    - [x] DCDiagnostics - **Added**
+      - [x] Basically wrapper over DcDiag
+        - [x] Checks Connectivity
+        - [x] Checks Advertising
+        - [x] Checks CheckSecurityError
+        - [x] Checks CutoffServers
+        - [x] Checks FrsEvent
+        - [x] Checks DFSREvent
+        - [x] Checks SysVolCheck
+        - [x] Checks FrsSysVol
+        - [x] Checks KccEvent
+        - [x] Checks KnowsOfRoleHolders
+        - [x] Checks MachineAccount
+        - [x] Checks NCSecDesc
+        - [x] Checks NetLogons
+        - [x] Checks ObjectsReplicated
+        - [x] Checks Replications
+        - [x] Checks RidManager
+        - [x] Checks Services
+        - [x] Checks SystemLog
+        - [x] Checks Topology
+        - [x] Checks VerifyEnterpriseReferences
+        - [x] Checks VerifyReferences
+        - [x] Checks VerifyReplicas
+        - [x] Checks DNS
+        - [x] Checks ForestDnsZonesCheckSDRefDom
+        - [x] Checks ForestDnsZonesCrossRefValidation
+        - [x] Checks DomainDnsZonesCheckSDRefDom
+        - [x] Checks DomainDnsZonesCrossRefValidation
+        - [x] Checks SchemaCheckSDRefDom
+        - [x] Checks SchemaCrossRefValidation
+        - [x] Checks ConfigurationCheckSDRefDom
+        - [x] Checks ConfigurationCrossRefValidation
+        - [x] Checks NetbiosCheckSDRefDom
+        - [x] Checks NetbiosCrossRefValidation
+        - [x] Checks DNSDomain
+        - [x] Checks LocatorCheck
+        - [x] Checks FsmoCheck
+        - [x] Checks Intersite
     - [x] DCEventLog - **Added**
       - [x] Check for Application Log - LogMode/LogFull
       - [x] Check for System Log - LogMode/LogFull
