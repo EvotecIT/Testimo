@@ -35,7 +35,7 @@ Things to know:
 
 ### ChangeLog
 
-- 0.0.23 - Unreleased
+- 0.0.23 - 08.10.2019
   - Tests
     - [x] DCEventLog - **Added**
       - [x] Check for Application Log - LogMode/LogFull
