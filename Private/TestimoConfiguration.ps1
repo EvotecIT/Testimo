@@ -64,6 +64,7 @@
         GroupPolicySYSVOL           = $GroupPolicySYSVOL
         LanManagerSettings          = $LanManagerSettings
         Diagnostics                 = $Diagnostics
+        LanManServer                = $LanManServer
     }
     Debug             = [ordered] @{
         ShowErrors = $false
