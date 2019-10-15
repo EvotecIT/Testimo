@@ -14,13 +14,13 @@
                 'https://adsecurity.org/?p=3377'
             )
         }
-        Requirements = @{
+        Requirements   = @{
             CommandAvailable = 'Get-WinADLMSettings'
         }
         ExpectedOutput = $true
     }
     Tests  = [ordered] @{
-        Level                    = @{
+        Level                     = @{
             Enable     = $true
             Name       = 'LM Level'
             Parameters = @{
@@ -38,7 +38,7 @@
                 )
             }
         }
-        AuditBaseObjects         = @{
+        AuditBaseObjects          = @{
             Enable     = $true
             Name       = 'Audit Base Objects'
             Parameters = @{
@@ -56,7 +56,7 @@
                 )
             }
         }
-        CrashOnAuditFail         = @{
+        CrashOnAuditFail          = @{
             Enable     = $true
             Name       = 'Crash On Audit Fail'
             Parameters = @{
@@ -74,7 +74,26 @@
                 )
             }
         }
-        SecureBoot               = @{
+        EveryoneIncludesAnonymous = {
+            Enable     = $true
+            Name       = 'Everyone Includes Anonymous'
+            Parameters = @{
+                Property      = 'EveryoneIncludesAnonymous'
+                ExpectedValue = $false
+                OperationType = 'eq'
+            }
+            Details    = [ordered] @{
+                Title       = 'Disable and Enforce the Setting "Network access: Let Everyone permissions apply to anonymous users"'
+                Area        = ''
+                Description = 'This setting helps to prevent an unauthorized user could from anonymously listing account names and shared resources and use using the information to attempt to guess passwords, perform social engineering attacks, or launch DoS attacks.'
+                Resolution  = ''
+                RiskLevel   = 10
+                Resources   = @(
+                    'https://www.stigviewer.com/stig/windows_7/2014-04-02/finding/V-3377'
+                )
+            }
+        }
+        SecureBoot                = @{
             Enable     = $true
             Name       = 'Secure Boot'
             Parameters = @{
@@ -92,7 +111,7 @@
                 )
             }
         }
-        LSAProtectionCredentials = @{
+        LSAProtectionCredentials  = @{
             Enable     = $true
             Name       = 'LSAProtectionCredentials'
             Parameters = @{
@@ -110,7 +129,7 @@
                 )
             }
         }
-        LimitBlankPasswordUse    = @{
+        LimitBlankPasswordUse     = @{
             Enable     = $true
             Name       = 'LimitBlankPasswordUse'
             Parameters = @{
@@ -128,7 +147,7 @@
                 )
             }
         }
-        NoLmHash                 = @{
+        NoLmHash                  = @{
             Enable     = $true
             Name       = 'NoLmHash'
             Parameters = @{
@@ -146,7 +165,7 @@
                 )
             }
         }
-        DisableDomainCreds       = @{
+        DisableDomainCreds        = @{
             Enable     = $true
             Name       = 'DisableDomainCreds'
             Parameters = @{
@@ -164,7 +183,7 @@
                 )
             }
         }
-        ForceGuest               = @{
+        ForceGuest                = @{
             Enable     = $true
             Name       = 'ForceGuest'
             Parameters = @{
