@@ -35,6 +35,12 @@ Things to know:
 
 ### ChangeLog
 
+- 0.0.24 - Unreleased
+  - Tests
+    - [x] DCLanManServer
+      - [x] Microsoft network server: Digitally sign communications (if client agrees)
+      - [x] Microsoft network server: Digitally sign communications (always)
+      - [x] Users are not forcibly disconnected when logon hours expire.
 - 0.0.23 - 08.10.2019
   - Tests
     - [x] DCDiagnostics - **Added**

@@ -65,6 +65,8 @@
         LanManagerSettings          = $LanManagerSettings
         Diagnostics                 = $Diagnostics
         LanManServer                = $LanManServer
+        MSSLegacy                   = $MSSLegacy
+        FileSystem                  = $FileSystem
     }
     Debug             = [ordered] @{
         ShowErrors = $false
