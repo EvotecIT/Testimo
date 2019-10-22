@@ -55,7 +55,7 @@
                 )
             }
         }
-        MinimalEncryptionLevelValue = [ordered] @{
+        MinimalEncryptionLevel = [ordered] @{
             Enable     = $true
             Name       = 'Minimal Encryption Level is set to at least High'
             Parameters = @{
