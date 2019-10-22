@@ -8,7 +8,7 @@
         Details        = [ordered] @{
             Type        = 'Security'
             Area        = ''
-            Description = ''
+            Description = 'Storage of administrative credentials could allow unauthorized access. Disallowing the storage of RunAs credentials for Windows Remote Management will prevent them from being used with plug-ins. The Windows Remote Management (WinRM) service must not store RunAs credentials.'
             Resolution  = ''
             RiskLevel   = 10
             Resources   = @(
@@ -31,7 +31,7 @@
             }
             Details    = [ordered] @{
                 Area        = ''
-                Description = 'The Windows Remote Management (WinRM) service must not store RunAs credentials.'
+                Description = 'Storage of administrative credentials could allow unauthorized access. Disallowing the storage of RunAs credentials for Windows Remote Management will prevent them from being used with plug-ins. The Windows Remote Management (WinRM) service must not store RunAs credentials.'
                 Resolution  = ''
                 RiskLevel   = 10
                 Resources   = @(
