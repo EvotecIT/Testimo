@@ -37,6 +37,16 @@ Things to know:
 
 - 0.0.24 - Unreleased
   - Tests
+    - [x] DCSMBProtocols - added BPA findings
+      - [x] AutoDisconnectTimeout
+      - [x] CachedOpenLimit
+      - [x] DurableHandleV2TimeoutInSeconds
+      - [x] EnableSMB1Protocol
+      - [x] EnableSMB2Protocol
+      - [x] MaxThreadsPerQueue
+      - [x] Smb2CreditsMin
+      - [x] Smb2CreditsMax
+      - [x] RequireSecuritySignature
     - [x] DCNetSessionEnumaration (Net Cease)
       - [x] Hardening Net Session Enumeration
     - [x] DCLanManServer
