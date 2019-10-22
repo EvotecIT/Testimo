@@ -67,6 +67,7 @@
         LanManServer                = $LanManServer
         MSSLegacy                   = $MSSLegacy
         FileSystem                  = $FileSystem
+        NetSessionEnumaration       = $NetSessionEnumaration
     }
     Debug             = [ordered] @{
         ShowErrors = $false

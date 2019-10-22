@@ -37,6 +37,8 @@ Things to know:
 
 - 0.0.24 - Unreleased
   - Tests
+    - [x] DCNetSessionEnumaration (Net Cease)
+      - [x] Hardening Net Session Enumeration
     - [x] DCLanManServer
       - [x] Microsoft network server: Digitally sign communications (if client agrees)
       - [x] Microsoft network server: Digitally sign communications (always)
