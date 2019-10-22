@@ -17,7 +17,7 @@
             )
         }
         Requirements   = @{
-            CommandAvailable = 'Get-WinADLMSettings'
+            CommandAvailable = 'Get-PSRegistry'
         }
         ExpectedOutput = $true
     }
