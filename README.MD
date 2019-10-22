@@ -37,6 +37,8 @@ Things to know:
 
 - 0.0.24 - Unreleased
   - Tests
+    - [x] DCServiceWINRM
+      - [x] DisableRunAS
     - [x] DCSMBProtocols - added BPA findings
       - [x] AutoDisconnectTimeout
       - [x] CachedOpenLimit
