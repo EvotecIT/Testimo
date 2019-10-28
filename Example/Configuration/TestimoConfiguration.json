@@ -1155,7 +1155,15 @@
                                                                                                                     "ExpectedValue":  true,
                                                                                                                     "OperationType":  "eq"
                                                                                                                 }
-                                                                                             }
+                                                                                             },
+                                                                "MinimalEncryptionLevel":  {
+                                                                                               "Enable":  true,
+                                                                                               "Parameters":  {
+                                                                                                                  "Property":  "MinimalEncryptionLevelValue",
+                                                                                                                  "ExpectedValue":  3,
+                                                                                                                  "OperationType":  "ge"
+                                                                                                              }
+                                                                                           }
                                                             }
                                               },
                               "DiskSpace":  {
@@ -1408,6 +1416,38 @@
                               "SMBProtocols":  {
                                                    "Enable":  true,
                                                    "Tests":  {
+                                                                 "AsynchronousCredits":  {
+                                                                                             "Enable":  true,
+                                                                                             "Parameters":  {
+                                                                                                                "Property":  "AsynchronousCredits",
+                                                                                                                "ExpectedValue":  64,
+                                                                                                                "OperationType":  "eq"
+                                                                                                            }
+                                                                                         },
+                                                                 "AutoDisconnectTimeout":  {
+                                                                                               "Enable":  true,
+                                                                                               "Parameters":  {
+                                                                                                                  "Property":  "AutoDisconnectTimeout",
+                                                                                                                  "ExpectedValue":  0,
+                                                                                                                  "OperationType":  "eq"
+                                                                                                              }
+                                                                                           },
+                                                                 "CachedOpenLimit":  {
+                                                                                         "Enable":  true,
+                                                                                         "Parameters":  {
+                                                                                                            "Property":  "CachedOpenLimit",
+                                                                                                            "ExpectedValue":  5,
+                                                                                                            "OperationType":  "eq"
+                                                                                                        }
+                                                                                     },
+                                                                 "DurableHandleV2TimeoutInSeconds":  {
+                                                                                                         "Enable":  true,
+                                                                                                         "Parameters":  {
+                                                                                                                            "Property":  "DurableHandleV2TimeoutInSeconds",
+                                                                                                                            "ExpectedValue":  30,
+                                                                                                                            "OperationType":  "eq"
+                                                                                                                        }
+                                                                                                     },
                                                                  "EnableSMB1Protocol":  {
                                                                                             "Enable":  true,
                                                                                             "Parameters":  {
@@ -1423,7 +1463,39 @@
                                                                                                                "ExpectedValue":  true,
                                                                                                                "OperationType":  "eq"
                                                                                                            }
-                                                                                        }
+                                                                                        },
+                                                                 "MaxThreadsPerQueue":  {
+                                                                                            "Enable":  true,
+                                                                                            "Parameters":  {
+                                                                                                               "Property":  "MaxThreadsPerQueue",
+                                                                                                               "ExpectedValue":  20,
+                                                                                                               "OperationType":  "eq"
+                                                                                                           }
+                                                                                        },
+                                                                 "Smb2CreditsMin":  {
+                                                                                        "Enable":  true,
+                                                                                        "Parameters":  {
+                                                                                                           "Property":  "Smb2CreditsMin",
+                                                                                                           "ExpectedValue":  128,
+                                                                                                           "OperationType":  "eq"
+                                                                                                       }
+                                                                                    },
+                                                                 "Smb2CreditsMax":  {
+                                                                                        "Enable":  true,
+                                                                                        "Parameters":  {
+                                                                                                           "Property":  "Smb2CreditsMax",
+                                                                                                           "ExpectedValue":  2048,
+                                                                                                           "OperationType":  "eq"
+                                                                                                       }
+                                                                                    },
+                                                                 "RequireSecuritySignature":  {
+                                                                                                  "Enable":  true,
+                                                                                                  "Parameters":  {
+                                                                                                                     "Property":  "RequireSecuritySignature",
+                                                                                                                     "ExpectedValue":  true,
+                                                                                                                     "OperationType":  "eq"
+                                                                                                                 }
+                                                                                              }
                                                              }
                                                },
                               "SMBShares":  {
@@ -2039,6 +2111,31 @@
                                                                                                                    }
                                                                                                 }
                                                            }
-                                             }
+                                             },
+                              "NetSessionEnumaration":  {
+                                                            "Enable":  true,
+                                                            "Source":  {
+                                                                           "ExpectedOutput":  false
+                                                                       },
+                                                            "Tests":  {
+
+                                                                      }
+                                                        },
+                              "ServiceWINRM":  {
+                                                   "Enable":  true,
+                                                   "Source":  {
+                                                                  "ExpectedOutput":  true
+                                                              },
+                                                   "Tests":  {
+                                                                 "DisableRunAs":  {
+                                                                                      "Enable":  true,
+                                                                                      "Parameters":  {
+                                                                                                         "Property":  "DisableRunAs",
+                                                                                                         "ExpectedValue":  1,
+                                                                                                         "OperationType":  "eq"
+                                                                                                     }
+                                                                                  }
+                                                             }
+                                               }
                           }
 }

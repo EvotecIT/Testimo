@@ -12,7 +12,7 @@
     RootModule = 'Testimo.psm1'
 
     # Version number of this module.
-    ModuleVersion = '0.0.23'
+    ModuleVersion = '0.0.24'
 
     # Supported PSEditions
     CompatiblePSEditions = 'Desktop'
@@ -56,8 +56,8 @@
         @{ModuleName = 'PSWinDocumentation.DNS'; GUID = '462dd5e2-f32a-4263-bff5-22edf28882d0'; ModuleVersion = '0.0.8'; }, 
         @{ModuleName = 'ADEssentials'; GUID = '9fc9fd61-7f11-4f4b-a527-084086f1905f'; ModuleVersion = '0.0.22'; }, 
         @{ModuleName = 'PSEventViewer'; GUID = '5df72a79-cdf6-4add-b38d-bcacf26fb7bc'; ModuleVersion = '1.0.7'; }, 
-        @{ModuleName = 'PSWriteHTML'; GUID = 'a7bdf640-f5cb-4acf-9de0-365b322d245c'; ModuleVersion = '0.0.57'; }, 
-        @{ModuleName = 'Emailimo'; GUID = '3e94ee8d-4851-467e-8f84-17e518f8f865'; ModuleVersion = '0.0.9'; })
+        @{ModuleName = 'PSWriteHTML'; GUID = 'a7bdf640-f5cb-4acf-9de0-365b322d245c'; ModuleVersion = '0.0.58'; }, 
+        @{ModuleName = 'Emailimo'; GUID = '3e94ee8d-4851-467e-8f84-17e518f8f865'; ModuleVersion = '0.0.10'; })
 
     # Assemblies that must be loaded prior to importing this module
     # RequiredAssemblies = @()
