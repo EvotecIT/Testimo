@@ -37,6 +37,22 @@ Things to know:
 
 - 0.0.24 - Unreleased
   - Tests
+    - [x] DCRDPSecurity
+      - [x] Minimum Encryption Level
+    - [x] DCServiceWINRM
+      - [x] DisableRunAS
+    - [x] DCSMBProtocols - added BPA findings
+      - [x] AutoDisconnectTimeout
+      - [x] CachedOpenLimit
+      - [x] DurableHandleV2TimeoutInSeconds
+      - [x] EnableSMB1Protocol
+      - [x] EnableSMB2Protocol
+      - [x] MaxThreadsPerQueue
+      - [x] Smb2CreditsMin
+      - [x] Smb2CreditsMax
+      - [x] RequireSecuritySignature
+    - [x] DCNetSessionEnumaration (Net Cease)
+      - [x] Hardening Net Session Enumeration
     - [x] DCLanManServer
       - [x] Microsoft network server: Digitally sign communications (if client agrees)
       - [x] Microsoft network server: Digitally sign communications (always)
