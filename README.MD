@@ -26,16 +26,18 @@ It's goal is to be fully automated solution where one can run the command and ge
 If you're new to **Testimo** you should read this [blog post](https://evotec.xyz/what-do-we-say-to-health-checking-active-directory/)!
 
 Things to know:
+
 - [x] Configuration hash is not written in stone and can change rapidly as Testimo gets tested
 - [x] Ideas are VERY welcome
 - [x] There's a big mess in files/function names - I'm still testing things out creating some random names, will be cleaned up later on
 - [x] There are lots of details missing for tests, and some things may not work as you want - please report issues or if you know how, fix them
 - [x] I don't know EVERYTHING - I'm very open to help with making Testimo more robust, detailed and easy to use
 
-
-### ChangeLog
+## ChangeLog
 
 - 0.0.24 - Unreleased
+  - Engine
+    - Small configuration saving fixes
   - Tests
     - [x] DCRDPSecurity
       - [x] Minimum Encryption Level
@@ -175,6 +177,7 @@ Nothing is written in stone for now. Things can change day by day.
 - Recommended, Default, Sane - not all tests are equal or make sense in all conditions
 
 Tests are based on:
+
 - [Active Directory CheckList](https://github.com/mczerniawski/Active-Directory-CheckList)
 - [AD Health & Checkup](https://arnaudloos.com/AD-Health-Check/)
 - Some tests I've defined myself
@@ -338,6 +341,7 @@ $OutputOrderedDictionary.Forest.OptionalFeatures.Tests.LapsAvailable.Parameters.
 ## Using Invoke-Testimo with non-default configuration
 
 Following configuration allows you to:
+
 - Edit default TestImo configuration with some other values
 - Exclude one of the domains
 - Return Results for future processing
@@ -396,7 +400,6 @@ There are times where you may want to use **Testimo** in Portable way.
 Following function when executed will download all modules to given path and load them for you.
 Following [blog post](https://evotec.xyz/making-powershellgallery-modules-portable/) shows the way.
 It was written specifically for Testimo.
-
 
 ```PowerShell
 Initialize-ModulePortable -Name 'Testimo' -Path "$PSScriptRoot\TestimoPortable" -Download
