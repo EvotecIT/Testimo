@@ -29,23 +29,25 @@
                 $NewConfig[$Scope][$Source]['Tests'][$Test]['Enable'] = $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Enable']
                 $NewConfig[$Scope][$Source]['Tests'][$Test]['Parameters'] = [ordered] @{ }
 
-                if ($null -ne $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']['Property']) {
-
+                if ($null -ne $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']) {
                     if ($null -ne $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']['Property']) {
-                        $NewConfig[$Scope][$Source]['Tests'][$Test]['Parameters']['Property'] = $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']['Property']
+
+                        if ($null -ne $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']['Property']) {
+                            $NewConfig[$Scope][$Source]['Tests'][$Test]['Parameters']['Property'] = $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']['Property']
+                        }
+                        if ($null -ne $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']['ExpectedValue']) {
+                            $NewConfig[$Scope][$Source]['Tests'][$Test]['Parameters']['ExpectedValue'] = $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']['ExpectedValue']
+                        }
+                        if ($null -ne $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']['ExpectedCount']) {
+                            $NewConfig[$Scope][$Source]['Tests'][$Test]['Parameters']['ExpectedCount'] = $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']['ExpectedCount']
+                        }
+                        if ($null -ne $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']['OperationType']) {
+                            $NewConfig[$Scope][$Source]['Tests'][$Test]['Parameters']['OperationType'] = $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']['OperationType']
+                        }
+                        #if ($nulle -ne $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']['PropertyExtendedValue']) {
+                        #    $NewConfig[$Scope][$Source]['Tests'][$Test]['Parameters']['PropertyExtendedValue'] = $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']['PropertyExtendedValue']
+                        #}
                     }
-                    if ($null -ne $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']['ExpectedValue']) {
-                        $NewConfig[$Scope][$Source]['Tests'][$Test]['Parameters']['ExpectedValue'] = $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']['ExpectedValue']
-                    }
-                    if ($null -ne $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']['ExpectedCount']) {
-                        $NewConfig[$Scope][$Source]['Tests'][$Test]['Parameters']['ExpectedCount'] = $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']['ExpectedCount']
-                    }
-                    if ($null -ne $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']['OperationType']) {
-                        $NewConfig[$Scope][$Source]['Tests'][$Test]['Parameters']['OperationType'] = $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']['OperationType']
-                    }
-                    #if ($nulle -ne $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']['PropertyExtendedValue']) {
-                    #    $NewConfig[$Scope][$Source]['Tests'][$Test]['Parameters']['PropertyExtendedValue'] = $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']['PropertyExtendedValue']
-                    #}
                 }
             }
         }
