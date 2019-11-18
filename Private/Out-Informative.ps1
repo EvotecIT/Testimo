@@ -1,6 +1,7 @@
 ﻿function Out-Informative {
     param(
         [int] $Level = 0,
+        [string] $OverrideTitle,
         [string] $Domain,
         [string] $DomainController,
         [string] $Text,
@@ -23,7 +24,11 @@
             Write-Warning "Out-Begin - Shouldn't happen - Fix me."
         } else {
             [ConsoleColor[]] $Color = [ConsoleColor]::Yellow, [ConsoleColor]::DarkGray, [ConsoleColor]::Yellow
-            $TestText = "[$Type]", "[Forest] ", $Text
+            if ($OverrideTitle) {
+                $TestText = "[$Type]", "[$OverrideTitle] ", $Text
+            } else {
+                $TestText = "[$Type]", "[Forest] ", $Text
+            }
         }
         Write-Color -Text $TestText -Color $Color -StartSpaces $Level -NoNewLine
     }

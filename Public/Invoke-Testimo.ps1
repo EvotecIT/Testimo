@@ -30,6 +30,9 @@ function Invoke-Testimo {
     $Script:Reporting['Forest']['Tests'] = [ordered] @{ }
     $Script:Reporting['Domains'] = [ordered] @{ }
 
+    $TestimoVersion = Get-Command -Name 'Invoke-Testimo' -ErrorAction SilentlyContinue
+    Out-Informative -OverrideTitle 'Testimo' -Text 'Version' -Level 0 -Status $null -ExtendedValue $TestimoVersion.Version
+
     Import-TestimoConfiguration -Configuration $Configuration
 
     $global:ProgressPreference = 'SilentlyContinue'
