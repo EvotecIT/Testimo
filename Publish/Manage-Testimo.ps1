@@ -4,19 +4,9 @@ Import-Module "C:\Support\GitHub\PSPublishModule\PSPublishModule.psm1" -Force
 $Configuration = @{
     Information = @{
         ModuleName        = 'Testimo'
-
         DirectoryProjects = 'C:\Support\GitHub'
-        #DirectoryModules  = "C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules"
-        DirectoryModules  = "$Env:USERPROFILE\Documents\WindowsPowerShell\Modules"
-
-        FunctionsToExport = 'Public'
-        AliasesToExport   = 'Public'
-
         Manifest          = @{
-            Path                 = "C:\Support\GitHub\Testimo\Testimo.psd1"
-            # Script module or binary module file associated with this manifest.
-            RootModule           = 'Testimo.psm1'
-            # Version number of this module.
+             # Version number of this module.
             ModuleVersion        = '0.0.24'
             # Supported PSEditions
             CompatiblePSEditions = @('Desktop')
@@ -32,14 +22,6 @@ $Configuration = @{
             Description          = 'Testimo is Powershell module that tests Active Directory against specific set of tests.'
             # Minimum version of the Windows PowerShell engine required by this module
             PowerShellVersion    = '5.1'
-            # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-            FunctionsToExport    = @() #$FunctionToExport
-            # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
-            CmdletsToExport      = @()
-            # Variables to export from this module
-            VariablesToExport    = @()
-            # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
-            AliasesToExport      = @()
             # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
             Tags                 = @('Windows', 'ActiveDirectory', 'AD', 'Infrastructure', 'Testing', 'Checks', 'Audits', 'Checklist', 'Validation')
 
@@ -48,20 +30,18 @@ $Configuration = @{
             ProjectUri           = 'https://github.com/EvotecIT/Testimo'
 
             RequiredModules      = @(
-                @{ ModuleName = 'PSSharedGoods'; ModuleVersion = "0.0.105"; Guid = 'ee272aa8-baaa-4edf-9f45-b6d6f7d844fe' }
-                @{ ModuleName = 'PSWinDocumentation.AD'; ModuleVersion = "0.1.14"; Guid = 'a46f9775-04d2-4423-9631-01cfda42b95d' }
+                @{ ModuleName = 'PSSharedGoods'; ModuleVersion = "0.0.107"; Guid = 'ee272aa8-baaa-4edf-9f45-b6d6f7d844fe' }
+                @{ ModuleName = 'PSWinDocumentation.AD'; ModuleVersion = "0.1.16"; Guid = 'a46f9775-04d2-4423-9631-01cfda42b95d' }
                 @{ ModuleName = 'PSWinDocumentation.DNS'; ModuleVersion = "0.0.8"; Guid = '462dd5e2-f32a-4263-bff5-22edf28882d0' }
-                @{ ModuleName = 'ADEssentials'; ModuleVersion = "0.0.22"; Guid = '9fc9fd61-7f11-4f4b-a527-084086f1905f' }
-                @{ ModuleName = 'PSEventViewer'; ModuleVersion = "1.0.7"; Guid = '5df72a79-cdf6-4add-b38d-bcacf26fb7bc' }
-                @{ ModuleName = 'PSWriteHTML'; ModuleVersion = "0.0.58"; Guid = 'a7bdf640-f5cb-4acf-9de0-365b322d245c' }
-                @{ ModuleName = 'Emailimo'; ModuleVersion = "0.0.10"; Guid = '3e94ee8d-4851-467e-8f84-17e518f8f865' }
+                @{ ModuleName = 'PSEventViewer'; ModuleVersion = "1.0.9"; Guid = '5df72a79-cdf6-4add-b38d-bcacf26fb7bc' }
+                @{ ModuleName = 'PSWriteHTML'; ModuleVersion = "0.0.63"; Guid = 'a7bdf640-f5cb-4acf-9de0-365b322d245c' }
+                @{ ModuleName = 'ADEssentials'; ModuleVersion = "0.0.26"; Guid = '9fc9fd61-7f11-4f4b-a527-084086f1905f' }
             )
         }
     }
     Options     = @{
         Merge             = @{
-            Enabled        = $true
-            Sort           = 'NONE'
+            Sort           = 'None'
             FormatCodePSM1 = @{
                 Enabled           = $true
                 RemoveComments    = $true
@@ -107,10 +87,10 @@ $Configuration = @{
                             CheckSeparator  = $true
                         }
 
-                        #PSAlignAssignmentStatement = @{
-                        #    Enable         = $true
-                        #    CheckHashtable = $true
-                        #}
+                        PSAlignAssignmentStatement = @{
+                            Enable         = $true
+                            CheckHashtable = $true
+                        }
 
                         PSUseCorrectCasing         = @{
                             Enable = $true
@@ -119,8 +99,11 @@ $Configuration = @{
                 }
             }
             FormatCodePSD1 = @{
-                Enabled = $true
-                #RemoveComments = $false
+                Enabled        = $true
+                RemoveComments = $false
+            }
+            Integrate      = @{
+                ApprovedModules = @('PSSharedGoods', 'PSWriteColor', 'Connectimo', 'PSUnifi', 'PSWebToolbox', 'PSMyPassword')
             }
         }
         Standard          = @{
@@ -135,10 +118,17 @@ $Configuration = @{
         ImportModules     = @{
             Self            = $true
             RequiredModules = $false
+            Verbose         = $false
         }
         PowerShellGallery = @{
             ApiKey   = 'C:\Support\Important\PowerShellGalleryAPI.txt'
             FromFile = $true
+        }
+        GitHub            = @{
+            ApiKey   = 'C:\Support\Important\GithubAPI.txt'
+            FromFile = $true
+            UserName = 'EvotecIT'
+            #RepositoryName = 'PSWriteHTML'
         }
         Documentation     = @{
             Path       = 'Docs'
@@ -147,17 +137,19 @@ $Configuration = @{
     }
     Steps       = @{
         BuildModule        = @{
-            EnableDesktop = $true
-            EnableCore    = $false
-            Merge         = $true
+            Enable       = $true
+            Merge        = $true
+            MergeMissing = $false
+            Releases     = $true
         }
         BuildDocumentation = $false
         PublishModule      = @{
             Enabled      = $false
             Prerelease   = ''
             RequireForce = $false
+            GitHub       = $false
         }
     }
 }
 
-New-PrepareModule -Configuration $Configuration -Verbose
+New-PrepareModule -Configuration $Configuration #-Verbose
