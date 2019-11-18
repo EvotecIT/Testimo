@@ -35,15 +35,17 @@ Things to know:
 
 ## ChangeLog
 
-- 0.0.24 - Unreleased
+- 0.0.25 - 18.11.2019
   - Engine
     - Small configuration saving fixes
+    - Added version
   - Tests
-    - [x] DCRDPSecurity
+    - [x] ForestObjectsWithConflict  - **Added**
+    - [x] DCRDPSecurity - **Added**
       - [x] Minimum Encryption Level
-    - [x] DCServiceWINRM
+    - [x] DCServiceWINRM - **Added**
       - [x] DisableRunAS
-    - [x] DCSMBProtocols - added BPA findings
+    - [x] DCSMBProtocols - added BPA findings - **Added**
       - [x] AutoDisconnectTimeout
       - [x] CachedOpenLimit
       - [x] DurableHandleV2TimeoutInSeconds
@@ -53,9 +55,9 @@ Things to know:
       - [x] Smb2CreditsMin
       - [x] Smb2CreditsMax
       - [x] RequireSecuritySignature
-    - [x] DCNetSessionEnumaration (Net Cease)
+    - [x] DCNetSessionEnumaration (Net Cease) - **Added**
       - [x] Hardening Net Session Enumeration
-    - [x] DCLanManServer
+    - [x] DCLanManServer - **Added**
       - [x] Microsoft network server: Digitally sign communications (if client agrees)
       - [x] Microsoft network server: Digitally sign communications (always)
       - [x] Users are not forcibly disconnected when logon hours expire.
