@@ -145,11 +145,13 @@
 
                 if ($CurrentSource['Parameters']) {
                     $SourceParameters = $CurrentSource['Parameters']
-                    $Object = Start-TestProcessing -Test $CurrentSource['Name'] -Level $Level -OutputRequired -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID {
+                    #$Object = Start-TestProcessing -Test $CurrentSource['Name'] -Level $Level -OutputRequired -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID {
+                    $Object = Start-TestProcessing -Test $CurrentSource['Name'] -Level $Level -OutputRequired -Domain $Domain -DomainController $DomainController {
                         & $CurrentSource['Data'] @SourceParameters -DomainController $DomainController -Domain $Domain
                     }
                 } else {
-                    $Object = Start-TestProcessing -Test $CurrentSource['Name'] -Level $Level -OutputRequired -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID {
+                    #$Object = Start-TestProcessing -Test $CurrentSource['Name'] -Level $Level -OutputRequired -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID {
+                    $Object = Start-TestProcessing -Test $CurrentSource['Name'] -Level $Level -OutputRequired -Domain $Domain -DomainController $DomainController {
                         & $CurrentSource['Data'] -DomainController $DomainController -Domain $Domain
                     }
                 }

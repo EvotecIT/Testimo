@@ -53,10 +53,11 @@
 
             #Out-Status -Text $Test -Status $TestResult -ExtendedValue $O.Extended -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
 
-
-            Out-Informative -Text $Test -Status $TestResult -ExtendedValue $O.Extended -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -End
+            #Out-Informative -Text $Test -Status $TestResult -ExtendedValue $O.Extended -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -End
+            Out-Informative -Text $Test -Status $TestResult -ExtendedValue $O.Extended -Domain $Domain -DomainController $DomainController -End
         } else {
-            Out-Informative -Text $Test -Status $TestResult -ExtendedValue $ErrorMessage -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -End
+           # Out-Informative -Text $Test -Status $TestResult -ExtendedValue $ErrorMessage -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -End
+            Out-Informative -Text $Test -Status $TestResult -ExtendedValue $ErrorMessage -Domain $Domain -DomainController $DomainController -End
             #Out-Status -Text $Test -Status $false -ExtendedValue $ErrorMessage -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
         }
     }
