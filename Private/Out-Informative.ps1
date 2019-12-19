@@ -1,4 +1,5 @@
 ﻿function Out-Informative {
+    [CmdletBinding()]
     param(
         [int] $Level = 0,
         [string] $OverrideTitle,
