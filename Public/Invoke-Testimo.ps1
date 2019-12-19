@@ -31,7 +31,20 @@ function Invoke-Testimo {
     $Script:Reporting['Domains'] = [ordered] @{ }
 
     $TestimoVersion = Get-Command -Name 'Invoke-Testimo' -ErrorAction SilentlyContinue
-    Out-Informative -OverrideTitle 'Testimo' -Text 'Version' -Level 0 -Status $null -ExtendedValue $TestimoVersion.Version
+    $LatestVersion = Get-GitHubLatestRelease -Url "https://api.github.com/repos/evotecit/Testimo/releases"
+
+    if (-not $LatestVersion.Errors) {
+        if ($TestimoVersion.Version -eq $LatestVersion.Version) {
+            $ReportVersionText = "Current/Latest: $($LatestVersion.Version) at $($LatestVersion.PublishDate)"
+        } elseif ($TestimoVersion.Version -lt $LatestVersion.Version) {
+            $ReportVersionText = "Current: $($TestimoVersion.Version), Published: $($LatestVersion.Version) at $($LatestVersion.PublishDate). Update?"
+        } elseif ($TestimoVersion.Version -gt $LatestVersion.Version) {
+            $ReportVersionText = "Current: $($TestimoVersion.Version), Published: $($LatestVersion.Version) at $($LatestVersion.PublishDate). Lucky you!"
+        }
+    } else {
+        $ReportVersionText = "Current: $($TestimoVersion.Version)"
+    }
+    Out-Informative -OverrideTitle 'Testimo' -Text 'Version' -Level 0 -Status $null -ExtendedValue $ReportVersionText
 
     Import-TestimoConfiguration -Configuration $Configuration
 
