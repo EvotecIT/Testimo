@@ -35,6 +35,12 @@ Things to know:
 
 ## ChangeLog
 
+- 0.0.26 - Unreleased
+  - Updated modules
+    - [x] ADEssentials to 0.0.27 (Get-WinADDFSHealth fixed)
+    - [x] Other dependencies also updated
+  - [x] Added Version/Date Published (#72)
+
 - 0.0.25 - 18.11.2019
   - Engine
     - Small configuration saving fixes
@@ -226,9 +232,9 @@ Tests are based on:
 | Domain            | DNS Zones Domain 0ADEL                                 | Configuration/DNS | Verify `owner is not 0ADEL`                                                              |
 | Domain            | Well known folder - UsersContainer                     | WellKnownFolders  | Verify `folder is not at it's defaults.`                                                 |
 | Domain            | Well known folder - ComputersContainer                 | WellKnownFolders  | Verify `folder is not at it's defaults.`                                                 |
-| Domain            | Well known folder - DomainControllersContainer         | WellKnownFolders  | Verify `folder is at it's defaults. `                                                    |
+| Domain            | Well known folder - DomainControllersContainer         | WellKnownFolders  | Verify `folder is at it's defaults.`                                                     |
 | Domain            | Well known folder - DeletedObjectsContainer            | WellKnownFolders  | Verify `folder is at it's defaults.`                                                     |
-| Domain            | Well known folder - SystemsContainer                   | WellKnownFolders  | Verify `folder is at it's defaults. `                                                    |
+| Domain            | Well known folder - SystemsContainer                   | WellKnownFolders  | Verify `folder is at it's defaults.`                                                     |
 | Domain            | Well known folder - LostAndFoundContainer              | WellKnownFolders  | Verify `folder is at it's defaults.`                                                     |
 | Domain            | Well known folder - QuotasContainer                    | WellKnownFolders  | Verify `folder is at it's defaults.`                                                     |
 | Domain            | Well known folder - ForeignSecurityPrincipalsContainer | WellKnownFolders  | Verify `folder is at it's defaults.`                                                     |

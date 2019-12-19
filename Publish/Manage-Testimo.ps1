@@ -30,7 +30,7 @@ $Configuration = @{
             ProjectUri           = 'https://github.com/EvotecIT/Testimo'
 
             RequiredModules      = @(
-                @{ ModuleName = 'PSSharedGoods'; ModuleVersion = "0.0.108"; Guid = 'ee272aa8-baaa-4edf-9f45-b6d6f7d844fe' }
+                @{ ModuleName = 'PSSharedGoods'; ModuleVersion = "0.0.110"; Guid = 'ee272aa8-baaa-4edf-9f45-b6d6f7d844fe' }
                 @{ ModuleName = 'PSWinDocumentation.AD'; ModuleVersion = "0.1.16"; Guid = 'a46f9775-04d2-4423-9631-01cfda42b95d' }
                 @{ ModuleName = 'PSWinDocumentation.DNS'; ModuleVersion = "0.0.8"; Guid = '462dd5e2-f32a-4263-bff5-22edf28882d0' }
                 @{ ModuleName = 'PSEventViewer'; ModuleVersion = "1.0.10"; Guid = '5df72a79-cdf6-4add-b38d-bcacf26fb7bc' }
