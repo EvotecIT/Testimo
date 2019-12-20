@@ -23,6 +23,7 @@ function Invoke-Testimo {
         [switch] $ShowReport
     )
     $Script:Reporting = [ordered] @{ }
+    $Script:Reporting['Version'] = ''
     $Script:Reporting['Results'] = $null
     $Script:Reporting['Summary'] = $null
     $Script:Reporting['Forest'] = [ordered] @{ }
@@ -30,21 +31,22 @@ function Invoke-Testimo {
     $Script:Reporting['Forest']['Tests'] = [ordered] @{ }
     $Script:Reporting['Domains'] = [ordered] @{ }
 
+
     $TestimoVersion = Get-Command -Name 'Invoke-Testimo' -ErrorAction SilentlyContinue
     $LatestVersion = Get-GitHubLatestRelease -Url "https://api.github.com/repos/evotecit/Testimo/releases"
 
     if (-not $LatestVersion.Errors) {
         if ($TestimoVersion.Version -eq $LatestVersion.Version) {
-            $ReportVersionText = "Current/Latest: $($LatestVersion.Version) at $($LatestVersion.PublishDate)"
+            $Script:Reporting['Version'] = "Current/Latest: $($LatestVersion.Version) at $($LatestVersion.PublishDate)"
         } elseif ($TestimoVersion.Version -lt $LatestVersion.Version) {
-            $ReportVersionText = "Current: $($TestimoVersion.Version), Published: $($LatestVersion.Version) at $($LatestVersion.PublishDate). Update?"
+            $Script:Reporting['Version'] = "Current: $($TestimoVersion.Version), Published: $($LatestVersion.Version) at $($LatestVersion.PublishDate). Update?"
         } elseif ($TestimoVersion.Version -gt $LatestVersion.Version) {
-            $ReportVersionText = "Current: $($TestimoVersion.Version), Published: $($LatestVersion.Version) at $($LatestVersion.PublishDate). Lucky you!"
+            $Script:Reporting['Version'] = "Current: $($TestimoVersion.Version), Published: $($LatestVersion.Version) at $($LatestVersion.PublishDate). Lucky you!"
         }
     } else {
-        $ReportVersionText = "Current: $($TestimoVersion.Version)"
+        $Script:Reporting['Version'] = "Current: $($TestimoVersion.Version)"
     }
-    Out-Informative -OverrideTitle 'Testimo' -Text 'Version' -Level 0 -Status $null -ExtendedValue $ReportVersionText
+    Out-Informative -OverrideTitle 'Testimo' -Text 'Version' -Level 0 -Status $null -ExtendedValue   $Script:Reporting['Version']
 
     Import-TestimoConfiguration -Configuration $Configuration
 

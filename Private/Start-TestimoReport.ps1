@@ -12,17 +12,29 @@
         $FilePath = Get-FileName -Extension 'html' -Temporary
     }
 
-    [RGBColors] $ColorPassed = 'LawnGreen'
-    [RGBColors] $ColorSkipped = 'DeepSkyBlue'
-    [RGBColors] $ColorFailed = 'Tomato'
-    [RGBColors] $ColorPassedText = 'Black'
-    [RGBColors] $ColorFailedText = 'Black'
-    [RGBColors] $ColorSkippedText = 'Black'
+    $ColorPassed = 'LawnGreen'
+    $ColorSkipped = 'DeepSkyBlue'
+    $ColorFailed = 'Tomato'
+    $ColorPassedText = 'Black'
+    $ColorFailedText = 'Black'
+    $ColorSkippedText = 'Black'
+
+    [Array] $PassedTests = $TestResults['Results'] | Where-Object { $_.Status -eq $true }
+    [Array] $FailedTests = $TestResults['Results'] | Where-Object { $_.Status -eq $false }
+    [Array] $SkippedTests = $TestResults['Results'] | Where-Object { $_.Status -ne $true -and $_.Status -ne $false }
 
     New-HTML -FilePath $FilePath -UseCssLinks:$UseCssLinks -UseJavaScriptLinks:$UseJavaScriptLinks {
-        [Array] $PassedTests = $TestResults['Results'] | Where-Object { $_.Status -eq $true }
-        [Array] $FailedTests = $TestResults['Results'] | Where-Object { $_.Status -eq $false }
-        [Array] $SkippedTests = $TestResults['Results'] | Where-Object { $_.Status -ne $true -and $_.Status -ne $false }
+        New-HTMLHeader {
+            New-HTMLSection -Invisible {
+                New-HTMLSection {
+                    New-HTMLText -Text "Report generated on $(Get-Date)" -Color Blue
+                } -JustifyContent flex-start -Invisible
+                New-HTMLSection {
+                    New-HTMLText -Text $Script:Reporting['Version'] -Color Blue
+                } -JustifyContent flex-end -Invisible
+            }
+        }
+
         New-HTMLTab -Name 'Summary' -IconBrands galactic-senate {
             New-HTMLSection -HeaderText "Tests results" -HeaderBackGroundColor DarkGray {
                 New-HTMLPanel {
