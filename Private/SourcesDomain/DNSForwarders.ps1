@@ -7,8 +7,16 @@
 
             & $PSWinDocumentationDNS {
                 param($Domain)
-                $Forwarders = Get-WinDnsServerForwarder -Domain $Domain -WarningAction SilentlyContinue
-                Compare-MultipleObjects -Objects $Forwarders -FormatOutput -CompareSorted:$true -ExcludeProperty GatheredFrom -SkipProperties -Property 'IpAddress' #| Out-HtmlView -ScrollX -DisablePaging  -Filtering
+                [Array] $Forwarders = Get-WinDnsServerForwarder -Domain $Domain -WarningAction SilentlyContinue
+                if ($Forwarders.Count -gt 1) {
+                    Compare-MultipleObjects -Objects $Forwarders -FormatOutput -CompareSorted:$true -ExcludeProperty GatheredFrom -SkipProperties -Property 'IpAddress' -WarningAction SilentlyContinue #| Out-HtmlView -ScrollX -DisablePaging  -Filtering
+                } else {
+                    # This code takes care of only 1 server within a domain. If there is 1 server available (as others may be dead/unavailable at the time it assumes Pass)
+                    [PSCustomObject] @{
+                        Source = $Forwarders[0].IPAddress -join ', '
+                        Status = $true
+                    }
+                }
             } $Domain
         }
         Details = [ordered] @{
