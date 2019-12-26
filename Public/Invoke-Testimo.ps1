@@ -61,17 +61,10 @@ function Invoke-Testimo {
     Set-TestsStatus -Sources $Sources -ExcludeSources $ExcludeSources
 
     if ($Script:TestimoConfiguration.Exclusions.Domains) {
-        # Out-Begin -Text 'Following Domains will be ignored' -Level 0
-        # Out-Status -Status $null -Domain $Domain -DomainController $DomainController -ExtendedValue ($Script:TestimoConfiguration.Exclusions.Domains -join ', ')
-
-
-        Out-Informative -Text 'Following Domains will be ignored' -Level 0 -Status $null -ExtendedValue ($Script:TestimoConfiguration.Exclusions.Domains -join ', ') #-Domain $Domain -DomainController $DomainController
+        Out-Informative -Text 'Following Domains will be ignored' -Level 0 -Status $null -ExtendedValue ($Script:TestimoConfiguration.Exclusions.Domains -join ', ')
     }
     if ( $Script:TestimoConfiguration.Exclusions.DomainControllers) {
-        #Out-Begin -Text 'Following Domain Controllers will be ignored' -Level 0
-        #Out-Status -Status $null -Domain $Domain -DomainController $DomainController -ExtendedValue ($Script:TestimoConfiguration.Exclusions.DomainControllers -join ', ')
-
-        Out-Informative -Text  'Following Domain Controllers will be ignored' -Level 0 -Status $null -ExtendedValue ($Script:TestimoConfiguration.Exclusions.DomainControllers -join ', ') #-Domain $Domain -DomainController $DomainController
+        Out-Informative -Text  'Following Domain Controllers will be ignored' -Level 0 -Status $null -ExtendedValue ($Script:TestimoConfiguration.Exclusions.DomainControllers -join ', ')
     }
 
     $ForestInformation = Get-TestimoForest
