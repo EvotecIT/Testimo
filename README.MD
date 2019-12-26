@@ -38,10 +38,13 @@ Things to know:
 - 0.0.26 - Unreleased
   - Engine
     - [x] Improvments to some error handling
+    - [x] Added Version/Date Published (#72)
+    - [x] Do not run Tests for Domain/DomainControllers if not enabled
   - Updated modules
     - [x] ADEssentials to 0.0.27 (Get-WinADDFSHealth fixed)
     - [x] Other dependencies also updated
-  - [x] Added Version/Date Published (#72)
+  - Tests
+    - [x] Fix for DNSForwaders
 
 - 0.0.25 - 18.11.2019
   - Engine
