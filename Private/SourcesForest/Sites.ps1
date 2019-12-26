@@ -1,9 +1,10 @@
 ﻿$Sites = @{
     Enable = $true
     Source = [ordered] @{
-        Name       = 'Sites Verification'
-        Data       = {
-            $ADModule = Import-Module PSWinDocumentation.AD -PassThru
+        Name    = 'Sites Verification'
+        Data    = {
+            #$ADModule = Import-Module PSWinDocumentation.AD -PassThru
+            $ADModule = Import-PrivateModule PSWinDocumentation.AD
             $Sites = & $ADModule { Get-WinADForestSites }
 
             [Array] $SitesWithoutDC = $Sites | Where-Object { $_.DomainControllersCount -eq 0 }
@@ -17,11 +18,11 @@
             }
         }
         Details = [ordered] @{
-            Area             = ''
-            Description      = ''
-            Resolution   = ''
-            RiskLevel        = 10
-            Resources = @(
+            Area        = ''
+            Description = ''
+            Resolution  = ''
+            RiskLevel   = 10
+            Resources   = @(
 
             )
         }

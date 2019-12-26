@@ -35,6 +35,10 @@ Things to know:
 
 ## ChangeLog
 
+- 0.0.27 - 2019.12.26
+  - Engine
+    - [x] Better support for Portable Testimo
+
 - 0.0.26 - 2019.12.26
   - Engine
     - [x] Improvments to some error handling

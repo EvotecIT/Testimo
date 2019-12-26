@@ -3,8 +3,8 @@
     Source = @{
         Name    = "DNS Forwarders"
         Data    = {
-            $PSWinDocumentationDNS = Import-Module PSWinDocumentation.DNS -PassThru
-
+            #$PSWinDocumentationDNS = Import-Module PSWinDocumentation.DNS -PassThru
+            $PSWinDocumentationDNS = Import-PrivateModule PSWinDocumentation.DNS
             & $PSWinDocumentationDNS {
                 param($Domain)
                 [Array] $Forwarders = Get-WinDnsServerForwarder -Domain $Domain -WarningAction SilentlyContinue

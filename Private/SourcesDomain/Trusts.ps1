@@ -3,7 +3,8 @@
     Source = @{
         Name    = "Trust Availability"
         Data    = {
-            $ADModule = Import-Module PSWinDocumentation.AD -PassThru
+           # $ADModule = Import-Module PSWinDocumentation.AD -PassThru
+            $ADModule = Import-PrivateModule PSWinDocumentation.AD
             & $ADModule {
                 param($Domain);
                 Get-WinADDomainTrusts -Domain $Domain

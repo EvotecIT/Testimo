@@ -3,8 +3,8 @@
     Source = @{
         Name    = "DNS Scavenging - Primary DNS Server"
         Data    = {
-            $PSWinDocumentationDNS = Import-Module PSWinDocumentation.DNS -PassThru
-
+            # $PSWinDocumentationDNS = Import-Module PSWinDocumentation.DNS -PassThru
+            $PSWinDocumentationDNS = Import-PrivateModule PSWinDocumentation.DNS
             & $PSWinDocumentationDNS {
                 param($Domain)
                 # this gets all DNS Servers but limits it only to those repsponsible for scavenging

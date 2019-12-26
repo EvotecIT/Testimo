@@ -4,7 +4,8 @@
         Name    = 'Password Complexity Requirements'
         Data    = {
             # Imports all commands / including private ones from PSWinDocumentation.AD
-            $ADModule = Import-Module PSWinDocumentation.AD -PassThru
+            #$ADModule = Import-Module PSWinDocumentation.AD -PassThru
+            $ADModule = Import-PrivateModule PSWinDocumentation.AD
             & $ADModule { param($Domain); Get-WinADDomainDefaultPasswordPolicy -Domain $Domain } $Domain
         }
         Details = [ordered] @{

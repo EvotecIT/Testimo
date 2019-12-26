@@ -1,10 +1,10 @@
-﻿$DnsZonesAging                      = @{
+﻿$DnsZonesAging = @{
     Enable = $true
     Source = @{
-        Name       = "Aging primary DNS Zone"
-        Data       = {
-            $PSWinDocumentationDNS = Import-Module PSWinDocumentation.DNS -PassThru
-
+        Name    = "Aging primary DNS Zone"
+        Data    = {
+            #$PSWinDocumentationDNS = Import-Module PSWinDocumentation.DNS -PassThru
+            $PSWinDocumentationDNS = Import-PrivateModule PSWinDocumentation.DNS
             & $PSWinDocumentationDNS {
                 param($Domain)
                 $Zones = Get-WinDnsServerZones -ZoneName $Domain -Domain $Domain
