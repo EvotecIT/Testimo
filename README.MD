@@ -36,6 +36,8 @@ Things to know:
 ## ChangeLog
 
 - 0.0.26 - Unreleased
+  - Engine
+    - [x] Improvments to some error handling
   - Updated modules
     - [x] ADEssentials to 0.0.27 (Get-WinADDFSHealth fixed)
     - [x] Other dependencies also updated
