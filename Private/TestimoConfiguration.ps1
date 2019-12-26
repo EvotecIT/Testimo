@@ -36,6 +36,8 @@
         'DNSZonesDomain0ADEL'              = $DNSZonesDomain0ADEL
         DHCPAuthorized                     = $DHCPAuthorized
         GroupPolicyADM                     = $GroupPolicyADM
+        ComputersUnsupported               = $ComputersUnsupported
+        ComputersUnsupportedMainstream     = $ComputersUnsupportedMainstream
     }
     DomainControllers = [ordered] @{
         Information                 = $Information

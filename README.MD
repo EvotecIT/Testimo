@@ -45,6 +45,8 @@ Things to know:
     - [x] Other dependencies also updated
   - Tests
     - [x] Fix for DNSForwaders
+    - [x] Added DomainComputersUnsupported (older than 2008)
+    - [x] Added DomainComputersUnsupportedMainstream (2008 computers with support from Microsoft)
 
 - 0.0.25 - 18.11.2019
   - Engine
