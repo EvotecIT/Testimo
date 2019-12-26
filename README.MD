@@ -35,7 +35,7 @@ Things to know:
 
 ## ChangeLog
 
-- 0.0.26 - Unreleased
+- 0.0.26 - 2019.12.26
   - Engine
     - [x] Improvments to some error handling
     - [x] Added Version/Date Published (#72)
@@ -48,7 +48,7 @@ Things to know:
     - [x] Added DomainComputersUnsupported (older than 2008)
     - [x] Added DomainComputersUnsupportedMainstream (2008 computers with support from Microsoft)
 
-- 0.0.25 - 18.11.2019
+- 0.0.25 - 2019.11.18
   - Engine
     - Small configuration saving fixes
     - Added version
@@ -74,7 +74,7 @@ Things to know:
       - [x] Microsoft network server: Digitally sign communications (if client agrees)
       - [x] Microsoft network server: Digitally sign communications (always)
       - [x] Users are not forcibly disconnected when logon hours expire.
-- 0.0.23 - 08.10.2019
+- 0.0.23 - 2019.10.08
   - Tests
     - [x] DCDiagnostics - **Added**
       - [x] Basically wrapper over DcDiag
@@ -156,11 +156,11 @@ Things to know:
     - Changed export / import configuration to support SourceParameters/ExpectedOutput. [#41 - tnx James Rudd](https://github.com/EvotecIT/Testimo/issues/41)
     - Support for Requirements/CommandAvailable
 
-- 0.0.22 - 10.09.2019
+- 0.0.22 - 2019.09.10
   - Tests
     - [x] DCPorts - typo fix OPEN vs CLOSED
 
-- 0.0.21 - 10.09.2019
+- 0.0.21 - 2019.09.10
   - Tests
     - [x] DCPorts - Checking for port 139 - Require PORT CLOSED ([#29 - tnx	SP3269](https://github.com/EvotecIT/Testimo/issues/29))
     - [x] DCNetworkSettings - Netbios TCPIP settings on network card - Require DISABLED ([#29 - tnx	SP3269](https://github.com/EvotecIT/Testimo/issues/29))
@@ -172,10 +172,10 @@ Things to know:
   - Engine
     - [x] Support for match/notmatch/notcontains
 
-- 0.0.20 - 9.09.2019
+- 0.0.20 - 2019.09.09
   - [x] Fix for configuration loading from JSON file ([#30](https://github.com/EvotecIT/Testimo/issues/30) - tnx Alex)
 
-- 0.0.19 - 8.09.2019
+- 0.0.19 - 2019.09.08
   - [x] First public release - More information in [blog post](https://evotec.xyz/what-do-we-say-to-health-checking-active-directory/)!
 
 ### Comments
