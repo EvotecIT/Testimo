@@ -2,7 +2,8 @@
     [CmdletBinding()]
     param()
     try {
-        $Forest = Get-ADForest -ErrorAction Stop
+        $DC = Get-ADDomainController -Discover
+        $Forest = Get-ADForest -ErrorAction Stop -Server $DC.HostName[0]
 
         $Domains = foreach ($_ in $Forest.Domains) {
             if ($_ -notin $Script:TestimoConfiguration['Exclusions']['Domains']) {
@@ -27,6 +28,7 @@
         }
 
     } catch {
+        Out-Failure -Text "Gathering Forest Information failed. Tests for domains/domain controllers will be skipped." -Level 0 -ExtendedValue $_.Exception.Message -Type 'e'
         return
     }
 }

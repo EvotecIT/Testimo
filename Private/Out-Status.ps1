@@ -48,13 +48,16 @@
         Domain           = $Domain
         DomainController = $DomainController
     }
-
-    if ($Domain -and $DomainController) {
-        $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['Results'].Add($Output)
-    } elseif ($Domain) {
-        $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['Results'].Add($Output)
+    if (-not $ReferenceID) {
+        $Script:Reporting['Errors'].Add($Output)
     } else {
-        $Script:Reporting['Forest']['Tests'][$ReferenceID]['Results'].Add($Output)
+        if ($Domain -and $DomainController) {
+            $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['Results'].Add($Output)
+        } elseif ($Domain) {
+            $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['Results'].Add($Output)
+        } else {
+            $Script:Reporting['Forest']['Tests'][$ReferenceID]['Results'].Add($Output)
+        }
     }
     $Script:TestResults.Add($Output)
 }

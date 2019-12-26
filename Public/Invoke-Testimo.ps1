@@ -24,6 +24,7 @@ function Invoke-Testimo {
     )
     $Script:Reporting = [ordered] @{ }
     $Script:Reporting['Version'] = ''
+    $Script:Reporting['Errors'] = [System.Collections.Generic.List[PSCustomObject]]::new()
     $Script:Reporting['Results'] = $null
     $Script:Reporting['Summary'] = $null
     $Script:Reporting['Forest'] = [ordered] @{ }
@@ -84,15 +85,16 @@ function Invoke-Testimo {
             $Script:Reporting['Domains'][$Domain]['Tests'] = [ordered] @{ }
             $Script:Reporting['Domains'][$Domain]['DomainControllers'] = [ordered] @{ }
             $DomainInformation = Get-TestimoDomain -Domain $Domain
-
-            Start-Testing -Scope 'Domain' -Domain $Domain -DomainInformation $DomainInformation -ForestInformation $ForestInformation {
-                # Tests related to DOMAIN CONTROLLERS
-                $DomainControllers = Get-TestimoDomainControllers -Domain $Domain
-                foreach ($DC in $DomainControllers) {
-                    $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DC.Name] = [ordered] @{ }
-                    $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DC.Name]['Summary'] = $null
-                    $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DC.Name]['Tests'] = [ordered] @{ }
-                    Start-Testing -Scope 'DomainControllers' -Domain $Domain -DomainController $DC.Name -IsPDC $DC.IsPDC -DomainInformation $DomainInformation -ForestInformation $ForestInformation
+            if ($DomainInformation) {
+                Start-Testing -Scope 'Domain' -Domain $Domain -DomainInformation $DomainInformation -ForestInformation $ForestInformation {
+                    # Tests related to DOMAIN CONTROLLERS
+                    $DomainControllers = Get-TestimoDomainControllers -Domain $Domain
+                    foreach ($DC in $DomainControllers) {
+                        $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DC.Name] = [ordered] @{ }
+                        $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DC.Name]['Summary'] = $null
+                        $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DC.Name]['Tests'] = [ordered] @{ }
+                        Start-Testing -Scope 'DomainControllers' -Domain $Domain -DomainController $DC.Name -IsPDC $DC.IsPDC -DomainInformation $DomainInformation -ForestInformation $ForestInformation
+                    }
                 }
             }
         }
