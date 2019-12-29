@@ -5,15 +5,20 @@ Get-TestimoSources
 
 <# Currently something like this. You can use this list to ExcludeSources or define Sources for Invoke-Testimo
 DCDFS
+DCDiagnostics
 DCDiskSpace
 DCDnsNameServes
 DCDnsResolveExternal
 DCDnsResolveInternal
 DCEventLogs
+DCFileSystem
 DCGroupPolicySYSVOL
 DCInformation
 DCLanManagerSettings
+DCLanManServer
 DCLDAP
+DCMSSLegacy
+DCNetSessionEnumaration
 DCNetworkCardSettings
 DCNTDSParameters
 DCOperatingSystem
@@ -22,6 +27,7 @@ DCPorts
 DCRDPPorts
 DCRDPSecurity
 DCServices
+DCServiceWINRM
 DCSMBProtocols
 DCSMBShares
 DCTimeSettings
@@ -30,6 +36,8 @@ DCTimeSynchronizationInternal
 DCWindowsRemoteManagement
 DCWindowsRolesAndFeatures
 DCWindowsUpdates
+DomainComputersUnsupported
+DomainComputersUnsupportedMainstream
 DomainDHCPAuthorized
 DomainDNSForwaders
 DomainDNSScavengingForPrimaryDNSServer
@@ -50,6 +58,7 @@ DomainSysVolDFSR
 DomainTrusts
 DomainWellKnownFolders
 ForestBackup
+ForestObjectsWithConflict
 ForestOptionalFeatures
 ForestOrphanedAdmins
 ForestReplication
