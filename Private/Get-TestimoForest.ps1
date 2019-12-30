@@ -6,6 +6,13 @@
         $Forest = Get-ADForest -ErrorAction Stop -Server $DC.HostName[0]
 
         $Domains = foreach ($_ in $Forest.Domains) {
+            if ($Script:TestimoConfiguration['Inclusions']['Domains']) {
+                if ($_ -in $Script:TestimoConfiguration['Inclusions']['Domains']) {
+                    $_
+                }
+                # We skip checking for exclusions
+                continue
+            }
             if ($_ -notin $Script:TestimoConfiguration['Exclusions']['Domains']) {
                 $_.ToLower()
             }

@@ -3,6 +3,10 @@
         Domains           = @()
         DomainControllers = @()
     }
+    Inclusions        = [ordered] @{
+        Domains           = @()
+        DomainControllers = @()
+    }
     Forest            = [ordered]@{
         Backup               = $Backup
         Replication          = $Replication # this should work 2012+

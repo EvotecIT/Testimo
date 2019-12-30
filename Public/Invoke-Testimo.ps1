@@ -15,6 +15,8 @@ function Invoke-Testimo {
         )] [string[]] $ExcludeSources,
         [string[]] $ExcludeDomains,
         [string[]] $ExcludeDomainControllers,
+        [string[]] $IncludeDomains,
+        [string[]] $IncludeDomainControllers,
         [switch] $ReturnResults,
         [switch] $ShowErrors,
         [switch] $ExtendedResults,
@@ -58,13 +60,23 @@ function Invoke-Testimo {
     $Script:TestimoConfiguration.Debug.ShowErrors = $ShowErrors
     $Script:TestimoConfiguration.Exclusions.Domains = $ExcludeDomains
     $Script:TestimoConfiguration.Exclusions.DomainControllers = $ExcludeDomainControllers
+    $Script:TestimoConfiguration.Inclusions.Domains = $IncludeDomains
+    $Script:TestimoConfiguration.Inclusions.DomainControllers = $IncludeDomainControllers
 
     Set-TestsStatus -Sources $Sources -ExcludeSources $ExcludeSources
 
-    if ($Script:TestimoConfiguration.Exclusions.Domains) {
+    if ($Script:TestimoConfiguration.Inclusions.Domains) {
+        Out-Informative -Text 'Only following Domains will be scanned' -Level 0 -Status $null -ExtendedValue ($Script:TestimoConfiguration.Exclusions.Domains -join ', ')
+    }
+    if ( $Script:TestimoConfiguration.Inclusions.DomainControllers) {
+        Out-Informative -Text  'Only following Domain Controllers will be scanned' -Level 0 -Status $null -ExtendedValue ($Script:TestimoConfiguration.Exclusions.DomainControllers -join ', ')
+    }
+    # We only exclude if inclusion is not specified for Domains
+    if ($Script:TestimoConfiguration.Exclusions.Domains -and -not $Script:TestimoConfiguration.Inclusions.Domains) {
         Out-Informative -Text 'Following Domains will be ignored' -Level 0 -Status $null -ExtendedValue ($Script:TestimoConfiguration.Exclusions.Domains -join ', ')
     }
-    if ( $Script:TestimoConfiguration.Exclusions.DomainControllers) {
+    # We only exclude if inclusion is not specified for Domain Controllers
+    if ( $Script:TestimoConfiguration.Exclusions.DomainControllers -and -not $Script:TestimoConfiguration.Inclusions.DomainControllers) {
         Out-Informative -Text  'Following Domain Controllers will be ignored' -Level 0 -Status $null -ExtendedValue ($Script:TestimoConfiguration.Exclusions.DomainControllers -join ', ')
     }
 

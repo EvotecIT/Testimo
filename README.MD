@@ -35,6 +35,10 @@ Things to know:
 
 ## ChangeLog
 
+- 0.0.29 - Unreleased
+  - Engine
+    - [x] Added IncludeDomain, IncludeDomainControllers (when used skips Exclusions)
+
 - 0.0.28 - 2019.12.29
   - Engine
     - [x] Fix for not running tests for DC if no Forest/Domain tests are present
