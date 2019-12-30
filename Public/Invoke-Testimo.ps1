@@ -17,6 +17,8 @@ function Invoke-Testimo {
         [string[]] $ExcludeDomainControllers,
         [string[]] $IncludeDomains,
         [string[]] $IncludeDomainControllers,
+        # this requires rebuild of all tests
+        #[string] $ForestName,
         [switch] $ReturnResults,
         [switch] $ShowErrors,
         [switch] $ExtendedResults,
@@ -80,7 +82,7 @@ function Invoke-Testimo {
         Out-Informative -Text  'Following Domain Controllers will be ignored' -Level 0 -Status $null -ExtendedValue ($Script:TestimoConfiguration.Exclusions.DomainControllers -join ', ')
     }
 
-    $ForestInformation = Get-TestimoForest
+    $ForestInformation = Get-TestimoForest -ForestName $ForestName
 
     # Tests related to FOREST
     $null = Start-Testing -Scope 'Forest' -ForestInformation $ForestInformation {

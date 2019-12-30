@@ -1,9 +1,16 @@
 ﻿function Get-TestimoForest {
     [CmdletBinding()]
-    param()
+    param(
+        [string] $ForestName
+    )
     try {
-        $DC = Get-ADDomainController -Discover
-        $Forest = Get-ADForest -ErrorAction Stop -Server $DC.HostName[0]
+        if ($ForestName) {
+            $DC = Get-ADDomainController -Discover -DomainName $ForestName
+            $Forest = Get-ADForest -ErrorAction Stop -Server $DC.HostName[0] -Identity $ForestName
+        } else {
+            $DC = Get-ADDomainController -Discover
+            $Forest = Get-ADForest -ErrorAction Stop -Server $DC.HostName[0]
+        }
 
         $Domains = foreach ($_ in $Forest.Domains) {
             if ($Script:TestimoConfiguration['Inclusions']['Domains']) {

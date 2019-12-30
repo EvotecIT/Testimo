@@ -5,7 +5,8 @@
         [switch] $SkipRODC
     )
     try {
-        $DomainControllers = Get-ADDomainController -Server $Domain -Filter * -ErrorAction Stop
+        $DC = Get-ADDomainController -Discover -DomainName $Domain
+        $DomainControllers = Get-ADDomainController -Server $DC.HostName[0] -Filter * -ErrorAction Stop
         if ($SkipRODC) {
             $DomainControllers = $DomainControllers | Where-Object { $_.IsReadOnly -eq $false }
         }
