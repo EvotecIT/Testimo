@@ -35,11 +35,14 @@ Things to know:
 
 ## ChangeLog
 
+- 0.0.28 - 2019.12.29
+  - Engine
+    - [x] Fix for not running tests for DC if no Forest/Domain tests are present
+    - [x] Added -SkipRODC parameter to skip DCs that are RODC
+
 - 0.0.27 - 2019.12.26
   - Engine
     - [x] Better support for Portable Testimo
-    - [x] Fix for not running tests for DC if no Forest/Domain tests are present
-    - [x] Added -SkipRODC parameter to skip DCs that are RODC
 
 - 0.0.26 - 2019.12.26
   - Engine
