@@ -23,7 +23,7 @@
             Category    = ''
             Severity    = ''
             RiskLevel   = 0
-            Description = 'DFS-R should be available.'
+            Description = 'Checks if DFS-R is available.'
             Resolution  = ''
             Resources   = @(
                 'https://blogs.technet.microsoft.com/askds/2009/01/05/dfsr-sysvol-migration-faq-useful-trivia-that-may-save-your-follicles/'

@@ -3,7 +3,7 @@
     Source = @{
         Name    = "Trust Availability"
         Data    = {
-           # $ADModule = Import-Module PSWinDocumentation.AD -PassThru
+            # $ADModule = Import-Module PSWinDocumentation.AD -PassThru
             $ADModule = Import-PrivateModule PSWinDocumentation.AD
             & $ADModule {
                 param($Domain);
@@ -15,7 +15,7 @@
             Category    = ''
             Severity    = ''
             RiskLevel   = 0
-            Description = ''
+            Description = 'Verifies if trusts are available and tests for trust unconstrained TGTDelegation'
             Resolution  = ''
             Resources   = @(
                 'https://blogs.technet.microsoft.com/askpfeplat/2019/04/11/changes-to-ticket-granting-ticket-tgt-delegation-across-trusts-in-windows-server-askpfeplat-edition/'

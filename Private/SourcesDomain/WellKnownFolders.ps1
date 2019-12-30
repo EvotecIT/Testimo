@@ -29,7 +29,7 @@
             Category    = ''
             Severity    = ''
             RiskLevel   = 0
-            Description = ''
+            Description = 'Verifies whether well-known folders are at their defaults or not.'
             Resolution  = ''
             Resources   = @(
 
