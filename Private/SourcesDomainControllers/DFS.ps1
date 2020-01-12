@@ -23,6 +23,12 @@
                 'https://www.reddit.com/r/sysadmin/comments/7gey4k/resuming_dfs_replication_after_4_years_of_no/'
                 'https://kimconnect.com/fix-dfs-replication-problems/'
                 'https://community.spiceworks.com/topic/2205945-repairing-broken-dfs-replication'
+
+                'https://support.microsoft.com/en-us/help/2958414/dfs-replication-how-to-troubleshoot-missing-sysvol-and-netlogon-shares'
+                'https://noobient.com/2013/11/11/fixing-sysvol-replication-on-windows-server-2012/'
+
+                # personal favourite to fix DFSR issues
+                'https://jackstromberg.com/2014/07/sysvol-and-group-policy-out-of-sync-on-server-2012-r2-dcs-using-dfsr/'
             )
         }
     }
@@ -132,6 +138,7 @@
                 RiskLevel   = 10
                 Resources   = @(
                     'https://secureinfra.blog/2019/04/30/field-notes-a-quick-tip-on-dfsr-automatic-recovery-while-you-prepare-for-an-ad-domain-upgrade/'
+                    'https://richardjgreen.net/active-directory-dfs-r-auto-recovery/'
                 )
             }
         }
