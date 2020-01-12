@@ -27,6 +27,12 @@ function Invoke-Testimo {
         [switch] $ShowReport,
         [switch] $SkipRODC
     )
+    if (-not $Script:DefaultSources) {
+        $Script:DefaultSources = Get-TestimoSources -Enabled
+    } else {
+        Set-TestsStatus -Sources $Script:DefaultSources
+    }
+
     $Script:Reporting = [ordered] @{ }
     $Script:Reporting['Version'] = ''
     $Script:Reporting['Errors'] = [System.Collections.Generic.List[PSCustomObject]]::new()

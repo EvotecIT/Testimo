@@ -8,7 +8,7 @@
   <a href="https://www.powershellgallery.com/packages/Testimo"><img src="https://img.shields.io/powershellgallery/p/Testimo.svg"></a>
   <a href="https://github.com/EvotecIT/Testimo"><img src="https://img.shields.io/github/languages/top/evotecit/Testimo.svg"></a>
   <a href="https://github.com/EvotecIT/Testimo"><img src="https://img.shields.io/github/languages/code-size/evotecit/Testimo.svg"></a>
-  <a href="https://github.com/EvotecIT/Testimo"><img src="https://img.shields.io/powershellgallery/dt/Testimo.svg"></a>
+  <a href="https://www.powershellgallery.com/packages/Testimo"><img src="https://img.shields.io/powershellgallery/dt/Testimo.svg"></a>
 </p>
 
 <p align="center">
@@ -38,6 +38,7 @@ Things to know:
 - 0.0.29 - Unreleased
   - Engine
     - [x] Added IncludeDomain, IncludeDomainControllers (when used skips Exclusions)
+    - [x] Fixes issue when first running single source and then running all tests (it would use the "old source" instead of using defaults)
 
 - 0.0.28 - 2019.12.29
   - Engine
