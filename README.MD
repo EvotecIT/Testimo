@@ -35,6 +35,10 @@ Things to know:
 
 ## ChangeLog
 
+- 0.0.30 - 2020.01.19
+  - Engine
+    - [x] Fix for version checks
+
 - 0.0.29 - 2020.01.19
   - Engine
     - [x] Added IncludeDomain, IncludeDomainControllers (when used skips Exclusions)
