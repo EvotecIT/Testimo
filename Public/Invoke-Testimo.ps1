@@ -45,7 +45,8 @@ function Invoke-Testimo {
 
 
     $TestimoVersion = Get-Command -Name 'Invoke-Testimo' -ErrorAction SilentlyContinue
-    $LatestVersion = Get-GitHubLatestRelease -Url "https://api.github.com/repos/evotecit/Testimo/releases"
+    [Array] $GitHubReleases = (Get-GitHubLatestRelease -Url "https://api.github.com/repos/evotecit/Testimo/releases")
+    $LatestVersion = $GitHubReleases[0]
 
     if (-not $LatestVersion.Errors) {
         if ($TestimoVersion.Version -eq $LatestVersion.Version) {
