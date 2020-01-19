@@ -50,6 +50,7 @@
         OperatingSystem             = $OperatingSystem
         Services                    = $Services
         LDAP                        = $LDAP
+        LDAPInsecureBindings        = $LDAPInsecureBindings
         Pingable                    = $Pingable
         Ports                       = $Ports
         RDPPorts                    = $RDPPorts

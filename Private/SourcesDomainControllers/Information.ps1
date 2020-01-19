@@ -28,37 +28,37 @@ SslPort                    : 636
 $Information = @{
     Enable = $true
     Source = @{
-        Name = "Domain Controller Information"
-        Data = {
+        Name    = "Domain Controller Information"
+        Data    = {
             Get-ADDomainController -Server $DomainController
         }
         Details = [ordered] @{
-            Area             = ''
-            Description      = ''
-            Resolution   = ''
-            RiskLevel        = 10
-            Resources = @(
+            Area        = ''
+            Description = ''
+            Resolution  = ''
+            RiskLevel   = 10
+            Resources   = @(
 
             )
         }
     }
     Tests  = [ordered] @{
-        IsEnabled = @{
-            Enable      = $true
-            Name        = 'Is Enabled'
-            Parameters  = @{
-                Property              = 'Enabled'
-                ExpectedValue         = $True
-                OperationType         = 'eq'
+        IsEnabled       = @{
+            Enable     = $true
+            Name       = 'Is Enabled'
+            Parameters = @{
+                Property      = 'Enabled'
+                ExpectedValue = $True
+                OperationType = 'eq'
             }
         }
         IsGlobalCatalog = @{
-            Enable      = $true
-            Name        = 'Is Global Catalog'
-            Parameters  = @{
-                Property              = 'IsGlobalCatalog'
-                ExpectedValue         = $True
-                OperationType         = 'eq'
+            Enable     = $true
+            Name       = 'Is Global Catalog'
+            Parameters = @{
+                Property      = 'IsGlobalCatalog'
+                ExpectedValue = $True
+                OperationType = 'eq'
             }
         }
     }

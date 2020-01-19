@@ -35,10 +35,14 @@ Things to know:
 
 ## ChangeLog
 
-- 0.0.29 - Unreleased
+- 0.0.29 - 2020.01.19
   - Engine
     - [x] Added IncludeDomain, IncludeDomainControllers (when used skips Exclusions)
+      - [ ] This requires heavy improvements - soon enough
     - [x] Fixes issue when first running single source and then running all tests (it would use the "old source" instead of using defaults)
+  - Tests
+    - [x] Fix for Windows Roles and Feature for other language (non-english) [#79](https://github.com/EvotecIT/Testimo/pull/79) - tnx Fiyorden
+    - [x] Added LDAPInsecureBindings
 
 - 0.0.28 - 2019.12.29
   - Engine

@@ -47,7 +47,8 @@
                 Test-StepTwo -Object $_ -OperationType $OperationType -TestName $TestName -Level $Level -Domain $Domain -DomainController $DomainController -Property $Property -ExpectedValue $ExpectedValue -PropertyExtendedValue $PropertyExtendedValue -OperationResult $OperationResult -ReferenceID $ReferenceID -ExpectedOutput $ExpectedOutput
             }
         }
-    } else {
-        Write-Warning 'Objected not passed to Test-StepOne.'
     }
+    #else {
+        #Write-Warning 'Object not passed to Test-StepTwo.'
+    #}
 }

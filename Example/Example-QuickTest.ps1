@@ -5,4 +5,4 @@
 #Invoke-Testimo -Sources DomainComputersUnsupported,DomainComputersUnsupportedMainstream,DomainPasswordComplexity
 #Invoke-Testimo -Sources DCDiskSpace -SkipRODC -ShowReport
 
-Invoke-Testimo -Sources DomainDNSForwaders -IncludeDomains 'ad.evotec.xyz'
+Invoke-Testimo -Sources DCLDAPInsecureBindings -IncludeDomains 'ad.evotec.xyz'
