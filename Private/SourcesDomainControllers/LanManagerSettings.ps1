@@ -74,7 +74,7 @@
                 )
             }
         }
-        EveryoneIncludesAnonymous = {
+        EveryoneIncludesAnonymous = @{
             Enable     = $true
             Name       = 'Everyone Includes Anonymous'
             Parameters = @{
