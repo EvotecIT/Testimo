@@ -7,7 +7,7 @@ $Configuration = @{
         DirectoryProjects = 'C:\Support\GitHub'
         Manifest          = @{
              # Version number of this module.
-            ModuleVersion        = '0.0.30'
+            ModuleVersion        = '0.0.31'
             # Supported PSEditions
             CompatiblePSEditions = @('Desktop')
             # ID used to uniquely identify this module
@@ -35,7 +35,7 @@ $Configuration = @{
                 @{ ModuleName = 'PSWinDocumentation.DNS'; ModuleVersion = "0.0.8"; Guid = '462dd5e2-f32a-4263-bff5-22edf28882d0' }
                 @{ ModuleName = 'PSEventViewer'; ModuleVersion = "1.0.12"; Guid = '5df72a79-cdf6-4add-b38d-bcacf26fb7bc' }
                 @{ ModuleName = 'PSWriteHTML'; ModuleVersion = "0.0.72"; Guid = 'a7bdf640-f5cb-4acf-9de0-365b322d245c' }
-                @{ ModuleName = 'ADEssentials'; ModuleVersion = "0.0.34"; Guid = '9fc9fd61-7f11-4f4b-a527-084086f1905f' }
+                @{ ModuleName = 'ADEssentials'; ModuleVersion = "0.0.35"; Guid = '9fc9fd61-7f11-4f4b-a527-084086f1905f' }
             )
         }
     }
