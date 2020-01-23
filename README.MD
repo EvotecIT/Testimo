@@ -35,6 +35,10 @@ Things to know:
 
 ## ChangeLog
 
+- 0.0.31 - 2020.01.23
+  - Engine
+    - [x] Fix for loading configuration
+
 - 0.0.30 - 2020.01.19
   - Engine
     - [x] Fix for version checks
