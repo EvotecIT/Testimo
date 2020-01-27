@@ -5,7 +5,7 @@ $GroupPolicySYSVOL = @{
     Source = @{
         Name    = "Group Policy SYSVOL Verification"
         Data    = {
-            Get-WinADGPOSysvolFolders -Domain $Domain -ComputerName $DomainController | Where-Object { $_.SysvolStatus -ne 'Exists' }
+            Get-WinADGPOSysvolFolders -Domain $Domain -IncludeDomainControllers $DomainController | Where-Object { $_.SysvolStatus -ne 'Exists' }
         }
         Details = [ordered] @{
             Area        = ''
