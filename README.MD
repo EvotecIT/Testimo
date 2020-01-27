@@ -35,6 +35,10 @@ Things to know:
 
 ## ChangeLog
 
+- 0.0.32 - 2020.01.27
+  - Tests
+    - [x] Fix for DCGroupPolicySYSVOL - [#83](https://github.com/EvotecIT/Testimo/issues/83) - tnx PMORMR
+
 - 0.0.31 - 2020.01.23
   - Engine
     - [x] Fix for loading configuration
