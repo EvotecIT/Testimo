@@ -35,6 +35,10 @@ Things to know:
 
 ## ChangeLog
 
+- 0.0.33 - 2020.01.28
+  - Tests
+    - [x] Fixing legacy ADM files check - [#84](https://github.com/EvotecIT/Testimo/issues/84) - tnx PMORMR
+
 - 0.0.32 - 2020.01.27
   - Tests
     - [x] Fix for DCGroupPolicySYSVOL - [#83](https://github.com/EvotecIT/Testimo/issues/83) - tnx PMORMR
