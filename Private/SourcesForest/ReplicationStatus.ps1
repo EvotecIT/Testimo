@@ -1,9 +1,13 @@
-﻿$ReplicationStatus = @{
+﻿
+$ReplicationStatus = @{
     Enable = $true
     Source = @{
         Name         = 'Forest Replication using RepAdmin'
         Data         = {
-            repadmin /showrepl * /csv | ConvertFrom-Csv
+            $Header = '"showrepl_COLUMNS","Destination DSA Site","Destination DSA","Naming Context","Source DSA Site","Source DSA","Transport Type","Number of Failures","Last Failure Time","Last Success Time","Last Failure Status"'
+            $data = repadmin /showrepl * /csv 
+            $data[0] = $Header
+            $data | ConvertFrom-Csv
         }
         Details      = [ordered] @{
             Area        = ''
