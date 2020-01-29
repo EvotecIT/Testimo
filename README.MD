@@ -35,6 +35,10 @@ Things to know:
 
 ## ChangeLog
 
+- 0.0.34 - 2020.01.29
+  - Tests
+    - [x] Modify repadmin (ForestReplicationStatus) for non-english OS [#86](https://github.com/EvotecIT/Testimo/pull/86) - tnx Fiyorden
+
 - 0.0.33 - 2020.01.28
   - Tests
     - [x] Fixing legacy ADM files check - [#84](https://github.com/EvotecIT/Testimo/issues/84) - tnx PMORMR
@@ -196,8 +200,8 @@ Things to know:
 
 - 0.0.21 - 2019.09.10
   - Tests
-    - [x] DCPorts - Checking for port 139 - Require PORT CLOSED ([#29 - tnx	SP3269](https://github.com/EvotecIT/Testimo/issues/29))
-    - [x] DCNetworkSettings - Netbios TCPIP settings on network card - Require DISABLED ([#29 - tnx	SP3269](https://github.com/EvotecIT/Testimo/issues/29))
+    - [x] DCPorts - Checking for port 139 - Require PORT CLOSED ([#29 - tnx SP3269](https://github.com/EvotecIT/Testimo/issues/29))
+    - [x] DCNetworkSettings - Netbios TCPIP settings on network card - Require DISABLED ([#29 - tnx SP3269](https://github.com/EvotecIT/Testimo/issues/29))
     - [x] DCWindowsFirewall - was renamed to DCNetworkSettings
     - [x] DomainEmptyOrganizationalUnits - fix for lacking Contacts ([#32 - tnx JasonCook599](https://github.com/EvotecIT/Testimo/pull/32))
     - [x] DNSScavengingForPrimaryDNSServer - fix LT should be GT ([#33 - tnx JasonCook599](https://github.com/EvotecIT/Testimo/pull/33))
@@ -232,7 +236,6 @@ Tests are based on:
 - Some tests I've defined myself
 - Feel free to submit your own ideas either via Issues or direct PR.
 
-
 | Type              | Name                                                   | Area              | Description                                                                              |
 | ----------------- | ------------------------------------------------------ | ----------------- | ---------------------------------------------------------------------------------------- |
 | Forest            | Backup                                                 | Backup            | Verify `last backup time should be [less than X days]`                                   |
@@ -247,7 +250,7 @@ Tests are based on:
 | Forest            | Site Links                                             | Site Links        | Verify each `site link uses notifications`                                               |
 | Forest            | Site Links                                             | Site Links        | Verify each `site link does not use notifications`                                       |
 | Forest            | Roles                                                  | Connectivity      | Verify each `FSMO holder is [reachable]`                                                 |
-| Forest            | Orphaned/Empty Admins                                  | Security          | Verify `there are no Orphaned Admins (users/groups/computers) `                          |
+| Forest            | Orphaned/Empty Admins                                  | Security          | Verify `there are no Orphaned Admins (users/groups/computers)`                          |
 | Forest            | Tombstone Lifetime                                     | Features          | Verify `Tombstone lifetime is greater or equal 180 days`                                 |
 | Domain            | Roles                                                  | Connectivity      | Verify each `FSMO holder is [reachable]`                                                 |
 | Domain            | Password Complexity Requirements                       | Password          | Verify Password `Complexity Policy should be [Enabled]`                                  |
