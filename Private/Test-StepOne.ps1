@@ -14,9 +14,10 @@
         [string] $OperationResult,
         [string] $ReferenceID,
         [nullable[bool]] $ExpectedOutput,
-
+        [nullable[bool]] $MustExists,
         [scriptblock] $WhereObject,
-        [scriptblock] $OverwriteName
+        [scriptblock] $OverwriteName,
+        [System.Collections.IDictionary] $Requirements
     )
 
 
@@ -26,12 +27,27 @@
         if ($WhereObject) {
             $Object = $Object | Where-Object $WhereObject
         }
+        if ($null -ne $Requirements) {
+            if ($null -ne $Requirements['MustExists']) {
+                #if ($Requirements['MustMatch']) {
+                #    $TestsSummary.Skipped = $TestsSummary.Skipped + 1
+                #    continue
+                #}
+            }
+        }
+
         if ($null -eq $Object) {
             # This checks for NULL after Where-Object
             # Data Source is not null, but after WHERE-Object becomes NULL - we need to fail this
-            Out-Begin -Text $TestName -Level $Level -Domain $Domain -DomainController $DomainController
-            Out-Status -Text $TestName -Status $false -ExtendedValue 'Data is not available.' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
-            return $false
+            if ($null -eq $MustExists -or $MustExists -eq $true) {
+                Out-Begin -Text $TestName -Level $Level -Domain $Domain -DomainController $DomainController
+                Out-Status -Text $TestName -Status $false -ExtendedValue 'Data is not available.' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
+                return $false
+            } else {
+                Out-Begin -Text $TestName -Level $Level -Domain $Domain -DomainController $DomainController
+                Out-Status -Text $TestName -Status $true -ExtendedValue "Data is not available, but it's not required." -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
+                return $true
+            }
         }
 
         if ($ExpectedCount) {
@@ -49,6 +65,6 @@
         }
     }
     #else {
-        #Write-Warning 'Object not passed to Test-StepTwo.'
+    #Write-Warning 'Object not passed to Test-StepTwo.'
     #}
 }
