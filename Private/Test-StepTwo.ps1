@@ -1,4 +1,4 @@
-﻿function Test-StepTwo{
+﻿function Test-StepTwo {
     [CmdletBinding()]
     param(
         [string] $Domain,
@@ -19,16 +19,18 @@
 
     $ScriptBlock = {
         $Operators = @{
-            'lt'          = 'LessThan'
-            'gt'          = 'GreaterThan'
-            'le'          = 'LessOrEqual'
-            'ge'          = 'GreaterOrEqual'
+            'lt'          = 'Less Than'
+            'gt'          = 'Greater Than'
+            'le'          = 'Less Or Equal'
+            'ge'          = 'Greater Or Equal'
             'eq'          = 'Equal'
             'contains'    = 'Contains'
             'notcontains' = 'Not contains'
             'like'        = 'Like'
             'match'       = 'Match'
             'notmatch'    = 'Not match'
+            'notin'       = 'Not in'
+            'in'          = 'Either Value'
         }
 
 
@@ -92,8 +94,8 @@
                         $ExpectedValue -notin $TestedValue
                         $TextExpectedValue = $ExpectedValue
                     } elseif ($OperationType -eq 'in') {
-                        $ExpectedValue -in $TestedValue
-                        $TextExpectedValue = $ExpectedValue
+                        $TestedValue -in $ExpectedValue
+                        $TextExpectedValue = $ExpectedValue -join ' or '
                     } else {
                         for ($i = 0; $i -lt $ExpectedValue.Count; $i++) {
 
