@@ -35,6 +35,13 @@ Things to know:
 
 ## ChangeLog
 
+- 0.0.35 - Unreleased
+  - Engine
+    - [x] Added MustExists (True/False) for Parameters
+    - [x] Fixes for In/NotIn
+  - Tests
+    - [x] DCServices Improvement with XBOX Service
+
 - 0.0.34 - 2020.01.29
   - Tests
     - [x] Modify repadmin (ForestReplicationStatus) for non-english OS [#86](https://github.com/EvotecIT/Testimo/pull/86) - tnx Fiyorden
@@ -250,7 +257,7 @@ Tests are based on:
 | Forest            | Site Links                                             | Site Links        | Verify each `site link uses notifications`                                               |
 | Forest            | Site Links                                             | Site Links        | Verify each `site link does not use notifications`                                       |
 | Forest            | Roles                                                  | Connectivity      | Verify each `FSMO holder is [reachable]`                                                 |
-| Forest            | Orphaned/Empty Admins                                  | Security          | Verify `there are no Orphaned Admins (users/groups/computers)`                          |
+| Forest            | Orphaned/Empty Admins                                  | Security          | Verify `there are no Orphaned Admins (users/groups/computers)`                           |
 | Forest            | Tombstone Lifetime                                     | Features          | Verify `Tombstone lifetime is greater or equal 180 days`                                 |
 | Domain            | Roles                                                  | Connectivity      | Verify each `FSMO holder is [reachable]`                                                 |
 | Domain            | Password Complexity Requirements                       | Password          | Verify Password `Complexity Policy should be [Enabled]`                                  |

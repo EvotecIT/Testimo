@@ -208,6 +208,12 @@
                                     continue
                                 }
                             }
+                            #if ($null -ne $CurrentTest['Requirements']['MustExists']) {
+                            #    if ($CurrentTest['Requirements']['MustExists'] -eq $false) {
+                            #        $TestsSummary.Skipped = $TestsSummary.Skipped + 1
+                            #        continue
+                            #    }
+                            #}
                         }
                         if (-not $FailAllTests) {
                             if ($CurrentTest['Parameters']) {
@@ -216,7 +222,7 @@
                                 $Parameters = $null
                             }
                             $TestsResults = Start-TestingTest -Test $CurrentTest['Name'] -Level $LevelTest -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID {
-                                Test-StepOne -Object $Object -Domain $Domain -DomainController $DomainController @Parameters -Level $LevelTest -TestName $CurrentTest['Name'] -ReferenceID $ReferenceID
+                                Test-StepOne -Object $Object -Domain $Domain -DomainController $DomainController @Parameters -Level $LevelTest -TestName $CurrentTest['Name'] -ReferenceID $ReferenceID -Requirements $CurrentTest['Requirements']
                             }
                             $TestsSummary.Passed = $TestsSummary.Passed + ($TestsResults | Where-Object { $_ -eq $true }).Count
                             $TestsSummary.Failed = $TestsSummary.Failed + ($TestsResults | Where-Object { $_ -eq $false }).Count
