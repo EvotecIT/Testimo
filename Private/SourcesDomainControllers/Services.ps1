@@ -380,6 +380,7 @@
                 Property      = 'Status'
                 ExpectedValue = 'Stopped', 'N/A'
                 OperationType = 'in'
+                MustExists    = $false
             }
         }
         XblAuthManagerStartupType         = @{
@@ -391,6 +392,7 @@
                 Property      = 'StartType'
                 ExpectedValue = 'Disabled', 'N/A'
                 OperationType = 'in'
+                MustExists    = $false
             }
         }
         XblGameSaveServiceStatus          = @{
@@ -415,6 +417,7 @@
                 OperationType = 'in'
                 MustExists    = $false
             }
+
         }
     }
 }
