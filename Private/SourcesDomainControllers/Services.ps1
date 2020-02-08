@@ -3,7 +3,7 @@
     Source = @{
         Name    = 'Service Status'
         Data    = {
-            $Services = @('ADWS', 'DNS', 'DFS', 'DFSR', 'Eventlog', 'EventSystem', 'KDC', 'LanManWorkstation', 'LanManServer', 'NetLogon', 'NTDS', 'RPCSS', 'SAMSS', 'Spooler', 'W32Time')
+            $Services = @('ADWS', 'DNS', 'DFS', 'DFSR', 'Eventlog', 'EventSystem', 'KDC', 'LanManWorkstation', 'LanManServer', 'NetLogon', 'NTDS', 'RPCSS', 'SAMSS', 'Spooler', 'W32Time', 'XblGameSave', 'XblAuthManager')
             Get-PSService -Computers $DomainController -Services $Services
         }
         Details = [ordered] @{
@@ -369,6 +369,51 @@
                 Property      = 'StartType'
                 ExpectedValue = 'Automatic'
                 OperationType = 'eq'
+            }
+        }
+        XblAuthManagerServiceStatus       = @{
+            Enable     = $true
+            Name       = 'XblAuthManager Service is STOPPED'
+
+            Parameters = @{
+                WhereObject   = { $_.Name -eq 'XblAuthManager' }
+                Property      = 'Status'
+                ExpectedValue = 'Stopped', 'N/A'
+                OperationType = 'in'
+            }
+        }
+        XblAuthManagerStartupType         = @{
+            Enable     = $true
+            Name       = 'XblAuthManager Service START TYPE is Disabled'
+
+            Parameters = @{
+                WhereObject   = { $_.Name -eq 'XblAuthManager' }
+                Property      = 'StartType'
+                ExpectedValue = 'Disabled', 'N/A'
+                OperationType = 'in'
+            }
+        }
+        XblGameSaveServiceStatus          = @{
+            Enable     = $true
+            Name       = 'XblGameSave Service is STOPPED'
+            Parameters = @{
+                WhereObject   = { $_.Name -eq 'XblGameSave' }
+                Property      = 'Status'
+                ExpectedValue = 'Stopped', 'N/A'
+                OperationType = 'in'
+                MustExists    = $false
+            }
+        }
+        XblGameSaveStartupType            = @{
+            Enable     = $true
+            Name       = 'XblGameSave Service START TYPE is Disabled'
+
+            Parameters = @{
+                WhereObject   = { $_.Name -eq 'XblGameSave' }
+                Property      = 'StartType'
+                ExpectedValue = 'Disabled', 'N/A'
+                OperationType = 'in'
+                MustExists    = $false
             }
         }
     }
