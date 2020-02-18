@@ -67,6 +67,7 @@
         DnsNameServes               = $DNSNameServers
         SMBProtocols                = $SMBProtocols
         SMBShares                   = $SMBShares
+        SMBSharesPermissions        = $SMBSharesPermissions
         DFS                         = $DFS
         NTDSParameters              = $NTDSParameters
         GroupPolicySYSVOL           = $GroupPolicySYSVOL

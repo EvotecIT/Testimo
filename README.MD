@@ -39,8 +39,10 @@ Things to know:
   - Engine
     - [x] Added MustExists (True/False) for Parameters
     - [x] Fixes for In/NotIn
+    - [ ] Fixes for Inclusion/Exclusion DC/Domain
   - Tests
     - [x] DCServices Improvement with XBOX Service
+    - [x] Added DCSMBSharesPermissions
 
 - 0.0.34 - 2020.01.29
   - Tests
