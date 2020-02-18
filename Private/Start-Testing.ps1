@@ -59,6 +59,7 @@
             if ($CurrentSection['Enable'] -eq $true) {
                 $Time = Start-TimeLog
                 $CurrentSource = $CurrentSection['Source']
+                $CurrentTests = $CurrentSection['Tests']
                 [Array] $AllTests = $CurrentSection['Tests'].Keys
 
                 $ReferenceID = $Source #Get-RandomStringName -Size 8
@@ -158,10 +159,16 @@
                 # Add data output to extended results
                 if ($Domain -and $DomainController) {
                     $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['Data'] = $Object
+                    $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['DetailsTests'] = [ordered]@{ }
+                    $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['ResultsTests'] = [ordered]@{ }
                 } elseif ($Domain) {
                     $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['Data'] = $Object
+                    $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['DetailsTests'] = [ordered]@{ }
+                    $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['ResultsTests'] = [ordered]@{ }
                 } else {
                     $Script:Reporting['Forest']['Tests'][$ReferenceID]['Data'] = $Object
+                    $Script:Reporting['Forest']['Tests'][$ReferenceID]['DetailsTests'] = [ordered]@{ }
+                    $Script:Reporting['Forest']['Tests'][$ReferenceID]['ResultsTests'] = [ordered]@{ }
                 }
                 # If there's no output from Source Data all other tests will fail
                 if ($Object -and ($null -eq $CurrentSource['ExpectedOutput'] -or $CurrentSource['ExpectedOutput'] -eq $true)) {
@@ -191,7 +198,17 @@
                     Out-Failure -Text $CurrentSource['Name'] -Level $LevelTest -ExtendedValue 'No data available.' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
                     $TestsSummary.Failed = $TestsSummary.Failed + 1
                 }
+
                 foreach ($Test in $AllTests) {
+                    # Add content with description of the test
+                    if ($Domain -and $DomainController) {
+                        $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['DetailsTests'][$Test] = $CurrentSection['Tests'][$Test]['Details']
+                    } elseif ($Domain) {
+                        $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['DetailsTests'][$Test] = $CurrentSection['Tests'][$Test]['Details']
+                    } else {
+                        $Script:Reporting['Forest']['Tests'][$ReferenceID]['DetailsTests'][$Test] = $CurrentSection['Tests'][$Test]['Details']
+                    }
+
                     $CurrentTest = $CurrentSection['Tests'][$Test]
                     if ($CurrentTest['Enable'] -eq $True) {
                         # Check for requirements
@@ -227,8 +244,17 @@
                             $TestsSummary.Passed = $TestsSummary.Passed + ($TestsResults | Where-Object { $_ -eq $true }).Count
                             $TestsSummary.Failed = $TestsSummary.Failed + ($TestsResults | Where-Object { $_ -eq $false }).Count
                         } else {
+                            $TestsResults = $null
                             $TestsSummary.Failed = $TestsSummary.Failed + 1
                             Out-Failure -Text $CurrentTest['Name'] -Level $LevelTestFailure -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
+                        }
+
+                        if ($Domain -and $DomainController) {
+                            $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['ResultsTests'][$Test] = $TestsResults
+                        } elseif ($Domain) {
+                            $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['ResultsTests'][$Test] = $TestsResults
+                        } else {
+                            $Script:Reporting['Forest']['Tests'][$ReferenceID]['ResultsTests'][$Test] = $TestsResults
                         }
                     } else {
                         $TestsSummary.Skipped = $TestsSummary.Skipped + 1
