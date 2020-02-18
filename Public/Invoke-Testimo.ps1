@@ -37,7 +37,7 @@ function Invoke-Testimo {
     $Script:Reporting['Version'] = ''
     $Script:Reporting['Errors'] = [System.Collections.Generic.List[PSCustomObject]]::new()
     $Script:Reporting['Results'] = $null
-    $Script:Reporting['Summary'] = $null
+    $Script:Reporting['Summary'] = [ordered] @{ }
     $Script:Reporting['Forest'] = [ordered] @{ }
     $Script:Reporting['Forest']['Summary'] = $null
     $Script:Reporting['Forest']['Tests'] = [ordered] @{ }
@@ -75,10 +75,10 @@ function Invoke-Testimo {
     Set-TestsStatus -Sources $Sources -ExcludeSources $ExcludeSources
 
     if ($Script:TestimoConfiguration.Inclusions.Domains) {
-        Out-Informative -Text 'Only following Domains will be scanned' -Level 0 -Status $null -ExtendedValue ($Script:TestimoConfiguration.Exclusions.Domains -join ', ')
+        Out-Informative -Text 'Only following Domains will be scanned' -Level 0 -Status $null -ExtendedValue ($Script:TestimoConfiguration.Inclusions.Domains -join ', ')
     }
     if ( $Script:TestimoConfiguration.Inclusions.DomainControllers) {
-        Out-Informative -Text  'Only following Domain Controllers will be scanned' -Level 0 -Status $null -ExtendedValue ($Script:TestimoConfiguration.Exclusions.DomainControllers -join ', ')
+        Out-Informative -Text  'Only following Domain Controllers will be scanned' -Level 0 -Status $null -ExtendedValue ($Script:TestimoConfiguration.Inclusions.DomainControllers -join ', ')
     }
     # We only exclude if inclusion is not specified for Domains
     if ($Script:TestimoConfiguration.Exclusions.Domains -and -not $Script:TestimoConfiguration.Inclusions.Domains) {
@@ -96,7 +96,7 @@ function Invoke-Testimo {
         # Tests related to DOMAIN
         foreach ($Domain in $ForestInformation.Domains) {
             $Script:Reporting['Domains'][$Domain] = [ordered] @{ }
-            $Script:Reporting['Domains'][$Domain]['Summary'] = $null
+            $Script:Reporting['Domains'][$Domain]['Summary'] = [ordered] @{ }
             $Script:Reporting['Domains'][$Domain]['Tests'] = [ordered] @{ }
             $Script:Reporting['Domains'][$Domain]['DomainControllers'] = [ordered] @{ }
             $DomainInformation = Get-TestimoDomain -Domain $Domain
@@ -109,7 +109,7 @@ function Invoke-Testimo {
                         $DomainControllers = Get-TestimoDomainControllers -Domain $Domain -SkipRODC:$SkipRODC
                         foreach ($DC in $DomainControllers) {
                             $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DC.Name] = [ordered] @{ }
-                            $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DC.Name]['Summary'] = $null
+                            $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DC.Name]['Summary'] = [ordered] @{ }
                             $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DC.Name]['Tests'] = [ordered] @{ }
                             Start-Testing -Scope 'DomainControllers' -Domain $Domain -DomainController $DC.Name -IsPDC $DC.IsPDC -DomainInformation $DomainInformation -ForestInformation $ForestInformation
                         }
