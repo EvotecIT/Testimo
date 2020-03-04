@@ -10,7 +10,7 @@
         [string[]] $Property,
         [string[]] $PropertyExtendedValue,
         [Array] $ExpectedValue,
-        [int] $ExpectedCount = -1,
+        [nullable[int]] $ExpectedCount,
         [string] $OperationResult,
         [string] $ReferenceID,
         [nullable[bool]] $ExpectedOutput
@@ -39,7 +39,7 @@
             $TestedValue = $TestedValue.$V
         }
 
-        if ($ExpectedCount -ne -1) {
+        if ($null -ne $ExpectedCount) {
             if ($OperationType -eq 'lt') {
                 $TestResult = $Object.Count -lt $ExpectedCount
             } elseif ($OperationType -eq 'gt') {
