@@ -50,7 +50,7 @@
             }
         }
 
-        if ($ExpectedCount) {
+        if ($null -ne $ExpectedCount) {
             if ($OverwriteName) {
                 $TestName = & $OverwriteName
             }
