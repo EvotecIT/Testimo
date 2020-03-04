@@ -40,9 +40,12 @@ Things to know:
     - [x] Added MustExists (True/False) for Parameters
     - [x] Fixes for In/NotIn
     - [x] Fixes for Inclusion/Exclusion DC/Domain
+    - [x] Fixes for ExpectedCount 0 not working
   - Tests
     - [x] DCServices Improvement with XBOX Service
     - [x] Added DCSMBSharesPermissions
+    - [x] Added DomainSecurityUsers
+    - [x] Added DCUNCHardenedPaths - read potential issues of implementing UNC Hardened Paths. If you enable and things go south GPOs won't work.
 
 - 0.0.34 - 2020.01.29
   - Tests
