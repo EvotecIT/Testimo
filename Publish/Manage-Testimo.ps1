@@ -7,7 +7,7 @@ $Configuration = @{
         DirectoryProjects = 'C:\Support\GitHub'
         Manifest          = @{
             # Version number of this module.
-            ModuleVersion        = '0.0.35'
+            ModuleVersion        = '0.0.36'
             # Supported PSEditions
             CompatiblePSEditions = @('Desktop')
             # ID used to uniquely identify this module

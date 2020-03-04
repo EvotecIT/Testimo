@@ -35,7 +35,11 @@ Things to know:
 
 ## ChangeLog
 
-- 0.0.35 - Unreleased
+- 0.0.36 - 2020.03.04
+  - Engine
+    - [x] Fix for broken tests
+
+- 0.0.35 - 2020.03.04
   - Engine
     - [x] Added MustExists (True/False) for Parameters
     - [x] Fixes for In/NotIn
