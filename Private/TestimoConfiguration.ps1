@@ -34,6 +34,7 @@
         KerberosAccountAge                 = $KerberosAccountAge
         SecurityGroupsAccountOperators     = $SecurityGroupsAccountOperators
         SecurityGroupsSchemaAdmins         = $SecurityGroupsSchemaAdmins
+        SecurityUsers                      = $SecurityUsers
         SecurityUsersAcccountAdministrator = $SecurityUsersAcccountAdministrator
         SysVolDFSR                         = $SysVolDFSR
         'DNSZonesForest0ADEL'              = $DNSZonesForest0ADEL
