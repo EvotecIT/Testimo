@@ -30,12 +30,12 @@ $Configuration = @{
             ProjectUri           = 'https://github.com/EvotecIT/Testimo'
 
             RequiredModules      = @(
-                @{ ModuleName = 'PSSharedGoods'; ModuleVersion = "0.0.123"; Guid = 'ee272aa8-baaa-4edf-9f45-b6d6f7d844fe' }
-                @{ ModuleName = 'PSWinDocumentation.AD'; ModuleVersion = "0.1.16"; Guid = 'a46f9775-04d2-4423-9631-01cfda42b95d' }
-                @{ ModuleName = 'PSWinDocumentation.DNS'; ModuleVersion = "0.0.8"; Guid = '462dd5e2-f32a-4263-bff5-22edf28882d0' }
-                @{ ModuleName = 'PSEventViewer'; ModuleVersion = "1.0.12"; Guid = '5df72a79-cdf6-4add-b38d-bcacf26fb7bc' }
-                @{ ModuleName = 'PSWriteHTML'; ModuleVersion = "0.0.76"; Guid = 'a7bdf640-f5cb-4acf-9de0-365b322d245c' }
-                @{ ModuleName = 'ADEssentials'; ModuleVersion = "0.0.36"; Guid = '9fc9fd61-7f11-4f4b-a527-084086f1905f' }
+                @{ ModuleName = 'PSSharedGoods'; ModuleVersion = "Latest"; Guid = 'ee272aa8-baaa-4edf-9f45-b6d6f7d844fe' }
+                @{ ModuleName = 'PSWinDocumentation.AD'; ModuleVersion = "Latest"; Guid = 'a46f9775-04d2-4423-9631-01cfda42b95d' }
+                @{ ModuleName = 'PSWinDocumentation.DNS'; ModuleVersion = "Latest"; Guid = '462dd5e2-f32a-4263-bff5-22edf28882d0' }
+                @{ ModuleName = 'PSEventViewer'; ModuleVersion = "Latest"; Guid = '5df72a79-cdf6-4add-b38d-bcacf26fb7bc' }
+                @{ ModuleName = 'PSWriteHTML'; ModuleVersion = "Latest"; Guid = 'a7bdf640-f5cb-4acf-9de0-365b322d245c' }
+                @{ ModuleName = 'ADEssentials'; ModuleVersion = "Latest"; Guid = '9fc9fd61-7f11-4f4b-a527-084086f1905f' }
             )
         }
     }
@@ -144,10 +144,10 @@ $Configuration = @{
         }
         BuildDocumentation = $false
         PublishModule      = @{
-            Enabled      = $false
+            Enabled      = $true
             Prerelease   = ''
             RequireForce = $false
-            GitHub       = $false
+            GitHub       = $true
         }
     }
 }
