@@ -79,6 +79,7 @@
         FileSystem                  = $FileSystem
         NetSessionEnumaration       = $NetSessionEnumaration
         ServiceWINRM                = $ServiceWINRM
+        UNCHardenedPaths            = $UNCHardenedPaths
     }
     Debug             = [ordered] @{
         ShowErrors = $false
