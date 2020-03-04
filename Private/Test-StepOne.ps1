@@ -10,7 +10,7 @@
         [string[]] $Property,
         [string[]] $PropertyExtendedValue,
         [Object] $ExpectedValue,
-        [int] $ExpectedCount,
+        [int] $ExpectedCount = -1,
         [string] $OperationResult,
         [string] $ReferenceID,
         [nullable[bool]] $ExpectedOutput,
