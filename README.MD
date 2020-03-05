@@ -35,6 +35,10 @@ Things to know:
 
 ## ChangeLog
 
+- 0.0.37 - Unreleased
+  - Engine
+    - [x] Update to DomainSecurityUsers to exclude DomainGuests
+
 - 0.0.36 - 2020.03.04
   - Engine
     - [x] Fix for broken tests
