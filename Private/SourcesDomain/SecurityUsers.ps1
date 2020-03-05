@@ -22,7 +22,7 @@
                 }
             }
             #>
-            Get-ADUser -Filter { AllowReversiblePasswordEncryption -eq $true -or UseDESKeyOnly -eq $true -or PrimaryGroupID -ne '513' } -Properties AllowReversiblePasswordEncryption, UseDESKeyOnly, PrimaryGroup, PrimaryGroupID, PasswordLastSet, Enabled -Server $Domain
+            Get-ADUser -Filter { AllowReversiblePasswordEncryption -eq $true -or UseDESKeyOnly -eq $true -or (PrimaryGroupID -ne '513' -and PrimaryGroupID -ne '514') } -Properties AllowReversiblePasswordEncryption, UseDESKeyOnly, PrimaryGroup, PrimaryGroupID, PasswordLastSet, Enabled -Server $Domain
         }
         Details = [ordered] @{
             Area        = ''
