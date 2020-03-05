@@ -180,8 +180,7 @@
 
                 } elseif ($Object -and $CurrentSource['ExpectedOutput'] -eq $false) {
                     # Output is provided, but we expected no output - failing test
-
-                    $FailAllTests = $true
+                    $FailAllTests = $false
                     Out-Failure -Text $CurrentSource['Name'] -Level $LevelTest -ExtendedValue 'Data is available. This is a bad thing.' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
                     $TestsSummary.Failed = $TestsSummary.Failed + 1
 
