@@ -35,7 +35,7 @@
 
             )
         }
-        #ExpectedOutput = $false
+        ExpectedOutput = $false
     }
     Tests  = [ordered] @{
         <#
