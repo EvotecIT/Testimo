@@ -41,6 +41,15 @@
                 )
             }
         }
+        Loopbackpresent = @{
+            Enable     = $true
+            Name       = 'Loopback IP address should be list in DNS servers on network card'
+            Parameters = @{
+                Property              = 'DNSServerSearchOrder'
+                ExpectedValue         = '127.0.0.1'
+                OperationType         = 'Contains'
+            }
+        }
         WindowsFirewall = @{
             Enable     = $true
             Name       = 'Windows Firewall should be enabled on network card'
@@ -48,7 +57,24 @@
                 Property              = 'FirewallStatus'
                 ExpectedValue         = $true
                 OperationType         = 'eq'
-                PropertyExtendedValue = 'FirewallProfile'
+            }
+        }
+        WindowsFirewallProfile = @{
+            Enable     = $true
+            Name       = 'Windows Firewall should be set on domain network profile'
+            Parameters = @{
+                Property              = 'FirewallProfile'
+                ExpectedValue         = 'DomainAuthenticated'
+                OperationType         = 'eq'
+            }
+        }
+        DHCPDisabled = @{
+            Enable     = $true
+            Name       = 'DHCP should be disabled on network card'
+            Parameters = @{
+                Property              = 'DHCPEnabled'
+                ExpectedValue         = $false
+                OperationType         = 'eq'
             }
         }
     }
