@@ -23,7 +23,8 @@
             }
             #>
             #Get-ADUser -Filter { AllowReversiblePasswordEncryption -eq $true -or UseDESKeyOnly -eq $true -or (PrimaryGroupID -ne '513' -and PrimaryGroupID -ne '514') } -Properties AllowReversiblePasswordEncryption, UseDESKeyOnly, PrimaryGroup, PrimaryGroupID, PasswordLastSet, Enabled -Server $Domain
-            Get-ADUser -Filter { AllowReversiblePasswordEncryption -eq $true -or UseDESKeyOnly -eq $true -or PrimaryGroupID -ne '513' -or SID -ne '$((Get-ADDomain).DomainSID.Value)-501'} -Properties AllowReversiblePasswordEncryption, UseDESKeyOnly, PrimaryGroup, PrimaryGroupID, PasswordLastSet, Enabled -Server $Domain
+            $GuestSID = "$((Get-ADDomain -Server $Domain).DomainSID.Value)-501"
+            Get-ADUser -Filter { (AllowReversiblePasswordEncryption -eq $true -or UseDESKeyOnly -eq $true -or PrimaryGroupID -ne '513') -and (SID -ne $GuestSID) } -Properties AllowReversiblePasswordEncryption, UseDESKeyOnly, PrimaryGroup, PrimaryGroupID, PasswordLastSet, Enabled -Server $Domain
         }
         Details = [ordered] @{
             Area        = ''
