@@ -22,7 +22,8 @@
                 }
             }
             #>
-            Get-ADUser -Filter { AllowReversiblePasswordEncryption -eq $true -or UseDESKeyOnly -eq $true -or (PrimaryGroupID -ne '513' -and PrimaryGroupID -ne '514') } -Properties AllowReversiblePasswordEncryption, UseDESKeyOnly, PrimaryGroup, PrimaryGroupID, PasswordLastSet, Enabled -Server $Domain
+            #Get-ADUser -Filter { AllowReversiblePasswordEncryption -eq $true -or UseDESKeyOnly -eq $true -or (PrimaryGroupID -ne '513' -and PrimaryGroupID -ne '514') } -Properties AllowReversiblePasswordEncryption, UseDESKeyOnly, PrimaryGroup, PrimaryGroupID, PasswordLastSet, Enabled -Server $Domain
+            Get-ADUser -Filter { AllowReversiblePasswordEncryption -eq $true -or UseDESKeyOnly -eq $true -or PrimaryGroupID -ne '513' -or SID -ne '$((Get-ADDomain).DomainSID.Value)-501'} -Properties AllowReversiblePasswordEncryption, UseDESKeyOnly, PrimaryGroup, PrimaryGroupID, PasswordLastSet, Enabled -Server $Domain
         }
         Details = [ordered] @{
             Area        = ''
@@ -59,24 +60,24 @@
                 OperationType = 'eq'
                 MustExists = $false
             }
-            Description = "User accounts shouldn't use DES encryptiion. Having UseDESKeyOnly forces the Kerberos encryption to be DES instead of RC4 which is the Microsoft default. DES is 56 bit encryption and is regarded as weak these days so this setting is not recommended."
+            Description = "User accounts shouldn't use DES encryption. Having UseDESKeyOnly forces the Kerberos encryption to be DES instead of RC4 which is the Microsoft default. DES is 56 bit encryption and is regarded as weak these days so this setting is not recommended."
         }
         AllowReversiblePasswordEncryption = @{
             Enable      = $true
-            Name        = 'Reverisble Password detection'
+            Name        = 'Reversible Password detection'
             Parameters  = @{
                 WhereObject   = { $_.AllowReversiblePasswordEncryption -eq $true }
                 ExpectedCount = 0
                 OperationType = 'eq'
                 MustExists = $false
             }
-            Description = "User accounts shouldn't use Reverisble Password Encryption. Having AllowReversiblePasswordEncryption allows for easy password decryption."
+            Description = "User accounts shouldn't use Reversible Password Encryption. Having AllowReversiblePasswordEncryption allows for easy password decryption."
         }
         PrimaryGroup                      = @{
             Enable      = $true
             Name        = "Primary Group shouldn't be changed from default Domain Users."
             Parameters  = @{
-                WhereObject   = { $_.PrimaryGroupID -ne 513 }
+                WhereObject   = { $_.PrimaryGroupID -ne 513 -and $_.SID -ne "$((Get-ADDomain).DomainSID.Value)-501" }
                 ExpectedCount = 0
                 OperationType = 'eq'
                 MustExists = $false
