@@ -38,6 +38,10 @@ Things to know:
 - 0.0.37 - Unreleased
   - Engine
     - [x] Update to DomainSecurityUsers to exclude DomainGuests
+    - [x] Fix for ExpectedOutput $false
+  - Tests
+    - [x] Fix for DomainSecurityUsers - tnx itpro-tips [#89](https://github.com/EvotecIT/Testimo/issues/89)
+    - [x] Added DomainSecurityKRBGT
 
 - 0.0.36 - 2020.03.04
   - Engine
