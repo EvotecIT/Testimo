@@ -69,7 +69,7 @@
             }
         }
         DHCPDisabled = @{
-            Enable     = $true
+            Enable     = $false
             Name       = 'DHCP should be disabled on network card'
             Parameters = @{
                 Property              = 'DHCPEnabled'

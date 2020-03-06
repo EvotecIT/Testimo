@@ -42,6 +42,8 @@ Things to know:
   - Tests
     - [x] Fix for DomainSecurityUsers - tnx itpro-tips [#89](https://github.com/EvotecIT/Testimo/issues/89)
     - [x] Added DomainSecurityKRBGT
+    - [x] Improved DCNetworkSettings - DNS: DNS servers on Ethernet should include the loopback address, but not as the first entry - [#90](https://github.com/EvotecIT/Testimo/pull/90) - tnx itpro-tips
+    - [x] Improved DCNetworkSettings - DNS: Ethernet should have static IPv4 settings (disabled by default) - [#90](https://github.com/EvotecIT/Testimo/pull/90) - tnx itpro-tips
 
 - 0.0.36 - 2020.03.04
   - Engine
