@@ -36,6 +36,7 @@
         SecurityGroupsSchemaAdmins         = $SecurityGroupsSchemaAdmins
         SecurityUsers                      = $SecurityUsers
         SecurityUsersAcccountAdministrator = $SecurityUsersAcccountAdministrator
+        SecurityKRBGT                      = $SecurityKRBGT
         SysVolDFSR                         = $SysVolDFSR
         'DNSZonesForest0ADEL'              = $DNSZonesForest0ADEL
         'DNSZonesDomain0ADEL'              = $DNSZonesDomain0ADEL
