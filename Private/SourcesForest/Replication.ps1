@@ -3,7 +3,7 @@
     Source = @{
         Name       = 'Forest Replication'
         Data       = {
-            Get-WinADForestReplication -WarningAction SilentlyContinue
+            Get-WinADForestReplication -WarningAction SilentlyContinue -Forest $ForestName
         }
         Details = [ordered] @{
             Area             = ''

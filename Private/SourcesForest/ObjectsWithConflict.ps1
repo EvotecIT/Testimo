@@ -3,7 +3,7 @@
     Source = @{
         Name           = 'Objects with Conflict (Duplicate RDN)'
         Data           = {
-            Get-WinADForestObjectsConflict
+            Get-WinADForestObjectsConflict -Forest $ForestName
         }
         ExpectedOutput = $false
         Details        = [ordered] @{

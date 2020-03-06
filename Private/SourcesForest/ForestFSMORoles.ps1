@@ -3,7 +3,7 @@
     Source = @{
         Name       = 'Roles availability'
         Data       = {
-            Test-ADRolesAvailability
+            Test-ADRolesAvailability -Forest $ForestName
         }
         Details = [ordered] @{
             Area             = 'Features'

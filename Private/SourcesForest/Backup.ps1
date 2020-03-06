@@ -3,7 +3,7 @@
     Source = @{
         Name = 'Forest Backup'
         Data = {
-            Get-WinADLastBackup
+            Get-WinADLastBackup -Forest $ForestName
         }
         Details = [ordered] @{
             Area             = 'Backup'
