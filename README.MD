@@ -44,7 +44,7 @@ Things to know:
     - [x] Added DomainSecurityKRBGT
     - [x] Improved DCNetworkSettings - DNS: DNS servers on Ethernet should include the loopback address, but not as the first entry - [#90](https://github.com/EvotecIT/Testimo/pull/90) - tnx itpro-tips
     - [x] Improved DCNetworkSettings - DNS: Ethernet should have static IPv4 settings (disabled by default) - [#90](https://github.com/EvotecIT/Testimo/pull/90) - tnx itpro-tips
-    - [x] Improved DCLanManServer - [ADV200005 | Microsoft Guidance for Disabling SMBv3 Compression](https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/adv200005)
+    - [x] Improved DCLanManServer - [ADV200005 | Microsoft Guidance for Disabling SMBv3 Compression](https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/adv200005) - Disabled by default, as patch is available
 
 - 0.0.36 - 2020.03.04
   - Engine

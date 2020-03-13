@@ -22,7 +22,7 @@
     }
     Tests  = [ordered] @{
         DisableCompression        = @{
-            Enable     = $true
+            Enable     = $false
             Name       = 'Disable Compression SMBv3'
             Parameters = @{
                 Property      = 'DisableCompression'
@@ -32,7 +32,7 @@
             Details    = [ordered] @{
                 Area        = 'Security'
                 Description = 'Microsoft is aware of a remote code execution vulnerability in the way that the Microsoft Server Message Block 3.1.1 (SMBv3) protocol handles certain requests. An attacker who successfully exploited the vulnerability could gain the ability to execute code on the target SMB Server or SMB Client. To exploit the vulnerability against an SMB Server, an unauthenticated attacker could send a specially crafted packet to a targeted SMBv3 Server. To exploit the vulnerability against an SMB Client, an unauthenticated attacker would need to configure a malicious SMBv3 Server and convince a user to connect to it.'
-                Resolution  = 'Disable SMBv3 compression'
+                Resolution  = 'Disable SMBv3 compression or apply patch. Since patch is available disabling is not nessecary.'
                 RiskLevel   = 10
                 Resources   = @(
                     'https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/adv200005'
