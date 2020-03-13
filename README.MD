@@ -35,7 +35,7 @@ Things to know:
 
 ## ChangeLog
 
-- 0.0.37 - Unreleased
+- 0.0.37 - 2020.03.13
   - Engine
     - [x] Update to DomainSecurityUsers to exclude DomainGuests
     - [x] Fix for ExpectedOutput $false
