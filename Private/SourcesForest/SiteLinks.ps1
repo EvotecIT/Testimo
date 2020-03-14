@@ -3,7 +3,7 @@
     Source = @{
         Name       = 'Site Links'
         Data       = {
-            Get-WinADSiteLinks
+            Get-WinADSiteLinks -Forest $ForestName
         }
         Details = [ordered] @{
             Area             = ''

@@ -3,7 +3,7 @@
     Source = @{
         Name       = 'Site Links Connections'
         Data       = {
-            Test-ADSiteLinks -Splitter ', '
+            Test-ADSiteLinks -Splitter ', ' -Forest $ForestName
         }
         Details = [ordered] @{
             Area             = ''
