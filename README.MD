@@ -35,6 +35,9 @@ Things to know:
 
 ## ChangeLog
 
+- 0.0.38 - 2020.03.14
+  - Added GroupPolicy and ActiveDirectory to RequiredModules and ExternalModuleDependencies preventing error reported in [#91](https://github.com/EvotecIT/Testimo/issues/91)
+
 - 0.0.37 - 2020.03.13
   - Engine
     - [x] Update to DomainSecurityUsers to exclude DomainGuests
