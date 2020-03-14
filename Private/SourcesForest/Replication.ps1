@@ -14,6 +14,7 @@
 
             )
         }
+        ExpectedOutput = $false
     }
     Tests  = [ordered] @{
         ReplicationTests = @{

@@ -35,6 +35,13 @@ Things to know:
 
 ## ChangeLog
 
+- 0.0.39 - Unreleased
+  - Engine
+    - [x] Add requirements (InternalForest = $true) for tests that do not support external forest (such as repadmin)
+  - Tests
+    - [x] Improved ForestReplicationStatus if only 1 DC
+    - [x] Improved ForestReplication if only 1 DC
+
 - 0.0.38 - 2020.03.14
   - Added GroupPolicy and ActiveDirectory to RequiredModules and ExternalModuleDependencies preventing error reported in [#91](https://github.com/EvotecIT/Testimo/issues/91)
 

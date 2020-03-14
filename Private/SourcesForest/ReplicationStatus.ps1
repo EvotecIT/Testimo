@@ -2,14 +2,14 @@
 $ReplicationStatus = @{
     Enable = $true
     Source = @{
-        Name         = 'Forest Replication using RepAdmin'
-        Data         = {
+        Name           = 'Forest Replication using RepAdmin'
+        Data           = {
             $Header = '"showrepl_COLUMNS","Destination DSA Site","Destination DSA","Naming Context","Source DSA Site","Source DSA","Transport Type","Number of Failures","Last Failure Time","Last Success Time","Last Failure Status"'
-            $data = repadmin /showrepl * /csv 
+            $data = repadmin /showrepl * /csv
             $data[0] = $Header
             $data | ConvertFrom-Csv
         }
-        Details      = [ordered] @{
+        Details        = [ordered] @{
             Area        = ''
             Description = ''
             Resolution  = ''
@@ -18,10 +18,11 @@ $ReplicationStatus = @{
 
             )
         }
-        Requirements = @{
+        Requirements   = @{
             CommandAvailable = 'repadmin'
-            OperatingSystem  = '*2008*'
+            InternalForest   = $true
         }
+        ExpectedOutput = $false
     }
     Tests  = [ordered] @{
         ReplicationTests = @{
