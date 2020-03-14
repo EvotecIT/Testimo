@@ -9,4 +9,8 @@
 #Invoke-Testimo -Sources DomainSecurityUsers,DCUNCHardenedPaths -ShowReport
 #Invoke-Testimo -Sources ForestBackup,ForestOptionalFeatures,DCDFS -IncludeDomainControllers ad1 -ForestName 'test.evotec.pl'
 #Invoke-Testimo -Sources DomainSecurityUsers, DomainSecurityKRBGT -ShowReport #-ForestName test.evotec.pl #-ShowReport
-Invoke-Testimo -Sources DCLanManServer, DomainSecurityKRBGT -ShowReport
+#Invoke-Testimo -Sources DCLanManServer, DomainSecurityKRBGT -ShowReport
+#Invoke-Testimo -Sources ForestSiteLinks,ForestSiteLinksConnections -ShowReport -ForestName 'test.evotec.pl'
+#Invoke-Testimo -Sources ForestReplication,ForestReplicationStatus -ShowReport -ForestName 'test.evotec.pl'
+#Invoke-Testimo -Sources DomainOrganizationalUnitsProtected -ShowReport #-ForestName 'test.evotec.pl'
+Invoke-Testimo -Sources DCLanManServer -ShowReport -ForestName 'test.evotec.pl'

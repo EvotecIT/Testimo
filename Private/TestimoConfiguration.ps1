@@ -27,7 +27,8 @@
         GroupPolicyMissingPermissions      = $GroupPolicyMissingPermissions
         Trusts                             = $Trusts
         OrphanedForeignSecurityPrincipals  = $OrphanedForeignSecurityPrincipals
-        EmptyOrganizationalUnits           = $EmptyOrganizationalUnits
+        OrganizationalUnitsEmpty           = $OrganizationalUnitsEmpty
+        OrganizationalUnitsProtected       = $OrganizationalUnitsProtected
         DNSScavengingForPrimaryDNSServer   = $DNSScavengingForPrimaryDNSServer
         DNSForwaders                       = $DNSForwaders
         DnsZonesAging                      = $DnsZonesAging

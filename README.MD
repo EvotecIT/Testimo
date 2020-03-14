@@ -38,23 +38,27 @@ Things to know:
 - 0.0.39 - Unreleased
   - Engine
     - [x] Add requirements (InternalForest = $true) for tests that do not support external forest (such as repadmin)
+  - Reporting
+    - [x] Improved output to not include empty tabs
   - Tests
-    - [x] Improved ForestReplicationStatus if only 1 DC
-    - [x] Improved ForestReplication if only 1 DC
+    - [x] Improved `ForestReplicationStatus` if only 1 DC
+    - [x] Improved `ForestReplication` if only 1 DC
+    - [ ] Renamed `DomainEmptyOrganizationalUnits` to `OrganizationalUnitsEmpty`
+    - [ ] Added `DomainOrganizationalUnitsProtected`
 
 - 0.0.38 - 2020.03.14
   - Added GroupPolicy and ActiveDirectory to RequiredModules and ExternalModuleDependencies preventing error reported in [#91](https://github.com/EvotecIT/Testimo/issues/91)
 
 - 0.0.37 - 2020.03.13
   - Engine
-    - [x] Update to DomainSecurityUsers to exclude DomainGuests
+    - [x] Update to `DomainSecurityUsers` to exclude DomainGuests
     - [x] Fix for ExpectedOutput $false
   - Tests
-    - [x] Fix for DomainSecurityUsers - tnx itpro-tips [#89](https://github.com/EvotecIT/Testimo/issues/89)
+    - [x] Fix for `DomainSecurityUsers` - tnx itpro-tips [#89](https://github.com/EvotecIT/Testimo/issues/89)
     - [x] Added DomainSecurityKRBGT
-    - [x] Improved DCNetworkSettings - DNS: DNS servers on Ethernet should include the loopback address, but not as the first entry - [#90](https://github.com/EvotecIT/Testimo/pull/90) - tnx itpro-tips
-    - [x] Improved DCNetworkSettings - DNS: Ethernet should have static IPv4 settings (disabled by default) - [#90](https://github.com/EvotecIT/Testimo/pull/90) - tnx itpro-tips
-    - [x] Improved DCLanManServer - [ADV200005 | Microsoft Guidance for Disabling SMBv3 Compression](https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/adv200005) - Disabled by default, as patch is available
+    - [x] Improved `DCNetworkSettings` - DNS: DNS servers on Ethernet should include the loopback address, but not as the first entry - [#90](https://github.com/EvotecIT/Testimo/pull/90) - tnx itpro-tips
+    - [x] Improved `DCNetworkSettings` - DNS: Ethernet should have static IPv4 settings (disabled by default) - [#90](https://github.com/EvotecIT/Testimo/pull/90) - tnx itpro-tips
+    - [x] Improved `DCLanManServer` - [ADV200005 | Microsoft Guidance for Disabling SMBv3 Compression](https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/adv200005) - Disabled by default, as patch is available
 
 - 0.0.36 - 2020.03.04
   - Engine

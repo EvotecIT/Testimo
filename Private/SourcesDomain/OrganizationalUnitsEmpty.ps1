@@ -1,4 +1,4 @@
-﻿$EmptyOrganizationalUnits = @{
+﻿$OrganizationalUnitsEmpty = @{
     Enable = $true
     Source = @{
         Name           = "Orphaned/Empty Organizational Units"
