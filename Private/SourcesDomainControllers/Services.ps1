@@ -309,6 +309,7 @@
                 Property      = 'Status'
                 ExpectedValue = 'Stopped'
                 OperationType = 'eq'
+                MustExists    = $false
             }
             Details    = [ordered] @{
                 Area        = 'Security'
@@ -333,6 +334,7 @@
                 Property      = 'StartType'
                 ExpectedValue = 'Disabled'
                 OperationType = 'eq'
+                MustExists    = $false
             }
             Details    = [ordered] @{
                 Area        = 'Security'
