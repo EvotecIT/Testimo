@@ -41,7 +41,7 @@ Things to know:
   - Reporting
     - [x] Improved output to not include empty tabs
   - Tests
-    - [x] Improved `ForestReplicationStatus` if only 1 DC
+    - [x] Improved `ForestReplicationStatus` if only 1 DC, disabled if asking for external forest
     - [x] Improved `ForestReplication` if only 1 DC
     - [x] Renamed `DomainEmptyOrganizationalUnits` to `OrganizationalUnitsEmpty`
     - [x] Added `DomainOrganizationalUnitsProtected`
