@@ -9,7 +9,7 @@
             & $ADModule { param($Domain); Get-WinADDomainDefaultPasswordPolicy -Domain $Domain } $Domain
         }
         Details = [ordered] @{
-            Area        = ''
+            Area        = 'Security'
             Category    = ''
             Severity    = ''
             RiskLevel   = 0

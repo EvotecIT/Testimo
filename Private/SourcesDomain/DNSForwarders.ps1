@@ -20,7 +20,7 @@
             } $Domain
         }
         Details = [ordered] @{
-            Area        = ''
+            Area        = 'Configuration'
             Category    = ''
             Severity    = ''
             RiskLevel   = 0

@@ -7,7 +7,7 @@
             $Computers | Select-Object Name, OperatingSystem, OperatingSystemServicePack, @{name = "lastlogontimestamp"; expression = { [datetime]::fromfiletime($_.lastlogontimestamp) } }
         }
         Details        = [ordered] @{
-            Area        = ''
+            Area        = 'Cleanup'
             Category    = ''
             Severity    = ''
             RiskLevel   = 0

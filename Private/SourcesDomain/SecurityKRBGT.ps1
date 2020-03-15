@@ -7,7 +7,7 @@
             Get-ADUser -Identity "krbtgt" -Property Name, Created, logonCount, Modified, PasswordLastSet, PasswordExpired, msDS-KeyVersionNumber, CanonicalName, msDS-KrbTgtLinkBl -Server $Domain
         }
         Details        = [ordered] @{
-            Area        = ''
+            Area        = 'Security', 'Cleanup'
             Category    = ''
             Severity    = ''
             RiskLevel   = 0
@@ -22,7 +22,7 @@
         ExpectedOutput = $true
     }
     Tests  = [ordered] @{
-        PasswordLastSet                   = @{
+        PasswordLastSet = @{
             Enable      = $true
             Name        = 'Krbtgt Last Password Change Should be less than 40 days ago'
             Parameters  = @{

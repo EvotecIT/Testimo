@@ -6,7 +6,7 @@
             Get-ADUser -Identity krbtgt -Properties Created, PasswordLastSet, msDS-KeyVersionNumber -Server $Domain
         }
         Details = [ordered] @{
-            Area        = ''
+            Area        = 'Security'
             Category    = ''
             Severity    = ''
             RiskLevel   = 0

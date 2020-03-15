@@ -12,7 +12,7 @@
         ExpectedOutput = $false
 
         Details        = [ordered] @{
-            Area        = ''
+            Area        = 'Cleanup', 'Security'
             Category    = ''
             Severity    = ''
             RiskLevel   = 0
