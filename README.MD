@@ -43,8 +43,9 @@ Things to know:
   - Tests
     - [x] Improved `ForestReplicationStatus` if only 1 DC
     - [x] Improved `ForestReplication` if only 1 DC
-    - [ ] Renamed `DomainEmptyOrganizationalUnits` to `OrganizationalUnitsEmpty`
-    - [ ] Added `DomainOrganizationalUnitsProtected`
+    - [x] Renamed `DomainEmptyOrganizationalUnits` to `OrganizationalUnitsEmpty`
+    - [x] Added `DomainOrganizationalUnitsProtected`
+    - [x] Improved `DCServices` for non-existing spooler service
 
 - 0.0.38 - 2020.03.14
   - Added GroupPolicy and ActiveDirectory to RequiredModules and ExternalModuleDependencies preventing error reported in [#91](https://github.com/EvotecIT/Testimo/issues/91)
