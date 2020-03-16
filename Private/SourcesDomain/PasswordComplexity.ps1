@@ -64,7 +64,7 @@
             Name       = 'Lockout Threshold'
             Parameters = @{
                 Property      = 'Lockout Threshold'
-                ExpectedValue = 5
+                ExpectedValue = 4
                 OperationType = 'gt'
             }
         }
