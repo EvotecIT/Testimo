@@ -46,6 +46,7 @@ Things to know:
     - [x] Renamed `DomainEmptyOrganizationalUnits` to `OrganizationalUnitsEmpty`
     - [x] Added `DomainOrganizationalUnitsProtected`
     - [x] Improved `DCServices` for non-existing spooler service
+    - [x] Changed `DomainPasswordComplexity` Lockout Treshold changed to 5+
 
 - 0.0.38 - 2020.03.14
   - Added GroupPolicy and ActiveDirectory to RequiredModules and ExternalModuleDependencies preventing error reported in [#91](https://github.com/EvotecIT/Testimo/issues/91)

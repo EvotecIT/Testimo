@@ -20,6 +20,12 @@
         Requirements   = @{
             CommandAvailable = 'Get-PSRegistry'
         }
+        Implementation = {
+
+        }
+        Rollback       = {
+            Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths" -Name "*"
+        }
         ExpectedOutput = $true
     }
     Tests  = [ordered] @{
