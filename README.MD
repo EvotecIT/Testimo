@@ -47,6 +47,8 @@ Things to know:
     - [x] Added `DomainOrganizationalUnitsProtected`
     - [x] Improved `DCServices` for non-existing spooler service
     - [x] Changed `DomainPasswordComplexity` Lockout Treshold changed to 5+
+  - Other
+    - Fix typos - tnx subnet192 [#99](https://github.com/EvotecIT/Testimo/pull/99)
 
 - 0.0.38 - 2020.03.14
   - Added GroupPolicy and ActiveDirectory to RequiredModules and ExternalModuleDependencies preventing error reported in [#91](https://github.com/EvotecIT/Testimo/issues/91)
