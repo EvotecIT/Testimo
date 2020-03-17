@@ -20,7 +20,7 @@ $ReplicationStatus = @{
         }
         Requirements   = @{
             CommandAvailable = 'repadmin'
-            InternalForest   = $true
+            IsInternalForest   = $true
         }
         ExpectedOutput = $false
     }

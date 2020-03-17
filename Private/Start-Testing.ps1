@@ -140,8 +140,8 @@
                             continue
                         }
                     }
-                    if ($null -ne $CurrentSource['Requirements']['InternalForest']) {
-                        if ($CurrentSource['Requirements']['InternalForest'] -eq $true) {
+                    if ($null -ne $CurrentSource['Requirements']['IsInternalForest']) {
+                        if ($CurrentSource['Requirements']['IsInternalForest'] -eq $true) {
                             if ($ForestName) {
                                 Out-Skip -Test $CurrentSource['Name'] -DomainController $DomainController `
                                     -Domain $Domain -TestsSummary $TestsSummary -Source $ReferenceID -Level $Level `

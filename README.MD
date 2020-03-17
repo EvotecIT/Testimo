@@ -37,7 +37,7 @@ Things to know:
 
 - 0.0.39 - Unreleased
   - Engine
-    - [x] Add requirements (InternalForest = $true) for tests that do not support external forest (such as repadmin)
+    - [x] Add requirements (IsInternalForest = $true) for tests that do not support external forest (such as repadmin)
   - Reporting
     - [x] Improved output to not include empty tabs
   - Tests
@@ -47,6 +47,7 @@ Things to know:
     - [x] Added `DomainOrganizationalUnitsProtected`
     - [x] Improved `DCServices` for non-existing spooler service
     - [x] Changed `DomainPasswordComplexity` Lockout Treshold changed to 5+
+    - [x] Renamed `DCNetSessionEnumaration` to `DCNetSessionEnumeration` - tnx subnet192 [#99](https://github.com/EvotecIT/Testimo/pull/99)
   - Other
     - Fix typos - tnx subnet192 [#99](https://github.com/EvotecIT/Testimo/pull/99)
 
