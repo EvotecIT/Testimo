@@ -148,7 +148,7 @@ Things to know:
       - [x] Smb2CreditsMin
       - [x] Smb2CreditsMax
       - [x] RequireSecuritySignature
-    - [x] DCNetSessionEnumaration (Net Cease) - **Added**
+    - [x] DCNetSessionEnumeration (Net Cease) - **Added**
       - [x] Hardening Net Session Enumeration
     - [x] DCLanManServer - **Added**
       - [x] Microsoft network server: Digitally sign communications (if client agrees)

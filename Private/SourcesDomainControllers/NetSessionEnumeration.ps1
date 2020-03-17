@@ -1,7 +1,7 @@
-﻿$NetSessionEnumaration = @{
+﻿$NetSessionEnumeration = @{
     Enable = $true
     Source = @{
-        Name           = "Net Session Enumaration"
+        Name           = "Net Session Enumeration"
         Data           = {
             $Registry = Get-PSRegistry -RegistryPath "HKLM\SYSTEM\CurrentControlSet\Services\LanmanServer\DefaultSecurity"
             $CSD = [System.Security.AccessControl.CommonSecurityDescriptor]::new($true, $false, $Registry.SrvsvcSessionInfo, 0)

@@ -79,7 +79,7 @@
         LanManServer                = $LanManServer
         MSSLegacy                   = $MSSLegacy
         FileSystem                  = $FileSystem
-        NetSessionEnumaration       = $NetSessionEnumaration
+        NetSessionEnumeration       = $NetSessionEnumeration
         ServiceWINRM                = $ServiceWINRM
         UNCHardenedPaths            = $UNCHardenedPaths
     }
