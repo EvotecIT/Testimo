@@ -3,7 +3,7 @@
     Source = @{
         Name           = 'Orphaned Administrative Objects (AdminCount)'
         Data           = {
-            Get-WinADPriviligedObjects -OrphanedOnly -Forest $ForestName
+            Get-WinADPrivilegedObjects -OrphanedOnly -Forest $ForestName
         }
         ExpectedOutput = $false
         Details        = [ordered] @{
