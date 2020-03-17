@@ -2112,7 +2112,7 @@
                                                                                                 }
                                                            }
                                              },
-                              "NetSessionEnumaration":  {
+                              "NetSessionEnumeration":  {
                                                             "Enable":  true,
                                                             "Source":  {
                                                                            "ExpectedOutput":  false

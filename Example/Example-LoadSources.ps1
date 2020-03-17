@@ -18,7 +18,7 @@ DCLanManagerSettings
 DCLanManServer
 DCLDAP
 DCMSSLegacy
-DCNetSessionEnumaration
+DCNetSessionEnumeration
 DCNetworkCardSettings
 DCNTDSParameters
 DCOperatingSystem
