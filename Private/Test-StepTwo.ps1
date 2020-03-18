@@ -41,29 +41,29 @@
 
         if ($null -ne $ExpectedCount) {
             if ($OperationType -eq 'lt') {
-                $TestResult = $Object.Count -lt $ExpectedCount
+                $TestResult = $TestedValue.Count -lt $ExpectedCount
             } elseif ($OperationType -eq 'gt') {
-                $TestResult = $Object.Count -lt $ExpectedCount
+                $TestResult = $TestedValue.Count -gt $ExpectedCount
             } elseif ($OperationType -eq 'ge') {
-                $TestResult = $Object.Count -lt $ExpectedCount
+                $TestResult = $TestedValue.Count -ge $ExpectedCount
             } elseif ($OperationType -eq 'le') {
-                $TestResult = $Object.Count -lt $ExpectedCount
+                $TestResult = $TestedValue.Count -le $ExpectedCount
             } elseif ($OperationType -eq 'like') {
                 # Useless - doesn't make any sense
-                $TestResult = $Object.Count -like $ExpectedCount
+                $TestResult = $TestedValue.Count -like $ExpectedCount
             } elseif ($OperationType -eq 'contains') {
                 # Useless - doesn't make any sense
-                $TestResult = $Object.Count -like $ExpectedCount
+                $TestResult = $TestedValue.Count -contains $ExpectedCount
             } elseif ($OperationType -eq 'in') {
                 # Useless - doesn't make any sense
-                $TestResult = $ExpectedCount -in $Object.Count
+                $TestResult = $ExpectedCount -in $TestedValue.Count
             } elseif ($OperationType -eq 'notin') {
                 # Useless - doesn't make any sense
-                $TestResult = $ExpectedCount -notin $Object.Count
+                $TestResult = $ExpectedCount -notin $TestedValue.Count
             } else {
-                $TestResult = $Object.Count -eq $ExpectedCount
+                $TestResult = $TestedValue.Count -eq $ExpectedCount
             }
-            $TextTestedValue = $Object.Count
+            $TextTestedValue = $TestedValue.Count
             $TextExpectedValue = $ExpectedCount
 
         } elseif ($null -ne $ExpectedValue) {

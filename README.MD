@@ -38,6 +38,7 @@ Things to know:
 - 0.0.39 - Unreleased
   - Engine
     - [x] Add requirements (IsInternalForest = $true) for tests that do not support external forest (such as repadmin)
+    - [x] Fixed ExpectedCount not working correctly for some values (no sure why it worked at all)
   - Reporting
     - [x] Improved output to not include empty tabs
   - Tests
