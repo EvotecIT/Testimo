@@ -38,7 +38,7 @@ Things to know:
 - 0.0.39 - Unreleased
   - Engine
     - [x] Add requirements (IsInternalForest = $true) for tests that do not support external forest (such as repadmin)
-    - [x] Fixed ExpectedCount not working correctly for some values (no sure why it worked at all)
+    - [x] Fixed `ExpectedCount` not working correctly for some values (no sure why it worked at all)
   - Reporting
     - [x] Improved output to not include empty tabs
   - Tests
@@ -49,6 +49,7 @@ Things to know:
     - [x] Improved `DCServices` for non-existing spooler service
     - [x] Changed `DomainPasswordComplexity` Lockout Treshold changed to 5+
     - [x] Renamed `DCNetSessionEnumaration` to `DCNetSessionEnumeration` - tnx subnet192 [#99](https://github.com/EvotecIT/Testimo/pull/99)
+    - [x] Added `DCDNSForwarders` - DNS: More than one forwarding server should be configured
   - Other
     - Fix typos - tnx subnet192 [#99](https://github.com/EvotecIT/Testimo/pull/99)
 
