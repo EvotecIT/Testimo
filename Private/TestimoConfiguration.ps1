@@ -82,6 +82,7 @@
         NetSessionEnumeration       = $NetSessionEnumeration
         ServiceWINRM                = $ServiceWINRM
         UNCHardenedPaths            = $UNCHardenedPaths
+        DNSForwaders                = $DCDNSForwaders
     }
     Debug             = [ordered] @{
         ShowErrors = $false
