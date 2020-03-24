@@ -50,6 +50,7 @@ Things to know:
     - [x] Changed `DomainPasswordComplexity` Lockout Treshold changed to 5+
     - [x] Renamed `DCNetSessionEnumaration` to `DCNetSessionEnumeration` - tnx subnet192 [#99](https://github.com/EvotecIT/Testimo/pull/99)
     - [x] Added `DCDNSForwarders` - DNS: More than one forwarding server should be configured
+    - [x] Added `DomainExchangeUsers` - Exchange Users: Missing MailNickName (monitors for issue <https://evotec.xyz/office-365-msexchhidefromaddresslists-does-not-synchronize-with-office-365/)>
   - Other
     - Fix typos - tnx subnet192 [#99](https://github.com/EvotecIT/Testimo/pull/99)
 

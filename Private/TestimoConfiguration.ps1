@@ -45,6 +45,7 @@
         GroupPolicyADM                     = $GroupPolicyADM
         ComputersUnsupported               = $ComputersUnsupported
         ComputersUnsupportedMainstream     = $ComputersUnsupportedMainstream
+        ExchangeUsers                      = $ExchangeUsers
     }
     DomainControllers = [ordered] @{
         Information                 = $Information
