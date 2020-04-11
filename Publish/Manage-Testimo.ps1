@@ -7,7 +7,7 @@ $Configuration = @{
         DirectoryProjects = 'C:\Support\GitHub'
         Manifest          = @{
             # Version number of this module.
-            ModuleVersion              = '0.0.38'
+            ModuleVersion              = '0.0.39'
             # Supported PSEditions
             CompatiblePSEditions       = @('Desktop')
             # ID used to uniquely identify this module
@@ -41,9 +41,6 @@ $Configuration = @{
                 "ActiveDirectory"
                 "GroupPolicy"
                 "ServerManager"
-                #"Microsoft.PowerShell.Utility",
-                #"Microsoft.PowerShell.Management",
-                #"Microsoft.PowerShell.Security"
             )
         }
     }
