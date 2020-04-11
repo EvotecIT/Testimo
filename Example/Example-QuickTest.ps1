@@ -14,4 +14,4 @@
 #Invoke-Testimo -Sources ForestReplication,ForestReplicationStatus -ShowReport -ForestName 'test.evotec.pl'
 #Invoke-Testimo -Sources DomainOrganizationalUnitsProtected -ShowReport #-ForestName 'test.evotec.pl'
 #Invoke-Testimo -Sources DomainDNSForwaders,DCDNSForwaders -ShowReport #-ForestName 'test.evotec.pl'
-Invoke-Testimo -Sources DomainExchangeUsers -ShowReport
+Invoke-Testimo -Sources DomainDNSScavengingForPrimaryDNSServer -ShowReport

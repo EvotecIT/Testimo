@@ -40,6 +40,7 @@ $Configuration = @{
             ExternalModuleDependencies = @(
                 "ActiveDirectory"
                 "GroupPolicy"
+                "ServerManager"
                 #"Microsoft.PowerShell.Utility",
                 #"Microsoft.PowerShell.Management",
                 #"Microsoft.PowerShell.Security"
@@ -151,10 +152,10 @@ $Configuration = @{
         }
         BuildDocumentation = $false
         PublishModule      = @{
-            Enabled      = $true
+            Enabled      = $false
             Prerelease   = ''
             RequireForce = $false
-            GitHub       = $true
+            GitHub       = $false
         }
     }
 }

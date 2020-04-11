@@ -35,7 +35,7 @@ Things to know:
 
 ## ChangeLog
 
-- 0.0.39 - Unreleased
+- 0.0.39 - 2020.04.11
   - Engine
     - [x] Add requirements (IsInternalForest = $true) for tests that do not support external forest (such as repadmin)
     - [x] Fixed `ExpectedCount` not working correctly for some values (no sure why it worked at all)
@@ -51,6 +51,7 @@ Things to know:
     - [x] Renamed `DCNetSessionEnumaration` to `DCNetSessionEnumeration` - tnx subnet192 [#99](https://github.com/EvotecIT/Testimo/pull/99)
     - [x] Added `DCDNSForwarders` - DNS: More than one forwarding server should be configured
     - [x] Added `DomainExchangeUsers` - Exchange Users: Missing MailNickName (monitors for issue <https://evotec.xyz/office-365-msexchhidefromaddresslists-does-not-synchronize-with-office-365/)>
+    - [x] Improved `DNSScavengingForPrimaryDNSServer`
   - Other
     - Fix typos - tnx subnet192 [#99](https://github.com/EvotecIT/Testimo/pull/99)
 

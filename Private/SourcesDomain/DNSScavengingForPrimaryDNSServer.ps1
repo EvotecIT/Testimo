@@ -3,17 +3,7 @@
     Source = @{
         Name    = "DNS Scavenging - Primary DNS Server"
         Data    = {
-            # $PSWinDocumentationDNS = Import-Module PSWinDocumentation.DNS -PassThru
-            $PSWinDocumentationDNS = Import-PrivateModule PSWinDocumentation.DNS
-            & $PSWinDocumentationDNS {
-                param($Domain)
-                # this gets all DNS Servers but limits it only to those repsponsible for scavenging
-                # There should be only 1 such server
-
-                $Object = Get-WinDnsServerScavenging -Domain $Domain
-                $Object | Where-Object { $_.ScavengingInterval -ne 0 -and $null -ne $_.ScavengingInterval }
-
-            } $Domain
+            Get-WinDnsServerScavenging -IncludeDomains $Domain
         }
         Details = [ordered] @{
             Area        = ''
@@ -32,6 +22,7 @@
             Enable      = $true
             Name        = 'Scavenging DNS Servers Count'
             Parameters  = @{
+                WhereObject   = { $null -ne $_.ScavengingInterval -and $_.ScavengingInterval -ne 0 }
                 ExpectedCount = 1
                 OperationType = 'eq'
             }
@@ -41,6 +32,7 @@
             Enable     = $true
             Name       = 'Scavenging Interval'
             Parameters = @{
+                WhereObject   = { $null -ne $_.ScavengingInterval -and $_.ScavengingInterval -ne 0 }
                 Property      = 'ScavengingInterval', 'Days'
                 ExpectedValue = 7
                 OperationType = 'le'
@@ -50,6 +42,7 @@
             Enable                 = $true
             Name                   = 'Scavenging State'
             Parameters             = @{
+                WhereObject   = { $null -ne $_.ScavengingInterval -and $_.ScavengingInterval -ne 0 }
                 Property      = 'ScavengingState'
                 ExpectedValue = $true
                 OperationType = 'eq'
@@ -63,6 +56,7 @@
             Enable     = $true
             Name       = 'Last Scavenge Time'
             Parameters = @{
+                WhereObject   = { $null -ne $_.ScavengingInterval -and $_.ScavengingInterval -ne 0 }
                 # this date should be the same as in Scavending Interval
                 Property      = 'LastScavengeTime'
                 # we need to use string which will be converted to ScriptBlock later on due to configuration export to JSON
