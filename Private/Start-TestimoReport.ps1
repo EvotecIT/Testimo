@@ -3,8 +3,7 @@
     param(
         [System.Collections.IDictionary] $TestResults,
         [string] $FilePath,
-        [switch] $UseCssLinks,
-        [switch] $UseJavaScriptLinks,
+        [switch] $Online,
         [switch] $ShowHTML
     )
 
@@ -23,7 +22,7 @@
     [Array] $FailedTests = $TestResults['Results'] | Where-Object { $_.Status -eq $false }
     [Array] $SkippedTests = $TestResults['Results'] | Where-Object { $_.Status -ne $true -and $_.Status -ne $false }
 
-    New-HTML -FilePath $FilePath -UseCssLinks:$UseCssLinks -UseJavaScriptLinks:$UseJavaScriptLinks {
+    New-HTML -FilePath $FilePath -Online:$Online {
         New-HTMLHeader {
             New-HTMLSection -Invisible {
                 New-HTMLSection {
