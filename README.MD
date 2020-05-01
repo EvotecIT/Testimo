@@ -35,6 +35,14 @@ Things to know:
 
 ## ChangeLog
 
+- 0.0.40 - Unreleased
+  - Engine
+    - [x] ExpectedOutput is now required for Source
+  - Tests
+    - [x] ExpectedOutput (true/false/null) added for all tests
+    - [x] Fix regression `ForestReplicationStatus` if multiple DC
+    - [x] Fix regression `ForestReplication` if multiple DC
+
 - 0.0.39 - 2020.04.11
   - Engine
     - [x] Add requirements (IsInternalForest = $true) for tests that do not support external forest (such as repadmin)
