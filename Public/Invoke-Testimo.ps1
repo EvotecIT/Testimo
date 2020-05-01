@@ -25,7 +25,8 @@ function Invoke-Testimo {
         [Object] $Configuration,
         [string] $ReportPath,
         [switch] $ShowReport,
-        [switch] $SkipRODC
+        [switch] $SkipRODC,
+        [switch] $Online
     )
     if (-not $Script:DefaultSources) {
         $Script:DefaultSources = Get-TestimoSources -Enabled
@@ -126,7 +127,7 @@ function Invoke-Testimo {
         }
     }
     if ($ReportPath -or $ShowReport) {
-        Start-TestimoReport -FilePath $ReportPath -UseCssLinks:$true -UseJavaScriptLinks:$true -ShowHTML:$ShowReport -TestResults $Script:Reporting
+        Start-TestimoReport -FilePath $ReportPath -Online:$Online -ShowHTML:$ShowReport -TestResults $Script:Reporting
     }
 }
 
