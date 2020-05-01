@@ -15,6 +15,7 @@
             RiskLevel   = 5
             Resources   = @()
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         RecycleBinEnabled    = @{

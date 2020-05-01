@@ -31,6 +31,7 @@
                 'https://jackstromberg.com/2014/07/sysvol-and-group-policy-out-of-sync-on-server-2012-r2-dcs-using-dfsr/'
             )
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         Status              = @{

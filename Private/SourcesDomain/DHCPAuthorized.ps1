@@ -18,6 +18,7 @@
 
             )
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         DHCPAuthorized = @{

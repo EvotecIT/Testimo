@@ -1,6 +1,4 @@
-﻿#Get-WInADGPOSysvol -Domain 'ad.evotec.pl' -ComputerName DC1 | ft -AutoSize *
-
-$GroupPolicySYSVOL = @{
+﻿$GroupPolicySYSVOL = @{
     Enable = $true
     Source = @{
         Name    = "Group Policy SYSVOL Verification"

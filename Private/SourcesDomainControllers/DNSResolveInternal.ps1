@@ -27,6 +27,7 @@
 
             )
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         ResolveDNSInternal = @{

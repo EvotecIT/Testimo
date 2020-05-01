@@ -1,18 +1,18 @@
 ﻿$DNSZonesForest0ADEL = @{
     Enable = $true
     Source = @{
-        Name         = "ForestDNSZones should have proper FSMO Owner (0ADEL)"
-        Data         = {
+        Name           = "ForestDNSZones should have proper FSMO Owner (0ADEL)"
+        Data           = {
             #$DomainController = 'ad.evotec.xyz'
             #$DomainInformation = Get-ADDomain -Server $DomainController
             $IdentityForest = "CN=Infrastructure,DC=ForestDnsZones,$(($DomainInformation).DistinguishedName)"
             $FSMORoleOwner = (Get-ADObject -Identity $IdentityForest -Properties fSMORoleOwner -Server $Domain)
             $FSMORoleOwner
         }
-        Requirements = @{
+        Requirements   = @{
             IsDomainRoot = $true
         }
-        Details      = [ordered] @{
+        Details        = [ordered] @{
             Area        = 'Configuration'
             Category    = 'DNS'
             Severity    = ''
@@ -26,6 +26,7 @@
             )
 
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         DNSZonesForest0ADEL = @{

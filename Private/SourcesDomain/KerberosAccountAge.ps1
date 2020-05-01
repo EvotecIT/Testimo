@@ -16,6 +16,7 @@
 
             )
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         EnabledAgingEnabled = @{

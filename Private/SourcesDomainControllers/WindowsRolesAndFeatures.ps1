@@ -71,6 +71,7 @@ $WindowsRolesAndFeatures = @{
         Data = {
             Get-WindowsFeature -ComputerName $DomainController #| Where-Object { $_.'InstallState' -eq 'Installed' }
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         ActiveDirectoryDomainServices = @{

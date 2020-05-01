@@ -21,6 +21,7 @@
                 'https://blogs.technet.microsoft.com/askpfeplat/2019/04/11/changes-to-ticket-granting-ticket-tgt-delegation-across-trusts-in-windows-server-askpfeplat-edition/'
             )
         }
+        ExpectedOutput = $null
     }
     Tests  = [ordered] @{
         TrustsConnectivity            = @{

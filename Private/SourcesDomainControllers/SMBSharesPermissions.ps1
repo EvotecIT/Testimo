@@ -17,6 +17,7 @@
         Requirements = @{
             CommandAvailable = 'Get-ComputerSMBSharePermissions'
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         OverallCount                  = @{

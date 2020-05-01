@@ -7,7 +7,6 @@
             $OrphanedObjects = $AllFSP | Where-Object { $_.TranslatedName -eq $null }
             $OrphanedObjects
         }
-        ExpectedOutput = $false
         Details = [ordered] @{
             Area        = 'Cleanup'
             Category    = ''
@@ -19,5 +18,6 @@
 
             )
         }
+        ExpectedOutput = $false
     }
 }

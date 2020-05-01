@@ -9,8 +9,6 @@
         Requirements   = @{
             IsDomainRoot = $true
         }
-        ExpectedOutput = $false
-
         Details        = [ordered] @{
             Area        = 'Cleanup', 'Security'
             Category    = ''
@@ -23,5 +21,6 @@
             )
 
         }
+        ExpectedOutput = $false
     }
 }

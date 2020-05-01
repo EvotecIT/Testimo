@@ -13,7 +13,6 @@
 
             $OrganizationalUnits | Where-Object { ($AllUsedOU -notcontains $_) -and -not (Get-ADOrganizationalUnit -Filter * -SearchBase $_ -SearchScope 1 -Server $Domain) -and (($_ -notlike $WellKnownContainers.UsersContainer) -or ($_ -notlike $WellKnownContainers.ComputersContainer)) }
         }
-        ExpectedOutput = $false
         Details = [ordered] @{
             Area        = ''
             Category    = ''
@@ -25,5 +24,6 @@
 
             )
         }
+        ExpectedOutput = $false
     }
 }

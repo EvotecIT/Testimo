@@ -35,6 +35,7 @@
 
             )
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         UsersContainer                     = @{

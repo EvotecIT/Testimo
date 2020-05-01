@@ -17,6 +17,7 @@
         Requirements = @{
             CommandAvailable = 'Get-ComputerSMB'
         }
+        ExpectedOutput = $true
     }
     # BPA Recommendations
     Tests  = [ordered] @{

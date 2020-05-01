@@ -17,6 +17,7 @@
 
             )
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         SameForwarders = @{

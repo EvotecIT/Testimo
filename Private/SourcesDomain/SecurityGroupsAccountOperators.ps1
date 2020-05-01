@@ -5,7 +5,6 @@
         Data           = {
             Get-ADGroupMember -Identity 'S-1-5-32-548' -Recursive -Server $Domain
         }
-        ExpectedOutput = $false
         Details        = [ordered] @{
             Area        = 'Cleanup', 'Security'
             Category    = ''
@@ -15,5 +14,6 @@
             Resolution  = ''
             Resources   = @()
         }
+        ExpectedOutput = $false
     }
 }

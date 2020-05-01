@@ -5,7 +5,6 @@
         Data           = {
             Get-WinADForestObjectsConflict -Forest $ForestName
         }
-        ExpectedOutput = $false
         Details        = [ordered] @{
             Area        = 'Features'
             Description = "When two objects are created with the same Relative Distinguished Name (RDN) in the same parent Organizational Unit or container, the conflict is recognized by the system when one of the new objects replicates to another domain controller. When this happens, one of the objects is renamed. Some sources say the RDN is mangled to make it unique. The new RDN will be <Old RDN>\0ACNF:<objectGUID>"
@@ -18,5 +17,6 @@
                 'https://gallery.technet.microsoft.com/scriptcenter/Get-ADForestConflictObjects-4667fa37'
             )
         }
+        ExpectedOutput = $false
     }
 }

@@ -16,6 +16,7 @@ $RDPPorts = [ordered] @{
 
             )
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         PortOpen = [ordered] @{

@@ -41,6 +41,7 @@ $Information = @{
 
             )
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         IsEnabled       = @{

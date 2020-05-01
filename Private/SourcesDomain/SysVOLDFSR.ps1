@@ -30,6 +30,7 @@
                 'https://dirteam.com/sander/2019/04/10/knowledgebase-in-place-upgrading-domain-controllers-to-windows-server-2019-while-still-using-ntfrs-breaks-sysvol-replication-and-dslocator/'
             )
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         DFSRSysvolState = @{

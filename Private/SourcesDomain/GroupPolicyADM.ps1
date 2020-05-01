@@ -6,7 +6,6 @@
             #$Domain = 'ad.evotec.xyz'
             Get-ChildItem -Path "\\$Domain\SYSVOL\$Domain\policies" -ErrorAction Stop -Recurse -Include '*.adm' | Select-Object Name, FullName, CreationTime, LastWriteTime, Attributes
         }
-        ExpectedOutput = $false
         Details        = [ordered] @{
             Area        = 'Cleanup'
             Category    = 'Group Policy'
@@ -20,5 +19,6 @@
                 'https://gallery.technet.microsoft.com/scriptcenter/Removing-ADM-files-from-b532e3b6#content'
             )
         }
+        ExpectedOutput = $false
     }
 }

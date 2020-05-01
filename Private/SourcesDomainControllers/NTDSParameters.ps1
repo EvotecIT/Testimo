@@ -38,6 +38,7 @@ $NTDSParameters = @{
 
             )
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         DsaNotWritable = @{

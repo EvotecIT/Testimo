@@ -15,6 +15,7 @@
 
             )
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         ADWSServiceStatus                 = @{

@@ -33,6 +33,7 @@
 
             )
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         PasswordLastSet = @{

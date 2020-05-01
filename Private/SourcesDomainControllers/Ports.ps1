@@ -42,6 +42,7 @@
 
             )
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         Port53   = [ordered] @{

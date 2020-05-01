@@ -17,6 +17,7 @@
         Requirements = @{
             CommandAvailable = 'Get-ComputerSMBShare'
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         AdminShare   = @{

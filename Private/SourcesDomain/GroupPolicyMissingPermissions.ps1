@@ -5,7 +5,6 @@
         Data           = {
             Get-WinADGPOMissingPermissions -Domain $Domain
         }
-        ExpectedOutput = $false
         Details        = [ordered] @{
             Area        = 'Security'
             Category    = ''
@@ -18,5 +17,6 @@
                 'https://support.microsoft.com/en-us/help/3163622/ms16-072-security-update-for-group-policy-june-14-2016'
             )
         }
+        ExpectedOutput = $false
     }
 }

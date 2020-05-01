@@ -19,6 +19,7 @@
 
             )
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         ComplexityEnabled             = @{

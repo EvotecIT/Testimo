@@ -14,6 +14,7 @@
 
             )
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         PortOpen                    = [ordered] @{

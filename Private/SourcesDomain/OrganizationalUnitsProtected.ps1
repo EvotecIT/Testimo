@@ -11,7 +11,6 @@
             }
             $FilteredOus | Select-Object -Property Name, CanonicalName, DistinguishedName, ProtectedFromAccidentalDeletion
         }
-        ExpectedOutput = $false
         Details = [ordered] @{
             Area        = 'Cleanup'
             Category    = ''
@@ -23,5 +22,6 @@
 
             )
         }
+        ExpectedOutput = $false
     }
 }

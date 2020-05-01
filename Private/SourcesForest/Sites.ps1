@@ -26,6 +26,7 @@
 
             )
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         SitesWithoutDC      = @{

@@ -16,6 +16,7 @@ $Diagnostics = @{
                 'https://social.technet.microsoft.com/Forums/en-US/b48ee073-eb71-4852-8f56-ecf6f76b3fff/how-could-i-change-result-of-dcdiag-language-to-english-?forum=winserver8gen'
             )
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         Connectivity                     = @{
