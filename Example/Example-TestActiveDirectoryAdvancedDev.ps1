@@ -30,7 +30,7 @@ $TestResults1
 
 return
 
-New-HTML -FilePath $PSScriptRoot\Output\TestimoSummary.html -UseCssLinks -UseJavaScriptLinks {
+New-HTML -FilePath $PSScriptRoot\Output\TestimoSummary.html -Online {
     [Array] $PassedTests = $TestResults['Results'] | Where-Object { $_.Status -eq $true }
     [Array] $FailedTests = $TestResults['Results'] | Where-Object { $_.Status -ne $true }
     New-HTMLTab -Name 'Summary' -IconBrands galactic-senate {
