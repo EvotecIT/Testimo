@@ -46,6 +46,7 @@
         ComputersUnsupported               = $ComputersUnsupported
         ComputersUnsupportedMainstream     = $ComputersUnsupportedMainstream
         ExchangeUsers                      = $ExchangeUsers
+        DuplicateObjects = $DuplicateObjects
     }
     DomainControllers = [ordered] @{
         Information                 = $Information

@@ -42,6 +42,7 @@ Things to know:
     - [x] ExpectedOutput (true/false/null) added for all tests
     - [x] Fix regression `ForestReplicationStatus` if multiple DC
     - [x] Fix regression `ForestReplication` if multiple DC
+    - [x] Added `DomainDuplicateObjects` test - finds CNF objects
 
 - 0.0.39 - 2020.04.11
   - Engine
