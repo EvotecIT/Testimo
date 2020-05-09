@@ -7,7 +7,7 @@ $Configuration = @{
         DirectoryProjects = 'C:\Support\GitHub'
         Manifest          = @{
             # Version number of this module.
-            ModuleVersion              = '0.0.39'
+            ModuleVersion              = '0.0.40'
             # Supported PSEditions
             CompatiblePSEditions       = @('Desktop')
             # ID used to uniquely identify this module
@@ -141,14 +141,22 @@ $Configuration = @{
         }
     }
     Steps       = @{
-        BuildModule        = @{
-            Enable       = $true
-            Merge        = $true
-            MergeMissing = $false
-            Releases     = $true
+        BuildModule        = @{  # requires Enable to be on to process all of that
+            Enable           = $true
+            DeleteBefore     = $false
+            Merge            = $true
+            MergeMissing     = $true
+            Releases         = $true
+            ReleasesUnpacked = $true
+            RefreshPSD1Only  = $false
         }
         BuildDocumentation = $false
-        PublishModule      = @{
+        ImportModules      = @{
+            Self            = $true
+            RequiredModules = $false
+            Verbose         = $false
+        }
+        PublishModule      = @{  # requires Enable to be on to process all of that
             Enabled      = $false
             Prerelease   = ''
             RequireForce = $false
