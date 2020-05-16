@@ -35,7 +35,7 @@ Things to know:
 
 ## ChangeLog
 
-- 0.0.40 - Unreleased
+- 0.0.40 - 2020.05.09
   - Engine
     - [x] ExpectedOutput is now required for Source
   - Tests
