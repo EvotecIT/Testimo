@@ -48,6 +48,7 @@
         ExchangeUsers                      = $ExchangeUsers
         DuplicateObjects                   = $DuplicateObjects
         GPOPermissionConsistency           = $GPOPermissionConsistency
+        GPOOwner                           = $GPOOwner
     }
     DomainControllers = [ordered] @{
         Information                 = $Information
