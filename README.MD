@@ -36,6 +36,8 @@ Things to know:
 ## ChangeLog
 
 - 0.0.41 - Unreleased
+  - Engine
+    - [x] Renamed `MustExists` to `ExpectedOutput` for Parameters in Tests for unified experience
   - Tests
     - [x] Added `GPOPermissionConsistency` (requires `GPOZaurr` PowerShell module)
 

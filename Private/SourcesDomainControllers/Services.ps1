@@ -310,7 +310,7 @@
                 Property      = 'Status'
                 ExpectedValue = 'Stopped'
                 OperationType = 'eq'
-                MustExists    = $false
+                ExpectedOutput    = $false
             }
             Details    = [ordered] @{
                 Area        = 'Security'
@@ -335,7 +335,7 @@
                 Property      = 'StartType'
                 ExpectedValue = 'Disabled'
                 OperationType = 'eq'
-                MustExists    = $false
+                ExpectedOutput    = $false
             }
             Details    = [ordered] @{
                 Area        = 'Security'
@@ -383,7 +383,7 @@
                 Property      = 'Status'
                 ExpectedValue = 'Stopped', 'N/A'
                 OperationType = 'in'
-                MustExists    = $false
+                ExpectedOutput    = $false
             }
         }
         XblAuthManagerStartupType         = @{
@@ -395,7 +395,7 @@
                 Property      = 'StartType'
                 ExpectedValue = 'Disabled', 'N/A'
                 OperationType = 'in'
-                MustExists    = $false
+                ExpectedOutput    = $false
             }
         }
         XblGameSaveServiceStatus          = @{
@@ -406,7 +406,7 @@
                 Property      = 'Status'
                 ExpectedValue = 'Stopped', 'N/A'
                 OperationType = 'in'
-                MustExists    = $false
+                ExpectedOutput    = $false
             }
         }
         XblGameSaveStartupType            = @{
@@ -418,7 +418,7 @@
                 Property      = 'StartType'
                 ExpectedValue = 'Disabled', 'N/A'
                 OperationType = 'in'
-                MustExists    = $false
+                ExpectedOutput    = $false
             }
 
         }

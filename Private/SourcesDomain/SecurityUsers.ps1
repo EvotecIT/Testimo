@@ -59,7 +59,7 @@
                 WhereObject   = { $_.UseDESKeyOnly -eq $true }
                 ExpectedCount = 0
                 OperationType = 'eq'
-                MustExists = $false
+                ExpectedOutput = $false
             }
             Description = "User accounts shouldn't use DES encryption. Having UseDESKeyOnly forces the Kerberos encryption to be DES instead of RC4 which is the Microsoft default. DES is 56 bit encryption and is regarded as weak these days so this setting is not recommended."
         }
@@ -70,7 +70,7 @@
                 WhereObject   = { $_.AllowReversiblePasswordEncryption -eq $true }
                 ExpectedCount = 0
                 OperationType = 'eq'
-                MustExists = $false
+                ExpectedOutput = $false
             }
             Description = "User accounts shouldn't use Reversible Password Encryption. Having AllowReversiblePasswordEncryption allows for easy password decryption."
         }
@@ -81,7 +81,7 @@
                 WhereObject   = { $_.PrimaryGroupID -ne 513 -and $_.SID -ne "$((Get-ADDomain).DomainSID.Value)-501" }
                 ExpectedCount = 0
                 OperationType = 'eq'
-                MustExists = $false
+                ExpectedOutput = $false
             }
             Description = "User accounts shouldn't have different group then Domain Users as their primary group."
         }

@@ -13,8 +13,8 @@
         [nullable[int]] $ExpectedCount,
         [string] $OperationResult,
         [string] $ReferenceID,
+        #[nullable[bool]] $ExpectedOutput,
         [nullable[bool]] $ExpectedOutput,
-        [nullable[bool]] $MustExists,
         [scriptblock] $WhereObject,
         [scriptblock] $OverwriteName,
         [System.Collections.IDictionary] $Requirements
@@ -28,7 +28,7 @@
             $Object = $Object | Where-Object $WhereObject
         }
         if ($null -ne $Requirements) {
-            if ($null -ne $Requirements['MustExists']) {
+            if ($null -ne $Requirements['ExpectedOutput']) {
                 #if ($Requirements['MustMatch']) {
                 #    $TestsSummary.Skipped = $TestsSummary.Skipped + 1
                 #    continue
@@ -39,7 +39,7 @@
         if ($null -eq $Object) {
             # This checks for NULL after Where-Object
             # Data Source is not null, but after WHERE-Object becomes NULL - we need to fail this
-            if ($null -eq $MustExists -or $MustExists -eq $true) {
+            if ($null -eq $ExpectedOutput -or $ExpectedOutput -eq $true) {
                 Out-Begin -Text $TestName -Level $Level -Domain $Domain -DomainController $DomainController
                 Out-Status -Text $TestName -Status $false -ExtendedValue 'Data is not available.' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
                 return $false

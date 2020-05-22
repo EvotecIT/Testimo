@@ -254,8 +254,8 @@
                                     continue
                                 }
                             }
-                            #if ($null -ne $CurrentTest['Requirements']['MustExists']) {
-                            #    if ($CurrentTest['Requirements']['MustExists'] -eq $false) {
+                            #if ($null -ne $CurrentTest['Requirements']['ExpectedOutput']) {
+                            #    if ($CurrentTest['Requirements']['ExpectedOutput'] -eq $false) {
                             #        $TestsSummary.Skipped = $TestsSummary.Skipped + 1
                             #        continue
                             #    }
