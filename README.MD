@@ -35,6 +35,10 @@ Things to know:
 
 ## ChangeLog
 
+- 0.0.41 - Unreleased
+  - Tests
+    - [x] Added `GPOPermissionConsistency` (requires `GPOZaurr` PowerShell module)
+
 - 0.0.40 - 2020.05.09
   - Engine
     - [x] ExpectedOutput is now required for Source

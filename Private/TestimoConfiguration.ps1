@@ -46,7 +46,8 @@
         ComputersUnsupported               = $ComputersUnsupported
         ComputersUnsupportedMainstream     = $ComputersUnsupportedMainstream
         ExchangeUsers                      = $ExchangeUsers
-        DuplicateObjects = $DuplicateObjects
+        DuplicateObjects                   = $DuplicateObjects
+        GPOPermissionConsistency           = $GPOPermissionConsistency
     }
     DomainControllers = [ordered] @{
         Information                 = $Information
