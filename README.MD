@@ -44,6 +44,9 @@ Things to know:
       - [ ] `ExpectedResult` ignores all other settings in parameters except for `WhereObject`
   - Tests
     - [x] Added `GPOPermissionConsistency` (requires `GPOZaurr` PowerShell module)
+    - [x] Added `GPOOwner` (requires `GPOZaurr` PowerShell module)
+      - [x] Test for: `GPO: Owner Consistent`
+      - [x] Test for: `GPO: Owner Administrative`
 
 - 0.0.40 - 2020.05.09
   - Engine

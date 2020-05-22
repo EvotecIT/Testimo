@@ -1,5 +1,5 @@
 ﻿$GPOOwner = @{
-    Enable = $false
+    Enable = $true
     Source = @{
         Name           = "GPO: Owner"
         Data           = {
@@ -23,23 +23,23 @@
             Enable     = $true
             Name       = 'GPO: Owner Consistent'
             Parameters = @{
-                WhereObject = { $_.IsOwnerConsistent -ne $true }
-                #Property      = 'IsOwnerConsistent'
-                #ExpectedValue = $true
-                #OperationType = 'eq'
+                WhereObject    = { $_.IsOwnerConsistent -ne $true }
+                ExpectedResult = $false # this tests things in bundle rather then per object of array
             }
-            ExpectedOutput = $false
+
         }
         OwnerAdministrative = @{
             Enable     = $true
             Name       = 'GPO: Owner Administrative'
             Parameters = @{
-                WhereObject = { $_.OwnerType -ne 'Administrative' -or $_.SysVolOwner -ne 'Administrative' }
-                #Property      = 'OwnerType'
-                #ExpectedValue = 'Administrative'
-                #OperationType = 'in'
+                WhereObject    = { $_.OwnerType -ne 'Administrative' -or $_.SysvolType -ne 'Administrative' }
+                ExpectedResult = $false # this tests things in bundle rather then per object of array
             }
-            ExpectedOutput = $false
         }
     }
 }
+<#
+ExpectedCount = 0,1,2,3 and so on
+ExpectedValue = [object]
+ExpectedResult = $true # just checks if there is result or there is not
+#>
