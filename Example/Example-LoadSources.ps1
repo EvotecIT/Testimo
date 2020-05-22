@@ -1,7 +1,7 @@
 ﻿Import-Module .\Testimo.psd1 -Force #-Verbose
 
 # this will get you available sources
-Get-TestimoSources
+Get-TestimoSources -SourcesOnly
 
 <# Currently something like this. You can use this list to ExcludeSources or define Sources for Invoke-Testimo
 DCDFS
