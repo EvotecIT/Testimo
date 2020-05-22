@@ -306,11 +306,11 @@
             Name       = 'Spooler Service is STOPPED'
 
             Parameters = @{
-                WhereObject   = { $_.Name -eq 'Spooler' }
-                Property      = 'Status'
-                ExpectedValue = 'Stopped'
-                OperationType = 'eq'
-                ExpectedOutput    = $false
+                WhereObject    = { $_.Name -eq 'Spooler' }
+                Property       = 'Status'
+                ExpectedValue  = 'Stopped'
+                OperationType  = 'eq'
+                ExpectedOutput = $false
             }
             Details    = [ordered] @{
                 Area        = 'Security'
@@ -331,11 +331,11 @@
             Name       = 'Spooler Service START TYPE is DISABLED'
 
             Parameters = @{
-                WhereObject   = { $_.Name -eq 'Spooler' }
-                Property      = 'StartType'
-                ExpectedValue = 'Disabled'
-                OperationType = 'eq'
-                ExpectedOutput    = $false
+                WhereObject    = { $_.Name -eq 'Spooler' }
+                Property       = 'StartType'
+                ExpectedValue  = 'Disabled'
+                OperationType  = 'eq'
+                ExpectedOutput = $false
             }
             Details    = [ordered] @{
                 Area        = 'Security'
@@ -379,11 +379,11 @@
             Name       = 'XblAuthManager Service is STOPPED'
 
             Parameters = @{
-                WhereObject   = { $_.Name -eq 'XblAuthManager' }
-                Property      = 'Status'
-                ExpectedValue = 'Stopped', 'N/A'
-                OperationType = 'in'
-                ExpectedOutput    = $false
+                WhereObject    = { $_.Name -eq 'XblAuthManager' }
+                Property       = 'Status'
+                ExpectedValue  = 'Stopped', 'N/A'
+                OperationType  = 'in'
+                ExpectedOutput = $false
             }
         }
         XblAuthManagerStartupType         = @{
@@ -391,22 +391,22 @@
             Name       = 'XblAuthManager Service START TYPE is Disabled'
 
             Parameters = @{
-                WhereObject   = { $_.Name -eq 'XblAuthManager' }
-                Property      = 'StartType'
-                ExpectedValue = 'Disabled', 'N/A'
-                OperationType = 'in'
-                ExpectedOutput    = $false
+                WhereObject    = { $_.Name -eq 'XblAuthManager' }
+                Property       = 'StartType'
+                ExpectedValue  = 'Disabled', 'N/A'
+                OperationType  = 'in'
+                ExpectedOutput = $false
             }
         }
         XblGameSaveServiceStatus          = @{
             Enable     = $true
             Name       = 'XblGameSave Service is STOPPED'
             Parameters = @{
-                WhereObject   = { $_.Name -eq 'XblGameSave' }
-                Property      = 'Status'
-                ExpectedValue = 'Stopped', 'N/A'
-                OperationType = 'in'
-                ExpectedOutput    = $false
+                WhereObject    = { $_.Name -eq 'XblGameSave' }
+                Property       = 'Status'
+                ExpectedValue  = 'Stopped', 'N/A'
+                OperationType  = 'in'
+                ExpectedOutput = $false
             }
         }
         XblGameSaveStartupType            = @{
@@ -414,11 +414,11 @@
             Name       = 'XblGameSave Service START TYPE is Disabled'
 
             Parameters = @{
-                WhereObject   = { $_.Name -eq 'XblGameSave' }
-                Property      = 'StartType'
-                ExpectedValue = 'Disabled', 'N/A'
-                OperationType = 'in'
-                ExpectedOutput    = $false
+                WhereObject    = { $_.Name -eq 'XblGameSave' }
+                Property       = 'StartType'
+                ExpectedValue  = 'Disabled', 'N/A'
+                OperationType  = 'in'
+                ExpectedOutput = $false
             }
 
         }
