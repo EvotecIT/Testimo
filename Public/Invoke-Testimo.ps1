@@ -29,7 +29,7 @@ function Invoke-Testimo {
         [switch] $Online
     )
     if (-not $Script:DefaultSources) {
-        $Script:DefaultSources = Get-TestimoSources -Enabled
+        $Script:DefaultSources = Get-TestimoSources -Enabled -SourcesOnly
     } else {
         Set-TestsStatus -Sources $Script:DefaultSources
     }
@@ -153,3 +153,4 @@ function Invoke-Testimo {
 }
 Register-ArgumentCompleter -CommandName Invoke-Testimo -ParameterName Sources -ScriptBlock $SourcesAutoCompleter
 Register-ArgumentCompleter -CommandName Invoke-Testimo -ParameterName ExcludeSources -ScriptBlock $SourcesAutoCompleter
+Register-ArgumentCompleter -CommandName Get-TestimoSources -ParameterName Sources -ScriptBlock $SourcesAutoCompleter
