@@ -43,10 +43,11 @@ Things to know:
       - [ ] This brings 3 ways to test `ExpectedCount`, `ExpectedValue` or `ExpectedResult`
       - [ ] `ExpectedResult` ignores all other settings in parameters except for `WhereObject`
   - Tests
-    - [x] Added `GPOPermissionConsistency` (requires `GPOZaurr` PowerShell module)
-    - [x] Added `GPOOwner` (requires `GPOZaurr` PowerShell module)
+    - [x] Added `DomainGPOPermissionConsistency` (requires `GPOZaurr` PowerShell module)
+    - [x] Added `DomainGPOOwner` (requires `GPOZaurr` PowerShell module)
       - [x] Test for: `GPO: Owner Consistent`
       - [x] Test for: `GPO: Owner Administrative`
+    - [x] Added `DomainGPOPermissionUnknown` (requires `GPOZaurr` PowerShell module)
 
 - 0.0.40 - 2020.05.09
   - Engine

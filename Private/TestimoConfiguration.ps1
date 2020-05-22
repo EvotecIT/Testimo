@@ -49,6 +49,7 @@
         DuplicateObjects                   = $DuplicateObjects
         GPOPermissionConsistency           = $GPOPermissionConsistency
         GPOOwner                           = $GPOOwner
+        GPOPermissionUnknown               = $GPOPermissionUnknown
     }
     DomainControllers = [ordered] @{
         Information                 = $Information
