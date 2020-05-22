@@ -437,7 +437,7 @@ Invoke-Testimo -ReturnResults
 
 ## Changing default configuration
 
-**Testimo** comes with a preset rules that may not apply to your enrivovment.
+**Testimo** comes with preset rules that may not apply to your environment.
 You may want to change some things like disabling some tests or changing some values (to an extent).
 There are 3 ways to do it.
 Depending on how you want to save/edit/pass configuration to TestIMO - I leave it up to you.
@@ -470,7 +470,7 @@ Following configuration allows you to:
 - Edit default TestImo configuration with some other values
 - Exclude one of the domains
 - Return Results for future processing
-- Limit sources to only 4 types (you could also limit that via Hashtable but this way is quicker for adhoc enabling/disabling)
+- Limit sources to only 4 types (you could also limit that via Hashtable but this way is quicker for Adhoc enabling/disabling)
 
 ```powershell
 Import-Module Testimo
@@ -502,9 +502,9 @@ Be sure to checkout **Examples** section for more **How-To**.
 - [x] PowerShell 5.1 - I know, bummer right?
 - [x] RSAT if run externally from Windows 10 machine
 
-When you use `Install-Module` option what happens in the backgrouns is that Windows will use [PowershellGallery](https://www.powershellgallery.com/) (hosted by Microsoft) to download **Testimo** and any dependencies this module needs.
+When you use the `Install-Module` option what happens in the backgrouns is that Windows will use [PowershellGallery](https://www.powershellgallery.com/) (hosted by Microsoft) to download **Testimo** and any dependencies this module needs.
 As it stands all dependencies except one (**DSInternals**) are my other PowerShell Modules.
-Why I am using it this way? Because I don't want to write multiple times same code over and over.
+Why I am using it this way? Because I don't want to write multiple times the same code over and over.
 
 - [x] Testimo - this module
   - [x] [PSWinDocumentation.AD](https://github.com/EvotecIT/PSWinDocumentation.AD) - PowerShell Module that's main purpose is deliver formmated/compressive Active Directory data for documentation purposes. It's read only.
@@ -517,7 +517,7 @@ Why I am using it this way? Because I don't want to write multiple times same co
   - [x] [PSWriteHTML](https://github.com/EvotecIT/PSWriteHTML) - PowerShell Module that creates nice looking reports. Responsible for visual HTML reporting.
   - [x] [Emailimo](https://github.com/EvotecIT/Emailimo) - PowerShell Module that creates nice looking emails. Responsible for emails in Testimo.
 
-In **Testimo** I'm using internal functions from some of the modules, without any real documentation.
+In **Testimo** I'm using internal functions from some of the modules without any real documentation.
 
 ### Portability
 
@@ -530,7 +530,7 @@ It was written specifically for Testimo.
 Initialize-ModulePortable -Name 'Testimo' -Path "$PSScriptRoot\TestimoPortable" -Download
 ```
 
-After that you can use `Invoke-Testimo` as you normally would.
+After that,, you can use `Invoke-Testimo` as you normally would.
 You can also skip **Download** parameter if you already downloaded all the modules before.
 This function is also available as part of [PSSharedGoods](https://github.com/EvotecIT/PSSharedGoods) module.
 
