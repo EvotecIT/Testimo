@@ -1,12 +1,12 @@
 ﻿$Services = [ordered] @{
     Enable = $true
     Source = @{
-        Name    = 'Service Status'
-        Data    = {
+        Name           = 'Service Status'
+        Data           = {
             $Services = @('ADWS', 'DNS', 'DFS', 'DFSR', 'Eventlog', 'EventSystem', 'KDC', 'LanManWorkstation', 'LanManServer', 'NetLogon', 'NTDS', 'RPCSS', 'SAMSS', 'Spooler', 'W32Time', 'XblGameSave', 'XblAuthManager')
             Get-PSService -Computers $DomainController -Services $Services
         }
-        Details = [ordered] @{
+        Details        = [ordered] @{
             Area        = ''
             Description = ''
             Resolution  = ''
