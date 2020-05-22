@@ -38,6 +38,10 @@ Things to know:
 - 0.0.41 - Unreleased
   - Engine
     - [x] Renamed `MustExists` to `ExpectedOutput` for Parameters in Tests for unified experience
+    - [x] Added `ExpectedResult` for Parameters in Tests
+      - [ ] This works in a way where if we use WhereObject filtering on Array you can check if output is given or not and fail/pass right away
+      - [ ] This brings 3 ways to test `ExpectedCount`, `ExpectedValue` or `ExpectedResult`
+      - [ ] `ExpectedResult` ignores all other settings in parameters except for `WhereObject`
   - Tests
     - [x] Added `GPOPermissionConsistency` (requires `GPOZaurr` PowerShell module)
 
