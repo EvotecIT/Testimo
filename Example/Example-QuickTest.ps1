@@ -14,8 +14,8 @@
 #Invoke-Testimo -Sources DomainOrganizationalUnitsProtected -ShowReport #-ForestName 'test.evotec.pl'
 #Invoke-Testimo -Sources DomainDNSForwaders,DCDNSForwaders -ShowReport #-ForestName 'test.evotec.pl'
 #Invoke-Testimo -Sources DomainDNSScavengingForPrimaryDNSServer -ShowReport
-Invoke-Testimo -Sources ForestReplication -ShowReport
-Invoke-Testimo -Sources ForestReplication <#,ForestReplicationStatus#> -ForestName 'test.evotec.pl' -ShowReport
+#Invoke-Testimo -Sources ForestReplication -ShowReport
+#Invoke-Testimo -Sources ForestReplication <#,ForestReplicationStatus#> -ForestName 'test.evotec.pl' -ShowReport
 #Invoke-Testimo -Sources DomainDuplicateObjects
 #Invoke-Testimo -Sources ForestReplication,ForestReplicationStatus -ReturnResults #-ForestName 'test.evotec.pl'
 
@@ -24,3 +24,6 @@ Invoke-Testimo -Sources ForestReplication <#,ForestReplicationStatus#> -ForestNa
 #Invoke-Testimo -Sources DomainDNSZonesForest0ADEL -ForestName 'test.evotec.pl'
 #Invoke-Testimo -Sources DomainTrusts -ForestName 'test.evotec.pl'
 #Invoke-Testimo -Sources DomainTrusts
+
+Invoke-Testimo -Sources DomainGPOOwner, DomainGPOPermissionConsistency,DomainGPOPermissionUnknown #-ShowReport
+#Invoke-Testimo -Sources DCServices
