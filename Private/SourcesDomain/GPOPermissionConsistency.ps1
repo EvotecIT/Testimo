@@ -1,5 +1,5 @@
 ﻿$GPOPermissionConsistency = @{
-    Enable = $false
+    Enable = $true
     Source = @{
         Name           = "GPO: Permission Consistency"
         Data           = {
