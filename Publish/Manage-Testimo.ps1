@@ -36,6 +36,7 @@ $Configuration = @{
                 @{ ModuleName = 'PSEventViewer'; ModuleVersion = "Latest"; Guid = '5df72a79-cdf6-4add-b38d-bcacf26fb7bc' }
                 @{ ModuleName = 'PSWriteHTML'; ModuleVersion = "Latest"; Guid = 'a7bdf640-f5cb-4acf-9de0-365b322d245c' }
                 @{ ModuleName = 'ADEssentials'; ModuleVersion = "Latest"; Guid = '9fc9fd61-7f11-4f4b-a527-084086f1905f' }
+                @{ ModuleName = 'GPOZaurr'; ModuleVersion = "Latest"; Guid = 'f7d4c9e4-0298-4f51-ad77-e8e3febebbde' }
             )
             ExternalModuleDependencies = @(
                 "ActiveDirectory"
