@@ -7,7 +7,7 @@ $Configuration = @{
         DirectoryProjects = 'C:\Support\GitHub'
         Manifest          = @{
             # Version number of this module.
-            ModuleVersion              = '0.0.40'
+            ModuleVersion              = '0.0.41'
             # Supported PSEditions
             CompatiblePSEditions       = @('Desktop')
             # ID used to uniquely identify this module
@@ -148,7 +148,7 @@ $Configuration = @{
             Merge            = $true
             MergeMissing     = $true
             Releases         = $true
-            ReleasesUnpacked = $true
+            ReleasesUnpacked = $false
             RefreshPSD1Only  = $false
         }
         BuildDocumentation = $false
