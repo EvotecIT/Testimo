@@ -7,9 +7,9 @@
             # Get-PSRegistry -RegistryPath 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters' -ComputerName AD1
         }
         Details        = [ordered] @{
-            Type        = 'Security'
-            Area        = ''
-            Description = ''
+            Area        = 'Security'
+            Category    = 'Network'
+            Description = 'Provides verification of MSS Network Settings on Domain Controllers'
             Resolution  = ''
             RiskLevel   = 10
             Resources   = @(

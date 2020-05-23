@@ -1,19 +1,21 @@
 ﻿$DNSResolveExternal = @{
     Enable = $true
     Source = @{
-        Name       = "Resolves external DNS queries"
-        Data       = {
+        Name           = "Resolves external DNS queries"
+        Data           = {
             $Output = Invoke-Command -ComputerName $DomainController -ErrorAction Stop {
                 Resolve-DnsName -Name 'evotec.xyz' -ErrorAction SilentlyContinue
             }
             $Output
         }
-        Details = [ordered] @{
-            Area             = ''
-            Description      = ''
-            Resolution   = ''
-            RiskLevel        = 10
-            Resources = @(
+        Details        = [ordered] @{
+            Area        = 'Health'
+            Category    = 'DNS'
+            Severity    = 'High'
+            Description = ''
+            Resolution  = ''
+            RiskLevel   = 10
+            Resources   = @(
 
             )
         }

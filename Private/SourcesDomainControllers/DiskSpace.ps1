@@ -1,12 +1,13 @@
 ﻿$DiskSpace = @{
     Enable = $true
     Source = @{
-        Name    = 'Disk Free'
-        Data    = {
+        Name           = 'Disk Free'
+        Data           = {
             Get-ComputerDiskLogical -ComputerName $DomainController -OnlyLocalDisk -WarningAction SilentlyContinue
         }
-        Details = [ordered] @{
-            Area        = ''
+        Details        = [ordered] @{
+            Area        = 'Health'
+            Category    = 'Disk'
             Description = ''
             Resolution  = ''
             RiskLevel   = 10

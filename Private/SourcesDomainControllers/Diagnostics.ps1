@@ -3,12 +3,13 @@
 $Diagnostics = @{
     Enable = $true
     Source = @{
-        Name    = 'Diagnostics (DCIAG)'
-        Data    = {
+        Name           = 'Diagnostics (DCIAG)'
+        Data           = {
             Test-ADDomainController -ComputerName $DomainController -WarningAction SilentlyContinue
         }
-        Details = [ordered] @{
-            Area        = ''
+        Details        = [ordered] @{
+            Area        = 'Health'
+            Category    = 'OverallDCHealth'
             Description = ''
             Resolution  = ''
             RiskLevel   = 10

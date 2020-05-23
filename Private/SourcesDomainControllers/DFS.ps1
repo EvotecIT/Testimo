@@ -1,19 +1,19 @@
 ﻿$DFS = @{
     Enable = $true
     Source = @{
-        Name       = "SYSVOL/DFS Verification"
-        Data       = {
+        Name           = "SYSVOL/DFS Verification"
+        Data           = {
             Get-WinADDFSHealth -Domains $Domain -DomainControllers $DomainController
         }
-        Parameters = @{
+        Parameters     = @{
             EventDays = 3
         }
-        Details    = [ordered] @{
-            Area        = 'Configuration'
+        Details        = [ordered] @{
+            Area        = 'Health'
             Category    = 'DFS'
-            Severity    = ''
+            Severity    = 'High'
             RiskLevel   = 0
-            Description = ""
+            Description = "Provides health verification of SYSVOL/DFS on Domain Controller."
             Resolution  = ''
             Resources   = @(
                 'https://support.microsoft.com/en-us/help/2218556/how-to-force-an-authoritative-and-non-authoritative-synchronization-fo'

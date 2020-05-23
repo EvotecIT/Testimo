@@ -8,7 +8,7 @@
         }
         Details = [ordered] @{
             Area        = 'Configuration'
-            Category    = ''
+            Category    = 'DNS'
             Severity    = ''
             RiskLevel   = 0
             Description = ''
