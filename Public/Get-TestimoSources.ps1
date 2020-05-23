@@ -61,6 +61,7 @@
         }
         $Object['Area'] = $Script:TestimoConfiguration.$Scope[$Name].Source.Details.Area
         $Object['Category'] = $Script:TestimoConfiguration.$Scope[$Name].Source.Details.Category
+        #$Object['Tags'] = $Script:TestimoConfiguration.$Scope[$Name].Source.Details.Tags
         $Object['Severity'] = $Script:TestimoConfiguration.$Scope[$Name].Source.Details.Severity
         $Object['RiskLevel'] = $Script:TestimoConfiguration.$Scope[$Name].Source.Details.RiskLevel
         $Object['Description'] = $Script:TestimoConfiguration.$Scope[$Name].Source.Details.Description
