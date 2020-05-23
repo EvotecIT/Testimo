@@ -3,7 +3,8 @@
 $ModuleName = (Get-ChildItem $PSScriptRoot\*.psd1).BaseName
 $RequiredModules = @(
     'PSSharedGoods'
-    @{ Name = 'Pester'; MaximumVersion = '4.99.99.99' }
+    'Pester'
+    #@{ Name = 'Pester'; MaximumVersion = '4.99.99.99' }
 )
 foreach ($_ in $RequiredModules) {
     if ($_ -is [string]) {

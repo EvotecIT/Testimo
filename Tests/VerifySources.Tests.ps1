@@ -7,5 +7,17 @@
         It "Source $($Source.Source) should contain Source Key" {
             $Source.Advanced.Keys | Should -Contain 'Source'
         }
+        It "Source $($Source.Source) should contain 6 in Source Details" {
+            $Keys = @(
+                'Area'
+                'Category'
+                'Severity'
+                'RiskLevel'
+                'Description'
+                'Resolution'
+                'Resources'
+            )
+            $Source.Advanced.Source.Details.Keys | Sort-Object | Should -Be ($Keys | Sort-Object)
+        }
     }
 }
