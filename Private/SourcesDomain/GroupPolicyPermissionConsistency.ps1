@@ -1,4 +1,4 @@
-﻿$GPOPermissionConsistency = @{
+﻿$GroupPolicyPermissionConsistency = @{
     Enable = $true
     Source = @{
         Name           = "GPO: Permission Consistency"

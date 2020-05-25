@@ -25,6 +25,10 @@
         WellKnownFolders                   = $WellKnownFolders
         PasswordComplexity                 = $PasswordComplexity
         GroupPolicyMissingPermissions      = $GroupPolicyMissingPermissions
+        GroupPolicyPermissionConsistency   = $GroupPolicyPermissionConsistency
+        GroupPolicyOwner                   = $GroupPolicyOwner
+        GroupPolicyPermissionUnknown       = $GroupPolicyPermissionUnknown
+        GroupPolicyADM                     = $GroupPolicyADM
         Trusts                             = $Trusts
         OrphanedForeignSecurityPrincipals  = $OrphanedForeignSecurityPrincipals
         OrganizationalUnitsEmpty           = $OrganizationalUnitsEmpty
@@ -42,14 +46,10 @@
         'DNSZonesForest0ADEL'              = $DNSZonesForest0ADEL
         'DNSZonesDomain0ADEL'              = $DNSZonesDomain0ADEL
         DHCPAuthorized                     = $DHCPAuthorized
-        GroupPolicyADM                     = $GroupPolicyADM
         ComputersUnsupported               = $ComputersUnsupported
         ComputersUnsupportedMainstream     = $ComputersUnsupportedMainstream
         ExchangeUsers                      = $ExchangeUsers
         DuplicateObjects                   = $DuplicateObjects
-        GPOPermissionConsistency           = $GPOPermissionConsistency
-        GPOOwner                           = $GPOOwner
-        GPOPermissionUnknown               = $GPOPermissionUnknown
     }
     DomainControllers = [ordered] @{
         Information                 = $Information

@@ -1,4 +1,4 @@
-﻿$GPOPermissionUnknown = @{
+﻿$GroupPolicyPermissionUnknown = @{
     Enable = $true
     Source = @{
         Name           = "GPO: Permission Unknown"

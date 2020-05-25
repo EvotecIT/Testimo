@@ -25,5 +25,5 @@
 #Invoke-Testimo -Sources DomainTrusts -ForestName 'test.evotec.pl'
 #Invoke-Testimo -Sources DomainTrusts
 
-#Invoke-Testimo -Sources DomainGPOOwner, DomainGPOPermissionConsistency,DomainGPOPermissionUnknown #-ShowReport
-Invoke-Testimo -Sources DCDiagnostics
+Invoke-Testimo -Sources DomainGroupPolicyOwner, DomainGroupPolicyPermissionConsistency,DomainGroupPolicyPermissionUnknown #-ShowReport
+#Invoke-Testimo -Sources DCDiagnostics

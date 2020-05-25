@@ -1,4 +1,4 @@
-﻿$GPOOwner = @{
+﻿$GroupPolicyOwners = @{
     Enable = $true
     Source = @{
         Name           = "GPO: Owner"
