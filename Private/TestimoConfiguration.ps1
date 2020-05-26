@@ -29,6 +29,7 @@
         GroupPolicyOwner                   = $GroupPolicyOwner
         GroupPolicyPermissionUnknown       = $GroupPolicyPermissionUnknown
         GroupPolicyADM                     = $GroupPolicyADM
+        GroupPolicySysvol                  = $GroupPolicySysvol
         Trusts                             = $Trusts
         OrphanedForeignSecurityPrincipals  = $OrphanedForeignSecurityPrincipals
         OrganizationalUnitsEmpty           = $OrganizationalUnitsEmpty
@@ -78,7 +79,7 @@
         SMBSharesPermissions        = $SMBSharesPermissions
         DFS                         = $DFS
         NTDSParameters              = $NTDSParameters
-        GroupPolicySYSVOL           = $GroupPolicySYSVOL
+        GroupPolicySYSVOLDC         = $GroupPolicySYSVOLDC
         LanManagerSettings          = $LanManagerSettings
         Diagnostics                 = $Diagnostics
         LanManServer                = $LanManServer
