@@ -48,6 +48,8 @@ Things to know:
       - [x] Test for: `GPO: Owner Consistent`
       - [x] Test for: `GPO: Owner Administrative`
     - [x] Added `DomainGroupPolicyPermissionUnknown` (requires `GPOZaurr` PowerShell module)
+    - [x] Added `DomainGroupPolicySysvol` (requires `GPOZaurr` PowerShell module)
+    - [x] Renamed `DCGroupPolicySYSVOL` to `DCGroupPolicySYSVOLDC` to prevent conflict with per Domain checks
 
 - 0.0.40 - 2020.05.09
   - Engine
