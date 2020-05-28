@@ -6,6 +6,9 @@
     }
 
     foreach ($Key in $TestimoConfiguration['Forest'].Keys) {
+        $PSDefaultParameterValues = @{
+            "It:TestCases" = @{ Key = $Key; TestimoConfiguration = $TestimoConfiguration }
+        }
         It -Name "Test Source $Key should not be NULL" {
             $TestimoConfiguration['Forest'].$Key | Should -Not -Be $Null
         }
@@ -25,10 +28,10 @@ Describe 'Testimo Configuration for Domains' {
         $Script:TestimoConfiguration
     }
 
-    It -Name 'Should contain roles' {
-        $TestimoConfiguration['Domain'].Keys | Should -Contain 'Roles'
-    }
     foreach ($Key in $TestimoConfiguration['Domain'].Keys) {
+        $PSDefaultParameterValues = @{
+            "It:TestCases" = @{ Key = $Key; TestimoConfiguration = $TestimoConfiguration }
+        }
         It -Name "Test Source $Key should not be NULL" {
             $TestimoConfiguration['Domain'].$Key | Should -Not -Be $Null
         }
@@ -49,6 +52,9 @@ Describe 'Testimo Configuration for DomainControllers' {
     }
 
     foreach ($Key in $TestimoConfiguration['DomainControllers'].Keys) {
+        $PSDefaultParameterValues = @{
+            "It:TestCases" = @{ Key = $Key; TestimoConfiguration = $TestimoConfiguration }
+        }
         It -Name "Test Source $Key should not be NULL" {
             $TestimoConfiguration['DomainControllers'].$Key | Should -Not -Be $Null
         }
