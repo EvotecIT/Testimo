@@ -35,7 +35,7 @@ Things to know:
 
 ## ChangeLog
 
-- 0.0.41 - Unreleased
+- 0.0.41 - 2020.06.06
   - Engine
     - [x] Renamed `MustExists` to `ExpectedOutput` for Parameters in Tests for unified experience
     - [x] Added `ExpectedResult` for Parameters in Tests
