@@ -14,7 +14,7 @@ foreach ($_ in $RequiredModules) {
 }
 Import-Module $PSScriptRoot\Testimo.psd1 -Force
 
-$result = Invoke-Pester -Path $PSScriptRoot\Tests
+$result = Invoke-Pester -Path $PSScriptRoot\Tests #-Output Detailed
 
 if ($result.FailedCount -gt 0) {
     throw "$($result.FailedCount) tests failed."

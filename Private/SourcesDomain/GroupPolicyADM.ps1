@@ -4,7 +4,11 @@
         Name           = "Group Policy Legacy ADM Files"
         Data           = {
             #$Domain = 'ad.evotec.xyz'
-            Get-ChildItem -Path "\\$Domain\SYSVOL\$Domain\policies" -ErrorAction Stop -Recurse -Include '*.adm' | Select-Object Name, FullName, CreationTime, LastWriteTime, Attributes
+            #Get-ChildItem -Path "\\$Domain\SYSVOL\$Domain\policies" -ErrorAction Stop -Recurse -Include '*.adm' | Select-Object Name, FullName, CreationTime, LastWriteTime, Attributes
+            Get-GPOZaurrLegacyFiles -IncludeDomains $Domain
+        }
+        Implementation = {
+            Remove-GPOZaurrLegacyFiles -Verbose -WhatIf
         }
         Details        = [ordered] @{
             Area        = 'Cleanup'
