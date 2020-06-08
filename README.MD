@@ -35,6 +35,11 @@ Things to know:
 
 ## ChangeLog
 
+- 0.0.42 - 2020.06.08
+  - Tests
+    - [x] Fix for NetSessionEnumeration not run against target [#102](https://github.com/EvotecIT/Testimo/issues/102)
+  - Engine
+    - [x] Better `Sources` handling during typing
 - 0.0.41 - 2020.06.06
   - Engine
     - [x] Renamed `MustExists` to `ExpectedOutput` for Parameters in Tests for unified experience
