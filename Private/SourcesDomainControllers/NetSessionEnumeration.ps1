@@ -3,7 +3,7 @@
     Source = @{
         Name           = "Net Session Enumeration"
         Data           = {
-            $Registry = Get-PSRegistry -RegistryPath "HKLM\SYSTEM\CurrentControlSet\Services\LanmanServer\DefaultSecurity"
+            $Registry = Get-PSRegistry -RegistryPath "HKLM\SYSTEM\CurrentControlSet\Services\LanmanServer\DefaultSecurity" -ComputerName $DomainController
             $CSD = [System.Security.AccessControl.CommonSecurityDescriptor]::new($true, $false, $Registry.SrvsvcSessionInfo, 0)
             $CSD.DiscretionaryAcl.SecurityIdentifier | Where-Object { $_ -eq 'S-1-5-11' }
             # ConvertFrom-SID -sid $CSD.DiscretionaryAcl.SecurityIdentifier | Where-Object { $_.Name -eq 'Authenticated Users' }
