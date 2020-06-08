@@ -149,7 +149,7 @@ function Invoke-Testimo {
             "DC$Key"
         }
     )
-    $TestSources | Sort-Object
+    $TestSources | Sort-Object | Where-Object { $_ -like "$wordToComplete*" }
 }
 Register-ArgumentCompleter -CommandName Invoke-Testimo -ParameterName Sources -ScriptBlock $SourcesAutoCompleter
 Register-ArgumentCompleter -CommandName Invoke-Testimo -ParameterName ExcludeSources -ScriptBlock $SourcesAutoCompleter
