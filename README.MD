@@ -35,6 +35,9 @@ Things to know:
 
 ## ChangeLog
 
+- 0.0.43 - Unreleased
+  - Tests
+    - [x] Small name update to `OrganizationalUnitsEmpty` and `OrganizationalUnitsProtected` fixing [#103](https://github.com/EvotecIT/Testimo/issues/103)
 - 0.0.42 - 2020.06.08
   - Tests
     - [x] Fix for `DCNetSessionEnumeration` not run against target [#102](https://github.com/EvotecIT/Testimo/issues/102)
