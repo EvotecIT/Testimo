@@ -20,7 +20,6 @@
             }
             foreach ($_ in $WellKnownFolders.PSObject.Properties.Name) {
                 $CurrentWellKnownFolders[$_] = $DomainInformation.$_
-                $CurrentWellKnownFolders[$_] = $DomainInformation.$_
             }
             Compare-MultipleObjects -Object @($DefaultWellKnownFolders, $CurrentWellKnownFolders) -SkipProperties
         }
