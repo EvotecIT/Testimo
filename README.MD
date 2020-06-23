@@ -35,6 +35,10 @@ Things to know:
 
 ## ChangeLog
 
+- 0.0.44 - Unreleased
+  - Tests
+    - [x] `DomainWellKnownFolders` - removed duplicate code
+  - Engine
 - 0.0.43 - 2020.06.17
   - Tests
     - [x] Small name update to `OrganizationalUnitsEmpty` and `OrganizationalUnitsProtected` fixing [#103](https://github.com/EvotecIT/Testimo/issues/103)
