@@ -1,8 +1,8 @@
 ﻿$Sites = @{
     Enable = $true
     Source = [ordered] @{
-        Name    = 'Sites Verification'
-        Data    = {
+        Name           = 'Sites Verification'
+        Data           = {
             #$ADModule = Import-Module PSWinDocumentation.AD -PassThru
             $ADModule = Import-PrivateModule PSWinDocumentation.AD
             $Sites = & $ADModule { Get-WinADForestSites }
@@ -17,11 +17,13 @@
                 SitesWithoutSubnetsName = $SitesWithoutSubnets.Name -join ', '
             }
         }
-        Details = [ordered] @{
-            Area        = ''
+        Details        = [ordered] @{
+            Area        = 'Configuration'
+            Category    = 'Sites'
             Description = ''
             Resolution  = ''
             RiskLevel   = 10
+            Severity    = 'Low'
             Resources   = @(
 
             )

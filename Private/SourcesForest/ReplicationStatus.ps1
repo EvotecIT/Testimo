@@ -10,10 +10,12 @@ $ReplicationStatus = @{
             $data | ConvertFrom-Csv
         }
         Details        = [ordered] @{
-            Area        = ''
+            Area        = 'Health'
+            Category    = 'Replication'
             Description = ''
             Resolution  = ''
             RiskLevel   = 10
+            Severity    = 'High'
             Resources   = @(
 
             )

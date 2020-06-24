@@ -1,16 +1,18 @@
-﻿$ForestFSMORoles                = @{
+﻿$ForestFSMORoles = @{
     Enable = $true
     Source = @{
-        Name       = 'Roles availability'
-        Data       = {
+        Name           = 'Roles availability'
+        Data           = {
             Test-ADRolesAvailability -Forest $ForestName
         }
-        Details = [ordered] @{
-            Area             = 'Features'
-            Description      = ''
-            Resolution   = ''
-            RiskLevel        = 10
-            Resources = @(
+        Details        = [ordered] @{
+            Area        = 'Health'
+            Category    = 'Features'
+            Description = ''
+            Resolution  = ''
+            RiskLevel   = 10
+            Severity    = 'High'
+            Resources   = @(
 
             )
         }

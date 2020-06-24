@@ -1,8 +1,8 @@
 ﻿$SysVolDFSR = @{
     Enable = $true
     Source = @{
-        Name    = "DFSR Flags"
-        Data    = {
+        Name           = "DFSR Flags"
+        Data           = {
             $DistinguishedName = (Get-ADDomain -Server $Domain).DistinguishedName
             $ADObject = "CN=DFSR-GlobalSettings,CN=System,$DistinguishedName"
             $Object = Get-ADObject -Identity $ADObject -Properties * -Server $Domain
@@ -18,9 +18,9 @@
                 }
             }
         }
-        Details = [ordered] @{
-            Area        = 'Configuration'
-            Category    = ''
+        Details        = [ordered] @{
+            Area        = 'Health'
+            Category    = 'SYSVOL'
             Severity    = ''
             RiskLevel   = 0
             Description = 'Checks if DFS-R is available.'

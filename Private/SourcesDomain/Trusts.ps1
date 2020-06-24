@@ -1,8 +1,8 @@
 ﻿$Trusts = @{
     Enable = $true
     Source = @{
-        Name    = "Trust Availability"
-        Data    = {
+        Name           = "Trust Availability"
+        Data           = {
             # $ADModule = Import-Module PSWinDocumentation.AD -PassThru
             $ADModule = Import-PrivateModule PSWinDocumentation.AD
             & $ADModule {
@@ -10,9 +10,9 @@
                 Get-WinADDomainTrusts -Domain $Domain
             } -Domain $Domain
         }
-        Details = [ordered] @{
-            Area        = ''
-            Category    = ''
+        Details        = [ordered] @{
+            Area        = 'Health', 'Configuration'
+            Category    = 'Trusts'
             Severity    = ''
             RiskLevel   = 0
             Description = 'Verifies if trusts are available and tests for trust unconstrained TGTDelegation'

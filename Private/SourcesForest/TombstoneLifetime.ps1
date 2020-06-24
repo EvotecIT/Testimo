@@ -1,8 +1,8 @@
 ﻿$TombstoneLifetime = @{
-    Enable           = $true
-    Source           = [ordered]@{
-        Name = 'Tombstone Lifetime'
-        Data = {
+    Enable    = $true
+    Source    = [ordered]@{
+        Name           = 'Tombstone Lifetime'
+        Data           = {
             # Check tombstone lifetime (if blank value is 60)
             # Recommended value 720
             # Minimum value 180
@@ -17,18 +17,20 @@
                 }
             }
         }
-        Details = [ordered] @{
-            Area             = ''
-            Description      = ''
-            Resolution   = ''
-            RiskLevel        = 10
-            Resources = @(
+        Details        = [ordered] @{
+            Area        = 'Configuration'
+            Category    = 'Backup'
+            Description = ''
+            Resolution  = ''
+            RiskLevel   = 10
+            Severity    = 'High'
+            Resources   = @(
 
             )
         }
         ExpectedOutput = $true
     }
-    Tests            = [ordered] @{
+    Tests     = [ordered] @{
         TombstoneLifetime = @{
             Enable     = $true
             Name       = 'TombstoneLifetime should be set to minimum of 180 days'

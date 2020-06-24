@@ -1,19 +1,23 @@
 ﻿$OptionalFeatures = [ordered] @{
     Enable = $true
     Source = [ordered] @{
-        Name    = 'Optional Features'
-        Data    = {
+        Name           = 'Optional Features'
+        Data           = {
             # Imports all commands / including private ones from PSWinDocumentation.AD
             #$ADModule = Import-Module PSWinDocumentation.AD -PassThru
             $ADModule = Import-PrivateModule PSWinDocumentation.AD
             & $ADModule { Get-WinADForestOptionalFeatures -WarningAction SilentlyContinue }
         }
-        Details = [ordered] @{
-            Area        = 'Features'
+        Details        = [ordered] @{
+            Area        = 'Configuration'
+            Category    = 'Features'
             Description = "Optional features verify availability of Recycle Bin, LAPS and PAM in the Active Directory Forest."
-            Resolution  = ''
+            Resolution  = 'Enable RecycleBin, implement LAPS, consider PAM.'
             RiskLevel   = 5
-            Resources   = @()
+            Severity    = 'Medium'
+            Resources   = @(
+
+            )
         }
         ExpectedOutput = $true
     }

@@ -1,8 +1,8 @@
 ﻿$WellKnownFolders = @{
     Enable = $true
     Source = @{
-        Name    = 'Well known folders'
-        Data    = {
+        Name           = 'Well known folders'
+        Data           = {
             $DomainInformation = Get-ADDomain -Server $Domain
             $WellKnownFolders = $DomainInformation | Select-Object -Property UsersContainer, ComputersContainer, DomainControllersContainer, DeletedObjectsContainer, SystemsContainer, LostAndFoundContainer, QuotasContainer, ForeignSecurityPrincipalsContainer
             $CurrentWellKnownFolders = [ordered] @{ }
@@ -23,15 +23,15 @@
             }
             Compare-MultipleObjects -Object @($DefaultWellKnownFolders, $CurrentWellKnownFolders) -SkipProperties
         }
-        Details = [ordered] @{
-            Area        = ''
-            Category    = ''
-            Severity    = ''
-            RiskLevel   = 0
+        Details        = [ordered] @{
+            Area        = 'Configuration'
+            Category    = 'OrganizationalUnits'
+            Severity    = 'Low'
+            RiskLevel   = 5
             Description = 'Verifies whether well-known folders are at their defaults or not.'
-            Resolution  = ''
+            Resolution  = 'Follow given resources to redirect users and computers containers to managable Organizational Units. If other Well Known folers are wrong - investigate.'
             Resources   = @(
-
+                'https://support.microsoft.com/en-us/help/324949/redirecting-the-users-and-computers-containers-in-active-directory-dom'
             )
         }
         ExpectedOutput = $true

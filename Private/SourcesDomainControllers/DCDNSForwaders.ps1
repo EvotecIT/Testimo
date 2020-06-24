@@ -1,15 +1,15 @@
 ﻿$DCDNSForwaders = @{
     Enable = $true
     Source = @{
-        Name    = "DC DNS Forwarders"
-        Data    = {
+        Name           = "DC DNS Forwarders"
+        Data           = {
             $Forwarders = Get-WinDnsServerForwarder -Domain $Domain -IncludeDomainControllers $DomainController -WarningAction SilentlyContinue -Formatted
             $Forwarders
         }
-        Details = [ordered] @{
+        Details        = [ordered] @{
             Area        = 'Configuration'
             Category    = 'DNS'
-            Severity    = ''
+            Severity    = 'Medium'
             RiskLevel   = 0
             Description = ''
             Resolution  = ''

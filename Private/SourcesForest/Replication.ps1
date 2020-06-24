@@ -6,10 +6,12 @@
             Get-WinADForestReplication -WarningAction SilentlyContinue -Forest $ForestName
         }
         Details        = [ordered] @{
-            Area        = ''
+            Area        = 'Health'
+            Category    = 'Replication'
             Description = ''
             Resolution  = ''
             RiskLevel   = 10
+            Severity    = 'High'
             Resources   = @(
 
             )

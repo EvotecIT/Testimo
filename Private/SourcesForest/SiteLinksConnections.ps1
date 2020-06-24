@@ -1,16 +1,18 @@
 ﻿$SiteLinksConnections = @{
     Enable = $true
     Source = @{
-        Name       = 'Site Links Connections'
-        Data       = {
+        Name           = 'Site Links Connections'
+        Data           = {
             Test-ADSiteLinks -Splitter ', ' -Forest $ForestName
         }
-        Details = [ordered] @{
-            Area             = ''
-            Description      = ''
-            Resolution   = ''
-            RiskLevel        = 10
-            Resources = @(
+        Details        = [ordered] @{
+            Area        = 'Configuration'
+            Category    = 'Sites'
+            Description = ''
+            Resolution  = ''
+            RiskLevel   = 10
+            Severity    = 'Informational'
+            Resources   = @(
 
             )
         }

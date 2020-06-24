@@ -1,16 +1,18 @@
 ﻿$Backup = @{
     Enable = $true
     Source = @{
-        Name = 'Forest Backup'
-        Data = {
+        Name           = 'Forest Backup'
+        Data           = {
             Get-WinADLastBackup -Forest $ForestName
         }
-        Details = [ordered] @{
-            Area             = 'Backup'
-            Description      = ''
-            Resolution   = ''
-            RiskLevel        = 10
-            Resources = @(
+        Details        = [ordered] @{
+            Area        = 'Configuration'
+            Category    = 'Backup'
+            Description = ''
+            Resolution  = ''
+            RiskLevel   = 10
+            Severity    = 'High'
+            Resources   = @(
 
             )
         }
