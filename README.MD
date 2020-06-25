@@ -38,6 +38,7 @@ Things to know:
 - 0.0.44 - Unreleased
   - Tests
     - [x] `DomainWellKnownFolders` - removed duplicate code
+    - [x] Added some additional descriptions to tests, still long way to go
   - Engine
 - 0.0.43 - 2020.06.17
   - Tests
