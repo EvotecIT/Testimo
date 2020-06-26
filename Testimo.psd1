@@ -18,11 +18,11 @@
         }
     }
     RequiredModules      = @{
-        ModuleVersion = '0.0.153'
+        ModuleVersion = '0.0.155'
         ModuleName    = 'PSSharedGoods'
         Guid          = 'ee272aa8-baaa-4edf-9f45-b6d6f7d844fe'
     }, @{
-        ModuleVersion = '0.1.18'
+        ModuleVersion = '0.1.19'
         ModuleName    = 'PSWinDocumentation.AD'
         Guid          = 'a46f9775-04d2-4423-9631-01cfda42b95d'
     }, @{
@@ -42,7 +42,7 @@
         ModuleName    = 'ADEssentials'
         Guid          = '9fc9fd61-7f11-4f4b-a527-084086f1905f'
     }, @{
-        ModuleVersion = '0.0.43'
+        ModuleVersion = '0.0.45'
         ModuleName    = 'GPOZaurr'
         Guid          = 'f7d4c9e4-0298-4f51-ad77-e8e3febebbde'
     }, 'ActiveDirectory', 'GroupPolicy', 'ServerManager'
