@@ -85,7 +85,7 @@ Things to know:
   - Tests
     - [x] Improved `ForestReplicationStatus` if only 1 DC, disabled if asking for external forest
     - [x] Improved `ForestReplication` if only 1 DC
-    - [x] Renamed `DomainEmptyOrganizationalUnits` to `OrganizationalUnitsEmpty`
+    - [x] Renamed `DomainEmptyOrganizationalUnits` to `DomainOrganizationalUnitsEmpty`
     - [x] Added `DomainOrganizationalUnitsProtected`
     - [x] Improved `DCServices` for non-existing spooler service
     - [x] Changed `DomainPasswordComplexity` Lockout Treshold changed to 5+
