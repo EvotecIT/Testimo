@@ -21,7 +21,7 @@
     Tests  = [ordered] @{
         SysvolExists     = @{
             Enable     = $true
-            Name       = 'GPO: Owner Consistent'
+            Name       = 'GPO: Files on SYSVOL are not Orphaned'
             Parameters = @{
                 WhereObject    = { $_.SysvolStatus -ne 'Exists' -or $_.Status -ne 'Exists' }
                 ExpectedResult = $false # this tests things in bundle rather then per object of array
