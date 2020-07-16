@@ -26,4 +26,6 @@
 #Invoke-Testimo -Sources DomainTrusts
 
 #Invoke-Testimo -Sources DomainGroupPolicyOwner, DomainGroupPolicyPermissionConsistency,DomainGroupPolicyPermissionUnknown,DomainGroupPolicySysvol,DCGroupPolicySYSVOLDC  #-ShowReport
-Invoke-Testimo -Sources DCNetSessionEnumeration -ShowReport
+#Invoke-Testimo -Sources DCNetSessionEnumeration -ShowReport
+
+Invoke-Testimo -Sources DomainGroupPolicyEmptyUnlinked -ShowReport
