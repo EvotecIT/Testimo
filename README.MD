@@ -40,6 +40,7 @@ Things to know:
     - [x] `DomainWellKnownFolders` - removed duplicate code
     - [x] Added some additional descriptions to tests, still long way to go
     - [x] Small name fix for `DomainGroupPolicySysvol`
+    - [x] `DomainGroupPolicyEmptyUnlinked` - added new test
   - Engine
     - [x]
 - 0.0.43 - 2020.06.17
