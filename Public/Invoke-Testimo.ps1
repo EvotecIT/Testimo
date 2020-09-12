@@ -26,7 +26,8 @@ function Invoke-Testimo {
         [string] $ReportPath,
         [switch] $ShowReport,
         [switch] $SkipRODC,
-        [switch] $Online
+        [switch] $Online,
+        [string[]] $ExternalTests
     )
     if (-not $Script:DefaultSources) {
         $Script:DefaultSources = Get-TestimoSources -Enabled -SourcesOnly
@@ -149,7 +150,7 @@ function Invoke-Testimo {
             "DC$Key"
         }
     )
-    $TestSources | Sort-Object | Where-Object { $_ -like "$wordToComplete*" }
+    $TestSources | Sort-Object | Where-Object { $_ -like "*$wordToComplete*" }
 }
 Register-ArgumentCompleter -CommandName Invoke-Testimo -ParameterName Sources -ScriptBlock $SourcesAutoCompleter
 Register-ArgumentCompleter -CommandName Invoke-Testimo -ParameterName ExcludeSources -ScriptBlock $SourcesAutoCompleter

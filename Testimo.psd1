@@ -18,7 +18,7 @@
         }
     }
     RequiredModules      = @{
-        ModuleVersion = '0.0.155'
+        ModuleVersion = '0.0.173'
         ModuleName    = 'PSSharedGoods'
         Guid          = 'ee272aa8-baaa-4edf-9f45-b6d6f7d844fe'
     }, @{
@@ -34,15 +34,15 @@
         ModuleName    = 'PSEventViewer'
         Guid          = '5df72a79-cdf6-4add-b38d-bcacf26fb7bc'
     }, @{
-        ModuleVersion = '0.0.85'
+        ModuleVersion = '0.0.100'
         ModuleName    = 'PSWriteHTML'
         Guid          = 'a7bdf640-f5cb-4acf-9de0-365b322d245c'
     }, @{
-        ModuleVersion = '0.0.58'
+        ModuleVersion = '0.0.85'
         ModuleName    = 'ADEssentials'
         Guid          = '9fc9fd61-7f11-4f4b-a527-084086f1905f'
     }, @{
-        ModuleVersion = '0.0.46'
+        ModuleVersion = '0.0.62'
         ModuleName    = 'GPOZaurr'
         Guid          = 'f7d4c9e4-0298-4f51-ad77-e8e3febebbde'
     }, 'ActiveDirectory', 'GroupPolicy', 'ServerManager'

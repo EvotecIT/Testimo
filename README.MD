@@ -41,8 +41,6 @@ Things to know:
     - [x] Added some additional descriptions to tests, still long way to go
     - [x] Small name fix for `DomainGroupPolicySysvol`
     - [x] `DomainGroupPolicyEmptyUnlinked` - added new test
-  - Engine
-    - [x]
 - 0.0.43 - 2020.06.17
   - Tests
     - [x] Small name update to `OrganizationalUnitsEmpty` and `OrganizationalUnitsProtected` fixing [#103](https://github.com/EvotecIT/Testimo/issues/103)
