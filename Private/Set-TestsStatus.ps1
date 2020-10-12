@@ -12,13 +12,13 @@
             }
         }
         foreach ($Source in $Sources) {
-            if ($Source.StartsWith('Forest')) {
+            if ($Source.StartsWith('Forest', [System.StringComparison]::CurrentCultureIgnoreCase)) {
                 $ProperSource = $Source -replace '^Forest'
                 $Script:TestimoConfiguration['Forest'][$ProperSource]['Enable'] = $true
-            } elseif ($Source.StartsWith('Domain')) {
+            } elseif ($Source.StartsWith('Domain', [System.StringComparison]::CurrentCultureIgnoreCase)) {
                 $ProperSource = $Source -replace '^Domain'
                 $Script:TestimoConfiguration['Domain'][$ProperSource]['Enable'] = $true
-            } elseif ($Source.StartsWith('DC')) {
+            } elseif ($Source.StartsWith('DC', [System.StringComparison]::CurrentCultureIgnoreCase)) {
                 $ProperSource = $Source -replace '^DC'
                 $Script:TestimoConfiguration['DomainControllers'][$ProperSource]['Enable'] = $true
             }
@@ -26,13 +26,13 @@
 
     }
     foreach ($Source in $ExcludeSources) {
-        if ($Source.StartsWith('Forest')) {
+        if ($Source.StartsWith('Forest', [System.StringComparison]::CurrentCultureIgnoreCase)) {
             $ProperSource = $Source -replace '^Forest'
             $Script:TestimoConfiguration['Forest'][$ProperSource]['Enable'] = $false
-        } elseif ($Source.StartsWith('Domain')) {
+        } elseif ($Source.StartsWith('Domain', [System.StringComparison]::CurrentCultureIgnoreCase)) {
             $ProperSource = $Source -replace '^Domain'
             $Script:TestimoConfiguration['Domain'][$ProperSource]['Enable'] = $false
-        } elseif ($Source.StartsWith('DC')) {
+        } elseif ($Source.StartsWith('DC', [System.StringComparison]::CurrentCultureIgnoreCase)) {
             $ProperSource = $Source -replace '^DC'
             $Script:TestimoConfiguration['DomainControllers'][$ProperSource]['Enable'] = $false
         }
