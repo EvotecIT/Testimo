@@ -35,7 +35,7 @@
             Parameters = @{
                 WhereObject   = { $_.Name -eq 'ADWS' }
                 Property      = 'StartType'
-                ExpectedValue = 'Automatic'
+                ExpectedValue = 'Auto'
                 OperationType = 'eq'
             }
         }
@@ -56,7 +56,7 @@
             Parameters = @{
                 WhereObject   = { $_.Name -eq 'DNS' }
                 Property      = 'StartType'
-                ExpectedValue = 'Automatic'
+                ExpectedValue = 'Auto'
                 OperationType = 'eq'
             }
         }
@@ -77,7 +77,7 @@
             Parameters = @{
                 WhereObject   = { $_.Name -eq 'DFS' }
                 Property      = 'StartType'
-                ExpectedValue = 'Automatic'
+                ExpectedValue = 'Auto'
                 OperationType = 'eq'
             }
         }
@@ -98,7 +98,7 @@
             Parameters = @{
                 WhereObject   = { $_.Name -eq 'DFSR' }
                 Property      = 'StartType'
-                ExpectedValue = 'Automatic'
+                ExpectedValue = 'Auto'
                 OperationType = 'eq'
             }
         }
@@ -119,7 +119,7 @@
             Parameters = @{
                 WhereObject   = { $_.Name -eq 'Eventlog' }
                 Property      = 'StartType'
-                ExpectedValue = 'Automatic'
+                ExpectedValue = 'Auto'
                 OperationType = 'eq'
             }
         }
@@ -140,7 +140,7 @@
             Parameters = @{
                 WhereObject   = { $_.Name -eq 'EventSystem' }
                 Property      = 'StartType'
-                ExpectedValue = 'Automatic'
+                ExpectedValue = 'Auto'
                 OperationType = 'eq'
             }
         }
@@ -161,7 +161,7 @@
             Parameters = @{
                 WhereObject   = { $_.Name -eq 'KDC' }
                 Property      = 'StartType'
-                ExpectedValue = 'Automatic'
+                ExpectedValue = 'Auto'
                 OperationType = 'eq'
             }
         }
@@ -182,7 +182,7 @@
             Parameters = @{
                 WhereObject   = { $_.Name -eq 'LanManWorkstation' }
                 Property      = 'StartType'
-                ExpectedValue = 'Automatic'
+                ExpectedValue = 'Auto'
                 OperationType = 'eq'
             }
         }
@@ -205,7 +205,7 @@
             Parameters = @{
                 WhereObject   = { $_.Name -eq 'LanManServer' }
                 Property      = 'StartType'
-                ExpectedValue = 'Automatic'
+                ExpectedValue = 'Auto'
                 OperationType = 'eq'
             }
         }
@@ -228,7 +228,7 @@
             Parameters = @{
                 WhereObject   = { $_.Name -eq 'NetLogon' }
                 Property      = 'StartType'
-                ExpectedValue = 'Automatic'
+                ExpectedValue = 'Auto'
                 OperationType = 'eq'
             }
         }
@@ -251,7 +251,7 @@
             Parameters = @{
                 WhereObject   = { $_.Name -eq 'NTDS' }
                 Property      = 'StartType'
-                ExpectedValue = 'Automatic'
+                ExpectedValue = 'Auto'
                 OperationType = 'eq'
             }
         }
@@ -274,7 +274,7 @@
             Parameters = @{
                 WhereObject   = { $_.Name -eq 'RPCSS' }
                 Property      = 'StartType'
-                ExpectedValue = 'Automatic'
+                ExpectedValue = 'Auto'
                 OperationType = 'eq'
             }
         }
@@ -297,7 +297,7 @@
             Parameters = @{
                 WhereObject   = { $_.Name -eq 'SAMSS' }
                 Property      = 'StartType'
-                ExpectedValue = 'Automatic'
+                ExpectedValue = 'Auto'
                 OperationType = 'eq'
             }
         }
@@ -370,7 +370,7 @@
             Parameters = @{
                 WhereObject   = { $_.Name -eq 'W32Time' }
                 Property      = 'StartType'
-                ExpectedValue = 'Automatic'
+                ExpectedValue = 'Auto'
                 OperationType = 'eq'
             }
         }
