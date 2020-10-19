@@ -35,7 +35,7 @@
             ModuleName    = 'PSEventViewer'
             Guid          = '5df72a79-cdf6-4add-b38d-bcacf26fb7bc'
         }, @{
-            ModuleVersion = '0.0.112'
+            ModuleVersion = '0.0.113'
             ModuleName    = 'PSWriteHTML'
             Guid          = 'a7bdf640-f5cb-4acf-9de0-365b322d245c'
         }, @{
