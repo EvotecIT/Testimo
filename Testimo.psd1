@@ -19,7 +19,7 @@
         }
     }
     RequiredModules      = @(@{
-            ModuleVersion = '0.0.181'
+            ModuleVersion = '0.0.183'
             ModuleName    = 'PSSharedGoods'
             Guid          = 'ee272aa8-baaa-4edf-9f45-b6d6f7d844fe'
         }, @{
@@ -43,7 +43,7 @@
             ModuleName    = 'ADEssentials'
             Guid          = '9fc9fd61-7f11-4f4b-a527-084086f1905f'
         }, @{
-            ModuleVersion = '0.0.62'
+            ModuleVersion = '0.0.63'
             ModuleName    = 'GPOZaurr'
             Guid          = 'f7d4c9e4-0298-4f51-ad77-e8e3febebbde'
         }, 'ActiveDirectory', 'GroupPolicy', 'ServerManager')
