@@ -36,6 +36,8 @@ Things to know:
 ## ChangeLog
 
 - 0.0.44 - Unreleased
+  - HTML
+    - [x] HTML report should now be much faster to work with even with larger datasets
   - Tests
     - [x] `DomainWellKnownFolders` - removed duplicate code
     - [x] Added some additional descriptions to tests, still long way to go
