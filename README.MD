@@ -43,6 +43,7 @@ Things to know:
     - [x] `DomainGroupPolicyEmptyUnlinked` - added new test
     - [x] Silent `GitHub` version check
     - [x] Fixes working with lowercase source names
+    - [x] Fixes issue `Service Status fails on value "Auto"` [#106](https://github.com/EvotecIT/Testimo/issues/106) due to change in `PSSharedGoods`
 - 0.0.43 - 2020.06.17
   - Tests
     - [x] Small name update to `OrganizationalUnitsEmpty` and `OrganizationalUnitsProtected` fixing [#103](https://github.com/EvotecIT/Testimo/issues/103)
