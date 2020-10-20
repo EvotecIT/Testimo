@@ -23,7 +23,7 @@
     [Array] $SkippedTests = $TestResults['Results'] | Where-Object { $_.Status -ne $true -and $_.Status -ne $false }
 
     New-HTML -FilePath $FilePath -Online:$Online {
-        New-HTMLTableOption -DataStore JavaScript -BoolAsString
+        #New-HTMLTableOption -DataStore JavaScript -BoolAsString
         New-HTMLHeader {
             New-HTMLSection -Invisible {
                 New-HTMLSection {

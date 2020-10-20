@@ -35,6 +35,8 @@ Things to know:
 
 ## ChangeLog
 
+- 0.0.45 - 2020.10.20
+  - [x] Reversed on HTML change due to issues
 - 0.0.44 - 2020.10.19
   - HTML
     - [x] HTML report should now be much faster to work with even with larger datasets
