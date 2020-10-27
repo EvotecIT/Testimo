@@ -23,7 +23,7 @@
     [Array] $SkippedTests = $TestResults['Results'] | Where-Object { $_.Status -ne $true -and $_.Status -ne $false }
 
     New-HTML -FilePath $FilePath -Online:$Online {
-        #New-HTMLTableOption -DataStore JavaScript -BoolAsString
+        New-HTMLTableOption -DataStore JavaScript -BoolAsString
         New-HTMLHeader {
             New-HTMLSection -Invisible {
                 New-HTMLSection {
@@ -47,25 +47,24 @@
                         New-HTMLTableContent -ColumnName 'Passed' -BackGroundColor $ColorPassed -Color $ColorPassedText
                         New-HTMLTableContent -ColumnName 'Failed' -BackGroundColor $ColorFailed -Color $ColorFailedText
                         New-HTMLTableContent -ColumnName 'Skipped' -BackGroundColor $ColorSkipped -Color $ColorSkippedText
-                    } -DataStore HTML
+                    } -DataStore HTML #-DisablePaging -Buttons @()
                 }
                 New-HTMLPanel {
                     New-HTMLTable -DataTable $TestResults['Results'] {
                         New-HTMLTableCondition -Name 'Status' -Value $true -BackgroundColor $ColorPassed -Color $ColorPassedText #-Row
                         New-HTMLTableCondition -Name 'Status' -Value $false -BackgroundColor $ColorFailed -Color $ColorFailedText #-Row
                         New-HTMLTableCondition -Name 'Status' -Value $null -BackgroundColor $ColorSkipped -Color $ColorSkippedText #-Row
-                    }
+                    } #-Filtering
                 }
             }
         }
         if ($TestResults['Forest']['Tests'].Count -gt 0) {
             New-HTMLTab -Name 'Forest' -IconBrands first-order {
                 foreach ($Source in $TestResults['Forest']['Tests'].Keys) {
-
                     $Name = $TestResults['Forest']['Tests'][$Source]['Name']
                     $Data = $TestResults['Forest']['Tests'][$Source]['Data']
                     $SourceCode = $TestResults['Forest']['Tests'][$Source]['SourceCode']
-                    $Results = $TestResults['Forest']['Tests'][$Source]['Results']
+                    $Results = $TestResults['Forest']['Tests'][$Source]['Results'] | Select-Object -Property Name, Type, Status, Extended
                     #$Details = $TestResults['Forest']['Tests'][$Source]['Details']
                     [Array] $PassedTestsSingular = $TestResults['Forest']['Tests'][$Source]['Results'] | Where-Object { $_.Status -eq $true }
                     [Array] $FailedTestsSingular = $TestResults['Forest']['Tests'][$Source]['Results'] | Where-Object { $_.Status -eq $false }
@@ -84,12 +83,12 @@
                         }
                         New-HTMLContainer {
                             New-HTMLPanel {
-                                New-HTMLTable -DataTable $Data
+                                New-HTMLTable -DataTable $Data #-Filtering
                                 New-HTMLTable -DataTable $Results {
                                     New-HTMLTableCondition -Name 'Status' -Value $true -BackgroundColor $ColorPassed -Color $ColorPassedText #-Row
                                     New-HTMLTableCondition -Name 'Status' -Value $false -BackgroundColor $ColorFailed -Color $ColorFailedText #-Row
                                     New-HTMLTableCondition -Name 'Status' -Value $null -BackgroundColor $ColorSkipped -Color $ColorSkippedText #-Row
-                                }
+                                } -Filtering
                             }
                         }
                     }
@@ -97,14 +96,13 @@
             }
         }
         foreach ($Domain in $TestResults['Domains'].Keys) {
-
             if ($TestResults['Domains'][$Domain]['Tests'].Count -gt 0 -or $TestResults['Domains'][$Domain]['DomainControllers'].Count -gt 0) {
                 New-HTMLTab -Name "Domain $Domain" -IconBrands deskpro {
                     foreach ($Source in $TestResults['Domains'][$Domain]['Tests'].Keys) {
                         $Name = $TestResults['Domains'][$Domain]['Tests'][$Source]['Name']
                         $Data = $TestResults['Domains'][$Domain]['Tests'][$Source]['Data']
                         $SourceCode = $TestResults['Domains'][$Domain]['Tests'][$Source]['SourceCode']
-                        $Results = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results']
+                        $Results = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results'] | Select-Object -Property Name, Type, Status, Extended, Domain
                         # $Details = $TestResults['Domains'][$Domain]['Tests'][$Source]['Details']
                         [Array] $PassedTestsSingular = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results'] | Where-Object { $_.Status -eq $true }
                         [Array] $FailedTestsSingular = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results'] | Where-Object { $_.Status -eq $false }
@@ -123,12 +121,12 @@
                             }
                             New-HTMLContainer {
                                 New-HTMLPanel {
-                                    New-HTMLTable -DataTable $Data
+                                    New-HTMLTable -DataTable $Data -Filtering
                                     New-HTMLTable -DataTable $Results {
                                         New-HTMLTableCondition -Name 'Status' -Value $true -BackgroundColor $ColorPassed -Color $ColorPassedText #-Row
                                         New-HTMLTableCondition -Name 'Status' -Value $false -BackgroundColor $ColorFailed -Color $ColorFailedText #-Row
                                         New-HTMLTableCondition -Name 'Status' -Value $null -BackgroundColor $ColorSkipped -Color $ColorSkippedText #-Row
-                                    }
+                                    } -Filtering
                                 }
                             }
                         }
@@ -160,12 +158,12 @@
                                             }
                                             New-HTMLContainer {
                                                 New-HTMLPanel {
-                                                    New-HTMLTable -DataTable $Data
+                                                    New-HTMLTable -DataTable $Data -Filtering
                                                     New-HTMLTable -DataTable $Results {
                                                         New-HTMLTableCondition -Name 'Status' -Value $true -BackgroundColor $ColorPassed -Color $ColorPassedText #-Row
                                                         New-HTMLTableCondition -Name 'Status' -Value $false -BackgroundColor $ColorFailed -Color $ColorFailedText #-Row
                                                         New-HTMLTableCondition -Name 'Status' -Value $null -BackgroundColor $ColorSkipped -Color $ColorSkippedText #-Row
-                                                    }
+                                                    } -Filtering
                                                 }
                                             }
                                         }
