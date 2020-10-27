@@ -44,7 +44,7 @@ Things to know:
   - [x] Improvement to `DCWindowsUpdates`
   - [x] Removed `DomainKerberosAccountAge` as it's identical to `DomainSecurityKRBGT`
   - [x] Removed `DomainTrusts` as it wasn't really working great
-  - [x] Added `ForestTrusts` with improvments
+  - [x] Added `ForestTrusts` with improvements
   - [x] `ForestObjectsWithConflict` renamed to `ForestDuplicateObjects`
   - [x] `ForestDuplicateObjects` disabled by default (same thing as `DomainDuplicateObjects` just done forest wide)
   - [x] `DomainDuplicateObjects` enabled by default (same thing as forest just done per domain)
