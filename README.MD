@@ -36,8 +36,15 @@ Things to know:
 ## ChangeLog
 
 - 0.0.46 - Unreleased
+  - [x] Improvement to `HTML`
+    - [x] DataStore is now set to `JavaStore` which allows handling of more data within single HTML file
+    - [x] Should have less errors on tab switching
+    - [ ] Known issue: **with lots of tables/charts switching between tabs can take time, be patient**
+  - [x] Improvement to `DomainSecurityKRBGT`
   - [x] Improvement to `DCWindowsUpdates`
   - [x] Removed `DomainKerberosAccountAge` as it's identical to `DomainSecurityKRBGT`
+  - [x] Removed `DomainTrusts` as it wasn't really working great
+  - [x] Added `ForestTrusts` with improvments
   - [x] `ForestObjectsWithConflict` renamed to `ForestDuplicateObjects`
   - [x] `ForestDuplicateObjects` disabled by default (same thing as `DomainDuplicateObjects` just done forest wide)
   - [x] `DomainDuplicateObjects` enabled by default (same thing as forest just done per domain)
