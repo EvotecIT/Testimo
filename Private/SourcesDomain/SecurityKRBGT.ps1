@@ -4,7 +4,7 @@
         Name           = "Security: Krbtgt password"
         Data           = {
             #Get-ADUser -Filter { name -like "krbtgt*" }  -Property Name, Created, logonCount, Modified, PasswordLastSet, PasswordExpired, msDS-KeyVersionNumber, CanonicalName, msDS-KrbTgtLinkBl -Server $Domain
-            Get-ADUser -Identity "krbtgt" -Property Name, Created, logonCount, Modified, PasswordLastSet, PasswordExpired, msDS-KeyVersionNumber, CanonicalName, msDS-KrbTgtLinkBl -Server $Domain
+            Get-ADUser -Identity "krbtgt" -Property Name, Created, logonCount, Modified, PasswordLastSet, PasswordExpired, msDS-KeyVersionNumber, CanonicalName, msDS-KrbTgtLinkBl -Server $Domain | Select-Object Name, Created, logonCount, Modified, PasswordLastSet, PasswordExpired, msDS-KeyVersionNumber, CanonicalName, msDS-KrbTgtLinkBl
         }
         Details        = [ordered] @{
             Area        = 'Security', 'Cleanup'
