@@ -35,6 +35,10 @@ Things to know:
 
 ## ChangeLog
 
+- 0.0.46 - Unreleased
+  - [x] Improvement to DCWindowsUpdates
+  - [ ] Removed Tests
+    - [ ] `DomainKerberosAccountAge` -> `DomainSecurityKRBGT` already exists doing same thing
 - 0.0.45 - 2020.10.20
   - [x] Reversed on HTML change due to issues
 - 0.0.44 - 2020.10.19

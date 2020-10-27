@@ -38,7 +38,6 @@
         DNSScavengingForPrimaryDNSServer   = $DNSScavengingForPrimaryDNSServer
         DNSForwaders                       = $DNSForwaders
         DnsZonesAging                      = $DnsZonesAging
-        KerberosAccountAge                 = $KerberosAccountAge
         SecurityGroupsAccountOperators     = $SecurityGroupsAccountOperators
         SecurityGroupsSchemaAdmins         = $SecurityGroupsSchemaAdmins
         SecurityUsers                      = $SecurityUsers

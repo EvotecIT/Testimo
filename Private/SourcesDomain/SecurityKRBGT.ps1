@@ -24,10 +24,10 @@
     Tests  = [ordered] @{
         PasswordLastSet = @{
             Enable      = $true
-            Name        = 'Krbtgt Last Password Change Should be less than 40 days ago'
+            Name        = 'Krbtgt Last Password Change Should be less than 180 days ago'
             Parameters  = @{
                 Property      = 'PasswordLastSet'
-                ExpectedValue = '(Get-Date).AddDays(-40)'
+                ExpectedValue = '(Get-Date).AddDays(-180)'
                 OperationType = 'gt'
             }
             Description = 'User account should be disabled or LastPasswordChange should be less than 1 year ago.'
