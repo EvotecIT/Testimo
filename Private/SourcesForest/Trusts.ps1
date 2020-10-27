@@ -3,12 +3,7 @@
     Source = @{
         Name           = "Trust Availability"
         Data           = {
-            # $ADModule = Import-Module PSWinDocumentation.AD -PassThru
-            $ADModule = Import-PrivateModule PSWinDocumentation.AD
-            & $ADModule {
-                param($Domain);
-                Get-WinADDomainTrusts -Domain $Domain
-            } -Domain $Domain
+            Get-WinADTrust -Forest $Forest
         }
         Details        = [ordered] @{
             Area        = 'Health', 'Configuration'
@@ -26,10 +21,20 @@
     Tests  = [ordered] @{
         TrustsConnectivity            = @{
             Enable     = $true
-            Name       = 'Trust status verification'
+            Name       = 'Trust status'
             Parameters = @{
-                OverwriteName = { "Trust status verification | Source $Domain, Target $($_.'Trust Target'), Direction $($_.'Trust Direction')" }
-                Property      = 'Trust Status'
+                OverwriteName = { "Trust status | Source $($_.'TrustSource'), Target $($_.'TrustTarget'), Direction $($_.'TrustDirection')" }
+                Property      = 'TrustStatus'
+                ExpectedValue = 'OK'
+                OperationType = 'eq'
+            }
+        }
+        TrustsQueryStatus             = @{
+            Enable     = $true
+            Name       = 'Trust Query Status'
+            Parameters = @{
+                OverwriteName = { "Trust query | Source $($_.'TrustSource'), Target $($_.'TrustTarget'), Direction $($_.'TrustDirection')" }
+                Property      = 'QueryStatus'
                 ExpectedValue = 'OK'
                 OperationType = 'eq'
             }
@@ -39,10 +44,10 @@
             Name       = 'Trust unconstrained TGTDelegation'
             Parameters = @{
                 # TGTDelegation should be set to $True (contrary to name)
-                OverwriteName = { "Trust unconstrained TGTDelegation | Source $Domain, Target $($_.'Trust Target'), Direction $($_.'Trust Direction')" }
-                WhereObject   = { $($_.'Trust Direction' -eq 'BiDirectional' -or $_.'Trust Direction' -eq 'InBound') }
-                Property      = 'TGTDelegation'
-                ExpectedValue = $True
+                OverwriteName = { "Trust unconstrained TGTDelegation | Source $($_.'TrustSource'), Target $($_.'TrustTarget'), Direction $($_.'TrustDirection')" }
+                WhereObject   = { ($_.'TrustAttributes' -ne 'Within Forest') -and ($_.'TrustDirection' -eq 'BiDirectional' -or $_.'TrustDirection' -eq 'InBound') }
+                Property      = 'IsTGTDelegationEnabled'
+                ExpectedValue = $false
                 OperationType = 'eq'
             }
         }

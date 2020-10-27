@@ -19,6 +19,7 @@
         OrphanedAdmins       = $OrphanedAdmins
         DuplicateObjects     = $ForestDuplicateObjects
         TombstoneLifetime    = $TombstoneLifetime
+        Trusts               = $Trusts
     }
     Domain            = [ordered] @{
         Roles                              = $DomainFSMORoles
@@ -31,7 +32,6 @@
         GroupPolicyPermissionUnknown       = $GroupPolicyPermissionUnknown
         GroupPolicyADM                     = $GroupPolicyADM
         GroupPolicySysvol                  = $GroupPolicySysvol
-        Trusts                             = $Trusts
         OrphanedForeignSecurityPrincipals  = $OrphanedForeignSecurityPrincipals
         OrganizationalUnitsEmpty           = $OrganizationalUnitsEmpty
         OrganizationalUnitsProtected       = $OrganizationalUnitsProtected
