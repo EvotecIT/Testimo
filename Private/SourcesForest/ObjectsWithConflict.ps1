@@ -1,9 +1,16 @@
-﻿$ObjectsWithConflict = @{
-    Enable = $true
+﻿$ForestDuplicateObjects = @{
+    Enable = $false
     Source = @{
-        Name           = 'Objects with Conflict (Duplicate RDN)'
+        Name           = 'Duplicate Objects: 0ACNF (Duplicate RDN)'
         Data           = {
             Get-WinADForestObjectsConflict -Forest $ForestName
+        }
+        Implementation = {
+            # This may not work for all types of objects. Please make sure to understand what it does first.
+            $CNF = Get-ADObject -LDAPFilter "(|(cn=*\0ACNF:*)(ou=*OACNF:*))" -SearchScope Subtree
+            foreach ($_ in $CNF) {
+                Remove-ADObject -Identity $_.ObjectGUID.Guid -Recursive
+            }
         }
         Details        = [ordered] @{
             Area        = 'Cleanup'
@@ -17,6 +24,11 @@
                 'http://ourwinblog.blogspot.com/2011/05/resolving-computer-object-replication.html'
                 'https://kickthatcomputer.wordpress.com/2014/11/22/seek-and-destroy-duplicate-ad-objects-with-cnf-in-the-name/'
                 'https://gallery.technet.microsoft.com/scriptcenter/Get-ADForestConflictObjects-4667fa37'
+                'https://jorgequestforknowledge.wordpress.com/2014/09/17/finding-conflicting-objects-in-your-ad/'
+                'https://social.technet.microsoft.com/Forums/en-US/e9327be6-922c-4b9f-8357-417c3ab6a1af/cnf-remove-from-ad?forum=winserverDS'
+                'https://ganeshnadarajanblog.wordpress.com/2017/12/18/find-cnf-objects-in-active-directory/'
+                'https://kickthatcomputer.wordpress.com/2014/11/22/seek-and-destroy-duplicate-ad-objects-with-cnf-in-the-name/'
+                'https://community.spiceworks.com/topic/2113346-active-directory-replication-cnf-guid-entries'
             )
         }
         ExpectedOutput = $false

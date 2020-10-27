@@ -17,7 +17,7 @@
         SiteLinksConnections = $SiteLinksConnections
         Roles                = $ForestFSMORoles
         OrphanedAdmins       = $OrphanedAdmins
-        ObjectsWithConflict  = $ObjectsWithConflict
+        DuplicateObjects     = $ForestDuplicateObjects
         TombstoneLifetime    = $TombstoneLifetime
     }
     Domain            = [ordered] @{
