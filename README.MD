@@ -48,6 +48,7 @@ Things to know:
   - [x] `ForestObjectsWithConflict` renamed to `ForestDuplicateObjects`
   - [x] `ForestDuplicateObjects` disabled by default (same thing as `DomainDuplicateObjects` just done forest wide)
   - [x] `DomainDuplicateObjects` enabled by default (same thing as forest just done per domain)
+  - [x] `DCTimeSettings` updated with proper NTP recommendation [#65](https://github.com/EvotecIT/Testimo/issues/65) - tnx SolidKnight, SUBnet192, itpro-tips
 - 0.0.45 - 2020.10.20
   - [x] Reversed on HTML change due to issues
 - 0.0.44 - 2020.10.19
