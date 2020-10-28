@@ -73,14 +73,14 @@
         }
         NtpTypePDC        = [ordered] @{
             Enable       = $true
-            Name         = 'NTP Server should be set to AllSync'
+            Name         = 'NTP Server should be set to NTP'
             Requirements = @{
                 IsPDC = $true
             }
             Parameters   = @{
                 WhereObject   = { $_.ComputerName -eq $DomainController }
                 Property      = 'NtpType'
-                ExpectedValue = 'AllSync'
+                ExpectedValue = 'NTP'
                 OperationType = 'eq'
 
             }
