@@ -35,7 +35,7 @@
             ModuleName    = 'PSEventViewer'
             Guid          = '5df72a79-cdf6-4add-b38d-bcacf26fb7bc'
         }, @{
-            ModuleVersion = '0.0.118'
+            ModuleVersion = '0.0.119'
             ModuleName    = 'PSWriteHTML'
             Guid          = 'a7bdf640-f5cb-4acf-9de0-365b322d245c'
         }, @{
@@ -43,7 +43,7 @@
             ModuleName    = 'ADEssentials'
             Guid          = '9fc9fd61-7f11-4f4b-a527-084086f1905f'
         }, @{
-            ModuleVersion = '0.0.68'
+            ModuleVersion = '0.0.70'
             ModuleName    = 'GPOZaurr'
             Guid          = 'f7d4c9e4-0298-4f51-ad77-e8e3febebbde'
         }, 'ActiveDirectory', 'GroupPolicy', 'ServerManager')

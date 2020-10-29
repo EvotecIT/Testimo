@@ -35,7 +35,7 @@ Things to know:
 
 ## ChangeLog
 
-- 0.0.46 - Unreleased
+- 0.0.46 - 2020.10.29
   - [x] Improvement to `HTML`
     - [x] DataStore is now set to `JavaStore` which allows handling of more data within single HTML file
     - [x] Should have less errors on tab switching

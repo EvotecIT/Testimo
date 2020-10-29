@@ -23,9 +23,13 @@
 #Invoke-Testimo -Sources DomainDNSZonesForest0ADEL
 #Invoke-Testimo -Sources DomainDNSZonesForest0ADEL -ForestName 'test.evotec.pl'
 #Invoke-Testimo -Sources DomainTrusts -ForestName 'test.evotec.pl'
-#Invoke-Testimo -Sources DomainTrusts
+#Invoke-Testimo -ShowReport #-Sources DomainTrusts -ShowReport
 
-#Invoke-Testimo -Sources DomainGroupPolicyOwner, DomainGroupPolicyPermissionConsistency,DomainGroupPolicyPermissionUnknown,DomainGroupPolicySysvol,DCGroupPolicySYSVOLDC  #-ShowReport
-#Invoke-Testimo -Sources DCNetSessionEnumeration -ShowReport
+#Invoke-Testimo -Sources DomainGroupPolicyOwner, DomainGroupPolicyPermissionConsistency,DomainGroupPolicyPermissionUnknown,DomainGroupPolicySysvol,DCGroupPolicySYSVOLDC  -ShowReport
 
-Invoke-Testimo -Sources DomainGroupPolicyEmptyUnlinked -ShowReport
+#Invoke-Testimo -Sources ForestDuplicateObjects, DomainDuplicateObjects, DomainSecurityKRBGT -ShowReport
+#Invoke-Testimo -Sources DCNetSessionEnumeration #
+
+#Invoke-Testimo -ShowReport  #-Sources DomainGroupPolicyEmptyUnlinked -ShowReport
+
+Invoke-Testimo -ShowReport -Sources ForestTrusts,DomainSecurityKRBGT,DCDiskSpace
