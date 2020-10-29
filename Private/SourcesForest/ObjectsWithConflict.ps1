@@ -3,7 +3,7 @@
     Source = @{
         Name           = 'Duplicate Objects: 0ACNF (Duplicate RDN)'
         Data           = {
-            Get-WinADForestObjectsConflict -Forest $ForestName
+            Get-WinADDuplicateObject -Forest $ForestName
         }
         Implementation = {
             # This may not work for all types of objects. Please make sure to understand what it does first.
