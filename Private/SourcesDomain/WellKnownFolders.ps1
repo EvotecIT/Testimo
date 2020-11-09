@@ -105,7 +105,7 @@
         }
         QuotasContainer                    = @{
             Enable     = $true
-            Name       = "Quotas Container shouldn be at default location"
+            Name       = "Quotas Container should be at default location"
             Parameters = @{
                 WhereObject           = { $_.Name -eq 'QuotasContainer' }
                 ExpectedValue         = $true
