@@ -8,7 +8,7 @@
         Details      = [ordered] @{
             Area        = 'Security'
             Description = "SMB Shares for Sysvol and Netlogon should be at their defaults. That means 2 permissions for Netlogon and 3 for SysVol."
-            Resolution  = 'Add/Remove unnessecary permissions.'
+            Resolution  = 'Add/Remove unnecessary permissions.'
             RiskLevel   = 20
             Resources   = @(
 
@@ -29,7 +29,7 @@
             Details    = [ordered] @{
                 Area        = 'Security'
                 Description = "SMB Shares for Sysvol and Netlogon should be at their defaults. That means 2 permissions for Netlogon and 3 for SysVol."
-                Resolution  = 'Add/Remove unnessecary permissions.'
+                Resolution  = 'Add/Remove unnecessary permissions.'
                 RiskLevel   = 5
                 Resources   = @(
 
@@ -45,7 +45,7 @@
             }
             Area        = 'Security'
             Description = "SMB Shares for NETLOGON should contain Everyone with Read access rights."
-            Resolution  = 'Add/Remove unnessecary permissions.'
+            Resolution  = 'Add/Remove unnecessary permissions.'
             RiskLevel   = 5
             Resources   = @(
 
@@ -60,7 +60,7 @@
             }
             Area        = 'Security'
             Description = "SMB Shares for NETLOGON should contain BUILTIN\Administrators with Full access rights."
-            Resolution  = 'Add/Remove unnessecary permissions.'
+            Resolution  = 'Add/Remove unnecessary permissions.'
             RiskLevel   = 5
             Resources   = @(
 
@@ -75,7 +75,7 @@
             }
             Area        = 'Security'
             Description = "SMB Shares for SYSVOL should contain Everyone with Read access rights."
-            Resolution  = 'Add/Remove unnessecary permissions.'
+            Resolution  = 'Add/Remove unnecessary permissions.'
             RiskLevel   = 5
             Resources   = @(
 
@@ -90,7 +90,7 @@
             }
             Area        = 'Security'
             Description = "SMB Shares for SYSVOL should contain BUILTIN\Administrators with Full access rights."
-            Resolution  = 'Add/Remove unnessecary permissions.'
+            Resolution  = 'Add/Remove unnecessary permissions.'
             RiskLevel   = 5
             Resources   = @(
 
@@ -105,7 +105,7 @@
             }
             Area        = 'Security'
             Description = "SMB Shares for SYSVOL should contain NT AUTHORITY\Authenticated Users with Full access rights."
-            Resolution  = 'Add/Remove unnessecary permissions.'
+            Resolution  = 'Add/Remove unnecessary permissions.'
             RiskLevel   = 5
             Resources   = @(
 
@@ -123,7 +123,7 @@
             }
             Area        = 'Security'
             Description = "SMB Shares for NETLOGON should contain Everyone with Read access rights."
-            Resolution  = 'Add/Remove unnessecary permissions.'
+            Resolution  = 'Add/Remove unnecessary permissions.'
             RiskLevel   = 5
             Resources   = @(
 
@@ -140,7 +140,7 @@
             }
             Area        = 'Security'
             Description = "SMB Shares for NETLOGON should contain BUILTIN\Administrators with Full access rights."
-            Resolution  = 'Add/Remove unnessecary permissions.'
+            Resolution  = 'Add/Remove unnecessary permissions.'
             RiskLevel   = 5
             Resources   = @(
 
@@ -157,7 +157,7 @@
             }
             Area        = 'Security'
             Description = "SMB Shares for SYSVOL should contain Everyone with Read access rights."
-            Resolution  = 'Add/Remove unnessecary permissions.'
+            Resolution  = 'Add/Remove unnecessary permissions.'
             RiskLevel   = 5
             Resources   = @(
 
@@ -174,7 +174,7 @@
             }
             Area        = 'Security'
             Description = "SMB Shares for SYSVOL should contain BUILTIN\Administrators with Full access rights."
-            Resolution  = 'Add/Remove unnessecary permissions.'
+            Resolution  = 'Add/Remove unnecessary permissions.'
             RiskLevel   = 5
             Resources   = @(
 
@@ -191,7 +191,7 @@
             }
             Area        = 'Security'
             Description = "SMB Shares for SYSVOL should contain NT AUTHORITY\Authenticated Users with Full access rights."
-            Resolution  = 'Add/Remove unnessecary permissions.'
+            Resolution  = 'Add/Remove unnecessary permissions.'
             RiskLevel   = 5
             Resources   = @(
 
