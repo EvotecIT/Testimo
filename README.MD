@@ -25,6 +25,10 @@ It's goal is to be fully automated solution where one can run the command and ge
 
 If you're new to **Testimo** you should read this [blog post](https://evotec.xyz/what-do-we-say-to-health-checking-active-directory/)!
 
+**Note:** At present this module is not supported in PowerShell Core/PowerShell 7.
+This is because the Testimo module depends on other Microsoft moodules that are also not supported in PowerShell 7, including GroupPolicy and ServerManager.
+There is an issue tracking this compatibiity which you can follow: https://github.com/EvotecIT/Testimo/issues/110.
+
 Things to know:
 
 - [x] Configuration hash is not written in stone and can change rapidly as Testimo gets tested
@@ -32,6 +36,7 @@ Things to know:
 - [x] There's a big mess in files/function names - I'm still testing things out creating some random names, will be cleaned up later on
 - [x] There are lots of details missing for tests, and some things may not work as you want - please report issues or if you know how, fix them
 - [x] I don't know EVERYTHING - I'm very open to help with making Testimo more robust, detailed and easy to use
+- [x] This module works great in Windows PowerShell!
 
 ## ChangeLog
 
