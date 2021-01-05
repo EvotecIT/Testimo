@@ -25,7 +25,7 @@
             Parameters = @{
                 Property      = 'ReplicationFrequencyInMinutes'
                 ExpectedValue = 60
-                OperationType = 'lt'
+                OperationType = 'le'
             }
         }
         UseNotificationsForLinks    = @{
