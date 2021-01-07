@@ -71,7 +71,7 @@ $GroupPolicyAssesment = @{
         }
         ApplyPermission = @{
             Enable     = $true
-            Name       = 'Group Policy Unlinked'
+            Name       = 'Group Policy No Apply Permission'
             Parameters = @{
                 # Bundle        = $true
                 WhereObject   = { $_.ApplyPermissioon -eq $false }
