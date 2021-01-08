@@ -1,6 +1,7 @@
 ﻿
 $ReplicationStatus = @{
     Enable = $true
+    Scope  = 'Forest'
     Source = @{
         Name           = 'Forest Replication using RepAdmin'
         Data           = {

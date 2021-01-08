@@ -1,5 +1,6 @@
 ﻿$OptionalFeatures = [ordered] @{
     Enable = $true
+    Scope  = 'Forest'
     Source = [ordered] @{
         Name           = 'Optional Features'
         Data           = {

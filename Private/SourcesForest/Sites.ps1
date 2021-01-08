@@ -1,5 +1,6 @@
 ﻿$Sites = @{
     Enable = $true
+    Scope  = 'Forest'
     Source = [ordered] @{
         Name           = 'Sites Verification'
         Data           = {

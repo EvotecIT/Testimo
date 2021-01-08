@@ -1,5 +1,6 @@
 ﻿$Replication = @{
     Enable = $true
+    Scope  = 'Forest'
     Source = @{
         Name           = 'Forest Replication'
         Data           = {

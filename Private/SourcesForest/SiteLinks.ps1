@@ -1,5 +1,6 @@
 ﻿$SiteLinks = @{
     Enable = $true
+    Scope  = 'Forest'
     Source = @{
         Name           = 'Site Links'
         Data           = {

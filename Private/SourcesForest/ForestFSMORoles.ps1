@@ -1,5 +1,6 @@
 ﻿$ForestFSMORoles = @{
     Enable = $true
+    Scope  = 'Forest'
     Source = @{
         Name           = 'Roles availability'
         Data           = {

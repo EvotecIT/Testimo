@@ -1,5 +1,6 @@
 ﻿$Trusts = @{
     Enable = $true
+    Scope  = 'Forest'
     Source = @{
         Name           = "Trust Availability"
         Data           = {

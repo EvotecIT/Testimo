@@ -1,5 +1,6 @@
 ﻿$OrphanedAdmins = @{
     Enable = $true
+    Scope  = 'Forest'
     Source = @{
         Name           = 'Orphaned Administrative Objects (AdminCount)'
         Data           = {

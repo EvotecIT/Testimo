@@ -27,6 +27,7 @@ SslPort                    : 636
 
 $Information = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name    = "Domain Controller Information"
         Data    = {

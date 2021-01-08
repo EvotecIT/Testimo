@@ -1,5 +1,6 @@
 ﻿$TombstoneLifetime = @{
     Enable    = $true
+    Scope  = 'Forest'
     Source    = [ordered]@{
         Name           = 'Tombstone Lifetime'
         Data           = {

@@ -1,5 +1,6 @@
 ﻿$Backup = @{
     Enable = $true
+    Scope  = 'Forest'
     Source = @{
         Name           = 'Forest Backup'
         Data           = {

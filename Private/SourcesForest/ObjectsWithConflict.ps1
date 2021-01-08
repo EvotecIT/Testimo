@@ -1,5 +1,6 @@
 ﻿$ForestDuplicateObjects = @{
     Enable = $false
+    Scope  = 'Forest'
     Source = @{
         Name           = 'Duplicate Objects: 0ACNF (Duplicate RDN)'
         Data           = {
