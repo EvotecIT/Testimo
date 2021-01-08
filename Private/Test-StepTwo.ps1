@@ -1,6 +1,7 @@
 ﻿function Test-StepTwo {
     [CmdletBinding()]
     param(
+        [System.Collections.IDictionary] $Test,
         [string] $Domain,
         [string] $DomainController,
         [Array] $Object,
@@ -32,38 +33,41 @@
             'notin'       = 'Not in'
             'in'          = 'Either Value'
         }
-
-
         [Object] $TestedValue = $Object
         foreach ($V in $Property) {
             $TestedValue = $TestedValue.$V
         }
 
         if ($null -ne $ExpectedCount) {
+            if ($null -eq $Object) {
+                $TestedValueCount = 0
+            } else {
+                $TestedValueCount = $TestedValue.Count
+            }
             if ($OperationType -eq 'lt') {
-                $TestResult = $TestedValue.Count -lt $ExpectedCount
+                $TestResult = $TestedValueCount -lt $ExpectedCount
             } elseif ($OperationType -eq 'gt') {
-                $TestResult = $TestedValue.Count -gt $ExpectedCount
+                $TestResult = $TestedValueCount -gt $ExpectedCount
             } elseif ($OperationType -eq 'ge') {
-                $TestResult = $TestedValue.Count -ge $ExpectedCount
+                $TestResult = $TestedValueCount -ge $ExpectedCount
             } elseif ($OperationType -eq 'le') {
-                $TestResult = $TestedValue.Count -le $ExpectedCount
+                $TestResult = $TestedValueCount -le $ExpectedCount
             } elseif ($OperationType -eq 'like') {
                 # Useless - doesn't make any sense
-                $TestResult = $TestedValue.Count -like $ExpectedCount
+                $TestResult = $TestedValueCount -like $ExpectedCount
             } elseif ($OperationType -eq 'contains') {
                 # Useless - doesn't make any sense
-                $TestResult = $TestedValue.Count -contains $ExpectedCount
+                $TestResult = $TestedValueCount -contains $ExpectedCount
             } elseif ($OperationType -eq 'in') {
                 # Useless - doesn't make any sense
-                $TestResult = $ExpectedCount -in $TestedValue.Count
+                $TestResult = $ExpectedCount -in $TestedValueCount
             } elseif ($OperationType -eq 'notin') {
                 # Useless - doesn't make any sense
-                $TestResult = $ExpectedCount -notin $TestedValue.Count
+                $TestResult = $ExpectedCount -notin $TestedValueCount
             } else {
-                $TestResult = $TestedValue.Count -eq $ExpectedCount
+                $TestResult = $TestedValueCount -eq $ExpectedCount
             }
-            $TextTestedValue = $TestedValue.Count
+            $TextTestedValue = $TestedValueCount
             $TextExpectedValue = $ExpectedCount
 
         } elseif ($null -ne $ExpectedValue) {
@@ -87,7 +91,6 @@
                 }
                 $TextExpectedValue = $OutputValues -join ', '
                 $TextTestedValue = 'Null'
-
             } else {
                 [Array] $TestResult = @(
                     if ($OperationType -eq 'notin') {
@@ -165,7 +168,11 @@
                     $ReportExtended = "Expected value ($($Operators[$OperationType])): $($TextExpectedValue)"
                 } else {
                     $ReportResult = $false
-                    $ReportExtended = "Expected value ($($Operators[$OperationType])): $TextExpectedValue, Found value: $($TextTestedValue)"
+                    if ($Test.Parameters.DisplayResult -ne $false) {
+                        $ReportExtended = "Expected value ($($Operators[$OperationType])): $TextExpectedValue, Found value: $($TextTestedValue)"
+                    } else {
+                        $ReportExtended = "Expected value ($($Operators[$OperationType])): $TextExpectedValue"
+                    }
                 }
             } else {
                 if ($TestResult -notcontains $false) {
@@ -173,7 +180,11 @@
                     $ReportExtended = "Expected value ($($Operators[$OperationType])): $($TextExpectedValue)"
                 } else {
                     $ReportResult = $false
-                    $ReportExtended = "Expected value ($($Operators[$OperationType])): $TextExpectedValue, Found value: $($TextTestedValue)"
+                    if ($Test.Parameters.DisplayResult -ne $false) {
+                        $ReportExtended = "Expected value ($($Operators[$OperationType])): $TextExpectedValue, Found value: $($TextTestedValue)"
+                    } else {
+                        $ReportExtended = "Expected value ($($Operators[$OperationType])): $TextExpectedValue"
+                    }
                 }
 
             }

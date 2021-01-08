@@ -46,7 +46,7 @@
     # Out-Begin -Type 'i' -Text $SummaryText -Level ($LevelSummary - 3) -Domain $Domain -DomainController $DomainController
     # Out-Status -Text $SummaryText -Status $null -ExtendedValue '' -Domain $Domain -DomainController $DomainController
 
-    Out-Informative -Text $SummaryText -Status $null -ExtendedValue '' -Domain $Domain -DomainController $DomainController  -Level ($LevelSummary - 3)
+    Out-Informative -Text $SummaryText -Status $null -ExtendedValue '' -Domain $Domain -DomainController $DomainController -Level ($LevelSummary - 3)
 
     $TestsSummaryTogether = @(
         foreach ($Source in $($Script:TestimoConfiguration.$Scope.Keys)) {
@@ -220,7 +220,7 @@
                     $FailAllTests = $false
                     Out-Begin -Text $CurrentSource['Name'] -Level $LevelTest -Domain $Domain -DomainController $DomainController
                     Out-Status -Text $CurrentSource['Name'] -Status $null -ExtendedValue 'No data returned.' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
-                   # $TestsSummary.Passed = $TestsSummary.Passed + 1
+                    # $TestsSummary.Passed = $TestsSummary.Passed + 1
                     $TestsSummary.Skipped = $TestsSummary.Skipped + 1
                 } else {
                     $FailAllTests = $true
@@ -262,13 +262,13 @@
                             #}
                         }
                         if (-not $FailAllTests) {
-                            if ($CurrentTest['Parameters']) {
-                                $Parameters = $CurrentTest['Parameters']
-                            } else {
-                                $Parameters = $null
-                            }
+                            #if ($CurrentTest['Parameters']) {
+                            #    $Parameters = $CurrentTest['Parameters']
+                            #} else {
+                            #    $Parameters = $null
+                            #}
                             $TestsResults = Start-TestingTest -Test $CurrentTest['Name'] -Level $LevelTest -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID {
-                                Test-StepOne -Object $Object -Domain $Domain -DomainController $DomainController @Parameters -Level $LevelTest -TestName $CurrentTest['Name'] -ReferenceID $ReferenceID -Requirements $CurrentTest['Requirements']
+                                Test-StepOne -Test $CurrentTest -Object $Object -Domain $Domain -DomainController $DomainController -Level $LevelTest -TestName $CurrentTest['Name'] -ReferenceID $ReferenceID -Requirements $CurrentTest['Requirements']
                             }
                             $TestsSummary.Passed = $TestsSummary.Passed + ($TestsResults | Where-Object { $_ -eq $true }).Count
                             $TestsSummary.Failed = $TestsSummary.Failed + ($TestsResults | Where-Object { $_ -eq $false }).Count
