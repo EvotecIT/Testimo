@@ -136,23 +136,7 @@ function Invoke-Testimo {
 
 [scriptblock] $SourcesAutoCompleter = {
     param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
-
-    $ForestKeys = $Script:TestimoConfiguration.Forest.Keys
-    $DomainKeys = $Script:TestimoConfiguration.Domain.Keys
-    $DomainControllerKeys = $Script:TestimoConfiguration.DomainControllers.Keys
-
-    $TestSources = @(
-        foreach ($Key in $ForestKeys) {
-            "Forest$Key"
-        }
-        foreach ($Key in $DomainKeys) {
-            "Domain$Key"
-        }
-        foreach ($Key in $DomainControllerKeys) {
-            "DC$Key"
-        }
-    )
-    $TestSources | Sort-Object | Where-Object { $_ -like "*$wordToComplete*" }
+    $Script:TestimoConfiguration.ActiveDirectory.Keys | Sort-Object | Where-Object { $_ -like "*$wordToComplete*" }
 }
 Register-ArgumentCompleter -CommandName Invoke-Testimo -ParameterName Sources -ScriptBlock $SourcesAutoCompleter
 Register-ArgumentCompleter -CommandName Invoke-Testimo -ParameterName ExcludeSources -ScriptBlock $SourcesAutoCompleter

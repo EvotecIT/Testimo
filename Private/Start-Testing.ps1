@@ -49,8 +49,11 @@
     Out-Informative -Text $SummaryText -Status $null -ExtendedValue '' -Domain $Domain -DomainController $DomainController -Level ($LevelSummary - 3)
 
     $TestsSummaryTogether = @(
-        foreach ($Source in $($Script:TestimoConfiguration.$Scope.Keys)) {
-            $CurrentSection = $Script:TestimoConfiguration.$Scope[$Source]
+        foreach ($Source in ($($Script:TestimoConfiguration.ActiveDirectory)).Keys) {
+            if ($Scope -ne $Script:TestimoConfiguration.ActiveDirectory[$Source].Scope) {
+                continue
+            }
+            $CurrentSection = $Script:TestimoConfiguration.ActiveDirectory[$Source]
             if ($null -eq $CurrentSection) {
                 # Probably should write some tests
                 Write-Warning "Source $Source in scope: $Scope is defined improperly. Please verify."
@@ -59,7 +62,7 @@
             if ($CurrentSection['Enable'] -eq $true) {
                 $Time = Start-TimeLog
                 $CurrentSource = $CurrentSection['Source']
-                $CurrentTests = $CurrentSection['Tests']
+                #$CurrentTests = $CurrentSection['Tests']
                 [Array] $AllTests = $CurrentSection['Tests'].Keys
 
                 $ReferenceID = $Source #Get-RandomStringName -Size 8
