@@ -27,7 +27,7 @@ If you're new to **Testimo** you should read this [blog post](https://evotec.xyz
 
 **Note:** At present this module is not supported in PowerShell Core/PowerShell 7.
 This is because the Testimo module depends on other Microsoft moodules that are also not supported in PowerShell 7, including GroupPolicy and ServerManager.
-There is an issue tracking this compatibiity which you can follow: https://github.com/EvotecIT/Testimo/issues/110.
+There is an issue tracking this compatibiity which you can follow: <https://github.com/EvotecIT/Testimo/issues/110>.
 
 Things to know:
 
@@ -40,6 +40,13 @@ Things to know:
 
 ## ChangeLog
 
+- 0.0.47
+  - [x] Tests
+    - [x] Removed `DomainGroupPolicyPermissionUnknown`
+    - [x] Removed `GroupPolicyMissingPermissions`
+    - [x] Added `DomainGroupPolicyPermissions` - covers unknown, adminitrative, authenticated users and system (both removed + some)
+    - [ ] Removed `DomainGroupPolicyEmptyUnlinked`
+    - [ ] Added `DomainGroupPolicyAssesment` - covers empty, unlinked, disabled, with problem, optimized, no apply permission
 - 0.0.46 - 2020.10.29
   - [x] Improvement to `HTML`
     - [x] DataStore is now set to `JavaStore` which allows handling of more data within single HTML file

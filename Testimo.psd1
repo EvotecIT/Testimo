@@ -4,11 +4,11 @@
     CmdletsToExport      = @()
     CompanyName          = 'Evotec'
     CompatiblePSEditions = @('Desktop')
-    Copyright            = '(c) 2011 - 2020 Przemyslaw Klys @ Evotec. All rights reserved.'
+    Copyright            = '(c) 2011 - 2021 Przemyslaw Klys @ Evotec. All rights reserved.'
     Description          = 'Testimo is Powershell module that tests Active Directory against specific set of tests.'
     FunctionsToExport    = @('Get-TestimoConfiguration', 'Get-TestimoSources', 'Import-PrivateModule', 'Invoke-Testimo')
     GUID                 = '0c1b99de-55ac-4410-8cb5-e689ff3be39b'
-    ModuleVersion        = '0.0.46'
+    ModuleVersion        = '0.0.47'
     PowerShellVersion    = '5.1'
     PrivateData          = @{
         PSData = @{
@@ -19,11 +19,11 @@
         }
     }
     RequiredModules      = @(@{
-            ModuleVersion = '0.0.186'
+            ModuleVersion = '0.0.192'
             ModuleName    = 'PSSharedGoods'
             Guid          = 'ee272aa8-baaa-4edf-9f45-b6d6f7d844fe'
         }, @{
-            ModuleVersion = '0.1.19'
+            ModuleVersion = '0.1.20'
             ModuleName    = 'PSWinDocumentation.AD'
             Guid          = 'a46f9775-04d2-4423-9631-01cfda42b95d'
         }, @{
@@ -35,15 +35,15 @@
             ModuleName    = 'PSEventViewer'
             Guid          = '5df72a79-cdf6-4add-b38d-bcacf26fb7bc'
         }, @{
-            ModuleVersion = '0.0.119'
+            ModuleVersion = '0.0.127'
             ModuleName    = 'PSWriteHTML'
             Guid          = 'a7bdf640-f5cb-4acf-9de0-365b322d245c'
         }, @{
-            ModuleVersion = '0.0.100'
+            ModuleVersion = '0.0.104'
             ModuleName    = 'ADEssentials'
             Guid          = '9fc9fd61-7f11-4f4b-a527-084086f1905f'
         }, @{
-            ModuleVersion = '0.0.70'
+            ModuleVersion = '0.0.106'
             ModuleName    = 'GPOZaurr'
             Guid          = 'f7d4c9e4-0298-4f51-ad77-e8e3febebbde'
         }, 'ActiveDirectory', 'GroupPolicy', 'ServerManager')
