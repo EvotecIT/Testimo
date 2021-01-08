@@ -25,11 +25,10 @@
         Roles                              = $DomainFSMORoles
         WellKnownFolders                   = $WellKnownFolders
         PasswordComplexity                 = $PasswordComplexity
-        GroupPolicyEmptyUnlinked           = $GroupPolicyEmptyUnlinked
-        GroupPolicyMissingPermissions      = $GroupPolicyMissingPermissions
+        GroupPolicyAssesment               = $GroupPolicyAssesment
+        GroupPolicyPermissions             = $GroupPolicyPermissions
         GroupPolicyPermissionConsistency   = $GroupPolicyPermissionConsistency
         GroupPolicyOwner                   = $GroupPolicyOwner
-        GroupPolicyPermissionUnknown       = $GroupPolicyPermissionUnknown
         GroupPolicyADM                     = $GroupPolicyADM
         GroupPolicySysvol                  = $GroupPolicySysvol
         OrphanedForeignSecurityPrincipals  = $OrphanedForeignSecurityPrincipals
