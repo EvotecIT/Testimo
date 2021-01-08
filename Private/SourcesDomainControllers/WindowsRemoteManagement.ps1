@@ -1,5 +1,6 @@
 ﻿$WindowsRemoteManagement = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name       = 'Windows Remote Management'
         Data       = {

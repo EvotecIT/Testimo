@@ -1,5 +1,6 @@
 ﻿$TimeSettings = [ordered] @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name    = "Time Settings"
         Data    = {

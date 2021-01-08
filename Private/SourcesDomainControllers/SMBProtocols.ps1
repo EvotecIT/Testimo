@@ -1,5 +1,6 @@
 ﻿$SMBProtocols = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name         = 'SMB Protocols'
         Data         = {

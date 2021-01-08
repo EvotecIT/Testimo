@@ -1,5 +1,6 @@
 ﻿$TimeSynchronizationInternal = @{
     Enable             = $true
+    Scope  = 'DC'
     Source             = @{
         Name       = "Time Synchronization Internal"
         Data       = {

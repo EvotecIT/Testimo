@@ -1,5 +1,6 @@
 ﻿$WindowsUpdates = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name           = "Windows Updates"
         Data           = {

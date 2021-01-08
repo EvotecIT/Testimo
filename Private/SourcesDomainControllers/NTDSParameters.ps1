@@ -24,6 +24,7 @@ ComputerName                                     : AD1
 
 $NTDSParameters = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name = "NTDS Parameters"
         Data = {

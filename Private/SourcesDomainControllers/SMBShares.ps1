@@ -1,5 +1,6 @@
 ﻿$SMBShares = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name       = 'Default SMB Shares'
         Data       = {

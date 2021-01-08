@@ -66,6 +66,7 @@ WoW64 Support                                       WoW64-Support               
 
 $WindowsRolesAndFeatures = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name = "Windows Roles and Features"
         Data = {

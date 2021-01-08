@@ -1,5 +1,6 @@
 ﻿$MSSLegacy = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name           = "MSS (Legacy)"
         Data           = {

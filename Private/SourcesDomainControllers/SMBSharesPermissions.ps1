@@ -1,5 +1,6 @@
 ﻿$SMBSharesPermissions = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name         = 'Default SMB Shares Permissions'
         Data         = {

@@ -1,5 +1,6 @@
 ﻿$LDAP = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name       = 'LDAP Connectivity'
         Data       = {

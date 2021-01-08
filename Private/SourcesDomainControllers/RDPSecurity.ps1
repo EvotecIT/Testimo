@@ -1,5 +1,6 @@
 ﻿$RDPSecurity = [ordered] @{
     Enable = $true
+    Scope  = 'DC'
     Source = [ordered] @{
         Name    = 'RDP Security'
         Data    = {

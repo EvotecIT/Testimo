@@ -1,5 +1,6 @@
 ﻿$LanManServer = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name           = "Lan Man Server"
         Data           = {

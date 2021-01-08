@@ -1,5 +1,6 @@
 ﻿$TimeSynchronizationExternal = @{
     Enable             = $true
+    Scope  = 'DC'
     Source             = @{
         Name       = "Time Synchronization External"
         Data       = {

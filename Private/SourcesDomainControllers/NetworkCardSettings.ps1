@@ -1,5 +1,6 @@
 ﻿$NetworkCardSettings = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name    = "Get all network interfaces and firewall status"
         Data    = {

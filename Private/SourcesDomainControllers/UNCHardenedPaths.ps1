@@ -1,5 +1,6 @@
 ﻿$UNCHardenedPaths = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name           = "Hardened UNC Paths"
         Data           = {

@@ -2,6 +2,7 @@
 
 $RDPPorts = [ordered] @{
     Enable = $false
+    Scope  = 'DC'
     Source = [ordered] @{
         Name = 'RDP Port is open'
         Data = {

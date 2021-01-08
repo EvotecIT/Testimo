@@ -1,5 +1,6 @@
 ﻿$NetSessionEnumeration = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name           = "Net Session Enumeration"
         Data           = {

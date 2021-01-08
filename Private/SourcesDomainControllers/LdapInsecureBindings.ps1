@@ -1,5 +1,6 @@
 ﻿$LDAPInsecureBindings = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name           = 'LDAP Insecure Bindings'
         Data           = {

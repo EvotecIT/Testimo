@@ -1,5 +1,6 @@
 ﻿$Pingable = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name       = 'Ping Connectivity'
         Data       = {

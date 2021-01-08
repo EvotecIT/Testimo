@@ -1,5 +1,6 @@
 ﻿$LanManagerSettings = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name           = "Lan Manager Settings"
         Data           = {

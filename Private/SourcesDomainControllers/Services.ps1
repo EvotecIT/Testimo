@@ -1,5 +1,6 @@
 ﻿$Services = [ordered] @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name           = 'Service Status'
         Data           = {

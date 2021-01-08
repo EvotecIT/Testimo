@@ -1,5 +1,6 @@
 ﻿$Ports = [ordered] @{
     Enable = $true
+    Scope  = 'DC'
     Source = [ordered] @{
         Name    = 'TCP Ports are open/closed as required' # UDP Testing is unreliable for now
         Data    = {

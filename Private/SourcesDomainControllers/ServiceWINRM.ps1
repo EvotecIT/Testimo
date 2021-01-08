@@ -1,5 +1,6 @@
 ﻿$ServiceWINRM = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name           = "Service WINRM"
         Data           = {
