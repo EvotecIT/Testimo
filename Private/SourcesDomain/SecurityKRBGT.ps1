@@ -1,5 +1,6 @@
 ﻿$SecurityKRBGT = @{
     Enable = $true
+    Scope  = 'Domain'
     Source = @{
         Name           = "Security: Krbtgt password"
         Data           = {

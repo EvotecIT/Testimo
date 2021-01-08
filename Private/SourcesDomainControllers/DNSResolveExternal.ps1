@@ -1,5 +1,6 @@
 ﻿$DNSResolveExternal = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name           = "Resolves external DNS queries"
         Data           = {

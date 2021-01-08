@@ -2,6 +2,7 @@
 
 $Diagnostics = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name           = 'Diagnostics (DCIAG)'
         Data           = {

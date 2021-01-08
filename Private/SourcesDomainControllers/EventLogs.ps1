@@ -1,5 +1,6 @@
 ﻿$EventLogs = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name    = "Event Logs"
         Data    = {

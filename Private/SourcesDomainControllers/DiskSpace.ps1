@@ -1,5 +1,6 @@
 ﻿$DiskSpace = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name           = 'Disk Free'
         Data           = {

@@ -1,5 +1,6 @@
 ﻿$SecurityGroupsSchemaAdmins = @{
     Enable = $true
+    Scope  = 'Domain'
     Source = @{
         Name           = "Groups: Schema Admins should be empty"
         Data           = {

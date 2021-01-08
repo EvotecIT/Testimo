@@ -1,5 +1,6 @@
 ﻿$DFS = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name           = "SYSVOL/DFS Verification"
         Data           = {

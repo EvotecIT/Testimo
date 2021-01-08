@@ -1,5 +1,6 @@
 ﻿$PasswordComplexity = @{
     Enable = $true
+    Scope  = 'Domain'
     Source = @{
         Name    = 'Password Complexity Requirements'
         Data    = {

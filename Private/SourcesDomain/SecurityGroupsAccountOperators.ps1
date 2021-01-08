@@ -1,5 +1,6 @@
 ﻿$SecurityGroupsAccountOperators = @{
     Enable = $true
+    Scope  = 'Domain'
     Source = @{
         Name           = "Groups: Account operators should be empty"
         Data           = {

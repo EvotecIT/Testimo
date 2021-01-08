@@ -1,6 +1,6 @@
 ﻿$DNSNameServers = @{
-    # (Get-Help <Command> -Parameter *).Name
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name           = "Name servers for primary domain zone"
         Data           = {

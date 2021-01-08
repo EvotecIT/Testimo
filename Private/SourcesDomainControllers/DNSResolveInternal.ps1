@@ -1,5 +1,6 @@
 ﻿$DNSResolveInternal = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name       = "Resolves internal DNS queries"
         Data       = {

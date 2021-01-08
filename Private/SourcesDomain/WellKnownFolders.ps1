@@ -1,5 +1,6 @@
 ﻿$WellKnownFolders = @{
     Enable = $true
+    Scope  = 'Domain'
     Source = @{
         Name           = 'Well known folders'
         Data           = {

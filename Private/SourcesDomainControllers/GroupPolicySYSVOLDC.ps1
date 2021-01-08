@@ -1,5 +1,6 @@
 ﻿$GroupPolicySYSVOLDC = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name           = "Group Policy SYSVOL Verification"
         Data           = {

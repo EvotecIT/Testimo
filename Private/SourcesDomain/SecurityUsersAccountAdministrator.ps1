@@ -1,5 +1,6 @@
 ﻿$SecurityUsersAcccountAdministrator = @{
     Enable = $true
+    Scope  = 'Domain'
     Source = @{
         Name       = "Users: Administrator"
         Data       = {

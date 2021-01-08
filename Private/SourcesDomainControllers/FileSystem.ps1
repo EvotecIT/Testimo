@@ -1,5 +1,6 @@
 ﻿$FileSystem = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name           = "FileSystem"
         Data           = {

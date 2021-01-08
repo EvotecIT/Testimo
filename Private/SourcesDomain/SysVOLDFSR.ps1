@@ -1,5 +1,6 @@
 ﻿$SysVolDFSR = @{
     Enable = $true
+    Scope  = 'Domain'
     Source = @{
         Name           = "DFSR Flags"
         Data           = {

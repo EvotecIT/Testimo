@@ -1,5 +1,6 @@
 ﻿$DCDNSForwaders = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name           = "DC DNS Forwarders"
         Data           = {
