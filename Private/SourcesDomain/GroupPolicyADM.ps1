@@ -1,5 +1,6 @@
 ﻿$GroupPolicyADM = @{
     Enable = $true
+    Scope  = 'Domain'
     Source = @{
         Name           = 'Group Policy Legacy ADM Files'
         Data           = {

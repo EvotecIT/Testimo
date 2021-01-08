@@ -1,5 +1,6 @@
 $GroupPolicyAssesment = @{
     Enable = $true
+    Scope  = 'Domain'
     Source = @{
         Name           = "Group Policy Assesment"
         Data           = {

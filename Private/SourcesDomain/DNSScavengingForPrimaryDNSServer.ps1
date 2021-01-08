@@ -1,5 +1,6 @@
 ﻿$DNSScavengingForPrimaryDNSServer = @{
     Enable = $true
+    Scope  = 'Domain'
     Source = @{
         Name    = "DNS Scavenging - Primary DNS Server"
         Data    = {

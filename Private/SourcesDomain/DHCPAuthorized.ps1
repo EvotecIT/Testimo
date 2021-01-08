@@ -1,5 +1,6 @@
 ﻿$DHCPAuthorized = @{
     Enable = $false
+    Scope  = 'Domain'
     Source = @{
         Name    = "DHCP authorized in domain"
         Data    = {

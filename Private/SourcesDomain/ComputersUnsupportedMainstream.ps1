@@ -1,5 +1,6 @@
 ﻿$ComputersUnsupportedMainstream = @{
     Enable = $true
+    Scope  = 'Domain'
     Source = @{
         Name           = "Computers Unsupported Mainstream Only"
         Data           = {

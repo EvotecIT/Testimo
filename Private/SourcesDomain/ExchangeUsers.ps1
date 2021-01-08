@@ -1,5 +1,6 @@
 ﻿$ExchangeUsers = @{
     Enable = $false
+    Scope  = 'Domain'
     Source = @{
         Name    = "Exchange Users: Missing MailNickName"
         Data    = {

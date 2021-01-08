@@ -1,5 +1,6 @@
 ﻿$GroupPolicySysvol = @{
     Enable = $true
+    Scope  = 'Domain'
     Source = @{
         Name           = "GPO: Sysvol folder existance"
         Data           = {

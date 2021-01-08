@@ -1,5 +1,6 @@
 ﻿$DNSZonesDomain0ADEL = @{
     Enable = $true
+    Scope  = 'Domain'
     Source = @{
         Name    = "DomainDNSZones should have proper FSMO Owner (0ADEL)"
         Data    = {

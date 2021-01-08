@@ -1,5 +1,6 @@
 ﻿$GroupPolicyPermissions = @{
     Enable = $true
+    Scope  = 'Domain'
     Source = @{
         Name           = "Group Policy Required Permissions"
         Data           = {

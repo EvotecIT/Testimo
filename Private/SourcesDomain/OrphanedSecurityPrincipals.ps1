@@ -1,5 +1,6 @@
 ﻿$OrphanedForeignSecurityPrincipals = @{
     Enable = $true
+    Scope  = 'Domain'
     Source = @{
         Name           = "Orphaned Foreign Security Principals"
         Data           = {

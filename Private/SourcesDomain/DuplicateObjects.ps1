@@ -1,5 +1,6 @@
 ﻿$DuplicateObjects = @{
     Enable = $true
+    Scope  = 'Domain'
     Source = @{
         Name           = "Duplicate Objects: 0ACNF (Duplicate RDN)"
         Data           = {

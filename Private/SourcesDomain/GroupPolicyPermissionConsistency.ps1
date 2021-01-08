@@ -1,5 +1,6 @@
 ﻿$GroupPolicyPermissionConsistency = @{
     Enable = $true
+    Scope  = 'Domain'
     Source = @{
         Name           = "GPO: Permission Consistency"
         Data           = {

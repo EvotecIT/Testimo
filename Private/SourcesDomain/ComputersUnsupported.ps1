@@ -1,5 +1,6 @@
 ﻿$ComputersUnsupported = @{
     Enable = $true
+    Scope  = 'Domain'
     Source = @{
         Name           = "Computers Unsupported"
         Data           = {

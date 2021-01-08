@@ -1,5 +1,6 @@
 ﻿$DomainFSMORoles = @{
     Enable = $true
+    Scope  = 'Domain'
     Source = @{
         Name       = 'Roles availability'
         Data       = {

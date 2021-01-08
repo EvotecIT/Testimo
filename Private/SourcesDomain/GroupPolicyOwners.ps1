@@ -1,5 +1,6 @@
 ﻿$GroupPolicyOwner = @{
     Enable = $true
+    Scope  = 'Domain'
     Source = @{
         Name           = "GPO: Owner"
         Data           = {

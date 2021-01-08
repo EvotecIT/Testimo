@@ -1,5 +1,6 @@
 ﻿$OrganizationalUnitsEmpty = @{
     Enable = $true
+    Scope  = 'Domain'
     Source = @{
         Name           = "Organizational Units: Orphaned/Empty"
         Data           = {

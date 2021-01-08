@@ -1,5 +1,6 @@
 ﻿$DNSZonesForest0ADEL = @{
     Enable = $true
+    Scope  = 'Domain'
     Source = @{
         Name           = "ForestDNSZones should have proper FSMO Owner (0ADEL)"
         Data           = {

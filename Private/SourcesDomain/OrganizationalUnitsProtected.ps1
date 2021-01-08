@@ -1,5 +1,6 @@
 ﻿$OrganizationalUnitsProtected = @{
     Enable = $true
+    Scope  = 'Domain'
     Source = @{
         Name           = "Organizational Units: Protected"
         Data           = {
