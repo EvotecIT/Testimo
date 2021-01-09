@@ -63,7 +63,7 @@ $GroupPolicyAssesment = @{
         }
         Optimized       = @{
             Enable     = $true
-            Name       = 'Group Policy Optimized'
+            Name       = 'Group Policy Not Optimized'
             Parameters = @{
                 #Bundle        = $true
                 WhereObject   = { $_.Optimized -eq $false }
