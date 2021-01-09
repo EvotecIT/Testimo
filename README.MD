@@ -47,6 +47,7 @@ Things to know:
     - [x] Added `DomainGroupPolicyPermissions` - covers unknown, adminitrative, authenticated users and system (both removed + some)
     - [x] Removed `DomainGroupPolicyEmptyUnlinked`
     - [x] Added `DomainGroupPolicyAssesment` - covers empty, unlinked, disabled, with problem, optimized, no apply permission
+    - [x] Added `DomainNetLogonOwner`
 - 0.0.46 - 2020.10.29
   - [x] Improvement to `HTML`
     - [x] DataStore is now set to `JavaStore` which allows handling of more data within single HTML file
