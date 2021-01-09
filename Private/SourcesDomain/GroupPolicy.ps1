@@ -4,7 +4,7 @@ $GroupPolicyAssesment = @{
     Source = @{
         Name           = "Group Policy Assesment"
         Data           = {
-            Get-GPOZaurr -IncludeDomains $Domain #| Where-Object { ($_.ComputerSettingsAvailable -eq $false -and $_.UserSettingsAvailable -eq $false) -or $_.Linked -eq $false }
+            Get-GPOZaurr -IncludeDomains $Domain
         }
         Implementation = {
 
