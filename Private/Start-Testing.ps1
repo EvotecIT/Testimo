@@ -154,37 +154,58 @@
                         }
                     }
                 }
-
-
-
+                # START - Execute TEST - By getting the Data SOURCE
+                Out-Informative -Text $CurrentSource['Name'] -Level $Level -Domain $Domain -DomainController $DomainController -Start
                 if ($CurrentSource['Parameters']) {
                     $SourceParameters = $CurrentSource['Parameters']
-                    #$Object = Start-TestProcessing -Test $CurrentSource['Name'] -Level $Level -OutputRequired -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID {
-                    $Object = Start-TestProcessing -Test $CurrentSource['Name'] -Level $Level -OutputRequired -Domain $Domain -DomainController $DomainController {
-                        & $CurrentSource['Data'] @SourceParameters -DomainController $DomainController -Domain $Domain
-                    }
                 } else {
-                    #$Object = Start-TestProcessing -Test $CurrentSource['Name'] -Level $Level -OutputRequired -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID {
-                    $Object = Start-TestProcessing -Test $CurrentSource['Name'] -Level $Level -OutputRequired -Domain $Domain -DomainController $DomainController {
-                        & $CurrentSource['Data'] -DomainController $DomainController -Domain $Domain
+                    $SourceParameters = @{}
+                }
+                $SourceParameters['DomainController'] = $DomainController
+                $SourceParameters['Domain'] = $Domain
+                if ($Script:TestimoConfiguration.Debug.ShowErrors) {
+                    & $CurrentSource['Data'] -DomainController $DomainController -Domain $Domain
+                    $ErrorMessage = $null
+                } else {
+                    $OutputInvoke = Invoke-CommandCustom -ScriptBlock $CurrentSource['Data'] -Parameter $SourceParameters -ReturnVerbose -ReturnError -ReturnWarning
+                    if ($OutputInvoke.Error) {
+                        $ErrorMessage = $OutputInvoke.Error.Exception.Message -replace "`n", " " -replace "`r", " "
+                    } else {
+                        $ErrorMessage = $null
                     }
                 }
+                Out-Informative -Text $CurrentSource['Name'] -Status $null -ExtendedValue $null -Domain $Domain -DomainController $DomainController -End
+                # END - Execute TEST - By getting the Data SOURCE
+                $Object = $OutputInvoke.Output
                 # Add data output to extended results
                 if ($Domain -and $DomainController) {
                     $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['Data'] = $Object
+                    $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['Verbose'] = $OutputInvoke.Verbose
+                    $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['Warning'] = $OutputInvoke.Warning
+                    $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['Error'] = $OutputInvoke.Error
                     $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['DetailsTests'] = [ordered]@{ }
                     $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['ResultsTests'] = [ordered]@{ }
                 } elseif ($Domain) {
                     $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['Data'] = $Object
+                    $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['Verbose'] = $OutputInvoke.Verbose
+                    $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['Warning'] = $OutputInvoke.Warning
+                    $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['Error'] = $OutputInvoke.Error
                     $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['DetailsTests'] = [ordered]@{ }
                     $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['ResultsTests'] = [ordered]@{ }
                 } else {
                     $Script:Reporting['Forest']['Tests'][$ReferenceID]['Data'] = $Object
+                    $Script:Reporting['Forest']['Tests'][$ReferenceID]['Verbose'] = $OutputInvoke.Verbose
+                    $Script:Reporting['Forest']['Tests'][$ReferenceID]['Warning'] = $OutputInvoke.Warning
+                    $Script:Reporting['Forest']['Tests'][$ReferenceID]['Error'] = $OutputInvoke.Error
                     $Script:Reporting['Forest']['Tests'][$ReferenceID]['DetailsTests'] = [ordered]@{ }
                     $Script:Reporting['Forest']['Tests'][$ReferenceID]['ResultsTests'] = [ordered]@{ }
                 }
                 # If there's no output from Source Data all other tests will fail
-                if ($Object -and $CurrentSource['ExpectedOutput'] -eq $true) {
+                if ($ErrorMessage) {
+                    $FailAllTests = $true
+                    Out-Failure -Text $CurrentSource['Name'] -Level $LevelTest -ExtendedValue $ErrorMessage -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
+                    $TestsSummary.Failed = $TestsSummary.Failed + 1
+                } elseif ($Object -and $CurrentSource['ExpectedOutput'] -eq $true) {
                     # Output is provided and we did expect it - passed test
                     $FailAllTests = $false
                     Out-Begin -Text $CurrentSource['Name'] -Level $LevelTest -Domain $Domain -DomainController $DomainController
@@ -265,14 +286,9 @@
                             #}
                         }
                         if (-not $FailAllTests) {
-                            #if ($CurrentTest['Parameters']) {
-                            #    $Parameters = $CurrentTest['Parameters']
-                            #} else {
-                            #    $Parameters = $null
-                            #}
-                            $TestsResults = Start-TestingTest -Test $CurrentTest['Name'] -Level $LevelTest -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID {
-                                Test-StepOne -Test $CurrentTest -Object $Object -Domain $Domain -DomainController $DomainController -Level $LevelTest -TestName $CurrentTest['Name'] -ReferenceID $ReferenceID -Requirements $CurrentTest['Requirements']
-                            }
+                            $TestsResults = Test-StepOne -Test $CurrentTest -Object $Object -Domain $Domain -DomainController $DomainController -Level $LevelTest -TestName $CurrentTest['Name'] -ReferenceID $ReferenceID -Requirements $CurrentTest['Requirements']
+                            #Out-Failure -Text $CurrentTest['TestName'] -Level $LevelTest -ExtendedValue $ErrorMessage -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
+
                             $TestsSummary.Passed = $TestsSummary.Passed + ($TestsResults | Where-Object { $_ -eq $true }).Count
                             $TestsSummary.Failed = $TestsSummary.Failed + ($TestsResults | Where-Object { $_ -eq $false }).Count
                         } else {

@@ -107,12 +107,12 @@ function Invoke-Testimo {
             if ($ForestDetails['DomainsExtended']["$Domain"]) {
                 Start-Testing -Scope 'Domain' -Domain $Domain -DomainInformation $ForestDetails['DomainsExtended']["$Domain"] -ForestInformation $ForestDetails.Forest {
                     # Tests related to DOMAIN CONTROLLERS
-                    if (Get-TestimoSourcesStatus -Scope 'DomainControllers') {
+                    if (Get-TestimoSourcesStatus -Scope 'DC') {
                         foreach ($DC in $ForestDetails['DomainDomainControllers'][$Domain]) {
                             $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DC.HostName] = [ordered] @{ }
                             $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DC.HostName]['Summary'] = [ordered] @{ }
                             $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DC.HostName]['Tests'] = [ordered] @{ }
-                            Start-Testing -Scope 'DomainControllers' -Domain $Domain -DomainController $DC.HostName -IsPDC $DC.IsPDC -DomainInformation $ForestDetails['DomainsExtended']["$Domain"] -ForestInformation $ForestDetails.Forest
+                            Start-Testing -Scope 'DC' -Domain $Domain -DomainController $DC.HostName -IsPDC $DC.IsPDC -DomainInformation $ForestDetails['DomainsExtended']["$Domain"] -ForestInformation $ForestDetails.Forest
                         }
                     }
                 }
