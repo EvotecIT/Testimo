@@ -32,6 +32,7 @@
         DomainOrphanedForeignSecurityPrincipals  = $OrphanedForeignSecurityPrincipals
         DomainOrganizationalUnitsEmpty           = $OrganizationalUnitsEmpty
         DomainOrganizationalUnitsProtected       = $OrganizationalUnitsProtected
+        DomainNetLogonOwner                      = $NetLogonOwner
         DomainDNSScavengingForPrimaryDNSServer   = $DNSScavengingForPrimaryDNSServer
         DomainDNSForwaders                       = $DNSForwaders
         DomainDnsZonesAging                      = $DnsZonesAging
