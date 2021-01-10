@@ -4,10 +4,7 @@
     Source = [ordered] @{
         Name           = 'Optional Features'
         Data           = {
-            # Imports all commands / including private ones from PSWinDocumentation.AD
-            #$ADModule = Import-Module PSWinDocumentation.AD -PassThru
-            $ADModule = Import-PrivateModule PSWinDocumentation.AD
-            & $ADModule { Get-WinADForestOptionalFeatures -WarningAction SilentlyContinue }
+            Get-WinADForestOptionalFeatures
         }
         Details        = [ordered] @{
             Area        = 'Configuration'
