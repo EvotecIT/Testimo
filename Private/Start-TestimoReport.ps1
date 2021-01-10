@@ -23,7 +23,10 @@
     [Array] $SkippedTests = $TestResults['Results'] | Where-Object { $_.Status -ne $true -and $_.Status -ne $false }
 
     New-HTML -FilePath $FilePath -Online:$Online {
+        New-HTMLSectionStyle -BorderRadius 0px -HeaderBackGroundColor Grey -RemoveShadow
         New-HTMLTableOption -DataStore JavaScript -BoolAsString
+        New-HTMLTabStyle -BorderRadius 0px -BackgroundColorActive SlateGrey
+
         New-HTMLHeader {
             New-HTMLSection -Invisible {
                 New-HTMLSection {
@@ -78,7 +81,13 @@
                                     New-ChartPie -Name 'Failed' -Value ($FailedTestsSingular.Count) -Color $ColorFailed
                                     New-ChartPie -Name 'Skipped' -Value ($SkippedTestsSingular.Count) -Color $ColorSkipped
                                 }
+                                #New-HTMLText -Text 'Following command was run to generate data on the right side. '
                                 New-HTMLCodeBlock -Code $SourceCode -Style 'PowerShell' -Theme enlighter
+                                if ($TestResults['Forest']['Tests'][$Source]['WarningsAndErrors']) {
+                                    New-HTMLSection -HeaderText 'Warnings & Errors' -HeaderBackGroundColor OrangePeel {
+                                        New-HTMLTable -DataTable $TestResults['Forest']['Tests'][$Source]['WarningsAndErrors'] -Filtering
+                                    }
+                                }
                             }
                         }
                         New-HTMLContainer {
@@ -117,6 +126,11 @@
                                         New-ChartPie -Name 'Skipped' -Value ($SkippedTestsSingular.Count) -Color $ColorSkipped
                                     }
                                     New-HTMLCodeBlock -Code $SourceCode -Style 'PowerShell' -Theme enlighter
+                                    if ($TestResults['Domains'][$Domain]['Tests'][$Source]['WarningsAndErrors']) {
+                                        New-HTMLSection -HeaderText 'Warnings & Errors' -HeaderBackGroundColor OrangePeel {
+                                            New-HTMLTable -DataTable $TestResults['Domains'][$Domain]['Tests'][$Source]['WarningsAndErrors'] -Filtering
+                                        }
+                                    }
                                 }
                             }
                             New-HTMLContainer {
@@ -154,6 +168,11 @@
                                                         New-ChartPie -Name 'Skipped' -Value ($SkippedTestsSingular.Count) -Color $ColorSkipped
                                                     }
                                                     New-HTMLCodeBlock -Code $SourceCode -Style 'PowerShell' -Theme enlighter
+                                                    if ($TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['WarningsAndErrors']) {
+                                                        New-HTMLSection -HeaderText 'Warnings & Errors' -HeaderBackGroundColor OrangePeel {
+                                                            New-HTMLTable -DataTable $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['WarningsAndErrors'] -Filtering
+                                                        }
+                                                    }
                                                 }
                                             }
                                             New-HTMLContainer {
