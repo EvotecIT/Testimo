@@ -2,14 +2,17 @@
     Enable = $true
     Scope  = 'Domain'
     Source = @{
-        Name    = 'Password Complexity Requirements'
-        Data    = {
+        Name           = 'Password Complexity Requirements'
+        Data           = {
             # Imports all commands / including private ones from PSWinDocumentation.AD
             #$ADModule = Import-Module PSWinDocumentation.AD -PassThru
-            $ADModule = Import-PrivateModule PSWinDocumentation.AD
-            & $ADModule { param($Domain); Get-WinADDomainDefaultPasswordPolicy -Domain $Domain } $Domain
+
+
+            #$ADModule = Import-PrivateModule PSWinDocumentation.AD
+            #& $ADModule { param($Domain); Get-WinADDomainDefaultPasswordPolicy -Domain $Domain } $Domain
+            Get-ADDefaultDomainPasswordPolicy -Server $Domain
         }
-        Details = [ordered] @{
+        Details        = [ordered] @{
             Area        = 'Security'
             Category    = ''
             Severity    = ''
@@ -38,7 +41,7 @@
                 )
             }
             Parameters = @{
-                Property      = 'Complexity Enabled'
+                Property      = 'ComplexityEnabled'
                 ExpectedValue = $true
                 OperationType = 'eq'
             }
@@ -47,7 +50,7 @@
             Enable     = $true
             Name       = 'Lockout Duration'
             Parameters = @{
-                Property      = 'Lockout Duration'
+                Property      = 'LockoutDuration'
                 ExpectedValue = 30
                 OperationType = 'ge'
             }
@@ -56,43 +59,45 @@
             Enable     = $true
             Name       = 'Lockout Observation Window'
             Parameters = @{
-                Property      = 'Lockout Observation Window'
-                ExpectedValue = 30
-                OperationType = 'ge'
+                #PropertyExtendedValue = 'LockoutObservationWindow'
+                Property              = 'LockoutObservationWindow', 'TotalMinutes'
+                ExpectedValue         = 30
+                OperationType         = 'ge'
             }
         }
         'LockoutThreshold'            = @{
             Enable     = $true
             Name       = 'Lockout Threshold'
             Parameters = @{
-                Property      = 'Lockout Threshold'
+                Property      = 'LockoutThreshold'
                 ExpectedValue = 4
                 OperationType = 'gt'
             }
         }
         'MaxPasswordAge'              = @{
             Enable     = $true
-            Name       = 'Max Password Age'
+            Name       = 'Maximum Password Age'
             Parameters = @{
-                Property      = 'Max Password Age'
+                Property      = 'MaxPasswordAge', 'TotalDays'
                 ExpectedValue = 60
                 OperationType = 'le'
             }
         }
         'MinPasswordLength'           = @{
             Enable     = $true
-            Name       = 'Min Password Length'
+            Name       = 'Minimum Password Length'
             Parameters = @{
-                Property      = 'Min Password Length'
+                Property      = 'MinPasswordLength'
                 ExpectedValue = 8
                 OperationType = 'gt'
             }
         }
         'MinPasswordAge'              = @{
             Enable     = $true
-            Name       = 'Min Password Age'
+            Name       = 'Minimum Password Age'
             Parameters = @{
-                Property      = 'Min Password Age'
+                #PropertyExtendedValue = 'MinPasswordAge', 'TotalDays'
+                Property      = 'MinPasswordAge', 'TotalDays'
                 ExpectedValue = 1
                 OperationType = 'le'
             }
@@ -101,7 +106,7 @@
             Enable     = $true
             Name       = 'Password History Count'
             Parameters = @{
-                Property      = 'Password History Count'
+                Property      = 'PasswordHistoryCount'
                 ExpectedValue = 10
                 OperationType = 'ge'
             }
@@ -110,7 +115,7 @@
             Enable     = $true
             Name       = 'Reversible Encryption Enabled'
             Parameters = @{
-                Property      = 'Reversible Encryption Enabled'
+                Property      = 'ReversibleEncryptionEnabled'
                 ExpectedValue = $false
                 OperationType = 'eq'
             }
