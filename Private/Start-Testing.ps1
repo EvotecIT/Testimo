@@ -174,6 +174,28 @@
                         $ErrorMessage = $null
                     }
                 }
+                $WarningsAndErrors = @(
+                    #if ($ShowWarning) {
+                    foreach ($War in $OutputInvoke.Warning) {
+                        [PSCustomObject] @{
+                            Type       = 'Warning'
+                            Comment    = $War
+                            Reason     = ''
+                            TargetName = ''
+                        }
+                    }
+                    #}
+                    #if ($ShowError) {
+                    foreach ($Err in $OutputInvoke.Error) {
+                        [PSCustomObject] @{
+                            Type       = 'Error'
+                            Comment    = $Err
+                            Reason     = $Err.CategoryInfo.Reason
+                            TargetName = $Err.CategoryInfo.TargetName
+                        }
+                    }
+                    #}
+                )
                 Out-Informative -Text $CurrentSource['Name'] -Status $null -ExtendedValue $null -Domain $Domain -DomainController $DomainController -End
                 # END - Execute TEST - By getting the Data SOURCE
                 $Object = $OutputInvoke.Output
@@ -183,6 +205,7 @@
                     $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['Verbose'] = $OutputInvoke.Verbose
                     $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['Warning'] = $OutputInvoke.Warning
                     $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['Error'] = $OutputInvoke.Error
+                    $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['WarningsAndErrors'] = $WarningsAndErrors
                     $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['DetailsTests'] = [ordered]@{ }
                     $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['ResultsTests'] = [ordered]@{ }
                 } elseif ($Domain) {
@@ -190,6 +213,7 @@
                     $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['Verbose'] = $OutputInvoke.Verbose
                     $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['Warning'] = $OutputInvoke.Warning
                     $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['Error'] = $OutputInvoke.Error
+                    $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['WarningsAndErrors'] = $WarningsAndErrors
                     $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['DetailsTests'] = [ordered]@{ }
                     $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['ResultsTests'] = [ordered]@{ }
                 } else {
@@ -197,6 +221,7 @@
                     $Script:Reporting['Forest']['Tests'][$ReferenceID]['Verbose'] = $OutputInvoke.Verbose
                     $Script:Reporting['Forest']['Tests'][$ReferenceID]['Warning'] = $OutputInvoke.Warning
                     $Script:Reporting['Forest']['Tests'][$ReferenceID]['Error'] = $OutputInvoke.Error
+                    $Script:Reporting['Forest']['Tests'][$ReferenceID]['WarningsAndErrors'] = $WarningsAndErrors
                     $Script:Reporting['Forest']['Tests'][$ReferenceID]['DetailsTests'] = [ordered]@{ }
                     $Script:Reporting['Forest']['Tests'][$ReferenceID]['ResultsTests'] = [ordered]@{ }
                 }
