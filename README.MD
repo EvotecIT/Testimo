@@ -41,6 +41,8 @@ Things to know:
 ## ChangeLog
 
 - 0.0.47
+  - [x] Improvements
+    - [x] Added warning & errors to HTML
   - [x] Tests
     - [x] Removed `DomainGroupPolicyPermissionUnknown`
     - [x] Removed `GroupPolicyMissingPermissions`
