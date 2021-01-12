@@ -4,12 +4,6 @@
     Source = @{
         Name           = 'Password Complexity Requirements'
         Data           = {
-            # Imports all commands / including private ones from PSWinDocumentation.AD
-            #$ADModule = Import-Module PSWinDocumentation.AD -PassThru
-
-
-            #$ADModule = Import-PrivateModule PSWinDocumentation.AD
-            #& $ADModule { param($Domain); Get-WinADDomainDefaultPasswordPolicy -Domain $Domain } $Domain
             Get-ADDefaultDomainPasswordPolicy -Server $Domain
         }
         Details        = [ordered] @{
@@ -60,9 +54,9 @@
             Name       = 'Lockout Observation Window'
             Parameters = @{
                 #PropertyExtendedValue = 'LockoutObservationWindow'
-                Property              = 'LockoutObservationWindow', 'TotalMinutes'
-                ExpectedValue         = 30
-                OperationType         = 'ge'
+                Property      = 'LockoutObservationWindow', 'TotalMinutes'
+                ExpectedValue = 30
+                OperationType = 'ge'
             }
         }
         'LockoutThreshold'            = @{
