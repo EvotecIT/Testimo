@@ -163,11 +163,13 @@
                 }
                 $SourceParameters['DomainController'] = $DomainController
                 $SourceParameters['Domain'] = $Domain
+                $SourceParameters['DomainInformation'] = $DomainInformation
+                $SourceParameters['ForestInformation'] = $ForestInformation
                 if ($Script:TestimoConfiguration.Debug.ShowErrors) {
                     & $CurrentSource['Data'] -DomainController $DomainController -Domain $Domain
                     $ErrorMessage = $null
                 } else {
-                    $OutputInvoke = Invoke-CommandCustom -ScriptBlock $CurrentSource['Data'] -Parameter $SourceParameters -ReturnVerbose -ReturnError -ReturnWarning
+                    $OutputInvoke = Invoke-CommandCustom -ScriptBlock $CurrentSource['Data'] -Parameter $SourceParameters -ReturnVerbose -ReturnError -ReturnWarning -AddParameter
                     if ($OutputInvoke.Error) {
                         $ErrorMessage = $OutputInvoke.Error.Exception.Message -replace "`n", " " -replace "`r", " "
                     } else {
