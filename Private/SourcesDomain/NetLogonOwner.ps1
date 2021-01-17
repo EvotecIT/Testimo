@@ -4,7 +4,7 @@ $NetLogonOwner = @{
     Source = @{
         Name           = "NetLogon Owner"
         Data           = {
-            Get-GPOZaurrNetLogon -OwnerOnly -IncludeDomains $Domain
+            Get-GPOZaurrNetLogon -Forest $ForestName -OwnerOnly -IncludeDomains $Domain
         }
         Implementation = {
 

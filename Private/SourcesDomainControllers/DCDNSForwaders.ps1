@@ -4,7 +4,7 @@
     Source = @{
         Name           = "DC DNS Forwarders"
         Data           = {
-            $Forwarders = Get-WinDnsServerForwarder -Domain $Domain -IncludeDomainControllers $DomainController -WarningAction SilentlyContinue -Formatted
+            $Forwarders = Get-WinDnsServerForwarder -Forest $ForestName -Domain $Domain -IncludeDomainControllers $DomainController -WarningAction SilentlyContinue -Formatted
             $Forwarders
         }
         Details        = [ordered] @{
