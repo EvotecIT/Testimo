@@ -163,6 +163,7 @@
                 }
                 $SourceParameters['DomainController'] = $DomainController
                 $SourceParameters['Domain'] = $Domain
+                $SourceParameters['ForestName'] = $ForestInformation.Name
                 $SourceParameters['DomainInformation'] = $DomainInformation
                 $SourceParameters['ForestInformation'] = $ForestInformation
                 if ($Script:TestimoConfiguration.Debug.ShowErrors) {
