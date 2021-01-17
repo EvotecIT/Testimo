@@ -4,7 +4,7 @@
     Source = @{
         Name           = "Aging primary DNS Zone"
         Data           = {
-            Get-WinDNSServerZones -ZoneName $Domain -IncludeDomains $Domain
+            Get-WinDNSServerZones -Forest $ForestName -ZoneName $Domain -IncludeDomains $Domain
         }
         Details        = [ordered] @{
             Area        = ''

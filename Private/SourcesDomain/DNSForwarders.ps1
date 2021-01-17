@@ -2,11 +2,15 @@
     Enable = $true
     Scope  = 'Domain'
     Source = @{
-        Name    = "DNS Forwarders"
-        Data    = {
-            [Array] $Forwarders = Get-WinDnsServerForwarder -Domain $Domain -WarningAction SilentlyContinue
+        Name           = "DNS Forwarders"
+        Data           = {
+            [Array] $Forwarders = Get-WinDnsServerForwarder -Forest $ForestName -Domain $Domain -WarningAction SilentlyContinue
             if ($Forwarders.Count -gt 1) {
-                Compare-MultipleObjects -Objects $Forwarders -FormatOutput -CompareSorted:$true -ExcludeProperty GatheredFrom -SkipProperties -Property 'IpAddress' -WarningAction SilentlyContinue #| Out-HtmlView -ScrollX -DisablePaging  -Filtering
+                $Comparision = Compare-MultipleObjects -Objects $Forwarders -FormatOutput -CompareSorted:$true -ExcludeProperty GatheredFrom -SkipProperties -Property 'IpAddress' -WarningAction SilentlyContinue
+                [PSCustomObject] @{
+                    Source = $Comparision.Source -join ', '
+                    Status = $Comparision.Status
+                }
             } elseif ($Forwarders.Count -eq 0) {
                 [PSCustomObject] @{
                     # This code takes care of no forwarders
@@ -21,7 +25,7 @@
                 }
             }
         }
-        Details = [ordered] @{
+        Details        = [ordered] @{
             Area        = 'Configuration'
             Category    = ''
             Severity    = ''

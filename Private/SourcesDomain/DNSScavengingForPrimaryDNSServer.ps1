@@ -4,7 +4,7 @@
     Source = @{
         Name    = "DNS Scavenging - Primary DNS Server"
         Data    = {
-            Get-WinDnsServerScavenging -IncludeDomains $Domain
+            Get-WinDnsServerScavenging -Forest $ForestName -IncludeDomains $Domain
         }
         Details = [ordered] @{
             Area        = ''
