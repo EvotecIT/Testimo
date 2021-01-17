@@ -1,21 +1,22 @@
 ﻿$TombstoneLifetime = @{
     Enable    = $true
-    Scope  = 'Forest'
+    Scope     = 'Forest'
     Source    = [ordered]@{
         Name           = 'Tombstone Lifetime'
         Data           = {
             # Check tombstone lifetime (if blank value is 60)
             # Recommended value 720
             # Minimum value 180
-            $Output = (Get-ADObject -Identity "CN=Directory Service,CN=Windows NT,CN=Services,$((Get-ADRootDSE).configurationNamingContext)" -Properties tombstoneLifetime).tombstoneLifetime
+            $Output = (Get-ADObject -Identity "CN=Directory Service,CN=Windows NT,CN=Services,$((Get-ADRootDSE -Server $ForestName).configurationNamingContext)" -Server $ForestName -Properties tombstoneLifetime) | Select-Object -Property DistinguishedName, Name, objectClass, ObjectGuid, tombstoneLifetime
             if ($null -eq $Output) {
                 [PSCustomObject] @{
                     TombstoneLifeTime = 60
                 }
             } else {
-                [PSCustomObject] @{
-                    TombstoneLifeTime = $Output
-                }
+                $Output
+                #[PSCustomObject] @{
+                #    TombstoneLifeTime = $Output
+                #}
             }
         }
         Details        = [ordered] @{
