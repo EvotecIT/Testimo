@@ -23,10 +23,6 @@
             ModuleName    = 'PSSharedGoods'
             Guid          = 'ee272aa8-baaa-4edf-9f45-b6d6f7d844fe'
         }, @{
-            ModuleVersion = '0.1.20'
-            ModuleName    = 'PSWinDocumentation.AD'
-            Guid          = 'a46f9775-04d2-4423-9631-01cfda42b95d'
-        }, @{
             ModuleVersion = '0.0.9'
             ModuleName    = 'PSWinDocumentation.DNS'
             Guid          = '462dd5e2-f32a-4263-bff5-22edf28882d0'

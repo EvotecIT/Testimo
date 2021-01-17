@@ -43,6 +43,7 @@ Things to know:
 - 0.0.47
   - [x] Improvements
     - [x] Added warning & errors to HTML
+    - [x] Removed dependency on `PSWinDocumentation.AD` temporary (no tests for now)
   - [x] Tests
     - [x] Removed `DomainGroupPolicyPermissionUnknown`
     - [x] Removed `GroupPolicyMissingPermissions`
@@ -50,6 +51,7 @@ Things to know:
     - [x] Removed `DomainGroupPolicyEmptyUnlinked`
     - [x] Added `DomainGroupPolicyAssesment` - covers empty, unlinked, disabled, with problem, optimized, no apply permission
     - [x] Added `DomainNetLogonOwner`
+    - [x] Improved `ForestSiteLinksConnections` [#92](https://github.com/EvotecIT/Testimo/issues/92)
 - 0.0.46 - 2020.10.29
   - [x] Improvement to `HTML`
     - [x] DataStore is now set to `JavaStore` which allows handling of more data within single HTML file
