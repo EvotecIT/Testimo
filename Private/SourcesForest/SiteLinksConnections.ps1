@@ -20,34 +20,41 @@
         ExpectedOutput = $true
     }
     Tests  = [ordered] @{
-        AutomaticSiteLinks             = @{
+        AutomaticSiteLinks              = @{
             Enable      = $true
             Name        = 'All site links are automatic'
             Description = 'Verify there are no manually configured sitelinks'
             Parameters  = @{
-                Property              = 'SiteLinksManualCount'
-                ExpectedValue         = 0
-                OperationType         = 'eq'
-                PropertyExtendedValue = 'SiteLinksManual'
+                Property      = 'SiteLinksManualCount'
+                ExpectedValue = 0
+                OperationType = 'eq'
             }
         }
-        SiteLinksNotifications         = @{
+        SiteLinksCrossSiteNotifications = @{
             Enable     = $true
-            Name       = 'All site links use notifications'
+            Name       = 'All cross-site links use notifications'
             Parameters = @{
-                Property      = 'SiteLinksNotUsingNotifyCount'
+                Property      = 'SiteLinksCrossSiteNotUseNotifyCount'
                 ExpectedValue = 0
                 OperationType = 'eq'
             }
         }
-        SiteLinksDoNotUseNotifications = @{
-            Enable     = $false
-            Name       = 'All site links are not using notifications'
+        SiteLinksSameSiteNotifications  = @{
+            Enable     = $true
+            Name       = 'All same-site links have no notifications'
             Parameters = @{
-                Property      = 'SiteLinksUseNotifyCount'
+                Property      = 'SiteLinksSameSiteUseNotifyCount'
                 ExpectedValue = 0
                 OperationType = 'eq'
-
+            }
+        }
+        NoDisabledLinks                 = @{
+            Enable     = $true
+            Name       = 'All links are enabled'
+            Parameters = @{
+                Property      = 'SiteLinksDisabledCount'
+                ExpectedValue = 0
+                OperationType = 'eq'
             }
         }
     }
