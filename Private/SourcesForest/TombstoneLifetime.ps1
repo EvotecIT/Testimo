@@ -14,9 +14,6 @@
                 }
             } else {
                 $Output
-                #[PSCustomObject] @{
-                #    TombstoneLifeTime = $Output
-                #}
             }
         }
         Details        = [ordered] @{
