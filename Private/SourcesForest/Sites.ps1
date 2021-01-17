@@ -4,7 +4,7 @@
     Source = [ordered] @{
         Name           = 'Sites Verification'
         Data           = {
-            Get-WinADForestSites
+            Get-WinADForestSites -Forest $ForestName
         }
         Details        = [ordered] @{
             Area        = 'Configuration'
