@@ -4,7 +4,7 @@ $GroupPolicyAssesment = @{
     Source = @{
         Name           = "Group Policy Assesment"
         Data           = {
-            Get-GPOZaurr -IncludeDomains $Domain
+            Get-GPOZaurr -Forest $ForestName -IncludeDomains $Domain
         }
         Implementation = {
 
