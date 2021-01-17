@@ -4,7 +4,7 @@
     Source = @{
         Name           = "GPO: Owner"
         Data           = {
-            Get-GPOZaurrOwner -IncludeSysvol -IncludeDomains $Domain
+            Get-GPOZaurrOwner -Forest $ForestName -IncludeSysvol -IncludeDomains $Domain
         }
         Details        = [ordered] @{
             Area        = 'Security'

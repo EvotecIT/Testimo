@@ -4,7 +4,7 @@
     Source = @{
         Name           = "GPO: Permission Consistency"
         Data           = {
-            Get-GPOZaurrPermissionConsistency -VerifyInheritance -Type Inconsistent -IncludeDomains $Domain
+            Get-GPOZaurrPermissionConsistency -Forest $ForestName -VerifyInheritance -Type Inconsistent -IncludeDomains $Domain
         }
         Details        = [ordered] @{
             Area        = 'Security'

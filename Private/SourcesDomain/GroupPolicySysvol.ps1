@@ -4,7 +4,7 @@
     Source = @{
         Name           = "GPO: Sysvol folder existance"
         Data           = {
-            Get-GPOZaurrSysvol -IncludeDomains $Domain
+            Get-GPOZaurrSysvol -Forest $ForestName -IncludeDomains $Domain
         }
         Details        = [ordered] @{
             Area        = 'Security'

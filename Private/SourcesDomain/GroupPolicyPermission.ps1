@@ -4,7 +4,7 @@
     Source = @{
         Name           = "Group Policy Required Permissions"
         Data           = {
-            Get-GPOZaurrPermissionAnalysis -Domain $Domain
+            Get-GPOZaurrPermissionAnalysis -Forest $ForestName -Domain $Domain
         }
         Details        = [ordered] @{
             Area        = 'Security'
