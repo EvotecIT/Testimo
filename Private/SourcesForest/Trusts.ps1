@@ -4,7 +4,7 @@
     Source = @{
         Name           = "Trust Availability"
         Data           = {
-            Get-WinADTrust -Forest $Forest
+            Get-WinADTrust -Forest $ForestName
         }
         Details        = [ordered] @{
             Area        = 'Health', 'Configuration'
