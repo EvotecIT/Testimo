@@ -57,7 +57,7 @@
                         New-HTMLTableCondition -Name 'Status' -Value $true -BackgroundColor $ColorPassed -Color $ColorPassedText #-Row
                         New-HTMLTableCondition -Name 'Status' -Value $false -BackgroundColor $ColorFailed -Color $ColorFailedText #-Row
                         New-HTMLTableCondition -Name 'Status' -Value $null -BackgroundColor $ColorSkipped -Color $ColorSkippedText #-Row
-                    } #-Filtering
+                    } -Filtering
                 }
             }
         }
@@ -92,7 +92,7 @@
                         }
                         New-HTMLContainer {
                             New-HTMLPanel {
-                                New-HTMLTable -DataTable $Data #-Filtering
+                                New-HTMLTable -DataTable $Data -Filtering
                                 New-HTMLTable -DataTable $Results {
                                     New-HTMLTableCondition -Name 'Status' -Value $true -BackgroundColor $ColorPassed -Color $ColorPassedText #-Row
                                     New-HTMLTableCondition -Name 'Status' -Value $false -BackgroundColor $ColorFailed -Color $ColorFailedText #-Row
