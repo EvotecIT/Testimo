@@ -8,7 +8,12 @@
         [string] $TestName,
         [int] $Level,
         [string] $ReferenceID,
-        [System.Collections.IDictionary] $Requirements
+        [System.Collections.IDictionary] $Requirements,
+        [string] $QueryServer,
+        [System.Collections.IDictionary] $ForestDetails,
+        [object] $DomainInformation,
+        [object] $ForestInformation,
+        [string] $ForestName
     )
 
     [string] $OperationType = $Test.Parameters.OperationType

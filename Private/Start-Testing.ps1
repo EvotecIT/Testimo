@@ -7,7 +7,8 @@
         [string] $DomainController,
         [bool] $IsPDC,
         [Object] $ForestInformation,
-        [Object] $DomainInformation
+        [Object] $DomainInformation,
+        [System.Collections.IDictionary] $ForestDetails
     )
     $GlobalTime = Start-TimeLog
 
@@ -162,7 +163,13 @@
                     $SourceParameters = @{}
                 }
                 $SourceParameters['DomainController'] = $DomainController
+                if ($Scope -eq 'Forest') {
+                    $SourceParameters['QueryServer'] = $ForestDetails['QueryServers']['Forest']['HostName'][0]
+                } else {
+                    $SourceParameters['QueryServer'] = $ForestDetails['QueryServers'][$Domain]['HostName'][0]
+                }
                 $SourceParameters['Domain'] = $Domain
+                $SourceParameters['ForestDetails'] = $ForestDetails
                 $SourceParameters['ForestName'] = $ForestInformation.Name
                 $SourceParameters['DomainInformation'] = $DomainInformation
                 $SourceParameters['ForestInformation'] = $ForestInformation
@@ -314,9 +321,30 @@
                             #}
                         }
                         if (-not $FailAllTests) {
-                            $TestsResults = Test-StepOne -Test $CurrentTest -Object $Object -Domain $Domain -DomainController $DomainController -Level $LevelTest -TestName $CurrentTest['Name'] -ReferenceID $ReferenceID -Requirements $CurrentTest['Requirements']
-                            #Out-Failure -Text $CurrentTest['TestName'] -Level $LevelTest -ExtendedValue $ErrorMessage -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
-
+                            $testStepOneSplat = @{
+                                Test             = $CurrentTest
+                                Object           = $Object
+                                Domain           = $Domain
+                                DomainController = $DomainController
+                                Level            = $LevelTest
+                                TestName         = $CurrentTest['Name']
+                                ReferenceID      = $ReferenceID
+                                Requirements     = $CurrentTest['Requirements']
+                            }
+                            # We provide whatever parameters are available in Data Source to Tests (mainly for use within WhereObject)
+                            if ($CurrentSource['Parameters']) {
+                                $testStepOneSplat['Parameters'] = $CurrentSource['Parameters']
+                            }
+                            if ($Scope -eq 'Forest') {
+                                $testStepOneSplat['QueryServer'] = $ForestDetails['QueryServers']['Forest']['HostName'][0]
+                            } else {
+                                $testStepOneSplat['QueryServer'] = $ForestDetails['QueryServers'][$Domain]['HostName'][0]
+                            }
+                            $testStepOneSplat['ForestDetails'] = $ForestDetails
+                            $testStepOneSplat['ForestName'] = $ForestInformation.Name
+                            $testStepOneSplat['DomainInformation'] = $DomainInformation
+                            $testStepOneSplat['ForestInformation'] = $ForestInformation
+                            $TestsResults = Test-StepOne @testStepOneSplat
                             $TestsSummary.Passed = $TestsSummary.Passed + ($TestsResults | Where-Object { $_ -eq $true }).Count
                             $TestsSummary.Failed = $TestsSummary.Failed + ($TestsResults | Where-Object { $_ -eq $false }).Count
                         } else {
