@@ -23,7 +23,6 @@
             )
             $GuestSID = "$($DomainInformation.DomainSID)-501"
             Get-ADUser -Filter { (AllowReversiblePasswordEncryption -eq $true -or UseDESKeyOnly -eq $true -or PrimaryGroupID -ne '513') -and (SID -ne $GuestSID) } -Properties AllowReversiblePasswordEncryption, UseDESKeyOnly, PrimaryGroup, PrimaryGroupID, PasswordLastSet, Enabled -Server $Domain | Select-Object -Property $Properties
-            #Get-ADUser -Filter { (AllowReversiblePasswordEncryption -eq $true -or UseDESKeyOnly -eq $true -or PrimaryGroupID -ne '513') } -Properties AllowReversiblePasswordEncryption, UseDESKeyOnly, PrimaryGroup, PrimaryGroupID, PasswordLastSet, Enabled -Server $Domain | Select-Object -Property $Properties
         }
         Details        = [ordered] @{
             Area        = ''
