@@ -33,6 +33,5 @@
             }
             Description = 'User account should be disabled or LastPasswordChange should be less than 1 year ago.'
         }
-
     }
 }
