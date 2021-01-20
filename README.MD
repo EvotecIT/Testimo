@@ -40,7 +40,10 @@ Things to know:
 
 ## ChangeLog
 
-- 0.0.47
+- 0.0.48
+  - [x] Tests
+    - [x] Added `DomainDomainControllers` - covers DC ACL owner, DC Manager, DC Password Last Set, DC Last Logon, Enabled
+- 0.0.47 - 2021.01.19
   - [x] Improvements
     - [x] Added warning & errors to HTML
     - [x] Removed dependency on `PSWinDocumentation.AD` temporary (no tests for now)
