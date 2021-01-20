@@ -20,6 +20,7 @@
         ForestDuplicateObjects                   = $ForestDuplicateObjects
         ForestTombstoneLifetime                  = $TombstoneLifetime
         ForestTrusts                             = $Trusts
+        DomainDomainControllers                  = $DomainDomainControllers
         DomainRoles                              = $DomainFSMORoles
         DomainWellKnownFolders                   = $WellKnownFolders
         DomainPasswordComplexity                 = $PasswordComplexity
