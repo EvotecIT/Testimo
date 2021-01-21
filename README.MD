@@ -40,7 +40,7 @@ Things to know:
 
 ## ChangeLog
 
-- 0.0.48
+- 0.0.48 - 2021.01.21
   - [x] Fix for Invoke-Testimo not working when no tests are defined
   - [x] Tests
     - [x] Added `DomainDomainControllers` - covers DC ACL owner, DC Manager, DC Password Last Set, DC Last Logon, Enabled
