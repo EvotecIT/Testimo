@@ -1,4 +1,4 @@
-﻿$DNSZonesForest0ADEL = @{
+$DNSZonesForest0ADEL = @{
     Enable = $true
     Scope  = 'Domain'
     Source = @{
