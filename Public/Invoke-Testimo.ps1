@@ -76,6 +76,9 @@ function Invoke-Testimo {
     $Script:TestimoConfiguration.Inclusions.Domains = $IncludeDomains
     $Script:TestimoConfiguration.Inclusions.DomainControllers = $IncludeDomainControllers
 
+    if (-not $Sources) {
+        $Sources = $Script:DefaultSources
+    }
     Set-TestsStatus -Sources $Sources -ExcludeSources $ExcludeSources
 
     if ($Script:TestimoConfiguration.Inclusions.Domains) {
