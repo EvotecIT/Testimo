@@ -8,13 +8,13 @@
         }
         Requirements   = @{}
         Details        = [ordered] @{
-            Area              = 'Configuration'
-            Category          = 'Security'
-            Severity          = ''
-            RiskLevel         = 0
-            Description       = "Following test verifies Domain Controller status in Active Directory. It verifies critical aspects of Domain Controler such as Domain Controller Owner and Domain Controller Manager. It also checks if Domain Controller is enabled, ip address matches dns ip address, verifies whether LastLogonDate and LastPasswordDate are within thresholds. Those additional checks are there to find dead or offline DCs that could potentially impact Active Directory functionality. "
-            Resolution        = ''
-            Resources         = @(
+            Area        = 'Configuration'
+            Category    = 'Security'
+            Severity    = ''
+            RiskLevel   = 0
+            Description = "Following test verifies Domain Controller status in Active Directory. It verifies critical aspects of Domain Controler such as Domain Controller Owner and Domain Controller Manager. It also checks if Domain Controller is enabled, ip address matches dns ip address, verifies whether LastLogonDate and LastPasswordDate are within thresholds. Those additional checks are there to find dead or offline DCs that could potentially impact Active Directory functionality. "
+            Resolution  = ''
+            Resources   = @(
                 '[Domain member: Maximum machine account password age](https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/domain-member-maximum-machine-account-password-age)'
             )
         }
@@ -48,7 +48,25 @@
             Parameters = @{
                 ExpectedCount = 0
                 OperationType = 'eq'
-                WhereObject   = { $null -ne $_.ManagedBy }
+                WhereObject   = { $_.ManagerNotSet -ne $true }
+            }
+        }
+        DNSStatus          = @{
+            Enable     = $true
+            Name       = 'DNS should return IP Address for DC'
+            Parameters = @{
+                ExpectedCount = 0
+                OperationType = 'eq'
+                WhereObject   = { $_.DNSStatus -ne $true }
+            }
+        }
+        IPAddressStatus    = @{
+            Enable     = $true
+            Name       = 'DNS returned IPAddress should match AD'
+            Parameters = @{
+                ExpectedCount = 0
+                OperationType = 'eq'
+                WhereObject   = { $_.IPAddressStatus -ne $true }
             }
         }
         PasswordLastChange = @{
@@ -82,8 +100,11 @@
         New-HTMLTableCondition -Name 'OwnerType' -ComparisonType string -BackgroundColor Salmon -Value 'Administrative' -Operator ne
         New-HTMLTableCondition -Name 'OwnerType' -ComparisonType string -BackgroundColor PaleGreen -Value 'Administrative' -Operator eq
         New-HTMLTableCondition -Name 'ManagedBy' -ComparisonType string -Color Salmon -Value '' -Operator ne
+        New-HTMLTableCondition -Name 'PasswordLastChangedDays' -ComparisonType number -BackgroundColor PaleGreen -Value 40 -Operator le
+        New-HTMLTableCondition -Name 'PasswordLastChangedDays' -ComparisonType number -BackgroundColor OrangePeel -Value 41 -Operator ge
+        New-HTMLTableCondition -Name 'PasswordLastChangedDays' -ComparisonType number -BackgroundColor Crimson -Value 60 -Operator ge
         New-HTMLTableCondition -Name 'LastLogonDays' -ComparisonType number -BackgroundColor PaleGreen -Value 15 -Operator lt
-        New-HTMLTableCondition -Name 'LastLogonDays' -ComparisonType number -BackgroundColor Salmon -Value 15 -Operator ge
+        New-HTMLTableCondition -Name 'LastLogonDays' -ComparisonType number -BackgroundColor OrangePeel -Value 15 -Operator ge
         New-HTMLTableCondition -Name 'LastLogonDays' -ComparisonType number -BackgroundColor Crimson -Value 30 -Operator ge
     }
     Solution   = {
@@ -171,6 +192,13 @@
                             "If last logon date is above threshold that also means DC may already be offline. "
                             "Bringing back DC to life after longer downtime period can cause serious issues when done improperly. "
                             "Please investigate and decide with other Domain Admins how to deal with dead/offline DC. "
+                        )
+                        New-HTMLText -LineBreak
+                        New-HTMLText -Text @(
+                            "Additionally DNS should return IP Address of DC when asked, and it should be the same IP Address as the one stored in Active Directory. "
+                            "If those do not match or IP Address is not set/returned it needs investigation why is it so. "
+                            "It's possible the DC is down/dead and should be safely removed from Active Directory to prevent potential issues. "
+                            "Alternatively it's possible there are some network issues with it. "
                         )
                     }
                     New-HTMLWizardStep -Name 'Verification report' {
