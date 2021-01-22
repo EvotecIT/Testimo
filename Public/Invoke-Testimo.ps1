@@ -7,12 +7,12 @@ function Invoke-Testimo {
                 $_ -in (& $SourcesAutoCompleter)
             }
         )]
-        [string[]] $Sources,
+        [alias('Type')][string[]] $Sources,
         [ValidateScript(
             {
                 $_ -in (& $SourcesAutoCompleter)
             }
-        )] [string[]] $ExcludeSources,
+        )] [alias('ExludeType')] [string[]] $ExcludeSources,
         [string[]] $ExcludeDomains,
         [string[]] $ExcludeDomainControllers,
         [string[]] $IncludeDomains,
