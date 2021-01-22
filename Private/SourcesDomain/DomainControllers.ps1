@@ -16,6 +16,7 @@
             Resolution  = ''
             Resources   = @(
                 '[Domain member: Maximum machine account password age](https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/domain-member-maximum-machine-account-password-age)'
+                '[Machine Account Password Process](https://techcommunity.microsoft.com/t5/ask-the-directory-services-team/machine-account-password-process/ba-p/396026)'
             )
         }
         ExpectedOutput = $true
@@ -29,6 +30,17 @@
                 OperationType = 'eq'
                 WhereObject   = { $_.Enabled -ne $true }
             }
+            Details    = [ordered] @{
+                Area        = 'Cleanup'
+                Category    = ''
+                Severity    = ''
+                RiskLevel   = 0
+                Description = ''
+                Resolution  = ''
+                Resources   = @(
+
+                )
+            }
         }
         OwnerType          = @{
             Enable     = $true
@@ -41,6 +53,15 @@
                 OperationType = 'eq'
                 WhereObject   = { $_.OwnerType -ne 'Administrative' }
             }
+            Details    = [ordered] @{
+                Area        = 'Security'
+                Category    = ''
+                Severity    = ''
+                RiskLevel   = 10
+                Description = ''
+                Resolution  = ''
+                Resources   = @()
+            }
         }
         ManagedBy          = @{
             Enable     = $true
@@ -49,6 +70,17 @@
                 ExpectedCount = 0
                 OperationType = 'eq'
                 WhereObject   = { $_.ManagerNotSet -ne $true }
+            }
+            Details    = [ordered] @{
+                Area        = 'Security'
+                Category    = ''
+                Severity    = ''
+                RiskLevel   = 8
+                Description = ''
+                Resolution  = ''
+                Resources   = @(
+
+                )
             }
         }
         DNSStatus          = @{
@@ -59,6 +91,17 @@
                 OperationType = 'eq'
                 WhereObject   = { $_.DNSStatus -ne $true }
             }
+            Details    = [ordered] @{
+                Area        = 'Cleanup'
+                Category    = ''
+                Severity    = ''
+                RiskLevel   = 0
+                Description = ''
+                Resolution  = ''
+                Resources   = @(
+
+                )
+            }
         }
         IPAddressStatus    = @{
             Enable     = $true
@@ -67,6 +110,17 @@
                 ExpectedCount = 0
                 OperationType = 'eq'
                 WhereObject   = { $_.IPAddressStatus -ne $true }
+            }
+            Details    = [ordered] @{
+                Area        = 'Cleanup'
+                Category    = ''
+                Severity    = ''
+                RiskLevel   = 0
+                Description = ''
+                Resolution  = ''
+                Resources   = @(
+
+                )
             }
         }
         PasswordLastChange = @{
@@ -77,6 +131,17 @@
                 OperationType = 'eq'
                 WhereObject   = { $_.PasswordLastChangedDays -ge 60 }
             }
+            Details    = [ordered] @{
+                Area        = 'Cleanup'
+                Category    = ''
+                Severity    = ''
+                RiskLevel   = 0
+                Description = ''
+                Resolution  = ''
+                Resources   = @(
+
+                )
+            }
         }
         LastLogonDays      = @{
             Enable     = $true
@@ -85,6 +150,17 @@
                 ExpectedCount = 0
                 OperationType = 'eq'
                 WhereObject   = { $_.LastLogonDays -ge 15 }
+            }
+            Details    = [ordered] @{
+                Area        = 'Cleanup'
+                Category    = ''
+                Severity    = ''
+                RiskLevel   = 0
+                Description = ''
+                Resolution  = ''
+                Resources   = @(
+
+                )
             }
         }
     }
@@ -215,4 +291,3 @@
         }
     }
 }
-
