@@ -218,6 +218,7 @@
                     $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['WarningsAndErrors'] = $WarningsAndErrors
                     $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['DetailsTests'] = [ordered]@{ }
                     $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['ResultsTests'] = [ordered]@{ }
+                    $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['Information'] = $CurrentSection
                 } elseif ($Domain) {
                     $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['Data'] = $Object
                     $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['Verbose'] = $OutputInvoke.Verbose
@@ -226,6 +227,7 @@
                     $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['WarningsAndErrors'] = $WarningsAndErrors
                     $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['DetailsTests'] = [ordered]@{ }
                     $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['ResultsTests'] = [ordered]@{ }
+                    $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['Information'] = $CurrentSection
                 } else {
                     $Script:Reporting['Forest']['Tests'][$ReferenceID]['Data'] = $Object
                     $Script:Reporting['Forest']['Tests'][$ReferenceID]['Verbose'] = $OutputInvoke.Verbose
@@ -234,6 +236,7 @@
                     $Script:Reporting['Forest']['Tests'][$ReferenceID]['WarningsAndErrors'] = $WarningsAndErrors
                     $Script:Reporting['Forest']['Tests'][$ReferenceID]['DetailsTests'] = [ordered]@{ }
                     $Script:Reporting['Forest']['Tests'][$ReferenceID]['ResultsTests'] = [ordered]@{ }
+                    $Script:Reporting['Forest']['Tests'][$ReferenceID]['Information'] = $CurrentSection
                 }
                 # If there's no output from Source Data all other tests will fail
                 if ($ErrorMessage) {
