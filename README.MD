@@ -40,6 +40,11 @@ Things to know:
 
 ## ChangeLog
 
+- 0.0.49 - 2021.01.25
+  - [x] Fix for Invoke-Testimo not working correctly with some tests
+  - [x] Improved some tests
+  - [x] Reporting
+    - [x] HTML report improved a bit for Domain based checks
 - 0.0.48 - 2021.01.21
   - [x] Fix for Invoke-Testimo not working when no tests are defined
   - [x] Tests
