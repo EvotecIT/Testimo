@@ -335,9 +335,9 @@
                                 Requirements     = $CurrentTest['Requirements']
                             }
                             # We provide whatever parameters are available in Data Source to Tests (mainly for use within WhereObject)
-                            if ($CurrentSource['Parameters']) {
-                                $testStepOneSplat['Parameters'] = $CurrentSource['Parameters']
-                            }
+                            #if ($CurrentSource['Parameters']) {
+                            #    $testStepOneSplat['Parameters'] = $CurrentSource['Parameters']
+                            #}
                             if ($Scope -eq 'Forest') {
                                 $testStepOneSplat['QueryServer'] = $ForestDetails['QueryServers']['Forest']['HostName'][0]
                             } else {
