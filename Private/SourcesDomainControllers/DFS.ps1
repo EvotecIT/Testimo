@@ -4,7 +4,7 @@
     Source = @{
         Name           = "SYSVOL/DFS Verification"
         Data           = {
-            Get-WinADDFSHealth -Forest $ForestName -Domains $Domain -DomainControllers $DomainController
+            Get-WinADDFSHealth -Forest $ForestName -Domains $Domain -DomainControllers $DomainController -EventDays $EventDays
         }
         Parameters     = @{
             EventDays = 3
