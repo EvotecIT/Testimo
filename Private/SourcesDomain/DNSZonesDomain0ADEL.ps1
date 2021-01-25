@@ -2,15 +2,15 @@
     Enable = $true
     Scope  = 'Domain'
     Source = @{
-        Name    = "DomainDNSZones should have proper FSMO Owner (0ADEL)"
-        Data    = {
+        Name           = "DomainDNSZones should have proper FSMO Owner (0ADEL)"
+        Data           = {
             #$DomainController = 'ad.evotec.pl'
             #$DomainInformation = Get-ADDomain -Server $DomainController
             $IdentityDomain = "CN=Infrastructure,DC=DomainDnsZones,$(($DomainInformation).DistinguishedName)"
             $FSMORoleOwner = (Get-ADObject -Identity $IdentityDomain -Properties fSMORoleOwner -Server $Domain)
             $FSMORoleOwner
         }
-        Details = [ordered] @{
+        Details        = [ordered] @{
             Area        = 'Configuration'
             Category    = 'DNS'
             Severity    = ''
@@ -23,7 +23,7 @@
                 'https://social.technet.microsoft.com/Forums/en-US/8b4a7794-13b2-4ef0-90c8-16799e9fd529/orphaned-fsmoroleowner-entry-for-domaindnszones?forum=winserverDS'
             )
         }
-
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         DNSZonesDomain0ADEL = @{
