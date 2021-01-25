@@ -4,7 +4,7 @@
     Source             = @{
         Name       = "Time Synchronization External"
         Data       = {
-            Get-ComputerTime -TimeTarget $DomainController -WarningAction SilentlyContinue @SourceParameters
+            Get-ComputerTime -TimeTarget $DomainController -WarningAction SilentlyContinue -TimeSource $TimeSource
         }
         Parameters = @{
             TimeSource = 'pool.ntp.org'
