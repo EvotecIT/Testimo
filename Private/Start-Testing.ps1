@@ -241,7 +241,8 @@
                 # If there's no output from Source Data all other tests will fail
                 if ($ErrorMessage) {
                     $FailAllTests = $true
-                    Out-Failure -Text $CurrentSource['Name'] -Level $LevelTest -ExtendedValue $ErrorMessage -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
+                    $ExtendedValue = $ErrorMessage -join "; "
+                    Out-Failure -Text $CurrentSource['Name'] -Level $LevelTest -ExtendedValue $ExtendedValue -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
                     $TestsSummary.Failed = $TestsSummary.Failed + 1
                 } elseif ($Object -and $CurrentSource['ExpectedOutput'] -eq $true) {
                     # Output is provided and we did expect it - passed test
@@ -353,7 +354,7 @@
                         } else {
                             $TestsResults = $null
                             $TestsSummary.Failed = $TestsSummary.Failed + 1
-                            Out-Failure -Text $CurrentTest['Name'] -Level $LevelTestFailure -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
+                            Out-Failure -Text $CurrentTest['Name'] -Level $LevelTestFailure -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -ExtendedValue 'Input data not provided. Failing test.'
                         }
 
                         if ($Domain -and $DomainController) {
