@@ -40,6 +40,8 @@ Things to know:
 
 ## ChangeLog
 
+- 0.0.50 - 2021.01.25
+  - [x] Fix for Invoke-Testimo returning more than one line of error which would stop Testimo
 - 0.0.49 - 2021.01.25
   - [x] Fix for Invoke-Testimo not working correctly with some tests
   - [x] Improved some tests
