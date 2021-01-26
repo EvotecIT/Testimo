@@ -38,12 +38,50 @@ Things to know:
 - [x] I don't know EVERYTHING - I'm very open to help with making Testimo more robust, detailed and easy to use
 - [x] This module works great in Windows PowerShell!
 
+- [Testimo - PowerShell Module](#testimo---powershell-module)
+  - [Execution](#execution)
+  - [ChangeLog](#changelog)
+    - [Comments](#comments)
+    - [Things to consider](#things-to-consider)
+  - [Known Issues / By Design](#known-issues--by-design)
+  - [To install](#to-install)
+    - [And to update](#and-to-update)
+  - [To use after installation](#to-use-after-installation)
+  - [Changing default configuration](#changing-default-configuration)
+    - [Straight to FILE/JSON](#straight-to-filejson)
+      - [Straight to JSON](#straight-to-json)
+      - [Output to Hashtable so you can edit it freely and keep in ps1](#output-to-hashtable-so-you-can-edit-it-freely-and-keep-in-ps1)
+  - [Using Invoke-Testimo with non-default configuration](#using-invoke-testimo-with-non-default-configuration)
+    - [Dependencies](#dependencies)
+    - [Portability](#portability)
+    - [Removal](#removal)
+      - [Option 1](#option-1)
+      - [Option 2](#option-2)
+
+## Execution
+
+Generate all tests and show HTML report (I'm currently thinking on making -ShowReport obsolete and adding -HideReport instead)
+
+```powershell
+Invoke-Testimo -ShowReport
+```
+
+Generate all tests but display content only in PowerShell
+
+```powershell
+Invoke-Testimo
+```
+
+Please keep in mind that there is currently known issue that running all tests while works correctly generated HTML is very very slow when switching Tabs.
+
 ## ChangeLog
 
+- 0.0.51 - 2021.01.26
+  - [x] Fix for Invoke-Testimo crashing on dead/non-responding/no-access DC [#117](https://github.com/EvotecIT/Testimo/issues/117)
 - 0.0.50 - 2021.01.25
-  - [x] Fix for Invoke-Testimo returning more than one line of error which would stop Testimo
+  - [x] Fix for Invoke-Testimo returning more than one line of error which would stop Testimo [#116](https://github.com/EvotecIT/Testimo/issues/116)
 - 0.0.49 - 2021.01.25
-  - [x] Fix for Invoke-Testimo not working correctly with some tests
+  - [x] Fix for Invoke-Testimo not working correctly with some tests [#116](https://github.com/EvotecIT/Testimo/issues/116)
   - [x] Improved some tests
   - [x] Reporting
     - [x] HTML report improved a bit for Domain based checks
