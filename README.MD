@@ -76,6 +76,8 @@ Please keep in mind that there is currently known issue that running all tests w
 
 ## ChangeLog
 
+- 0.0.52 - 2021.01.27
+  - [x] Improved `DCUNCHardenedPaths` to check for multiple values
 - 0.0.51 - 2021.01.26
   - [x] Fix for Invoke-Testimo crashing on dead/non-responding/no-access DC [#117](https://github.com/EvotecIT/Testimo/issues/117)
 - 0.0.50 - 2021.01.25
