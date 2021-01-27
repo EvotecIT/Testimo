@@ -35,8 +35,8 @@
             Name        = 'Netlogon UNC Hardening'
             Parameters  = @{
                 Property      = '\\*\NETLOGON'
-                ExpectedValue = 'RequireMutualAuthentication=1, RequireIntegrity=1'
-                OperationType = 'eq'
+                ExpectedValue = 'RequireMutualAuthentication=1, RequireIntegrity=1', 'RequireMutualAuthentication=1,RequireIntegrity=1'
+                OperationType = 'in'
             }
             Description = "Hardened UNC Paths must be defined to require mutual authentication and integrity for at least the \\*\SYSVOL and \\*\NETLOGON shares."
         }
@@ -45,8 +45,8 @@
             Name        = 'SysVol UNC Hardening'
             Parameters  = @{
                 Property      = '\\*\SYSVOL'
-                ExpectedValue = 'RequireMutualAuthentication=1, RequireIntegrity=1'
-                OperationType = 'eq'
+                ExpectedValue = 'RequireMutualAuthentication=1, RequireIntegrity=1', 'RequireMutualAuthentication=1,RequireIntegrity=1'
+                OperationType = 'in'
             }
             Description = "Hardened UNC Paths must be defined to require mutual authentication and integrity for at least the \\*\SYSVOL and \\*\NETLOGON shares."
         }
