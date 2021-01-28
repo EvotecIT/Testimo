@@ -166,10 +166,13 @@
                                 }
                                 # If there is no data to display we don't want to add empty table and section to the report. It makes no sense to take useful resources.
                                 if ($Data) {
-                                    New-HTMLSection -HeaderText 'Data' {
+                                    New-HTMLSection -HeaderText 'Data' -Direction column {
+                                        if ($Information.DataInformation) {
+                                            & $Information.DataInformation
+                                        }
                                         New-HTMLTable -DataTable $Data -Filtering {
-                                            if ($Information.Highlights) {
-                                                & $Information.Highlights
+                                            if ($Information.DataHighlights) {
+                                                & $Information.DataHighlights
                                             }
                                         }
                                     }
