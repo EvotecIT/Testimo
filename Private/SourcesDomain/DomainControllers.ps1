@@ -1,7 +1,7 @@
 ﻿$DomainDomainControllers = @{
-    Enable     = $true
-    Scope      = 'Domain'
-    Source     = @{
+    Enable          = $true
+    Scope           = 'Domain'
+    Source          = @{
         Name           = "Domain Controller Owners"
         Data           = {
             Get-WinADForestControllerInformation -Forest $ForestName -Domain $Domain
@@ -17,11 +17,12 @@
             Resources   = @(
                 '[Domain member: Maximum machine account password age](https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/domain-member-maximum-machine-account-password-age)'
                 '[Machine Account Password Process](https://techcommunity.microsoft.com/t5/ask-the-directory-services-team/machine-account-password-process/ba-p/396026)'
+                '[How to Configure DNS on a Domain Controller with Two IP Addresses](https://petri.com/configure-dns-on-domain-controller-two-ip-addresses)'
             )
         }
         ExpectedOutput = $true
     }
-    Tests      = [ordered] @{
+    Tests           = [ordered] @{
         Enabled            = @{
             Enable     = $true
             Name       = 'DC should be enabled'
@@ -103,16 +104,76 @@
                 )
             }
         }
-        IPAddressStatus    = @{
+        IPAddressStatusV4  = @{
             Enable     = $true
-            Name       = 'DNS returned IPAddress should match AD'
+            Name       = 'DNS returned IPAddressV4 should match AD'
             Parameters = @{
                 ExpectedCount = 0
                 OperationType = 'eq'
-                WhereObject   = { $_.IPAddressStatus -ne $true }
+                WhereObject   = { $_.IPAddressStatusV4 -ne $true }
             }
             Details    = [ordered] @{
-                Area        = 'Cleanup'
+                Area        = 'Configuration'
+                Category    = ''
+                Severity    = ''
+                RiskLevel   = 0
+                Description = ''
+                Resolution  = ''
+                Resources   = @(
+
+                )
+            }
+        }
+        IPAddressStatusV6  = @{
+            Enable     = $true
+            Name       = 'DNS returned IPAddressV6 should match AD'
+            Parameters = @{
+                ExpectedCount = 0
+                OperationType = 'eq'
+                WhereObject   = { $_.IPAddressStatusV6 -ne $true }
+            }
+            Details    = [ordered] @{
+                Area        = 'Configuration'
+                Category    = ''
+                Severity    = ''
+                RiskLevel   = 0
+                Description = ''
+                Resolution  = ''
+                Resources   = @(
+
+                )
+            }
+        }
+        IPAddressSingleV4  = @{
+            Enable     = $true
+            Name       = 'There should be single IPv4 address set'
+            Parameters = @{
+                ExpectedCount = 0
+                OperationType = 'eq'
+                WhereObject   = { $_.IPAddressHasOneIpV4 -ne $true }
+            }
+            Details    = [ordered] @{
+                Area        = 'Configuration'
+                Category    = ''
+                Severity    = ''
+                RiskLevel   = 0
+                Description = ''
+                Resolution  = ''
+                Resources   = @(
+
+                )
+            }
+        }
+        IPAddressSingleV6  = @{
+            Enable     = $true
+            Name       = 'There should be single IPv6 address set'
+            Parameters = @{
+                ExpectedCount = 0
+                OperationType = 'eq'
+                WhereObject   = { $_.IPAddressHasOneipV6 -ne $true }
+            }
+            Details    = [ordered] @{
+                Area        = 'Configuration'
                 Category    = ''
                 Severity    = ''
                 RiskLevel   = 0
@@ -164,15 +225,36 @@
             }
         }
     }
-    Highlights = {
+    DataInformation = {
+        New-HTMLText -Text 'Explanation to table columns:' -FontSize 10pt
+        New-HTMLList {
+            New-HTMLListItem -FontWeight bold, normal -Text "Enabled", " - means Domain Controller is enabled. If it's disabled it should be removed using proper cleanup method and according to company operation procedures. "
+            New-HTMLListItem -FontWeight bold, normal -Text "DNSStatus", " - means Domain Controller IP address is available in DNS. If it's not registrered this means DC may not be functioning properly. "
+            New-HTMLListItem -FontWeight bold, normal -Text "IPAddressStatusV4", " - means Domain Controller IP matches the one returned by DNS for IPV4. "
+            New-HTMLListItem -FontWeight bold, normal -Text "IPAddressStatusV6", " - means Domain Controller IP matches the one returned by DNS for IPV6. "
+            New-HTMLListItem -FontWeight bold, normal -Text "IPAddressHasOneIpV4", " - means Domain Controller has only one 1 IPV4 ipaddress (or not set at all). If it has more than 1 it's bad. "
+            New-HTMLListItem -FontWeight bold, normal -Text "IPAddressHasOneipV6", " - means Domain Controller has only one 1 IPV6 ipaddress (or not set at all). If it has more than 1 it's bad. "
+            New-HTMLListItem -FontWeight bold, normal -Text "ManagerNotSet", " - means ManagedBy property is not set (as required). If it's set it's bad. "
+            New-HTMLListItem -FontWeight bold, normal -Text "OwnerType", " - means Domain Controller Owner is of certain type. Required type is Administrative. If it's different that means there's security risk involved. "
+            New-HTMLListItem -FontWeight bold, normal -Text "PasswordLastChangedDays", " - displays last password change by Domain Controller. If it's more than 60 days it usually means DC is down or otherwise affected. "
+            New-HTMLListItem -FontWeight bold, normal -Text "LastLogonDays", " - display last logon days of DC. If it's more than 15 days it usually means DC is down or otherwise affected. "
+        } -FontSize 10pt
+    }
+    DataHighlights  = {
         New-HTMLTableCondition -Name 'Enabled' -ComparisonType string -BackgroundColor Salmon -Value $false
         New-HTMLTableCondition -Name 'Enabled' -ComparisonType string -BackgroundColor PaleGreen -Value $true
         New-HTMLTableCondition -Name 'DNSStatus' -ComparisonType string -BackgroundColor Salmon -Value $false
         New-HTMLTableCondition -Name 'DNSStatus' -ComparisonType string -BackgroundColor PaleGreen -Value $true
         New-HTMLTableCondition -Name 'ManagerNotSet' -ComparisonType string -BackgroundColor Salmon -Value $false
         New-HTMLTableCondition -Name 'ManagerNotSet' -ComparisonType string -BackgroundColor PaleGreen -Value $true
-        New-HTMLTableCondition -Name 'IPAddressStatus' -ComparisonType string -BackgroundColor Salmon -Value $false
-        New-HTMLTableCondition -Name 'IPAddressStatus' -ComparisonType string -BackgroundColor PaleGreen -Value $true
+        New-HTMLTableCondition -Name 'IPAddressStatusV4' -ComparisonType string -BackgroundColor Salmon -Value $false
+        New-HTMLTableCondition -Name 'IPAddressStatusV4' -ComparisonType string -BackgroundColor PaleGreen -Value $true
+        New-HTMLTableCondition -Name 'IPAddressStatusV6' -ComparisonType string -BackgroundColor Salmon -Value $false
+        New-HTMLTableCondition -Name 'IPAddressStatusV6' -ComparisonType string -BackgroundColor PaleGreen -Value $true
+        New-HTMLTableCondition -Name 'IPAddressHasOneIpV4' -ComparisonType string -BackgroundColor Salmon -Value $false
+        New-HTMLTableCondition -Name 'IPAddressHasOneIpV4' -ComparisonType string -BackgroundColor PaleGreen -Value $true
+        New-HTMLTableCondition -Name 'IPAddressHasOneipV6' -ComparisonType string -BackgroundColor Salmon -Value $false
+        New-HTMLTableCondition -Name 'IPAddressHasOneipV6' -ComparisonType string -BackgroundColor PaleGreen -Value $true
         New-HTMLTableCondition -Name 'OwnerType' -ComparisonType string -BackgroundColor Salmon -Value 'Administrative' -Operator ne
         New-HTMLTableCondition -Name 'OwnerType' -ComparisonType string -BackgroundColor PaleGreen -Value 'Administrative' -Operator eq
         New-HTMLTableCondition -Name 'ManagedBy' -ComparisonType string -Color Salmon -Value '' -Operator ne
@@ -183,7 +265,7 @@
         New-HTMLTableCondition -Name 'LastLogonDays' -ComparisonType number -BackgroundColor OrangePeel -Value 15 -Operator ge
         New-HTMLTableCondition -Name 'LastLogonDays' -ComparisonType number -BackgroundColor Crimson -Value 30 -Operator ge
     }
-    Solution   = {
+    Solution        = {
         New-HTMLContainer {
             New-HTMLSpanStyle -FontSize 10pt {
                 #New-HTMLText -Text 'Following steps will guide you how to fix permissions consistency'
