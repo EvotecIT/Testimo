@@ -76,7 +76,7 @@ Please keep in mind that there is currently known issue that running all tests w
 
 ## ChangeLog
 
-- 0.0.53 - 2021.01.27
+- 0.0.53 - 2021.01.28
   - [x] Improved `DomainDomainControllers`
 - 0.0.52 - 2021.01.27
   - [x] Improved `DCUNCHardenedPaths` to check for multiple values
