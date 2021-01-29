@@ -76,6 +76,8 @@ Please keep in mind that there is currently known issue that running all tests w
 
 ## ChangeLog
 
+- 0.0.54 - 2021.01.29
+  - [x] Fixes report to work with IE 11 (not great, not bad either)
 - 0.0.53 - 2021.01.28
   - [x] Improved `DomainDomainControllers`
 - 0.0.52 - 2021.01.27
