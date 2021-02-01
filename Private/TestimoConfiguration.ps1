@@ -17,7 +17,6 @@
         ForestSiteLinksConnections               = $SiteLinksConnections
         ForestRoles                              = $ForestFSMORoles
         ForestOrphanedAdmins                     = $OrphanedAdmins
-        ForestDuplicateObjects                   = $ForestDuplicateObjects
         ForestTombstoneLifetime                  = $TombstoneLifetime
         ForestTrusts                             = $Trusts
         DomainDomainControllers                  = $DomainDomainControllers
