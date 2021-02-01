@@ -76,6 +76,10 @@ Please keep in mind that there is currently known issue that running all tests w
 
 ## ChangeLog
 
+- 0.0.55
+  - [x] Improvement to report (domain section)
+  - [x] Improvement to DomainDuplicateObjects
+  - [x] Improvement to OrphanedForeignSecurityPrincipals
 - 0.0.54 - 2021.01.29
   - [x] Fixes report to work with IE 11 (not great, not bad either)
 - 0.0.53 - 2021.01.28
