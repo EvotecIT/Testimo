@@ -149,10 +149,16 @@
                                             }
                                             if ($Information.Source.Details.Resources) {
                                                 New-HTMLText -LineBreak
-                                                New-HTMLText -Text 'Following resources may be helpful to understand this topic ' -FontSize 10pt -FontWeight bold
+                                                New-HTMLText -Text 'Following resources may be helpful to understand this topic ', ', please make sure to read those to understand this topic before following any instructions.' -FontSize 10pt -FontWeight bold, normal
                                                 New-HTMLList -FontSize 10pt {
                                                     foreach ($Resource in $Information.Source.Details.Resources) {
-                                                        New-HTMLListItem -Text $Resource
+                                                        if ($Resource.StartsWith('[')) {
+                                                            New-HTMLListItem -Text $Resource
+                                                        } else {
+                                                            # Since the link is given in pure form, we want to convert it to markdown link
+                                                            $Resource = "[$Resource]($Resource)"
+                                                            New-HTMLListItem -Text $Resource
+                                                        }
                                                     }
                                                 }
                                             }
