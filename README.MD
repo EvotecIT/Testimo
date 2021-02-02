@@ -76,7 +76,7 @@ Please keep in mind that there is currently known issue that running all tests w
 
 ## ChangeLog
 
-- 0.0.55
+- 0.0.55 - 2021.02.02
   - [x] Improvement to report (domain section)
   - [x] Improvement to `DomainDuplicateObjects`
   - [x] Improvement to `OrphanedForeignSecurityPrincipals`
