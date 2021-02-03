@@ -93,7 +93,7 @@
                                 $Name = $TestResults['Domains'][$Domain]['Tests'][$Source]['Name']
                                 $Data = $TestResults['Domains'][$Domain]['Tests'][$Source]['Data']
                                 $SourceCode = $TestResults['Domains'][$Domain]['Tests'][$Source]['SourceCode']
-                                $Results = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results'] #| Select-Object -Property Name, Type, Status, Extended, Domain
+                                $Results = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results'] | Select-Object -Property Name, Type, Status, Extended, Domain
                                 $WarningsAndErrors = $TestResults['Domains'][$Domain]['Tests'][$Source]['WarningsAndErrors']
                                 # $Details = $TestResults['Domains'][$Domain]['Tests'][$Source]['Details']
 
