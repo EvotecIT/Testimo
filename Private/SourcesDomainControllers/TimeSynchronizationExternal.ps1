@@ -1,19 +1,20 @@
 ﻿$TimeSynchronizationExternal = @{
     Enable             = $true
-    Scope  = 'DC'
+    Scope              = 'DC'
     Source             = @{
-        Name       = "Time Synchronization External"
-        Data       = {
+        Name           = "Time Synchronization External"
+        Data           = {
             Get-ComputerTime -TimeTarget $DomainController -WarningAction SilentlyContinue -TimeSource $TimeSource
         }
-        Parameters = @{
+        Parameters     = @{
             TimeSource = 'pool.ntp.org'
         }
-        Details    = [ordered] @{
+        Details        = [ordered] @{
             Area        = ''
+            Category    = 'Configuration'
             Description = ''
             Resolution  = ''
-            RiskLevel   = 10
+            RiskLevel   = 2
             Resources   = @(
 
             )
