@@ -69,9 +69,10 @@
                     $Information = $TestResults['Forest']['Tests'][$Source]['Information']
                     $SourceCode = $TestResults['Forest']['Tests'][$Source]['SourceCode']
                     $Results = $TestResults['Forest']['Tests'][$Source]['Results'] | Select-Object -Property Name, Type, Status, Extended
+                    $WarningsAndErrors = $TestResults['Forest']['Tests'][$Source]['WarningsAndErrors']
                     #$Details = $TestResults['Forest']['Tests'][$Source]['Details']
 
-                    Get-SectionReport -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results
+                    Get-SectionReport -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors
                 }
             }
         }
@@ -92,14 +93,15 @@
                                 $Name = $TestResults['Domains'][$Domain]['Tests'][$Source]['Name']
                                 $Data = $TestResults['Domains'][$Domain]['Tests'][$Source]['Data']
                                 $SourceCode = $TestResults['Domains'][$Domain]['Tests'][$Source]['SourceCode']
-                                $Results = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results'] | Select-Object -Property Name, Type, Status, Extended, Domain
+                                $Results = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results'] #| Select-Object -Property Name, Type, Status, Extended, Domain
+                                $WarningsAndErrors = $TestResults['Domains'][$Domain]['Tests'][$Source]['WarningsAndErrors']
                                 # $Details = $TestResults['Domains'][$Domain]['Tests'][$Source]['Details']
 
                                 #[Array] $PassedTestsSingular = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results'] | Where-Object { $_.Status -eq $true }
                                 #[Array] $FailedTestsSingular = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results'] | Where-Object { $_.Status -eq $false }
                                 #[Array] $SkippedTestsSingular = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results'] | Where-Object { $_.Status -ne $true -and $_.Status -ne $false }
 
-                                Get-SectionReport -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results
+                                Get-SectionReport -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors
                                 #New-HTMLSection -Invisible {
                                 <#
                                 New-HTMLSection -HeaderText $Name -HeaderBackGroundColor CornflowerBlue -Direction column {
@@ -237,7 +239,7 @@
         if ($TestResults['Domains'].Keys.Count -gt 0) {
             $DomainsFound = @{}
             [Array] $ProcessDomainControllers = foreach ($Domain in $TestResults['Domains'].Keys) {
-                if ($TestResults['Domains'][$Domain]['Tests'].Count -gt 0 -or $TestResults['Domains'][$Domain]['DomainControllers'].Count -gt 0) {
+                if ($TestResults['Domains'][$Domain]['DomainControllers'].Count -gt 0) {
                     $DomainsFound[$Domain] = $true
                     $true
                 }
@@ -349,9 +351,10 @@
                                                     $SourceCode = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['SourceCode']
                                                     $Results = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Results']
                                                     #$Details = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Details']
+                                                    $WarningsAndErrors = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['WarningsAndErrors']
 
 
-                                                    Get-SectionReport -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results
+                                                    Get-SectionReport -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors
                                                     <#
                                                     [Array] $PassedTestsSingular = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Results'] | Where-Object { $_.Status -eq $true }
                                                     [Array] $FailedTestsSingular = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Results'] | Where-Object { $_.Status -eq $false }

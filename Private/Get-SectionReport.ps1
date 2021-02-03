@@ -1,11 +1,12 @@
 function Get-SectionReport {
     [cmdletBinding()]
     param(
-        $Name,
-        $Data,
-        $Information,
-        $SourceCode,
-        $Results
+        [string] $Name,
+        [Array] $Data,
+        [System.Collections.IDictionary]$Information,
+        [Scriptblock]$SourceCode,
+        [PSCustomObject] $Results,
+        [Array] $WarningsAndErrors
     )
     [Array] $PassedTestsSingular = $Results | Where-Object { $_.Status -eq $true }
     [Array] $FailedTestsSingular = $Results | Where-Object { $_.Status -eq $false }
@@ -25,9 +26,9 @@ function Get-SectionReport {
                         "In case there are more information required feel free to confirm problems found yourself. "
                     ) -FontSize 10pt
                     New-HTMLCodeBlock -Code $SourceCode -Style 'PowerShell' -Theme enlighter
-                    if ($TestResults['Forest']['Tests'][$Source]['WarningsAndErrors']) {
+                    if ($WarningsAndErrors) {
                         New-HTMLSection -HeaderText 'Warnings & Errors' -HeaderBackGroundColor OrangePeel {
-                            New-HTMLTable -DataTable $TestResults['Forest']['Tests'][$Source]['WarningsAndErrors'] -Filtering -PagingLength 7
+                            New-HTMLTable -DataTable $WarningsAndErrors -Filtering -PagingLength 7
                         }
                     }
                 }
