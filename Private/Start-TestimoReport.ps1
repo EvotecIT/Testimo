@@ -94,10 +94,14 @@
                                 $SourceCode = $TestResults['Domains'][$Domain]['Tests'][$Source]['SourceCode']
                                 $Results = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results'] | Select-Object -Property Name, Type, Status, Extended, Domain
                                 # $Details = $TestResults['Domains'][$Domain]['Tests'][$Source]['Details']
-                                [Array] $PassedTestsSingular = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results'] | Where-Object { $_.Status -eq $true }
-                                [Array] $FailedTestsSingular = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results'] | Where-Object { $_.Status -eq $false }
-                                [Array] $SkippedTestsSingular = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results'] | Where-Object { $_.Status -ne $true -and $_.Status -ne $false }
+
+                                #[Array] $PassedTestsSingular = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results'] | Where-Object { $_.Status -eq $true }
+                                #[Array] $FailedTestsSingular = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results'] | Where-Object { $_.Status -eq $false }
+                                #[Array] $SkippedTestsSingular = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results'] | Where-Object { $_.Status -ne $true -and $_.Status -ne $false }
+
+                                Get-SectionReport -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results
                                 #New-HTMLSection -Invisible {
+                                <#
                                 New-HTMLSection -HeaderText $Name -HeaderBackGroundColor CornflowerBlue -Direction column {
                                     New-HTMLSection -Invisible -Direction column {
                                         New-HTMLSection -HeaderText 'Information' {
@@ -172,7 +176,7 @@
                                         }
                                     }
                                 }
-
+                                #>
                                 #}
                             }
                             <#
@@ -339,11 +343,16 @@
                                         New-HTMLTab -TabName $DC -TextColor DarkSlateGray { #-HeaderText "Domain Controller - $DC" -HeaderBackGroundColor DarkSlateGray {
                                             New-HTMLContainer {
                                                 foreach ($Source in  $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'].Keys) {
+                                                    $Information = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Information']
                                                     $Name = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Name']
                                                     $Data = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Data']
                                                     $SourceCode = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['SourceCode']
                                                     $Results = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Results']
                                                     #$Details = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Details']
+
+
+                                                    Get-SectionReport -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results
+                                                    <#
                                                     [Array] $PassedTestsSingular = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Results'] | Where-Object { $_.Status -eq $true }
                                                     [Array] $FailedTestsSingular = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Results'] | Where-Object { $_.Status -eq $false }
                                                     [Array] $SkippedTestsSingular = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Results'] | Where-Object { $_.Status -ne $true -and $_.Status -ne $false }
@@ -375,6 +384,7 @@
                                                             }
                                                         }
                                                     }
+                                                    #>
                                                 }
                                             }
                                         }
