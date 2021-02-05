@@ -1,4 +1,4 @@
-$Script:RiskLevel = @{
+$Script:Importance = @{
     0  = 'Informational (0)'
     1  = 'Neglible (1)'
     2  = 'Very low (2)'
@@ -11,7 +11,7 @@ $Script:RiskLevel = @{
     9  = 'Signiciant (9)'
     10 = 'Extream (10)'
 }
-$Script:RiskType = @{
+$Script:ImportanceType = @{
     0 = 'Informational'
     1 = 'Recommended'
     2 = 'Must Have'

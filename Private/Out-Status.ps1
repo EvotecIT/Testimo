@@ -43,9 +43,9 @@
     if ($Source) {
         # This means we're dealing with source
         if ($null -ne $Source.Details.RiskLevel) {
-            $RiskLevel = $Script:RiskLevel[$Source.Details.RiskLevel]
+            $Importance = $Script:Importance[$Source.Details.RiskLevel]
         } else {
-            $RiskLevel = 'Not defined'
+            $Importance = 'Not defined'
         }
         if ($null -ne $Source.Details.Category) {
             $Category = $Source.Details.Category
@@ -54,9 +54,9 @@
         }
     } else {
         if ($null -ne $Test.Details.RiskLevel) {
-            $RiskLevel = $Script:RiskLevel[$Test.Details.RiskLevel]
+            $Importance = $Script:Importance[$Test.Details.RiskLevel]
         } else {
-            $RiskLevel = 'Not defined'
+            $Importance = 'Not defined'
         }
         if ($null -ne $Test.Details.Category) {
             $Category = $Test.Details.Category
@@ -70,7 +70,7 @@
         Type             = $TestType
         Category         = $Category
         Status           = $Status
-        Importance       = $RiskLevel
+        Importance       = $Importance
         Extended         = $ExtendedValue
         Domain           = $Domain
         DomainController = $DomainController
