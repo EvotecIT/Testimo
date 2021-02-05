@@ -1,7 +1,7 @@
 ﻿$Backup = @{
-    Enable = $true
-    Scope  = 'Forest'
-    Source = @{
+    Enable         = $true
+    Scope          = 'Forest'
+    Source         = @{
         Name           = 'Forest Backup'
         Data           = {
             Get-WinADLastBackup -Forest $ForestName
@@ -19,7 +19,7 @@
         }
         ExpectedOutput = $true
     }
-    Tests  = [ordered] @{
+    Tests          = [ordered] @{
         LastBackupTests = @{
             Enable     = $true
             Name       = 'Forest Last Backup Time - Context'
@@ -35,5 +35,10 @@
                 Importance = 10
             }
         }
+    }
+    DataHighlights = {
+        New-HTMLTableCondition -Name 'LastBackupDaysAgo' -ComparisonType number -BackgroundColor PaleGreen -Value 2 -Operator lt
+        New-HTMLTableCondition -Name 'LastBackupDaysAgo' -ComparisonType number -BackgroundColor Salmon -Value 2 -Operator ge
+        New-HTMLTableCondition -Name 'LastBackupDaysAgo' -ComparisonType number -BackgroundColor Crimson -Value 10 -Operator ge
     }
 }
