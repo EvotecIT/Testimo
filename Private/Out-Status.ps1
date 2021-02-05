@@ -8,8 +8,8 @@
         [string] $ExtendedValue,
         [string] $Domain,
         [string] $DomainController,
-        [System.Collections.IDictionary] $SourceDetails,
-        [System.Collections.IDictionary] $TestDetails,
+        [System.Collections.IDictionary] $Source,
+        [System.Collections.IDictionary] $Test,
         [string] $ReferenceID
     )
     if ($Status -eq $true) {
@@ -40,10 +40,37 @@
         $TestText = "Forest | $Text"
     }
 
+    if ($Source) {
+        # This means we're dealing with source
+        if ($null -ne $Source.Details.RiskLevel) {
+            $RiskLevel = $Script:RiskLevel[$Source.Details.RiskLevel]
+        } else {
+            $RiskLevel = 'Not defined'
+        }
+        if ($null -ne $Source.Details.Category) {
+            $Category = $Source.Details.Category
+        } else {
+            $Category = 'Not defined'
+        }
+    } else {
+        if ($null -ne $Test.Details.RiskLevel) {
+            $RiskLevel = $Script:RiskLevel[$Test.Details.RiskLevel]
+        } else {
+            $RiskLevel = 'Not defined'
+        }
+        if ($null -ne $Test.Details.Category) {
+            $Category = $Test.Details.Category
+        } else {
+            $Category = 'Not defined'
+        }
+    }
+
     $Output = [PSCustomObject]@{
         Name             = $TestText
         Type             = $TestType
+        Category         = $Category
         Status           = $Status
+        Importance       = $RiskLevel
         Extended         = $ExtendedValue
         Domain           = $Domain
         DomainController = $DomainController
