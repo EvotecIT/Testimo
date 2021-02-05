@@ -13,7 +13,7 @@
             Area        = 'Cleanup'
             Category    = 'Group Policy'
             Severity    = ''
-            RiskLevel   = 0
+            Importance   = 0
             Description = ''
             Resolution  = ''
             Resources   = @(

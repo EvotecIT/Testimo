@@ -28,7 +28,7 @@
             Area        = ''
             Category    = ''
             Severity    = ''
-            RiskLevel   = 0
+            Importance   = 0
             Description = ''
             Resolution  = ''
             Resources   = @(

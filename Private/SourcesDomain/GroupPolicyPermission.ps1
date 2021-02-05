@@ -10,7 +10,7 @@
             Area        = 'Security'
             Category    = ''
             Severity    = ''
-            RiskLevel   = 0
+            Importance   = 0
             Description = "Group Policy permissions should always have Authenticated Users and Domain Computers gropup"
             Resolution  = 'Do not remove Authenticated Users, Domain Computers from Group Policies.'
             Resources   = @(

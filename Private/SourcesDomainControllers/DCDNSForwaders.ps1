@@ -11,7 +11,7 @@
             Area        = 'Configuration'
             Category    = 'DNS'
             Severity    = 'Medium'
-            RiskLevel   = 0
+            Importance   = 0
             Description = ''
             Resolution  = ''
             Resources   = @(

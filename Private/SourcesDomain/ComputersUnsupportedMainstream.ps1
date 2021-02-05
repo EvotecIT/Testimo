@@ -11,7 +11,7 @@
             Area        = 'Cleanup'
             Category    = ''
             Severity    = ''
-            RiskLevel   = 0
+            Importance   = 0
             Description = 'Computers running an unsupported operating system, but with possibly Microsoft support.'
             Resolution  = 'Consider upgrading computers running Windows Server 2008 or Windows Server 2008 R2 to a version that still offers mainstream support from Microsoft.'
             Resources   = @(

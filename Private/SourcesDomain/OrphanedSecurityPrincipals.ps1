@@ -12,7 +12,7 @@
             Area        = 'Cleanup'
             Category    = ''
             Severity    = ''
-            RiskLevel   = 0
+            Importance   = 0
             Description = 'An FSP is an Active Directory (AD) security principal that points to a security principal (a user, computer, or group) from a domain of another forest. AD automatically and transparently creates them in a domain the first time after adding a security principal from another forest to a group from that domain. AD creates FSPs in a domain the first time after adding a security principal of a domain from another forest to a group. And when someone removes the security principal the FSP is pointing to, the FSP becomes an orphan because it points to a non-existent security principal.'
             Resolution  = ''
             Resources   = @(

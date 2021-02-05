@@ -12,7 +12,7 @@
             Area        = 'Configuration'
             Category    = 'DHCP'
             Severity    = ''
-            RiskLevel   = 0
+            Importance   = 0
             Description = ""
             Resolution  = ''
             Resources   = @(

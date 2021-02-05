@@ -11,7 +11,7 @@
             Area        = 'Configuration'
             Category    = 'Security'
             Severity    = ''
-            RiskLevel   = 0
+            Importance   = 0
             Description = "Following test verifies Domain Controller status in Active Directory. It verifies critical aspects of Domain Controler such as Domain Controller Owner and Domain Controller Manager. It also checks if Domain Controller is enabled, ip address matches dns ip address, verifies whether LastLogonDate and LastPasswordDate are within thresholds. Those additional checks are there to find dead or offline DCs that could potentially impact Active Directory functionality. "
             Resolution  = ''
             Resources   = @(
@@ -33,7 +33,7 @@
             }
             Details    = [ordered] @{
                 Category  = 'Cleanup'
-                RiskLevel = 0
+                Importance = 0
             }
         }
         OwnerType          = @{
@@ -49,7 +49,7 @@
             }
             Details    = [ordered] @{
                 Category  = 'Security'
-                RiskLevel = 10
+                Importance = 10
             }
         }
         ManagedBy          = @{
@@ -62,7 +62,7 @@
             }
             Details    = [ordered] @{
                 Category  = 'Security'
-                RiskLevel = 10
+                Importance = 10
             }
         }
         DNSStatus          = @{
@@ -75,7 +75,7 @@
             }
             Details    = [ordered] @{
                 Category  = 'Cleanup'
-                RiskLevel = 0
+                Importance = 0
             }
         }
         IPAddressStatusV4  = @{
@@ -88,7 +88,7 @@
             }
             Details    = [ordered] @{
                 Category  = 'Cleanup'
-                RiskLevel = 0
+                Importance = 0
             }
         }
         IPAddressStatusV6  = @{
@@ -101,7 +101,7 @@
             }
             Details    = [ordered] @{
                 Category  = 'Cleanup'
-                RiskLevel = 0
+                Importance = 0
             }
         }
         IPAddressSingleV4  = @{
@@ -114,7 +114,7 @@
             }
             Details    = [ordered] @{
                 Category  = 'Cleanup'
-                RiskLevel = 0
+                Importance = 0
             }
         }
         IPAddressSingleV6  = @{
@@ -127,7 +127,7 @@
             }
             Details    = [ordered] @{
                 Category  = 'Cleanup'
-                RiskLevel = 0
+                Importance = 0
             }
         }
         PasswordLastChange = @{
@@ -140,7 +140,7 @@
             }
             Details    = [ordered] @{
                 Category  = 'Cleanup'
-                RiskLevel = 0
+                Importance = 0
             }
         }
         LastLogonDays      = @{
@@ -153,7 +153,7 @@
             }
             Details    = [ordered] @{
                 Category  = 'Cleanup'
-                RiskLevel = 0
+                Importance = 0
             }
         }
     }

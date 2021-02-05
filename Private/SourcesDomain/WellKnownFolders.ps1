@@ -28,7 +28,7 @@
             Area        = 'Configuration'
             Category    = 'OrganizationalUnits'
             Severity    = 'Low'
-            RiskLevel   = 5
+            Importance   = 5
             Description = 'Verifies whether well-known folders are at their defaults or not.'
             Resolution  = 'Follow given resources to redirect users and computers containers to managable Organizational Units. If other Well Known folers are wrong - investigate.'
             Resources   = @(

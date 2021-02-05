@@ -10,7 +10,7 @@
             Area        = 'Security'
             Category    = ''
             Severity    = ''
-            RiskLevel   = 0
+            Importance   = 0
             Description = "GPO Permissions are stored in Active Directory and SYSVOL at the same time. Sometimes when deleting GPO or due to replication issues GPO becomes orphaned (no SYSVOL files) or SYSVOL files exists but no GPO."
             Resolution  = ''
             Resources   = @(

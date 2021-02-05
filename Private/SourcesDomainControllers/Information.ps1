@@ -37,7 +37,7 @@ $Information = @{
             Area        = ''
             Description = ''
             Resolution  = ''
-            RiskLevel   = 10
+            Importance   = 10
             Resources   = @(
 
             )

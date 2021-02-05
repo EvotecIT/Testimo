@@ -23,7 +23,7 @@
             Area        = 'Health'
             Category    = 'SYSVOL'
             Severity    = ''
-            RiskLevel   = 0
+            Importance   = 0
             Description = 'Checks if DFS-R is available.'
             Resolution  = ''
             Resources   = @(

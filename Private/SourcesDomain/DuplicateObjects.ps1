@@ -10,7 +10,7 @@
         Details        = [ordered] @{
             Category    = 'Cleanup'
             Description = "When two objects are created with the same Relative Distinguished Name (RDN) in the same parent Organizational Unit or container, the conflict is recognized by the system when one of the new objects replicates to another domain controller. When this happens, one of the objects is renamed. Some sources say the RDN is mangled to make it unique. The new RDN will be <Old RDN>\0ACNF:<objectGUID>"
-            RiskLevel   = 5
+            Importance   = 5
             Severity    = 'Low'
             Resources   = @(
                 'https://social.technet.microsoft.com/wiki/contents/articles/15435.active-directory-duplicate-object-name-resolution.aspx'

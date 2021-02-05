@@ -14,7 +14,7 @@
             Area        = 'Cleanup', 'Security'
             Category    = ''
             Severity    = ''
-            RiskLevel   = 0
+            Importance   = 0
             Description = "Schema Admins group should be empty. If you need to manage schema you can always add user for the time of modification."
             Resolution  = 'Keep Schema group empty.'
             Resources   = @(

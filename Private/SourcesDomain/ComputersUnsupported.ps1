@@ -11,7 +11,7 @@
             Area        = 'Cleanup'
             Category    = ''
             Severity    = ''
-            RiskLevel   = 0
+            Importance   = 0
             Description = 'Computers running an unsupported operating system.'
             Resolution  = 'Upgrade or remove computers from Domain.'
             Resources   = @(
