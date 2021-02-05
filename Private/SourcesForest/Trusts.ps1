@@ -10,7 +10,7 @@
             Area        = 'Health', 'Configuration'
             Category    = 'Trusts'
             Severity    = ''
-            RiskLevel   = 0
+            Importance   = 0
             Description = 'Verifies if trusts are available and tests for trust unconstrained TGTDelegation'
             Resolution  = ''
             Resources   = @(

@@ -11,7 +11,7 @@
             Category    = 'Sites'
             Description = ''
             Resolution  = ''
-            RiskLevel   = 10
+            Importance   = 10
             Severity    = 'Low'
             Resources   = @(
 

@@ -9,7 +9,7 @@
         Details        = [ordered] @{
             Category    = 'Security'
             Description = "Active Directory user, group, and computer objects possess an AdminCount attribute. The AdminCount attribute’s value defaults to NOT SET. Its utility comes from the fact when a user, group, or computer is added, either directly or transitively, to any of a specific set of protected groups its value is updated to 1. This can provide a relatively simple method by which objects with inherited administrative privileges may be identified. Consider this: a user is stamped with an AdminCount of 1, as a result of being added to Domain Admins; the user is removed from Domain Admins; the AdminCount value persists. In this instance the user is considered as orphaned. The ramifications? The AdminSDHolder ACL will be stamped upon this user every hour to protect against tampering. In turn, this can cause unexpected issues with delegation and application permissions."
-            RiskLevel   = 4
+            Importance  = 4
             Severity    = 'Medium'
             Resources   = @(
                 '[Security Focus: Orphaned AdminCount -eq 1 AD Users](https://blogs.technet.microsoft.com/poshchap/2016/07/29/security-focus-orphaned-admincount-eq-1-ad-users/)'
@@ -31,8 +31,8 @@
                 WhereObject   = { $_.IsOrphaned -ne $false }
             }
             Details    = [ordered] @{
-                Category  = 'Security'
-                RiskLevel = 4
+                Category   = 'Security'
+                Importance = 4
             }
         }
     }

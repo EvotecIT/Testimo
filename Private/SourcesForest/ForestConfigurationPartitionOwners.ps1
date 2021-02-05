@@ -9,7 +9,7 @@
         Details        = [ordered] @{
             Category    = 'Security'
             Severity    = ''
-            RiskLevel   = 5
+            Importance  = 5
             Description = "Owners of Active Directory Configuration Partition, and more specifically Sites, Subnets and Sitelinks should always be set to Administrative (Domain Admins / Enterprise Admins). Being an owner of a site, subnet or sitelink is potentially dangerous and can lead to domain compromise. "
             Resources   = @(
                 '[Escalating privileges with ACLs in Active Directory](https://blog.fox-it.com/2018/04/26/escalating-privileges-with-acls-in-active-directory/)'
@@ -27,8 +27,8 @@
                 WhereObject   = { $_.ObjectType -eq 'Site' -and $_.OwnerType -ne 'Administrative' }
             }
             Details    = [ordered] @{
-                Category  = 'Security'
-                RiskLevel = 5
+                Category   = 'Security'
+                Importance = 5
             }
         }
         SubnetOwners   = @{
@@ -40,8 +40,8 @@
                 WhereObject   = { $_.ObjectType -eq 'Subnet' -and $_.OwnerType -ne 'Administrative' }
             }
             Details    = [ordered] @{
-                Category  = 'Security'
-                RiskLevel = 5
+                Category   = 'Security'
+                Importance = 5
             }
         }
         SiteLinkOwners = @{
@@ -53,8 +53,8 @@
                 WhereObject   = { $_.ObjectType -eq 'SiteLink' -and $_.OwnerType -ne 'Administrative' }
             }
             Details    = [ordered] @{
-                Category  = 'Security'
-                RiskLevel = 5
+                Category   = 'Security'
+                Importance = 5
             }
         }
     }

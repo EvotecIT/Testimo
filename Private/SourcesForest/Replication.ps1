@@ -11,7 +11,7 @@
             Category    = 'Replication'
             Description = ''
             Resolution  = ''
-            RiskLevel   = 10
+            Importance   = 10
             Severity    = 'High'
             Resources   = @(
 
