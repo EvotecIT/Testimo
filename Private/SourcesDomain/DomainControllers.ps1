@@ -32,15 +32,8 @@
                 WhereObject   = { $_.Enabled -ne $true }
             }
             Details    = [ordered] @{
-                Area        = 'Cleanup'
-                Category    = ''
-                Severity    = ''
-                RiskLevel   = 0
-                Description = ''
-                Resolution  = ''
-                Resources   = @(
-
-                )
+                Category  = 'Cleanup'
+                RiskLevel = 0
             }
         }
         OwnerType          = @{
@@ -55,13 +48,8 @@
                 WhereObject   = { $_.OwnerType -ne 'Administrative' }
             }
             Details    = [ordered] @{
-                Area        = 'Security'
-                Category    = ''
-                Severity    = ''
-                RiskLevel   = 10
-                Description = ''
-                Resolution  = ''
-                Resources   = @()
+                Category  = 'Security'
+                RiskLevel = 10
             }
         }
         ManagedBy          = @{
@@ -73,15 +61,8 @@
                 WhereObject   = { $_.ManagerNotSet -ne $true }
             }
             Details    = [ordered] @{
-                Area        = 'Security'
-                Category    = ''
-                Severity    = ''
-                RiskLevel   = 8
-                Description = ''
-                Resolution  = ''
-                Resources   = @(
-
-                )
+                Category  = 'Security'
+                RiskLevel = 10
             }
         }
         DNSStatus          = @{
@@ -93,15 +74,8 @@
                 WhereObject   = { $_.DNSStatus -ne $true }
             }
             Details    = [ordered] @{
-                Area        = 'Cleanup'
-                Category    = ''
-                Severity    = ''
-                RiskLevel   = 0
-                Description = ''
-                Resolution  = ''
-                Resources   = @(
-
-                )
+                Category  = 'Cleanup'
+                RiskLevel = 0
             }
         }
         IPAddressStatusV4  = @{
@@ -113,15 +87,8 @@
                 WhereObject   = { $_.IPAddressStatusV4 -ne $true }
             }
             Details    = [ordered] @{
-                Area        = 'Configuration'
-                Category    = ''
-                Severity    = ''
-                RiskLevel   = 0
-                Description = ''
-                Resolution  = ''
-                Resources   = @(
-
-                )
+                Category  = 'Cleanup'
+                RiskLevel = 0
             }
         }
         IPAddressStatusV6  = @{
@@ -133,15 +100,8 @@
                 WhereObject   = { $_.IPAddressStatusV6 -ne $true }
             }
             Details    = [ordered] @{
-                Area        = 'Configuration'
-                Category    = ''
-                Severity    = ''
-                RiskLevel   = 0
-                Description = ''
-                Resolution  = ''
-                Resources   = @(
-
-                )
+                Category  = 'Cleanup'
+                RiskLevel = 0
             }
         }
         IPAddressSingleV4  = @{
@@ -153,15 +113,8 @@
                 WhereObject   = { $_.IPAddressHasOneIpV4 -ne $true }
             }
             Details    = [ordered] @{
-                Area        = 'Configuration'
-                Category    = ''
-                Severity    = ''
-                RiskLevel   = 0
-                Description = ''
-                Resolution  = ''
-                Resources   = @(
-
-                )
+                Category  = 'Cleanup'
+                RiskLevel = 0
             }
         }
         IPAddressSingleV6  = @{
@@ -173,15 +126,8 @@
                 WhereObject   = { $_.IPAddressHasOneipV6 -ne $true }
             }
             Details    = [ordered] @{
-                Area        = 'Configuration'
-                Category    = ''
-                Severity    = ''
-                RiskLevel   = 0
-                Description = ''
-                Resolution  = ''
-                Resources   = @(
-
-                )
+                Category  = 'Cleanup'
+                RiskLevel = 0
             }
         }
         PasswordLastChange = @{
@@ -193,15 +139,8 @@
                 WhereObject   = { $_.PasswordLastChangedDays -ge 60 }
             }
             Details    = [ordered] @{
-                Area        = 'Cleanup'
-                Category    = ''
-                Severity    = ''
-                RiskLevel   = 0
-                Description = ''
-                Resolution  = ''
-                Resources   = @(
-
-                )
+                Category  = 'Cleanup'
+                RiskLevel = 0
             }
         }
         LastLogonDays      = @{
@@ -213,15 +152,8 @@
                 WhereObject   = { $_.LastLogonDays -ge 15 }
             }
             Details    = [ordered] @{
-                Area        = 'Cleanup'
-                Category    = ''
-                Severity    = ''
-                RiskLevel   = 0
-                Description = ''
-                Resolution  = ''
-                Resources   = @(
-
-                )
+                Category  = 'Cleanup'
+                RiskLevel = 0
             }
         }
     }
