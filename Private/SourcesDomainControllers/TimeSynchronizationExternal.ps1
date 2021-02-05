@@ -16,7 +16,8 @@
             Resolution  = ''
             RiskLevel   = 2
             Resources   = @(
-
+                '[How to: Fix Time Sync in your Domain](https://community.spiceworks.com/how_to/166215-fix-time-sync-in-your-domain-use-w32time)'
+                '[Windows Time Settings in a Domain](https://www.concurrency.com/blog/october-2018/windows-time-settings-in-a-domain)'
             )
         }
         ExpectedOutput = $true
@@ -25,6 +26,15 @@
         TimeSynchronizationTest = @{
             Enable     = $true
             Name       = 'Time Difference'
+            Details    = [ordered] @{
+                Area        = ''
+                Category    = 'Configuration'
+                Description = ''
+                RiskLevel   = 2
+                Resources   = @(
+
+                )
+            }
             Parameters = @{
                 Property              = 'TimeDifferenceSeconds'
                 ExpectedValue         = 1
