@@ -77,7 +77,17 @@ Please keep in mind that there is currently known issue that running all tests w
 ## ChangeLog
 
 - 0.0.56
-  - [x] Improved `ForestOrphanedAdmins`
+  - [x] Tests
+    - [x] Improved `ForestOrphanedAdmins`
+    - [x] Added `ForestConfigurationPartitionOwners`
+    - [x] Improved `DomainDuplicateObjects`
+    - [x] Improved `DomainDomainControllers`
+    - [x] Improved `DCTimeSynchronizationExternal`
+  - [x] Reporting
+    - [x] HTML report updated with new format
+    - [x] Added Importance/Category visibility in HTML -> if only those were updated in all tests 🤣
+    - [x] Added Description visibility in HTML -> if only those were updated in all tests 🤣
+    - [x] Added Resources visibility in HTML -> if only those were updated in all tests 🤣
 - 0.0.55 - 2021.02.02
   - [x] Improvement to report (domain section)
   - [x] Improvement to `DomainDuplicateObjects`
@@ -191,7 +201,7 @@ Please keep in mind that there is currently known issue that running all tests w
     - [x] Changed `DomainPasswordComplexity` Lockout Treshold changed to 5+
     - [x] Renamed `DCNetSessionEnumaration` to `DCNetSessionEnumeration` - tnx subnet192 [#99](https://github.com/EvotecIT/Testimo/pull/99)
     - [x] Added `DCDNSForwarders` - DNS: More than one forwarding server should be configured
-    - [x] Added `DomainExchangeUsers` - Exchange Users: Missing MailNickName (monitors for issue <https://evotec.xyz/office-365-msexchhidefromaddresslists-does-not-synchronize-with-office-365/)>
+    - [x] Added `DomainExchangeUsers` - Exchange Users: Missing MailNickName [monitors for issue described on blog](https://evotec.xyz/office-365-msexchhidefromaddresslists-does-not-synchronize-with-office-365/)
     - [x] Improved `DNSScavengingForPrimaryDNSServer`
   - Other
     - Fix typos - tnx subnet192 [#99](https://github.com/EvotecIT/Testimo/pull/99)
