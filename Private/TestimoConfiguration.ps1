@@ -19,6 +19,7 @@
         ForestOrphanedAdmins                     = $OrphanedAdmins
         ForestTombstoneLifetime                  = $TombstoneLifetime
         ForestTrusts                             = $Trusts
+        ForestConfigurationPartitionOwners       = $ForestConfigurationPartitionOwners
         DomainDomainControllers                  = $DomainDomainControllers
         DomainRoles                              = $DomainFSMORoles
         DomainWellKnownFolders                   = $WellKnownFolders
