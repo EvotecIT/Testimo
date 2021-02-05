@@ -14,7 +14,7 @@
             Area        = ''
             Description = 'Net Session Enumeration is a method used to retrieve information about established sessions on a server. Any domain user can query a server for its established sessions.'
             Resolution  = 'Hardening Net Session Enumeration'
-            RiskLevel   = 10
+            Importance   = 10
             Resources   = @(
                 'https://gallery.technet.microsoft.com/Net-Cease-Blocking-Net-1e8dcb5b'
             )

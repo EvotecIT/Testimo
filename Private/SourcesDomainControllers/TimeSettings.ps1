@@ -10,7 +10,7 @@
             Area        = 'Configuration'
             Description = ''
             Resolution  = ''
-            RiskLevel   = 2
+            Importance   = 2
             Resources   = @(
 
             )

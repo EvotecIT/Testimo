@@ -10,7 +10,7 @@
             Area        = 'Connectivity'
             Category    = ''
             Severity    = ''
-            RiskLevel   = 0
+            Importance   = 0
             Description = ''
             Resolution  = ''
             Resources   = @(
@@ -32,7 +32,7 @@
                 Area        = 'Connectivity'
                 Category    = 'Legacy Protocols'
                 Severity    = 'Critical'
-                RiskLevel   = 90 # 100 is top
+                Importance   = 90 # 100 is top
                 Description = @'
                 NetBIOS over TCP/IP is a networking protocol that allows legacy computer applications relying on the NetBIOS to be used on modern TCP/IP networks.
                 Enabling NetBios might help an attackers access shared directories, files and also gain sensitive information such as computer name, domain, or workgroup.

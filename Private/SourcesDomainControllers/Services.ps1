@@ -11,7 +11,7 @@
             Area        = ''
             Description = ''
             Resolution  = ''
-            RiskLevel   = 10
+            Importance   = 10
             Resources   = @(
 
             )
@@ -317,7 +317,7 @@
                 Area        = 'Security'
                 Category    = 'Services'
                 Severity    = ''
-                RiskLevel   = 0
+                Importance   = 0
                 Description = 'Due to security concerns SPOOLER should be disabled and stopped. However in some cases it may be required to have SPOOLER service up and running to cleanup stale printer objects from AD.'
                 Resolution  = ''
                 Resources   = @(
@@ -342,7 +342,7 @@
                 Area        = 'Security'
                 Category    = 'Services'
                 Severity    = ''
-                RiskLevel   = 0
+                Importance   = 0
                 Description = 'Due to security concerns SPOOLER should be disabled and stopped. However in some cases it may be required to have SPOOLER service up and running to cleanup stale printer objects from AD.'
                 Resolution  = ''
                 Resources   = @(

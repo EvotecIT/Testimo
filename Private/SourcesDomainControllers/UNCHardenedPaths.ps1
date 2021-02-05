@@ -11,7 +11,7 @@
             Area        = ''
             Description = 'Hardened UNC Paths must be defined to require mutual authentication and integrity for at least the \\*\SYSVOL and \\*\NETLOGON shares.'
             Resolution  = 'Harden UNC Paths for SYSVOL and NETLOGON'
-            RiskLevel   = 10
+            Importance   = 10
             Resources   = @(
                 'https://docs.microsoft.com/en-us/archive/blogs/leesteve/demystifying-the-unc-hardening-dilemma'
                 'https://www.stigviewer.com/stig/windows_10/2016-06-24/finding/V-63577'
