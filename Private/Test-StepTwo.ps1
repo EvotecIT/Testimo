@@ -196,7 +196,7 @@
             }
             $ReportExtended = $ReportExtended -join ', '
         }
-        Out-Status -Text $TestName -Status $ReportResult -ExtendedValue $ReportExtended -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
+        Out-Status -Text $TestName -Status $ReportResult -ExtendedValue $ReportExtended -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Test $Test
         return $ReportResult
     }
 
@@ -206,7 +206,7 @@
         try {
             & $ScriptBlock
         } catch {
-            Out-Status -Text $TestName -Status $false -ExtendedValue $_.Exception.Message -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
+            Out-Status -Text $TestName -Status $false -ExtendedValue $_.Exception.Message -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Test $Test
             return $False
         }
     }
