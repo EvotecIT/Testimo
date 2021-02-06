@@ -52,6 +52,11 @@
         } else {
             $Category = 'Not defined'
         }
+        if ($null -ne $Source.Details.ActionType) {
+            $Action = $Script:ActionType[$Source.Details.ActionType]
+        } else {
+            $Action = 'Not defined'
+        }
     } else {
         if ($null -ne $Test.Details.Importance) {
             $ImportanceInformation = $Script:Importance[$Test.Details.Importance]
@@ -63,6 +68,11 @@
         } else {
             $Category = 'Not defined'
         }
+        if ($null -ne $Test.Details.ActionType) {
+            $Action = $Script:ActionType[$Test.Details.ActionType]
+        } else {
+            $Action = 'Not defined'
+        }
     }
 
     $Output = [PSCustomObject]@{
@@ -70,6 +80,7 @@
         Type             = $TestType
         Category         = $Category
         Status           = $Status
+        Action           = $Action
         Importance       = $ImportanceInformation
         Extended         = $ExtendedValue
         Domain           = $Domain

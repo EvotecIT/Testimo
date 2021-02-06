@@ -25,7 +25,7 @@
     New-HTML -FilePath $FilePath -Online:$Online {
         New-HTMLSectionStyle -BorderRadius 0px -HeaderBackGroundColor Grey -RemoveShadow
         New-HTMLTableOption -DataStore JavaScript -BoolAsString
-        New-HTMLTabStyle -BorderRadius 0px -BackgroundColorActive DodgerBlue # SlateGrey
+        New-HTMLTabStyle -BorderRadius 0px -BackgroundColorActive SlateGrey
 
         New-HTMLHeader {
             New-HTMLSection -Invisible {
@@ -40,19 +40,22 @@
 
         New-HTMLTab -Name 'Summary' -IconBrands galactic-senate {
             New-HTMLSection -HeaderText "Tests results" -HeaderBackGroundColor DarkGray {
-                New-HTMLPanel {
+                New-HTMLContainer {
                     New-HTMLChart {
                         New-ChartPie -Name 'Passed' -Value ($PassedTests.Count) -Color $ColorPassed
                         New-ChartPie -Name 'Failed' -Value ($FailedTests.Count) -Color $ColorFailed
                         New-ChartPie -Name 'Skipped' -Value ($SkippedTests.Count) -Color $ColorSkipped
                     }
                     New-HTMLTable -DataTable $TestResults['Summary'] -HideFooter -DisableSearch {
-                        New-HTMLTableContent -ColumnName 'Passed' -BackGroundColor $ColorPassed -Color $ColorPassedText
-                        New-HTMLTableContent -ColumnName 'Failed' -BackGroundColor $ColorFailed -Color $ColorFailedText
-                        New-HTMLTableContent -ColumnName 'Skipped' -BackGroundColor $ColorSkipped -Color $ColorSkippedText
-                    } -DataStore HTML #-DisablePaging -Buttons @()
-                }
-                New-HTMLPanel {
+                        New-HTMLTableContent -ColumnName 'Passed' -BackgroundColor $ColorPassed -Color $ColorPassedText
+                        New-HTMLTableContent -ColumnName 'Failed' -BackgroundColor $ColorFailed -Color $ColorFailedText
+                        New-HTMLTableContent -ColumnName 'Skipped' -BackgroundColor $ColorSkipped -Color $ColorSkippedText
+                    } -DataStore HTML -Buttons @() -DisablePaging
+                } -Width 35%
+                New-HTMLContainer {
+                    New-HTMLText -Text @(
+                        "Below you can find overall summary of all tests executed in this Testimo run."
+                    )
                     New-HTMLTable -DataTable $TestResults['Results'] {
                         New-HTMLTableCondition -Name 'Status' -Value $true -BackgroundColor $ColorPassed -Color $ColorPassedText #-Row
                         New-HTMLTableCondition -Name 'Status' -Value $false -BackgroundColor $ColorFailed -Color $ColorFailedText #-Row
@@ -68,9 +71,9 @@
                     $Data = $TestResults['Forest']['Tests'][$Source]['Data']
                     $Information = $TestResults['Forest']['Tests'][$Source]['Information']
                     $SourceCode = $TestResults['Forest']['Tests'][$Source]['SourceCode']
-                    $Results = $TestResults['Forest']['Tests'][$Source]['Results'] | Select-Object -Property Name, Type, Category, Importance, Status, Extended
+                    $Results = $TestResults['Forest']['Tests'][$Source]['Results'] | Select-Object -Property Name, Type, Category, Status, Importance, Action, Extended
                     $WarningsAndErrors = $TestResults['Forest']['Tests'][$Source]['WarningsAndErrors']
-                    Get-SectionReport -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors
+                    Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors
                 }
             }
         }
@@ -91,9 +94,9 @@
                                 $Name = $TestResults['Domains'][$Domain]['Tests'][$Source]['Name']
                                 $Data = $TestResults['Domains'][$Domain]['Tests'][$Source]['Data']
                                 $SourceCode = $TestResults['Domains'][$Domain]['Tests'][$Source]['SourceCode']
-                                $Results = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results'] | Select-Object -Property Name, Type, Category, Importance, Status, Extended, Domain
+                                $Results = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results'] | Select-Object -Property Name, Type, Category, Status, Importance, Action, Extended, Domain
                                 $WarningsAndErrors = $TestResults['Domains'][$Domain]['Tests'][$Source]['WarningsAndErrors']
-                                Get-SectionReport -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors
+                                Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors
                             }
                         }
                     }
@@ -124,10 +127,10 @@
                                                     $Name = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Name']
                                                     $Data = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Data']
                                                     $SourceCode = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['SourceCode']
-                                                    $Results = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Results'] | Select-Object -Property Name, Type, Category, Importance, Status, Extended, Domain, DomainController
+                                                    $Results = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Results'] | Select-Object -Property Name, Type, Category, Status, Importance, Action, Extended, Domain, DomainController
                                                     $WarningsAndErrors = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['WarningsAndErrors']
 
-                                                    Get-SectionReport -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors
+                                                    Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors
                                                 }
                                             }
                                         }

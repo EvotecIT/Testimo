@@ -1,4 +1,4 @@
-function Get-SectionReport {
+function Start-TestimoReportSection {
     [cmdletBinding()]
     param(
         [string] $Name,
@@ -31,7 +31,7 @@ function Get-SectionReport {
                             New-HTMLTable -DataTable $WarningsAndErrors -Filtering -PagingLength 7
                         }
                     }
-                }
+                } #-Width 35%
                 New-HTMLContainer {
                     if ($Information.Source.Details) {
                         if ($Information.Source.Details.Description) {
