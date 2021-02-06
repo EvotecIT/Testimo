@@ -7,11 +7,10 @@
             Test-ADRolesAvailability -Forest $ForestName
         }
         Details        = [ordered] @{
-            Area        = 'Health'
-            Category    = 'Features'
+            Category    = 'Health'
             Description = ''
             Resolution  = ''
-            Importance   = 10
+            Importance  = 10
             Severity    = 'High'
             Resources   = @(
 

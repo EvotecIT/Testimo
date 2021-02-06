@@ -10,7 +10,7 @@
             Category    = 'Configuration'
             Description = 'Active Directory is critical system for any company. Having a proper, up to date backup in place is crucial.'
             Importance  = 10
-            Severity    = 'High'
+            Action      = 3
             Resources   = @(
                 '[Backing Up and Restoring an Active Directory Server](https://docs.microsoft.com/en-us/windows/win32/ad/backing-up-and-restoring-an-active-directory-server)'
                 '[Backup Active Directory (Full and Incremental Backup)](https://activedirectorypro.com/backup-active-directory/)'
@@ -33,6 +33,7 @@
             Details    = [ordered] @{
                 Category   = 'Configuration'
                 Importance = 10
+                Action     = 3
             }
         }
     }

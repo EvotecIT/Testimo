@@ -11,12 +11,12 @@ $Script:Importance = @{
     9  = 'Signiciant (9)'
     10 = 'Extream (10)'
 }
-$Script:ImportanceType = @{
+$Script:ActionType = @{
     0 = 'Informational'
     1 = 'Recommended'
     2 = 'Must Have'
 }
-$Script:Impact = @{
+$Script:PotentialImpact = @{
     0 = 'Neglible'
     1 = 'Minor'
     3 = 'Moderate'
