@@ -76,7 +76,7 @@ Please keep in mind that there is currently known issue that running all tests w
 
 ## ChangeLog
 
-- 0.0.56
+- 0.0.56 - 2021.02.07
   - [x] Tests
     - [x] Improved `ForestOrphanedAdmins`
     - [x] Added `ForestConfigurationPartitionOwners`
@@ -84,7 +84,7 @@ Please keep in mind that there is currently known issue that running all tests w
     - [x] Improved `DomainDomainControllers`
     - [x] Improved `DCTimeSynchronizationExternal`
   - [x] Reporting
-    - [x] HTML report updated with new format
+    - [x] HTML report updated with new format, still not final
     - [x] Added Importance/Category visibility in HTML -> if only those were updated in all tests 🤣
     - [x] Added Description visibility in HTML -> if only those were updated in all tests 🤣
     - [x] Added Resources visibility in HTML -> if only those were updated in all tests 🤣
