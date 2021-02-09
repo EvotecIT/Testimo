@@ -82,7 +82,7 @@ Please keep in mind that there is currently known issue that running all tests w
     - [x] Parameter for `Invoke-Testimo` **HideHTML** was added and prevents auto-opening of HTML
     - [x] Parameter for `Invoke-Testimo` **HideSteps**/**HideSolution** was added to hide solution/steps in case it's not needed
     - [x] Added additional information about HTML report generating where the file was saved (useful if no FilePath was provided)
-    - [x] Parameter `ReportPath` was renamed to `FilePath`, `ReportPath` is still an alias - to get it inline with [GPOZaurr](https://github.com/EvotecIT/GPOZaurr)
+    - [x] Parameter `ReportPath` was renamed to `FilePath`, `ReportPath` is still an alias - to get it the same as [GPOZaurr](https://github.com/EvotecIT/GPOZaurr)
   - [x] Reporting
     - [x] Solution/Steps added to Report when available for display
 - 0.0.56 - 2021.02.07
