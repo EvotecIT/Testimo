@@ -14,7 +14,7 @@ $Script:Importance = @{
 $Script:ActionType = @{
     0 = 'Informational'
     1 = 'Recommended'
-    2 = 'Must Have'
+    2 = 'Must Implement/Have'
 }
 $Script:PotentialImpact = @{
     0 = 'Neglible'
