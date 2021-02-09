@@ -23,8 +23,10 @@ function Invoke-Testimo {
         [switch] $ShowErrors,
         [switch] $ExtendedResults,
         [Object] $Configuration,
-        [string] $ReportPath,
-        [switch] $ShowReport,
+        [alias('ReportPath')][string] $FilePath,
+        [Parameter(DontShow)][switch] $ShowReport,
+        [switch] $HideHTML,
+        [alias('HideSolution')][switch] $HideSteps,
         [switch] $SkipRODC,
         [switch] $Online,
         [string[]] $ExternalTests
@@ -33,6 +35,9 @@ function Invoke-Testimo {
         $Script:DefaultSources = Get-TestimoSources -Enabled -SourcesOnly
     } else {
         Set-TestsStatus -Sources $Script:DefaultSources
+    }
+    if ($ShowReport) {
+        Write-Warning "Invoke-Testimo - Paramter ShowReport is deprecated. By default HTML report will open up after running Testimo. If you want to prevent that, use HideHTML switch instead. This message and parameter will be removed in future releases."
     }
 
     $Script:Reporting = [ordered] @{ }
@@ -132,9 +137,14 @@ function Invoke-Testimo {
             $Script:TestResults
         }
     }
-    if ($ReportPath -or $ShowReport) {
-        Start-TestimoReport -FilePath $ReportPath -Online:$Online -ShowHTML:$ShowReport -TestResults $Script:Reporting
+    if (-not $FilePath) {
+        $FilePath = Get-FileName -Extension 'html' -Temporary
     }
+    $Time = Start-TimeLog
+    Out-Informative -OverrideTitle 'Testimo' -Text 'HTML Report Generation Started' -Level 0 -Status $null #-ExtendedValue $Script:Reporting['Version']
+    Start-TestimoReport -FilePath $FilePath -Online:$Online -ShowHTML:(-not $HideHTML.IsPresent) -TestResults $Script:Reporting -HideSteps:$HideSteps
+    $TimeEnd = Stop-TimeLog -Time $Time
+    Out-Informative -OverrideTitle 'Testimo' -Text "HTML Report Saved to $FilePath" -Level 0 -Status $null -ExtendedValue $TimeEnd
 }
 
 [scriptblock] $SourcesAutoCompleter = {
