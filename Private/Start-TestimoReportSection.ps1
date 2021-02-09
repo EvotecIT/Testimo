@@ -6,7 +6,8 @@ function Start-TestimoReportSection {
         [System.Collections.IDictionary]$Information,
         [Scriptblock]$SourceCode,
         [PSCustomObject] $Results,
-        [Array] $WarningsAndErrors
+        [Array] $WarningsAndErrors,
+        [switch] $HideSteps
     )
     [Array] $PassedTestsSingular = $Results | Where-Object { $_.Status -eq $true }
     [Array] $FailedTestsSingular = $Results | Where-Object { $_.Status -eq $false }
@@ -74,6 +75,11 @@ function Start-TestimoReportSection {
                         }
                     } -PagingLength 7
                 }
+            }
+        }
+        if ($Information.Solution -and $HideSteps.IsPresent -eq $false) {
+            New-HTMLSection -Name 'Solution' {
+                & $Information.Solution
             }
         }
     }

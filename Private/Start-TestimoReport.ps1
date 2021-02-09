@@ -4,7 +4,8 @@
         [System.Collections.IDictionary] $TestResults,
         [string] $FilePath,
         [switch] $Online,
-        [switch] $ShowHTML
+        [switch] $ShowHTML,
+        [switch] $HideSteps
     )
 
     if ($FilePath -eq '') {
@@ -47,9 +48,9 @@
                         New-ChartPie -Name 'Skipped' -Value ($SkippedTests.Count) -Color $ColorSkipped
                     }
                     New-HTMLTable -DataTable $TestResults['Summary'] -HideFooter -DisableSearch {
-                        New-HTMLTableContent -ColumnName 'Passed' -BackgroundColor $ColorPassed -Color $ColorPassedText
-                        New-HTMLTableContent -ColumnName 'Failed' -BackgroundColor $ColorFailed -Color $ColorFailedText
-                        New-HTMLTableContent -ColumnName 'Skipped' -BackgroundColor $ColorSkipped -Color $ColorSkippedText
+                        New-HTMLTableContent -ColumnName 'Passed' -BackGroundColor $ColorPassed -Color $ColorPassedText
+                        New-HTMLTableContent -ColumnName 'Failed' -BackGroundColor $ColorFailed -Color $ColorFailedText
+                        New-HTMLTableContent -ColumnName 'Skipped' -BackGroundColor $ColorSkipped -Color $ColorSkippedText
                     } -DataStore HTML -Buttons @() -DisablePaging
                 } -Width 35%
                 New-HTMLContainer {
@@ -96,7 +97,7 @@
                                 $SourceCode = $TestResults['Domains'][$Domain]['Tests'][$Source]['SourceCode']
                                 $Results = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results'] | Select-Object -Property Name, Type, Category, Status, Importance, Action, Extended, Domain
                                 $WarningsAndErrors = $TestResults['Domains'][$Domain]['Tests'][$Source]['WarningsAndErrors']
-                                Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors
+                                Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -HideSteps:$HideSteps
                             }
                         }
                     }
