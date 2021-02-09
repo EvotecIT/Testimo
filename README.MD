@@ -76,6 +76,15 @@ Please keep in mind that there is currently known issue that running all tests w
 
 ## ChangeLog
 
+- 0.0.57 - 2021.02.09
+  - [x] General
+    - [x] Parameter for `Invoke-Testimo` **ShowReport** is deprecated and doesn't do anything
+    - [x] Parameter for `Invoke-Testimo` **HideHTML** was added and prevents auto-opening of HTML
+    - [x] Parameter for `Invoke-Testimo` **HideSteps**/**HideSolution** was added to hide solution/steps in case it's not needed
+    - [x] Added additional information about HTML report generating where the file was saved (useful if no FilePath was provided)
+    - [x] Parameter `ReportPath` was renamed to `FilePath`, `ReportPath` is still an alias - to get it inline with [GPOZaurr](https://github.com/EvotecIT/GPOZaurr)
+  - [ ] Reporting
+    - [ ] Solution/Steps added to Report when available for display
 - 0.0.56 - 2021.02.07
   - [x] Tests
     - [x] Improved `ForestOrphanedAdmins`
