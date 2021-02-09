@@ -2,16 +2,16 @@
     Enable          = $true
     Scope           = 'Domain'
     Source          = @{
-        Name           = "Domain Controller Owners"
+        Name           = "Domain Controller Objects"
         Data           = {
             Get-WinADForestControllerInformation -Forest $ForestName -Domain $Domain
         }
         Requirements   = @{}
         Details        = [ordered] @{
-            Area        = 'Configuration'
-            Category    = 'Security'
+            Category    = 'Cleanup', 'Security'
             Severity    = ''
-            Importance   = 0
+            Importance  = 0
+            ActionType  = 0
             Description = "Following test verifies Domain Controller status in Active Directory. It verifies critical aspects of Domain Controler such as Domain Controller Owner and Domain Controller Manager. It also checks if Domain Controller is enabled, ip address matches dns ip address, verifies whether LastLogonDate and LastPasswordDate are within thresholds. Those additional checks are there to find dead or offline DCs that could potentially impact Active Directory functionality. "
             Resolution  = ''
             Resources   = @(
@@ -32,8 +32,9 @@
                 WhereObject   = { $_.Enabled -ne $true }
             }
             Details    = [ordered] @{
-                Category  = 'Cleanup'
+                Category   = 'Cleanup'
                 Importance = 0
+                ActionType = 0
             }
         }
         OwnerType          = @{
@@ -48,8 +49,9 @@
                 WhereObject   = { $_.OwnerType -ne 'Administrative' }
             }
             Details    = [ordered] @{
-                Category  = 'Security'
+                Category   = 'Security'
                 Importance = 10
+                ActionType = 2
             }
         }
         ManagedBy          = @{
@@ -61,8 +63,9 @@
                 WhereObject   = { $_.ManagerNotSet -ne $true }
             }
             Details    = [ordered] @{
-                Category  = 'Security'
+                Category   = 'Security'
                 Importance = 10
+                ActionType = 2
             }
         }
         DNSStatus          = @{
@@ -74,8 +77,9 @@
                 WhereObject   = { $_.DNSStatus -ne $true }
             }
             Details    = [ordered] @{
-                Category  = 'Cleanup'
+                Category   = 'Cleanup'
                 Importance = 0
+                ActionType = 0
             }
         }
         IPAddressStatusV4  = @{
@@ -87,8 +91,9 @@
                 WhereObject   = { $_.IPAddressStatusV4 -ne $true }
             }
             Details    = [ordered] @{
-                Category  = 'Cleanup'
+                Category   = 'Cleanup'
                 Importance = 0
+                ActionType = 0
             }
         }
         IPAddressStatusV6  = @{
@@ -100,8 +105,9 @@
                 WhereObject   = { $_.IPAddressStatusV6 -ne $true }
             }
             Details    = [ordered] @{
-                Category  = 'Cleanup'
+                Category   = 'Cleanup'
                 Importance = 0
+                ActionType = 0
             }
         }
         IPAddressSingleV4  = @{
@@ -113,8 +119,9 @@
                 WhereObject   = { $_.IPAddressHasOneIpV4 -ne $true }
             }
             Details    = [ordered] @{
-                Category  = 'Cleanup'
+                Category   = 'Cleanup'
                 Importance = 0
+                ActionType = 1
             }
         }
         IPAddressSingleV6  = @{
@@ -126,8 +133,9 @@
                 WhereObject   = { $_.IPAddressHasOneipV6 -ne $true }
             }
             Details    = [ordered] @{
-                Category  = 'Cleanup'
+                Category   = 'Cleanup'
                 Importance = 0
+                ActionType = 1
             }
         }
         PasswordLastChange = @{
@@ -139,8 +147,9 @@
                 WhereObject   = { $_.PasswordLastChangedDays -ge 60 }
             }
             Details    = [ordered] @{
-                Category  = 'Cleanup'
-                Importance = 0
+                Category   = 'Cleanup'
+                Importance = 1
+                ActionType = 1
             }
         }
         LastLogonDays      = @{
@@ -152,8 +161,9 @@
                 WhereObject   = { $_.LastLogonDays -ge 15 }
             }
             Details    = [ordered] @{
-                Category  = 'Cleanup'
-                Importance = 0
+                Category   = 'Cleanup'
+                Importance = 1
+                ActionType = 1
             }
         }
     }

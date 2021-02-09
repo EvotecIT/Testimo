@@ -85,6 +85,8 @@ Please keep in mind that there is currently known issue that running all tests w
     - [x] Parameter `ReportPath` was renamed to `FilePath`, `ReportPath` is still an alias - to get it the same as [GPOZaurr](https://github.com/EvotecIT/GPOZaurr)
   - [x] Reporting
     - [x] Solution/Steps added to Report when available for display
+  - [x] Tests
+    - [x] Improved `DomainDomainControllers`
 - 0.0.56 - 2021.02.07
   - [x] Tests
     - [x] Improved `ForestOrphanedAdmins`
