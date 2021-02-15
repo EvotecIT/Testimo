@@ -56,7 +56,7 @@
                 New-HTMLContainer {
                     New-HTMLText -Text @(
                         "Below you can find overall summary of all tests executed in this Testimo run."
-                    )
+                    ) -FontSize 10pt
                     New-HTMLTable -DataTable $TestResults['Results'] {
                         New-HTMLTableCondition -Name 'Status' -Value $true -BackgroundColor $ColorPassed -Color $ColorPassedText #-Row
                         New-HTMLTableCondition -Name 'Status' -Value $false -BackgroundColor $ColorFailed -Color $ColorFailedText #-Row
@@ -72,7 +72,7 @@
                     $Data = $TestResults['Forest']['Tests'][$Source]['Data']
                     $Information = $TestResults['Forest']['Tests'][$Source]['Information']
                     $SourceCode = $TestResults['Forest']['Tests'][$Source]['SourceCode']
-                    $Results = $TestResults['Forest']['Tests'][$Source]['Results'] | Select-Object -Property Name, Type, Category, Status, Importance, Action, Extended
+                    $Results = $TestResults['Forest']['Tests'][$Source]['Results'] | Select-Object -Property DisplayName, Type, Category, Status, Importance, Action, Extended
                     $WarningsAndErrors = $TestResults['Forest']['Tests'][$Source]['WarningsAndErrors']
                     Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors
                 }
@@ -95,7 +95,7 @@
                                 $Name = $TestResults['Domains'][$Domain]['Tests'][$Source]['Name']
                                 $Data = $TestResults['Domains'][$Domain]['Tests'][$Source]['Data']
                                 $SourceCode = $TestResults['Domains'][$Domain]['Tests'][$Source]['SourceCode']
-                                $Results = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results'] | Select-Object -Property Name, Type, Category, Status, Importance, Action, Extended, Domain
+                                $Results = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results'] | Select-Object -Property DisplayName, Type, Category, Status, Importance, Action, Extended, Domain
                                 $WarningsAndErrors = $TestResults['Domains'][$Domain]['Tests'][$Source]['WarningsAndErrors']
                                 Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -HideSteps:$HideSteps
                             }
@@ -128,7 +128,7 @@
                                                     $Name = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Name']
                                                     $Data = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Data']
                                                     $SourceCode = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['SourceCode']
-                                                    $Results = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Results'] | Select-Object -Property Name, Type, Category, Status, Importance, Action, Extended, Domain, DomainController
+                                                    $Results = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Results'] | Select-Object -Property DisplayName, Type, Category, Status, Importance, Action, Extended, Domain, DomainController
                                                     $WarningsAndErrors = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['WarningsAndErrors']
 
                                                     Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors

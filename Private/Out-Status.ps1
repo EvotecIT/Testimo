@@ -77,6 +77,7 @@
 
     $Output = [PSCustomObject]@{
         Name             = $TestText
+        DisplayName      = $Text
         Type             = $TestType
         Category         = $Category
         Status           = $Status

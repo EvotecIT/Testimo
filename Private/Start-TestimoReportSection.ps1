@@ -54,7 +54,29 @@ function Start-TestimoReportSection {
                             }
                         }
                     }
+                    New-HTMLText -FontSize 10pt -Text 'Summary of Test results for ', $Name -FontWeight bold
+                    New-HTMLText -FontSize 10pt -Text @(
+                        'If any of the tests below have '
+                        'Status',
+                        ' set to '
+                        ' FALSE ',
+                        'AD Team needs to investigate according to the steps provided or using their internal processes (for example SOP). '
+                        "It's important to have a read of attached blog posts to understand more about described problems. "
+                        "Please keep in mind that while Status may be "
+                        "TRUE"
+                        " or "
+                        "FALSE"
+                        " it's important to take into account "
+                        "Importance"
+                        " and "
+                        "Action"
+                        " columns. "
+                    ) -FontWeight normal, bold, normal, bold, normal, normal, normal, bold, normal, bold, normal, bold, normal, bold, normal
                     New-HTMLTable -DataTable $Results {
+                        #New-HTMLTableCondition -Name 'Action' -Value 'Informational' -BackgroundColor DeepSkyBlue -Row
+                        #New-HTMLTableCondition -Name 'Action' -Value 'Recommended' -BackgroundColor MediumTurquoise -Row
+                        #New-HTMLTableCondition -Name 'Action' -Value 'Must Implement/Have' -BackgroundColor Aquamarine -Row
+
                         New-HTMLTableCondition -Name 'Status' -Value $true -BackgroundColor $ColorPassed -Color $ColorPassedText #-Row
                         New-HTMLTableCondition -Name 'Status' -Value $false -BackgroundColor $ColorFailed -Color $ColorFailedText #-Row
                         New-HTMLTableCondition -Name 'Status' -Value $null -BackgroundColor $ColorSkipped -Color $ColorSkippedText #-Row

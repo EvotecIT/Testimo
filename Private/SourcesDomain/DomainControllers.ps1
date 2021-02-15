@@ -25,7 +25,7 @@
     Tests           = [ordered] @{
         Enabled            = @{
             Enable     = $true
-            Name       = 'DC should be enabled'
+            Name       = 'DC object should be enabled'
             Parameters = @{
                 ExpectedCount = 0
                 OperationType = 'eq'
@@ -39,7 +39,7 @@
         }
         OwnerType          = @{
             Enable     = $true
-            Name       = 'OwnerType should be Administrative'
+            Name       = 'DC OwnerType should be Administrative'
             Parameters = @{
                 #ExpectedValue = 'Administrative'
                 #Property      = 'OwnerType'
@@ -56,7 +56,7 @@
         }
         ManagedBy          = @{
             Enable     = $true
-            Name       = 'ManagedBy should be empty'
+            Name       = 'DC field ManagedBy should be empty'
             Parameters = @{
                 ExpectedCount = 0
                 OperationType = 'eq'
@@ -140,7 +140,7 @@
         }
         PasswordLastChange = @{
             Enable     = $true
-            Name       = 'Password Change Less Than X days'
+            Name       = 'DC Password Change Less Than X days'
             Parameters = @{
                 ExpectedCount = 0
                 OperationType = 'eq'
@@ -154,7 +154,7 @@
         }
         LastLogonDays      = @{
             Enable     = $true
-            Name       = 'Last Logon Less Than X days'
+            Name       = 'DC Last Logon Less Than X days'
             Parameters = @{
                 ExpectedCount = 0
                 OperationType = 'eq'
