@@ -18,6 +18,8 @@
                 '[Domain member: Maximum machine account password age](https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/domain-member-maximum-machine-account-password-age)'
                 '[Machine Account Password Process](https://techcommunity.microsoft.com/t5/ask-the-directory-services-team/machine-account-password-process/ba-p/396026)'
                 '[How to Configure DNS on a Domain Controller with Two IP Addresses](https://petri.com/configure-dns-on-domain-controller-two-ip-addresses)'
+                '[USN rollback](https://docs.microsoft.com/en-us/troubleshoot/windows-server/identity/detect-and-recover-from-usn-rollback)'
+                '[Active Directory Replication Overview & USN Rollback: What It Is & How It Happens](https://adsecurity.org/?p=515)'
             )
         }
         ExpectedOutput = $true
