@@ -39,34 +39,45 @@
             }
         }
 
-        New-HTMLTab -Name 'Summary' -IconBrands galactic-senate {
-            New-HTMLSection -HeaderText "Tests results" -HeaderBackGroundColor DarkGray {
-                New-HTMLContainer {
-                    New-HTMLChart {
-                        New-ChartPie -Name 'Passed' -Value ($PassedTests.Count) -Color $ColorPassed
-                        New-ChartPie -Name 'Failed' -Value ($FailedTests.Count) -Color $ColorFailed
-                        New-ChartPie -Name 'Skipped' -Value ($SkippedTests.Count) -Color $ColorSkipped
+        # Find amount of sources used. If just one, skip summary
+        $NumberOfSourcesExecuted = 0
+        $NumberOfSourcesExecuted += $TestResults['Forest']['Tests'].Count
+        foreach ($Domain in $TestResults['Domains'].Keys) {
+            $NumberOfSourcesExecuted += $TestResults['Domains'][$Domain]['Tests'].Count
+        }
+
+        if ($NumberOfSourcesExecuted -gt 1) {
+            New-HTMLTab -Name 'Summary' -IconBrands galactic-senate {
+                New-HTMLSection -HeaderText "Tests results" -HeaderBackGroundColor DarkGray {
+                    New-HTMLContainer {
+                        New-HTMLChart {
+                            New-ChartPie -Name 'Passed' -Value ($PassedTests.Count) -Color $ColorPassed
+                            New-ChartPie -Name 'Failed' -Value ($FailedTests.Count) -Color $ColorFailed
+                            New-ChartPie -Name 'Skipped' -Value ($SkippedTests.Count) -Color $ColorSkipped
+                        }
+                        New-HTMLTable -DataTable $TestResults['Summary'] -HideFooter -DisableSearch {
+                            New-HTMLTableContent -ColumnName 'Passed' -BackGroundColor $ColorPassed -Color $ColorPassedText
+                            New-HTMLTableContent -ColumnName 'Failed' -BackGroundColor $ColorFailed -Color $ColorFailedText
+                            New-HTMLTableContent -ColumnName 'Skipped' -BackGroundColor $ColorSkipped -Color $ColorSkippedText
+                        } -DataStore HTML -Buttons @() -DisablePaging
+                    } -Width 35%
+                    New-HTMLContainer {
+                        New-HTMLText -Text @(
+                            "Below you can find overall summary of all tests executed in this Testimo run."
+                        ) -FontSize 10pt
+                        New-HTMLTable -DataTable $TestResults['Results'] {
+                            New-HTMLTableCondition -Name 'Status' -Value $true -BackgroundColor $ColorPassed -Color $ColorPassedText #-Row
+                            New-HTMLTableCondition -Name 'Status' -Value $false -BackgroundColor $ColorFailed -Color $ColorFailedText #-Row
+                            New-HTMLTableCondition -Name 'Status' -Value $null -BackgroundColor $ColorSkipped -Color $ColorSkippedText #-Row
+                        } -Filtering
                     }
-                    New-HTMLTable -DataTable $TestResults['Summary'] -HideFooter -DisableSearch {
-                        New-HTMLTableContent -ColumnName 'Passed' -BackGroundColor $ColorPassed -Color $ColorPassedText
-                        New-HTMLTableContent -ColumnName 'Failed' -BackGroundColor $ColorFailed -Color $ColorFailedText
-                        New-HTMLTableContent -ColumnName 'Skipped' -BackGroundColor $ColorSkipped -Color $ColorSkippedText
-                    } -DataStore HTML -Buttons @() -DisablePaging
-                } -Width 35%
-                New-HTMLContainer {
-                    New-HTMLText -Text @(
-                        "Below you can find overall summary of all tests executed in this Testimo run."
-                    ) -FontSize 10pt
-                    New-HTMLTable -DataTable $TestResults['Results'] {
-                        New-HTMLTableCondition -Name 'Status' -Value $true -BackgroundColor $ColorPassed -Color $ColorPassedText #-Row
-                        New-HTMLTableCondition -Name 'Status' -Value $false -BackgroundColor $ColorFailed -Color $ColorFailedText #-Row
-                        New-HTMLTableCondition -Name 'Status' -Value $null -BackgroundColor $ColorSkipped -Color $ColorSkippedText #-Row
-                    } -Filtering
                 }
             }
         }
         if ($TestResults['Forest']['Tests'].Count -gt 0) {
-            New-HTMLTab -Name 'Forest' -IconBrands first-order {
+            # There's at least 1 forest test - so lets go
+            if ($NumberOfSourcesExecuted -eq 1) {
+                # there's just one forest test, and only 1 forest test in total so we don't need tabs
                 foreach ($Source in $TestResults['Forest']['Tests'].Keys) {
                     $Name = $TestResults['Forest']['Tests'][$Source]['Name']
                     $Data = $TestResults['Forest']['Tests'][$Source]['Data']
@@ -75,6 +86,18 @@
                     $Results = $TestResults['Forest']['Tests'][$Source]['Results'] | Select-Object -Property DisplayName, Type, Category, Status, Importance, Action, Extended
                     $WarningsAndErrors = $TestResults['Forest']['Tests'][$Source]['WarningsAndErrors']
                     Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors
+                }
+            } else {
+                New-HTMLTab -Name 'Forest' -IconBrands first-order {
+                    foreach ($Source in $TestResults['Forest']['Tests'].Keys) {
+                        $Name = $TestResults['Forest']['Tests'][$Source]['Name']
+                        $Data = $TestResults['Forest']['Tests'][$Source]['Data']
+                        $Information = $TestResults['Forest']['Tests'][$Source]['Information']
+                        $SourceCode = $TestResults['Forest']['Tests'][$Source]['SourceCode']
+                        $Results = $TestResults['Forest']['Tests'][$Source]['Results'] | Select-Object -Property DisplayName, Type, Category, Status, Importance, Action, Extended
+                        $WarningsAndErrors = $TestResults['Forest']['Tests'][$Source]['WarningsAndErrors']
+                        Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors
+                    }
                 }
             }
         }

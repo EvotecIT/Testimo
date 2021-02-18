@@ -99,7 +99,7 @@ function Start-TestimoReportSection {
                 }
             }
         }
-        if ($Information.Solution -and $HideSteps.IsPresent -eq $false) {
+        if ($Information.Solution -and $HideSteps.IsPresent -eq $false -and $FailedTestsSingular.Count -gt 0) {
             New-HTMLSection -Name 'Solution' {
                 & $Information.Solution
             }
