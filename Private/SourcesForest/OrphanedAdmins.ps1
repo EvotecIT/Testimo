@@ -14,9 +14,9 @@
             Resources   = @(
                 '[Security Focus: Orphaned AdminCount -eq 1 AD Users](https://blogs.technet.microsoft.com/poshchap/2016/07/29/security-focus-orphaned-admincount-eq-1-ad-users/)'
                 "[Fun with Active Directory's AdminCount Attiribute](https://stealthbits.com/blog/fun-with-active-directorys-admincount-attribute/)"
-                'https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/dn535495(v=ws.11)'
-                'https://technet.microsoft.com/en-us/magazine/2009.09.sdadminholder.aspx'
+                '[AdminSDHolder, Protected Groups and SDPROP](https://technet.microsoft.com/en-us/magazine/2009.09.sdadminholder.aspx)'
                 '[Scanning for Active Directory Privileges & Privileged Accounts](https://adsecurity.org/?p=3658)'
+                'https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/dn535495(v=ws.11)'
             )
         }
         ExpectedOutput = $true
