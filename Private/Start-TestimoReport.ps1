@@ -44,6 +44,7 @@
         $NumberOfSourcesExecuted += $TestResults['Forest']['Tests'].Count
         foreach ($Domain in $TestResults['Domains'].Keys) {
             $NumberOfSourcesExecuted += $TestResults['Domains'][$Domain]['Tests'].Count
+            $NumberOfSourcesExecuted += $TestResults['Domains'][$Domain]['DomainControllers'].Count
         }
 
         if ($NumberOfSourcesExecuted -gt 1) {

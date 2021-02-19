@@ -8,7 +8,8 @@
         [bool] $IsPDC,
         [Object] $ForestInformation,
         [Object] $DomainInformation,
-        [System.Collections.IDictionary] $ForestDetails
+        [System.Collections.IDictionary] $ForestDetails,
+        [switch] $SkipRODC
     )
     $GlobalTime = Start-TimeLog
 
@@ -167,6 +168,7 @@
                 $SourceParameters['ForestName'] = $ForestInformation.Name
                 $SourceParameters['DomainInformation'] = $DomainInformation
                 $SourceParameters['ForestInformation'] = $ForestInformation
+                $SourceParameters['SkipRODC'] = $SkipRODC.IsPresent # bool true/false
                 if ($Script:TestimoConfiguration.Debug.ShowErrors) {
                     & $CurrentSource['Data'] -DomainController $DomainController -Domain $Domain
                     $ErrorMessage = $null

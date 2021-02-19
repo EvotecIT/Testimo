@@ -13,6 +13,13 @@ function Start-TestimoReportSection {
     [Array] $FailedTestsSingular = $Results | Where-Object { $_.Status -eq $false }
     [Array] $SkippedTestsSingular = $Results | Where-Object { $_.Status -ne $true -and $_.Status -ne $false }
 
+    $ColorPassed = 'LawnGreen'
+    $ColorSkipped = 'DeepSkyBlue'
+    $ColorFailed = 'Tomato'
+    $ColorPassedText = 'Black'
+    $ColorFailedText = 'Black'
+    $ColorSkippedText = 'Black'
+
     New-HTMLSection -HeaderText $Name -HeaderBackGroundColor CornflowerBlue -Direction column {
         New-HTMLSection -Invisible -Direction column {
             New-HTMLSection -HeaderText 'Information' {
