@@ -40,6 +40,6 @@
     DataHighlights = {
         New-HTMLTableCondition -Name 'LastBackupDaysAgo' -ComparisonType number -BackgroundColor PaleGreen -Value 2 -Operator lt
         New-HTMLTableCondition -Name 'LastBackupDaysAgo' -ComparisonType number -BackgroundColor Salmon -Value 2 -Operator ge
-        New-HTMLTableCondition -Name 'LastBackupDaysAgo' -ComparisonType number -BackgroundColor Crimson -Value 10 -Operator ge
+        New-HTMLTableCondition -Name 'LastBackupDaysAgo' -ComparisonType number -BackgroundColor Tomato -Value 10 -Operator ge
     }
 }
