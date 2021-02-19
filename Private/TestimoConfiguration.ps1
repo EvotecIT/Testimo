@@ -21,6 +21,7 @@
         ForestTrusts                                 = $Trusts
         ForestConfigurationPartitionOwners           = $ForestConfigurationPartitionOwners
         ForestConfigurationPartitionOwnersContainers = $ForestConfigurationPartitionOwnersContainers
+        DomainLDAP                                   = $DomainLDAP
         DomainDomainControllers                      = $DomainDomainControllers
         DomainRoles                                  = $DomainFSMORoles
         DomainWellKnownFolders                       = $WellKnownFolders

@@ -1,19 +1,19 @@
-﻿$LDAP = @{
-    Enable = $false
-    Scope  = 'DC'
+﻿$DomainLDAP = @{
+    Enable = $true
+    Scope  = 'Domain'
     Source = @{
         Name           = 'LDAP Connectivity'
         Data           = {
-            Test-LDAP -ComputerName $DomainController -WarningAction SilentlyContinue -VerifyCertificate
+            Test-LDAP -Forest $ForestName -IncludeDomains $Domain -SkipRODC:$SkipRODC -WarningAction SilentlyContinue -VerifyCertificate
         }
         Details        = [ordered] @{
             Category    = 'Health'
             Description = ''
-            Resolution  = ''
             Importance  = 0
             ActionType  = 0
             Resources   = @(
-
+                "[Testing LDAP and LDAPS connectivity with PowerShell](https://evotec.xyz/testing-ldap-and-ldaps-connectivity-with-powershell/)"
+                "[2020 LDAP channel binding and LDAP signing requirements for Windows](https://support.microsoft.com/en-us/topic/2020-ldap-channel-binding-and-ldap-signing-requirements-for-windows-ef185fb8-00f7-167d-744c-f299a66fc00a)"
             )
         }
         ExpectedOutput = $true
@@ -22,11 +22,10 @@
         PortLDAP                 = @{
             Enable     = $true
             Name       = 'LDAP Port is Available'
-
             Parameters = @{
-                Property      = 'LDAP'
-                ExpectedValue = $true
+                ExpectedCount = 0
                 OperationType = 'eq'
+                WhereObject   = { $_.LDAP -eq $false }
             }
             Details    = [ordered] @{
                 Category   = 'Health'
@@ -38,9 +37,9 @@
             Enable     = $true
             Name       = 'LDAP SSL Port is Available'
             Parameters = @{
-                Property      = 'LDAPS'
-                ExpectedValue = $true
+                ExpectedCount = 0
                 OperationType = 'eq'
+                WhereObject   = { $_.LDAPS -eq $false }
             }
             Details    = [ordered] @{
                 Category   = 'Health'
@@ -52,9 +51,9 @@
             Enable     = $true
             Name       = 'LDAP GC Port is Available'
             Parameters = @{
-                Property      = 'GlobalCatalogLDAP'
-                ExpectedValue = $true
+                ExpectedCount = 0
                 OperationType = 'eq'
+                WhereObject   = { $_.GlobalCatalogLDAP -eq $false }
             }
             Details    = [ordered] @{
                 Category   = 'Health'
@@ -66,9 +65,9 @@
             Enable     = $true
             Name       = 'LDAP SSL GC Port is Available'
             Parameters = @{
-                Property      = 'GlobalCatalogLDAPS'
-                ExpectedValue = $true
+                ExpectedCount = 0
                 OperationType = 'eq'
+                WhereObject   = { $_.GlobalCatalogLDAPS -eq $false }
             }
             Details    = [ordered] @{
                 Category   = 'Health'
@@ -80,9 +79,9 @@
             Enable     = $true
             Name       = 'LDAP SSL Bind available'
             Parameters = @{
-                Property      = 'LDAPSBind'
-                ExpectedValue = $true
+                ExpectedCount = 0
                 OperationType = 'eq'
+                WhereObject   = { $_.LDAPSBind -eq $false }
             }
             Details    = [ordered] @{
                 Category   = 'Health'
@@ -94,9 +93,9 @@
             Enable     = $true
             Name       = 'LDAP SSL GC Bind is Available'
             Parameters = @{
-                Property      = 'GlobalCatalogLDAPSBind'
-                ExpectedValue = $true
+                ExpectedCount = 0
                 OperationType = 'eq'
+                WhereObject   = { $_.GlobalCatalogLDAPSBind -eq $false }
             }
             Details    = [ordered] @{
                 Category   = 'Health'
@@ -104,41 +103,13 @@
                 ActionType = 2
             }
         }
-        X509NotBefore            = @{
-            Enable     = $true
-            Name       = 'Not Before Date should be within required range'
-            Parameters = @{
-                Property      = 'X509NotBefore'
-                ExpectedValue = Get-Date
-                OperationType = 'lt'
-            }
-            Details    = [ordered] @{
-                Category   = 'Health'
-                Importance = 0
-                ActionType = 0
-            }
-        }
-        X509NotAfter             = @{
-            Enable     = $true
-            Name       = 'Not After Date should be within required range'
-            Parameters = @{
-                Property      = 'X509NotAfter'
-                ExpectedValue = Get-Date
-                OperationType = 'gt'
-            }
-            Details    = [ordered] @{
-                Category   = 'Health'
-                Importance = 0
-                ActionType = 0
-            }
-        }
         X509NotBeforeDays        = @{
             Enable     = $true
             Name       = 'Not Before Days should be less/equal 0'
             Parameters = @{
-                Property      = 'X509NotBeforeDays'
-                ExpectedValue = 0
-                OperationType = 'le'
+                ExpectedCount = 0
+                OperationType = 'eq'
+                WhereObject   = { $_.X509NotBeforeDays -gt 0 }
             }
             Details    = [ordered] @{
                 Category   = 'Health'
@@ -150,9 +121,9 @@
             Enable     = $true
             Name       = 'Not After Days should be more than 10 days'
             Parameters = @{
-                Property      = 'X509NotAfterDays'
-                ExpectedValue = 10
-                OperationType = 'gt'
+                ExpectedCount = 0
+                OperationType = 'eq'
+                WhereObject   = { $_.X509NotAfterDays -lt 10 }
             }
             Details    = [ordered] @{
                 Category   = 'Health'
@@ -164,9 +135,9 @@
             Enable     = $true
             Name       = 'Not After Days should be more than 0 days'
             Parameters = @{
-                Property      = 'X509NotAfterDays'
-                ExpectedValue = 0
-                OperationType = 'gt'
+                ExpectedCount = 0
+                OperationType = 'eq'
+                WhereObject   = { $_.X509NotAfterDays -lt 0 }
             }
             Details    = [ordered] @{
                 Category   = 'Health'
