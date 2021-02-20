@@ -7,7 +7,8 @@ function Start-TestimoReportSection {
         [Scriptblock]$SourceCode,
         [PSCustomObject] $Results,
         [Array] $WarningsAndErrors,
-        [switch] $HideSteps
+        [switch] $HideSteps,
+        [System.Collections.IDictionary]$TestResults
     )
     [Array] $PassedTestsSingular = $Results | Where-Object { $_.Status -eq $true }
     [Array] $FailedTestsSingular = $Results | Where-Object { $_.Status -eq $false }
@@ -42,12 +43,14 @@ function Start-TestimoReportSection {
                 } #-Width 35%
                 New-HTMLContainer {
                     if ($Information.Source.Details) {
-                        if ($Information.Source.Details.Description) {
+                        if ($Information.DataDescription) {
+                            & $Information.DataDescription
+                        } elseif ($Information.Source.Details.Description) {
                             New-HTMLText -Text $Information.Source.Details.Description -FontSize 10pt
                         }
                         if ($Information.Source.Details.Resources) {
                             New-HTMLText -LineBreak
-                            New-HTMLText -Text 'Following resources may be helpful to understand this topic ', ', please make sure to read those to understand this topic before following any instructions.' -FontSize 10pt -FontWeight bold, normal
+                            New-HTMLText -Text 'Following resources may be helpful to understand this topic', ', please make sure to read those to understand this topic before following any instructions.' -FontSize 10pt -FontWeight bold, normal
                             New-HTMLList -FontSize 10pt {
                                 foreach ($Resource in $Information.Source.Details.Resources) {
                                     if ($Resource.StartsWith('[')) {
@@ -80,13 +83,7 @@ function Start-TestimoReportSection {
                         " columns. "
                     ) -FontWeight normal, bold, normal, bold, normal, normal, normal, bold, normal, bold, normal, bold, normal, bold, normal
                     New-HTMLTable -DataTable $Results {
-                        #New-HTMLTableCondition -Name 'Action' -Value 'Informational' -BackgroundColor DeepSkyBlue -Row
-                        #New-HTMLTableCondition -Name 'Action' -Value 'Recommended' -BackgroundColor MediumTurquoise -Row
-                        #New-HTMLTableCondition -Name 'Action' -Value 'Must Implement/Have' -BackgroundColor Aquamarine -Row
-
-                        New-HTMLTableCondition -Name 'Status' -Value $true -BackgroundColor $ColorPassed -Color $ColorPassedText #-Row
-                        New-HTMLTableCondition -Name 'Status' -Value $false -BackgroundColor $ColorFailed -Color $ColorFailedText #-Row
-                        New-HTMLTableCondition -Name 'Status' -Value $null -BackgroundColor $ColorSkipped -Color $ColorSkippedText #-Row
+                        & $TestResults['Configuration']['ResultConditions']
                     } -Filtering
                 }
             }
