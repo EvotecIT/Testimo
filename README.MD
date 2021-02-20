@@ -76,6 +76,17 @@ Please keep in mind that there is currently known issue that running all tests w
 
 ## ChangeLog
 
+- 0.0.58
+  - [x] Tests
+    - [x] Added `DomainLDAP` - takes over `DCLDAP`
+    - [x] Disabled `DCLDAP` by default. Still there just not used.
+    - [x] Improved `ForestOrphanedAdmins`
+    - [x] Improved `ForestConfigurationPartitionOwners`
+    - [x] Improved `DomainDuplicateObjects`
+    - [x] Improved `DomainDomainControllers`
+  - [x] General
+    - [x] Renamed Parameter `ReturnResults` to `PassThru` (left as an alias)
+    - [x] Reporting is still getting more and more changes
 - 0.0.57 - 2021.02.09
   - [x] General
     - [x] Parameter for `Invoke-Testimo` **ShowReport** is deprecated and doesn't do anything
