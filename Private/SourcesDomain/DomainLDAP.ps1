@@ -1,14 +1,14 @@
 ﻿$DomainLDAP = @{
-    Enable = $true
-    Scope  = 'Domain'
-    Source = @{
+    Enable          = $true
+    Scope           = 'Domain'
+    Source          = @{
         Name           = 'LDAP Connectivity'
         Data           = {
             Test-LDAP -Forest $ForestName -IncludeDomains $Domain -SkipRODC:$SkipRODC -WarningAction SilentlyContinue -VerifyCertificate
         }
         Details        = [ordered] @{
             Category    = 'Health'
-            Description = ''
+            Description = 'Domain Controllers require certain ports to be open, and serving proper certificate for SSL connectivity. '
             Importance  = 0
             ActionType  = 0
             Resources   = @(
@@ -18,7 +18,7 @@
         }
         ExpectedOutput = $true
     }
-    Tests  = [ordered] @{
+    Tests           = [ordered] @{
         PortLDAP                 = @{
             Enable     = $true
             Name       = 'LDAP Port is Available'
@@ -145,5 +145,45 @@
                 ActionType = 2
             }
         }
+    }
+    DataDescription = {
+        New-HTMLSpanStyle -FontSize 10pt {
+            New-HTMLText -Text @(
+                'Domain Controllers require certain ports for LDAP connectivity to be open, and serving proper certificate for SSL connectivity. '
+                'Following ports are required to be available: '
+            )
+            New-HTMLList {
+                New-HTMLListItem -Text 'LDAP port 389'
+                New-HTMLListItem -Text 'LDAP SSL port 636'
+                New-HTMLListItem -Text 'LDAP Global Catalog port 3268'
+                New-HTMLListItem -Text 'LDAP Global Catalog SLL port 3269'
+            }
+            New-HTMLText -Text @(
+                "If any/all of those ports are unavailable for any of the Domain Controllers "
+                "it means that either DC is not available from location it's getting tested from ("
+                "$Env:COMPUTERNAME "
+                ")or those ports are down, or DC doesn't have a proper certificate installed. "
+                "Please make sure to verify Domain Controllers that are reporting errors and talk to network team if required to make sure "
+                "proper ports are open thru firewall. "
+            ) -Color None, None, BilobaFlower, None, None, None
+        }
+    }
+    DataHighlights  = {
+        New-HTMLTableCondition -Name 'GlobalCatalogLDAP' -ComparisonType string -BackgroundColor PaleGreen -Value $true -Operator eq
+        New-HTMLTableCondition -Name 'GlobalCatalogLDAP' -ComparisonType string -BackgroundColor Salmon -Value $false -Operator eq
+        New-HTMLTableCondition -Name 'GlobalCatalogLDAPS' -ComparisonType string -BackgroundColor PaleGreen -Value $true -Operator eq
+        New-HTMLTableCondition -Name 'GlobalCatalogLDAPS' -ComparisonType string -BackgroundColor Salmon -Value $false -Operator eq
+        New-HTMLTableCondition -Name 'GlobalCatalogLDAPSBind' -ComparisonType string -BackgroundColor PaleGreen -Value $true -Operator eq
+        New-HTMLTableCondition -Name 'GlobalCatalogLDAPSBind' -ComparisonType string -BackgroundColor Salmon -Value $false -Operator eq
+        New-HTMLTableCondition -Name 'LDAP' -ComparisonType string -BackgroundColor PaleGreen -Value $true -Operator eq
+        New-HTMLTableCondition -Name 'LDAP' -ComparisonType string -BackgroundColor Salmon -Value $false -Operator eq
+        New-HTMLTableCondition -Name 'LDAPS' -ComparisonType string -BackgroundColor PaleGreen -Value $true -Operator eq
+        New-HTMLTableCondition -Name 'LDAPS' -ComparisonType string -BackgroundColor Salmon -Value $false -Operator eq
+        New-HTMLTableCondition -Name 'LDAPSBind' -ComparisonType string -BackgroundColor PaleGreen -Value $true -Operator eq
+        New-HTMLTableCondition -Name 'LDAPSBind' -ComparisonType string -BackgroundColor Salmon -Value $false -Operator eq
+        New-HTMLTableCondition -Name 'X509NotBeforeDays' -ComparisonType number -BackgroundColor PaleGreen -Value 0 -Operator le
+        New-HTMLTableCondition -Name 'X509NotBeforeDays' -ComparisonType number -BackgroundColor Salmon -Value 0 -Operator gt
+        New-HTMLTableCondition -Name 'X509NotAfterDays' -ComparisonType number -BackgroundColor PaleGreen -Value 0 -Operator gt
+        New-HTMLTableCondition -Name 'X509NotAfterDays' -ComparisonType number -BackgroundColor Salmon -Value 0 -Operator lt
     }
 }
