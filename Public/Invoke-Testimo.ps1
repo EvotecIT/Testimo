@@ -19,7 +19,7 @@ function Invoke-Testimo {
         [string[]] $IncludeDomainControllers,
         # this requires rebuild of all tests
         [string] $ForestName,
-        [switch] $ReturnResults,
+        [alias('ReturnResults')][switch] $PassThru,
         [switch] $ShowErrors,
         [switch] $ExtendedResults,
         [Object] $Configuration,
@@ -130,10 +130,10 @@ function Invoke-Testimo {
     }
     $Script:Reporting['Results'] = $Script:TestResults
 
-    if ($ReturnResults -and $ExtendedResults) {
+    if ($PassThru -and $ExtendedResults) {
         $Script:Reporting
     } else {
-        if ($ReturnResults) {
+        if ($PassThru) {
             $Script:TestResults
         }
     }
