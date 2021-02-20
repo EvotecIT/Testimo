@@ -40,7 +40,11 @@
     DataDescription = {
         New-HTMLSpanStyle -FontSize 10pt {
             New-HTMLText -Text @(
-                'Active Directory is critical system for any company. Having a proper, up to date backup in place is crucial.'
+                'Active Directory is critical system for any company. Having a proper, up to date backup is crucial. '
+                'Last backup should be maximum few days old, if not less than 24 hours old. '
+                "Please keep in mind that this test doesn't verifies the backup, nor provides information if the backup was saved to proper place and will be available for restore operations. "
+                "This tests merely checks what was reported by Active Directory - that backup did happen. "
+                "You should make sure that your backup, and more importantly restore process actually works! "
             )
         }
     }
