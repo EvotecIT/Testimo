@@ -49,7 +49,7 @@ function Invoke-Testimo {
     $Script:Reporting['Forest']['Summary'] = $null
     $Script:Reporting['Forest']['Tests'] = [ordered] @{ }
     $Script:Reporting['Domains'] = [ordered] @{ }
-
+    $Script:Reporting['BySource'] = [ordered] @{}
 
     $TestimoVersion = Get-Command -Name 'Invoke-Testimo' -ErrorAction SilentlyContinue
     $ProgressPreference = 'SilentlyContinue'
