@@ -40,7 +40,7 @@ function Start-TestimoReportSection {
                             New-HTMLTable -DataTable $WarningsAndErrors -Filtering -PagingLength 7
                         }
                     }
-                } #-Width 35%
+                }
                 New-HTMLContainer {
                     if ($Information.Source.Details) {
                         if ($Information.DataDescription) {

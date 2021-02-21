@@ -75,36 +75,29 @@
                     Total   = 0 # $AllTests.Count + 1 # +1 includes availability of data test
                 }
                 # build data output for extended results
-
-                if ($Domain -and $DomainController) {
-                    $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID] = [ordered] @{
-                        Name             = $CurrentSource['Name']
-                        SourceCode       = $CurrentSource['Data']
-                        Details          = $CurrentSource['Details']
-                        Results          = [System.Collections.Generic.List[PSCustomObject]]::new()
-                        Domain           = $Domain
-                        DomainController = $DomainController
-                    }
-                } elseif ($Domain) {
-                    $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID] = [ordered] @{
-                        Name             = $CurrentSource['Name']
-                        SourceCode       = $CurrentSource['Data']
-                        Details          = $CurrentSource['Details']
-                        Results          = [System.Collections.Generic.List[PSCustomObject]]::new()
-                        Domain           = $Domain
-                        DomainController = $DomainController
-                    }
-                } else {
-                    $Script:Reporting['Forest']['Tests'][$ReferenceID] = [ordered] @{
-                        Name             = $CurrentSource['Name']
-                        SourceCode       = $CurrentSource['Data']
-                        Details          = $CurrentSource['Details']
-                        Results          = [System.Collections.Generic.List[PSCustomObject]]::new()
-                        Domain           = $Domain
-                        DomainController = $DomainController
-                    }
+                $TestOutput = [ordered] @{
+                    Name             = $CurrentSource['Name']
+                    SourceCode       = $CurrentSource['Data']
+                    Details          = $CurrentSource['Details']
+                    Results          = [System.Collections.Generic.List[PSCustomObject]]::new()
+                    Domain           = $Domain
+                    DomainController = $DomainController
                 }
 
+                # Lets divide tests results into by type Forest/Domain/Domain Controller
+                if ($Domain -and $DomainController) {
+                    $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID] = $TestOutput
+                } elseif ($Domain) {
+                    $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID] = $TestOutput
+                } else {
+                    $Script:Reporting['Forest']['Tests'][$ReferenceID] = $TestOutput
+                }
+
+                # Lets divide tests by source (same content/different way to use later on)
+                if (-not $Script:Reporting['BySource'][$Source]) {
+                    $Script:Reporting['BySource'][$Source] = [System.Collections.Generic.List[PSCustomObject]]::new()
+                }
+                $Script:Reporting['BySource'][$Source].Add($TestOutput)
                 if (-not $CurrentSection['Source']) {
                     Write-Warning "Source $Source in scope: $Scope is defined improperly. Please verify."
                     continue
