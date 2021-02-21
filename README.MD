@@ -76,7 +76,7 @@ Please keep in mind that there is currently known issue that running all tests w
 
 ## ChangeLog
 
-- 0.0.58
+- 0.0.57
   - [x] Tests
     - [x] Added `DomainLDAP` - takes over `DCLDAP`
     - [x] Disabled `DCLDAP` by default. Still there just not used.
@@ -89,8 +89,6 @@ Please keep in mind that there is currently known issue that running all tests w
     - [x] Reporting is still getting more and more changes
     - [x] Fixed loading configuration from JSON/File/HashTable - **Configuration changed so much rebuild will be required**
     - [x] Fixed saving configuration to JSON/File/HashTable - **Configuration changed so much rebuild will be required**
-- 0.0.57 - 2021.02.09
-  - [x] General
     - [x] Parameter for `Invoke-Testimo` **ShowReport** is deprecated and doesn't do anything
     - [x] Parameter for `Invoke-Testimo` **HideHTML** was added and prevents auto-opening of HTML
     - [x] Parameter for `Invoke-Testimo` **HideSteps**/**HideSolution** was added to hide solution/steps in case it's not needed
@@ -98,8 +96,6 @@ Please keep in mind that there is currently known issue that running all tests w
     - [x] Parameter `ReportPath` was renamed to `FilePath`, `ReportPath` is still an alias - to get it the same as [GPOZaurr](https://github.com/EvotecIT/GPOZaurr)
   - [x] Reporting
     - [x] Solution/Steps added to Report when available for display
-  - [x] Tests
-    - [x] Improved `DomainDomainControllers`
 - 0.0.56 - 2021.02.07
   - [x] Tests
     - [x] Improved `ForestOrphanedAdmins`
@@ -610,9 +606,9 @@ Get-TestimoConfiguration -AsJson
 
 ```powershell
 $OutputOrderedDictionary = Get-TestimoConfiguration
-$OutputOrderedDictionary.Forest.OptionalFeatures.Tests.RecycleBinEnabled.Enable = $false
-$OutputOrderedDictionary.Forest.OptionalFeatures.Tests.LapsAvailable.Enable = $true
-$OutputOrderedDictionary.Forest.OptionalFeatures.Tests.LapsAvailable.Parameters.ExpectedValue = $false
+$OutputOrderedDictionary.ForestOptionalFeatures.Tests.RecycleBinEnabled.Enable = $false
+$OutputOrderedDictionary.ForestOptionalFeatures.Tests.LapsAvailable.Enable = $true
+$OutputOrderedDictionary.ForestOptionalFeatures.Tests.LapsAvailable.Parameters.ExpectedValue = $false
 ```
 
 ## Using Invoke-Testimo with non-default configuration
@@ -628,9 +624,9 @@ Following configuration allows you to:
 Import-Module Testimo
 
 $OutputOrderedDictionary = Get-TestimoConfiguration
-$OutputOrderedDictionary.Forest.OptionalFeatures.Tests.RecycleBinEnabled.Enable = $false
-$OutputOrderedDictionary.Forest.OptionalFeatures.Tests.LapsAvailable.Enable = $true
-$OutputOrderedDictionary.Forest.OptionalFeatures.Tests.LapsAvailable.Parameters.ExpectedValue = $false
+$OutputOrderedDictionary.ForestOptionalFeatures.Tests.RecycleBinEnabled.Enable = $false
+$OutputOrderedDictionary.ForestOptionalFeatures.Tests.LapsAvailable.Enable = $true
+$OutputOrderedDictionary.ForestOptionalFeatures.Tests.LapsAvailable.Parameters.ExpectedValue = $false
 
 $Sources = @(
     'ForestFSMORoles'
@@ -643,7 +639,7 @@ $Sources = @(
     'DCWindowsUpdates'
 )
 
-$TestResults = Invoke-Testimo -ReturnResults -ExcludeDomains 'ad.evotec.pl' -Sources $Sources -Configuration $OutputOrderedDictionary
+$TestResults = Invoke-Testimo -PassThru -ExcludeDomains 'ad.evotec.pl' -Sources $Sources -Configuration $OutputOrderedDictionary
 $TestResults | Format-Table -AutoSize *
 ```
 
