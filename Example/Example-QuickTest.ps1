@@ -13,7 +13,7 @@ $Sources = @(
 
 # Tests one by one
 foreach ($_ in $Sources) {
-#    Invoke-Testimo -Source $_ -Online #-ReportPath $PSScriptRoot\Reports\TestimoSummary.html
+    # Invoke-Testimo -Source $_ -Online #-ReportPath $PSScriptRoot\Reports\TestimoSummary.html
 }
 
 # Tests in single report

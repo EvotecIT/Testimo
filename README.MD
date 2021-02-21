@@ -76,7 +76,7 @@ Please keep in mind that there is currently known issue that running all tests w
 
 ## ChangeLog
 
-- 0.0.57
+- 0.0.57 - 2021.02.21
   - [x] Tests
     - [x] Added `DomainLDAP` - takes over `DCLDAP`
     - [x] Disabled `DCLDAP` by default. Still there just not used.
@@ -86,7 +86,6 @@ Please keep in mind that there is currently known issue that running all tests w
     - [x] Improved `DomainDomainControllers`
   - [x] General
     - [x] Renamed Parameter `ReturnResults` to `PassThru` (left as an alias)
-    - [x] Reporting is still getting more and more changes
     - [x] Fixed loading configuration from JSON/File/HashTable - **Configuration changed so much rebuild will be required**
     - [x] Fixed saving configuration to JSON/File/HashTable - **Configuration changed so much rebuild will be required**
     - [x] Parameter for `Invoke-Testimo` **ShowReport** is deprecated and doesn't do anything
@@ -96,6 +95,7 @@ Please keep in mind that there is currently known issue that running all tests w
     - [x] Parameter `ReportPath` was renamed to `FilePath`, `ReportPath` is still an alias - to get it the same as [GPOZaurr](https://github.com/EvotecIT/GPOZaurr)
   - [x] Reporting
     - [x] Solution/Steps added to Report when available for display
+    - [x] Reporting is still getting more and more changes
 - 0.0.56 - 2021.02.07
   - [x] Tests
     - [x] Improved `ForestOrphanedAdmins`
