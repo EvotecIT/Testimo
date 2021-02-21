@@ -10,6 +10,6 @@ Get-TestimoConfiguration -AsJson
 
 # Output to Hashtable so you can edit it freely and keep in ps1
 $OutputOrderedDictionary = Get-TestimoConfiguration
-$OutputOrderedDictionary.Forest.OptionalFeatures.Tests.RecycleBinEnabled.Enable = $false
-$OutputOrderedDictionary.Forest.OptionalFeatures.Tests.LapsAvailable.Enable = $true
-$OutputOrderedDictionary.Forest.OptionalFeatures.Tests.LapsAvailable.Parameters.ExpectedValue = $false
+$OutputOrderedDictionary.ForestOptionalFeatures.Tests.RecycleBinEnabled.Enable = $false
+$OutputOrderedDictionary.ForestOptionalFeatures.Tests.LapsAvailable.Enable = $true
+$OutputOrderedDictionary.ForestOptionalFeatures.Tests.LapsAvailable.Parameters.ExpectedValue = $false
