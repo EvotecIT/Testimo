@@ -87,6 +87,8 @@ Please keep in mind that there is currently known issue that running all tests w
   - [x] General
     - [x] Renamed Parameter `ReturnResults` to `PassThru` (left as an alias)
     - [x] Reporting is still getting more and more changes
+    - [x] Fixed loading configuration from JSON/File/HashTable - **Configuration changed so much rebuild will be required**
+    - [x] Fixed saving configuration to JSON/File/HashTable - **Configuration changed so much rebuild will be required**
 - 0.0.57 - 2021.02.09
   - [x] General
     - [x] Parameter for `Invoke-Testimo` **ShowReport** is deprecated and doesn't do anything
