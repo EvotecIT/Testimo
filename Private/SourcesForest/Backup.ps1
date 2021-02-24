@@ -16,6 +16,8 @@
                 '[Backup Active Directory (Full and Incremental Backup)](https://activedirectorypro.com/backup-active-directory/)'
             )
             Tags        = 'Backup', 'Configuration'
+            StatusTrue  = 0
+            StatusFalse = 0
         }
         ExpectedOutput = $true
     }
@@ -34,6 +36,8 @@
                 Category   = 'Configuration'
                 Importance = 10
                 ActionType = 2
+                StatusTrue  = 1
+                StatusFalse = 5
             }
         }
     }
