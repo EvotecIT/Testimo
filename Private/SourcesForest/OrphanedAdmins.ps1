@@ -18,6 +18,8 @@
                 '[Scanning for Active Directory Privileges & Privileged Accounts](https://adsecurity.org/?p=3658)'
                 'https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/dn535495(v=ws.11)'
             )
+            StatusTrue  = 0
+            StatusFalse = 0
         }
         ExpectedOutput = $true
     }
@@ -31,8 +33,10 @@
                 WhereObject   = { $_.IsOrphaned -ne $false }
             }
             Details    = [ordered] @{
-                Category   = 'Security'
-                Importance = 4
+                Category    = 'Security'
+                Importance  = 4
+                StatusTrue  = 1
+                StatusFalse = 2
             }
         }
     }
