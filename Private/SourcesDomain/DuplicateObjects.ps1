@@ -10,8 +10,8 @@
         Details        = [ordered] @{
             Category    = 'Cleanup'
             Description = "When two objects are created with the same Relative Distinguished Name (RDN) in the same parent Organizational Unit or container, the conflict is recognized by the system when one of the new objects replicates to another domain controller. When this happens, one of the objects is renamed. Some sources say the RDN is mangled to make it unique. The new RDN will be <Old RDN>\0ACNF:<objectGUID>"
-            Importance   = 5
-            Severity    = 'Low'
+            Importance  = 5
+            ActionType  = 2
             Resources   = @(
                 'https://social.technet.microsoft.com/wiki/contents/articles/15435.active-directory-duplicate-object-name-resolution.aspx'
                 'https://ourwinblog.blogspot.com/2011/05/resolving-computer-object-replication.html'
@@ -21,6 +21,8 @@
                 'https://kickthatcomputer.wordpress.com/2014/11/22/seek-and-destroy-duplicate-ad-objects-with-cnf-in-the-name/'
                 'https://community.spiceworks.com/topic/2113346-active-directory-replication-cnf-guid-entries'
             )
+            StatusTrue  = 1
+            StatusFalse = 2
         }
         ExpectedOutput = $false
     }
@@ -30,7 +32,6 @@
     Solution       = {
         New-HTMLContainer {
             New-HTMLSpanStyle -FontSize 10pt {
-                #New-HTMLText -Text 'Following steps will guide you how to fix permissions consistency'
                 New-HTMLWizard {
                     New-HTMLWizardStep -Name 'Prepare environment' {
                         New-HTMLText -Text "To be able to execute actions in automated way please install required modules. Those modules will be installed straight from Microsoft PowerShell Gallery."
