@@ -9,11 +9,9 @@
         Requirements   = @{}
         Details        = [ordered] @{
             Category    = 'Cleanup', 'Security'
-            Severity    = ''
             Importance  = 0
             ActionType  = 0
             Description = "Following test verifies Domain Controller status in Active Directory. It verifies critical aspects of Domain Controler such as Domain Controller Owner and Domain Controller Manager. It also checks if Domain Controller is enabled, ip address matches dns ip address, verifies whether LastLogonDate and LastPasswordDate are within thresholds. Those additional checks are there to find dead or offline DCs that could potentially impact Active Directory functionality. "
-            Resolution  = ''
             Resources   = @(
                 '[Domain member: Maximum machine account password age](https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/domain-member-maximum-machine-account-password-age)'
                 '[Machine Account Password Process](https://techcommunity.microsoft.com/t5/ask-the-directory-services-team/machine-account-password-process/ba-p/396026)'
@@ -21,6 +19,8 @@
                 '[USN rollback](https://docs.microsoft.com/en-us/troubleshoot/windows-server/identity/detect-and-recover-from-usn-rollback)'
                 '[Active Directory Replication Overview & USN Rollback: What It Is & How It Happens](https://adsecurity.org/?p=515)'
             )
+            StatusTrue  = 0
+            StatusFalse = 0
         }
         ExpectedOutput = $true
     }
@@ -34,11 +34,14 @@
                 WhereObject   = { $_.Enabled -ne $true }
             }
             Details    = [ordered] @{
-                Category   = 'Cleanup'
-                Importance = 0
-                ActionType = 0
+                Category    = 'Cleanup'
+                Importance  = 0
+                ActionType  = 0
+                StatusTrue  = 1
+                StatusFalse = 3
             }
         }
+
         OwnerType          = @{
             Enable     = $true
             Name       = 'DC OwnerType should be Administrative'
@@ -51,9 +54,11 @@
                 WhereObject   = { $_.OwnerType -ne 'Administrative' }
             }
             Details    = [ordered] @{
-                Category   = 'Security'
-                Importance = 10
-                ActionType = 2
+                Category    = 'Security'
+                Importance  = 10
+                ActionType  = 2
+                StatusTrue  = 1
+                StatusFalse = 5
             }
         }
         ManagedBy          = @{
@@ -65,9 +70,11 @@
                 WhereObject   = { $_.ManagerNotSet -ne $true }
             }
             Details    = [ordered] @{
-                Category   = 'Security'
-                Importance = 10
-                ActionType = 2
+                Category    = 'Security'
+                Importance  = 10
+                ActionType  = 2
+                StatusTrue  = 1
+                StatusFalse = 5
             }
         }
         DNSStatus          = @{
@@ -79,9 +86,11 @@
                 WhereObject   = { $_.DNSStatus -ne $true }
             }
             Details    = [ordered] @{
-                Category   = 'Cleanup'
-                Importance = 0
-                ActionType = 0
+                Category    = 'Cleanup'
+                Importance  = 0
+                ActionType  = 0
+                StatusTrue  = 1
+                StatusFalse = 2
             }
         }
         IPAddressStatusV4  = @{
@@ -93,9 +102,11 @@
                 WhereObject   = { $_.IPAddressStatusV4 -ne $true }
             }
             Details    = [ordered] @{
-                Category   = 'Cleanup'
-                Importance = 0
-                ActionType = 0
+                Category    = 'Cleanup'
+                Importance  = 0
+                ActionType  = 0
+                StatusTrue  = 1
+                StatusFalse = 2
             }
         }
         IPAddressStatusV6  = @{
@@ -107,9 +118,11 @@
                 WhereObject   = { $_.IPAddressStatusV6 -ne $true }
             }
             Details    = [ordered] @{
-                Category   = 'Cleanup'
-                Importance = 0
-                ActionType = 0
+                Category    = 'Cleanup'
+                Importance  = 0
+                ActionType  = 0
+                StatusTrue  = 1
+                StatusFalse = 2
             }
         }
         IPAddressSingleV4  = @{
@@ -121,9 +134,11 @@
                 WhereObject   = { $_.IPAddressHasOneIpV4 -ne $true }
             }
             Details    = [ordered] @{
-                Category   = 'Cleanup'
-                Importance = 0
-                ActionType = 1
+                Category    = 'Cleanup'
+                Importance  = 0
+                ActionType  = 1
+                StatusTrue  = 1
+                StatusFalse = 2
             }
         }
         IPAddressSingleV6  = @{
@@ -135,9 +150,11 @@
                 WhereObject   = { $_.IPAddressHasOneipV6 -ne $true }
             }
             Details    = [ordered] @{
-                Category   = 'Cleanup'
-                Importance = 0
-                ActionType = 1
+                Category    = 'Cleanup'
+                Importance  = 0
+                ActionType  = 1
+                StatusTrue  = 1
+                StatusFalse = 2
             }
         }
         PasswordLastChange = @{
@@ -149,9 +166,11 @@
                 WhereObject   = { $_.PasswordLastChangedDays -ge 60 }
             }
             Details    = [ordered] @{
-                Category   = 'Cleanup'
-                Importance = 1
-                ActionType = 1
+                Category    = 'Cleanup'
+                Importance  = 1
+                ActionType  = 1
+                StatusTrue  = 1
+                StatusFalse = 4
             }
         }
         LastLogonDays      = @{
@@ -163,9 +182,11 @@
                 WhereObject   = { $_.LastLogonDays -ge 15 }
             }
             Details    = [ordered] @{
-                Category   = 'Cleanup'
-                Importance = 1
-                ActionType = 1
+                Category    = 'Cleanup'
+                Importance  = 1
+                ActionType  = 1
+                StatusTrue  = 1
+                StatusFalse = 4
             }
         }
     }
