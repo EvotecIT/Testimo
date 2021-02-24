@@ -9,10 +9,9 @@
             $OrphanedObjects
         }
         Details        = [ordered] @{
-            Area        = 'Cleanup'
-            Category    = ''
-            Severity    = ''
-            Importance   = 0
+            Category    = 'Cleanup'
+            Importance  = 0
+            ActionType  = 0
             Description = 'An FSP is an Active Directory (AD) security principal that points to a security principal (a user, computer, or group) from a domain of another forest. AD automatically and transparently creates them in a domain the first time after adding a security principal from another forest to a group from that domain. AD creates FSPs in a domain the first time after adding a security principal of a domain from another forest to a group. And when someone removes the security principal the FSP is pointing to, the FSP becomes an orphan because it points to a non-existent security principal.'
             Resolution  = ''
             Resources   = @(
@@ -21,6 +20,8 @@
                 '[Active Directory: Foreign Security Principals and Special Identities](https://social.technet.microsoft.com/wiki/contents/articles/51367.active-directory-foreign-security-principals-and-special-identities.aspx)'
                 '[Find orphaned foreign security principals and remove them from groups](https://serverfault.com/questions/320840/find-orphaned-foreign-security-principals-and-remove-them-from-groups)'
             )
+            StatusTrue  = 1
+            StatusFalse = 3
         }
         ExpectedOutput = $false
     }
