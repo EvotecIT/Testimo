@@ -9,12 +9,13 @@
         }
         Details        = [ordered] @{
             Category    = 'Security'
-            Severity    = ''
             Importance  = 5
             Description = "The configuration partition contains replication topology and other configuration data that must be replicated throughout the forest. Every domain controller in the forest has a replica of the same configuration partition. Just like schema partition, there is just one master configuration partition per forest and a second one on all DCs in a forest. It contains the forest-wide active directory topology including DCs, sites, services, subnets and sitelinks. It is replicated to all DCs in a forest. Owners of Active Directory Configuration Partition, and more specifically Sites, Subnets and Sitelinks should always be set to Administrative (Domain Admins / Enterprise Admins). Being an owner of a site, subnet or sitelink is potentially dangerous and can lead to domain compromise. While ForestConfigurationPartitionOwners test checks only specific objects for ownership this test checks all objects within specific containers. This means every single object is required to have proper membership. "
             Resources   = @(
                 '[Escalating privileges with ACLs in Active Directory](https://blog.fox-it.com/2018/04/26/escalating-privileges-with-acls-in-active-directory/)'
             )
+            StatusTrue  = 0
+            StatusFalse = 0
         }
         ExpectedOutput = $true
     }
@@ -28,8 +29,10 @@
                 WhereObject   = { $_.ObjectType -eq 'Site' -and $_.OwnerType -notin 'Administrative', 'WellKnownAdministrative' }
             }
             Details    = [ordered] @{
-                Category   = 'Security'
-                Importance = 5
+                Category    = 'Security'
+                Importance  = 5
+                StatusTrue  = 1
+                StatusFalse = 3
             }
         }
         SubnetOwners   = @{
@@ -41,8 +44,10 @@
                 WhereObject   = { $_.ObjectType -eq 'Subnet' -and $_.OwnerType -notin 'Administrative', 'WellKnownAdministrative' }
             }
             Details    = [ordered] @{
-                Category   = 'Security'
-                Importance = 5
+                Category    = 'Security'
+                Importance  = 5
+                StatusTrue  = 1
+                StatusFalse = 3
             }
         }
         SiteLinkOwners = @{
@@ -54,8 +59,10 @@
                 WhereObject   = { $_.ObjectType -eq 'SiteLink' -and $_.OwnerType -notin 'Administrative', 'WellKnownAdministrative' }
             }
             Details    = [ordered] @{
-                Category   = 'Security'
-                Importance = 5
+                Category    = 'Security'
+                Importance  = 5
+                StatusTrue  = 1
+                StatusFalse = 3
             }
         }
     }
