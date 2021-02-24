@@ -15,6 +15,8 @@
                 "[Testing LDAP and LDAPS connectivity with PowerShell](https://evotec.xyz/testing-ldap-and-ldaps-connectivity-with-powershell/)"
                 "[2020 LDAP channel binding and LDAP signing requirements for Windows](https://support.microsoft.com/en-us/topic/2020-ldap-channel-binding-and-ldap-signing-requirements-for-windows-ef185fb8-00f7-167d-744c-f299a66fc00a)"
             )
+            StatusTrue  = 0
+            StatusFalse = 0
         }
         ExpectedOutput = $true
     }
@@ -28,9 +30,11 @@
                 WhereObject   = { $_.LDAP -eq $false }
             }
             Details    = [ordered] @{
-                Category   = 'Health'
-                Importance = 10
-                ActionType = 2
+                Category    = 'Health'
+                Importance  = 10
+                ActionType  = 2
+                StatusTrue  = 1
+                StatusFalse = 3
             }
         }
         PortLDAPS                = @{
@@ -42,9 +46,11 @@
                 WhereObject   = { $_.LDAPS -eq $false }
             }
             Details    = [ordered] @{
-                Category   = 'Health'
-                Importance = 10
-                ActionType = 2
+                Category    = 'Health'
+                Importance  = 10
+                ActionType  = 2
+                StatusTrue  = 1
+                StatusFalse = 4
             }
         }
         PortLDAP_GC              = @{
@@ -56,9 +62,11 @@
                 WhereObject   = { $_.GlobalCatalogLDAP -eq $false }
             }
             Details    = [ordered] @{
-                Category   = 'Health'
-                Importance = 10
-                ActionType = 2
+                Category    = 'Health'
+                Importance  = 10
+                ActionType  = 2
+                StatusTrue  = 1
+                StatusFalse = 4
             }
         }
         PortLDAPS_GC             = @{
@@ -70,9 +78,11 @@
                 WhereObject   = { $_.GlobalCatalogLDAPS -eq $false }
             }
             Details    = [ordered] @{
-                Category   = 'Health'
-                Importance = 10
-                ActionType = 2
+                Category    = 'Health'
+                Importance  = 10
+                ActionType  = 2
+                StatusTrue  = 1
+                StatusFalse = 4
             }
         }
         BindLDAPS                = @{
@@ -84,9 +94,11 @@
                 WhereObject   = { $_.LDAPSBind -eq $false }
             }
             Details    = [ordered] @{
-                Category   = 'Health'
-                Importance = 10
-                ActionType = 2
+                Category    = 'Health'
+                Importance  = 10
+                ActionType  = 2
+                StatusTrue  = 1
+                StatusFalse = 4
             }
         }
         BindLDAPS_GC             = @{
@@ -98,9 +110,11 @@
                 WhereObject   = { $_.GlobalCatalogLDAPSBind -eq $false }
             }
             Details    = [ordered] @{
-                Category   = 'Health'
-                Importance = 10
-                ActionType = 2
+                Category    = 'Health'
+                Importance  = 10
+                ActionType  = 2
+                StatusTrue  = 1
+                StatusFalse = 4
             }
         }
         X509NotBeforeDays        = @{
@@ -112,9 +126,11 @@
                 WhereObject   = { $_.X509NotBeforeDays -gt 0 }
             }
             Details    = [ordered] @{
-                Category   = 'Health'
-                Importance = 10
-                ActionType = 2
+                Category    = 'Health'
+                Importance  = 10
+                ActionType  = 2
+                StatusTrue  = 1
+                StatusFalse = 4
             }
         }
         X509NotAfterDaysWarning  = @{
@@ -126,9 +142,11 @@
                 WhereObject   = { $_.X509NotAfterDays -lt 10 }
             }
             Details    = [ordered] @{
-                Category   = 'Health'
-                Importance = 10
-                ActionType = 1
+                Category    = 'Health'
+                Importance  = 10
+                ActionType  = 1
+                StatusTrue  = 1
+                StatusFalse = 4
             }
         }
         X509NotAfterDaysCritical = @{
@@ -140,9 +158,11 @@
                 WhereObject   = { $_.X509NotAfterDays -lt 0 }
             }
             Details    = [ordered] @{
-                Category   = 'Health'
-                Importance = 10
-                ActionType = 2
+                Category    = 'Health'
+                Importance  = 10
+                ActionType  = 2
+                StatusTrue  = 1
+                StatusFalse = 4
             }
         }
     }
