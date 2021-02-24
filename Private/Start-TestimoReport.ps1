@@ -13,7 +13,7 @@
 
     $ColorPassed = 'LawnGreen'
     $ColorSkipped = 'DeepSkyBlue'
-    $ColorFailed = 'Tomato'
+    $ColorFailed = 'TorchRed'
     $ColorPassedText = 'Black'
     $ColorFailedText = 'Black'
     $ColorSkippedText = 'Black'
@@ -29,14 +29,24 @@
         }
     }
     $TestResults['Configuration']['ResultConditions'] = {
-        New-TableCondition -Name 'Status' -Value $true -BackgroundColor 'LawnGreen'
-        New-TableCondition -Name 'Status' -Value $false -BackgroundColor 'Tomato'
-        New-TableCondition -Name 'Status' -Value $null -BackgroundColor 'DeepSkyBlue'
+        #New-TableCondition -Name 'Status' -Value $true -BackgroundColor 'LawnGreen'
+        # #New-TableCondition -Name 'Status' -Value $false -BackgroundColor 'Tomato'
+        # New-TableCondition -Name 'Status' -Value $null -BackgroundColor 'DeepSkyBlue'
+        foreach ($Status in $Script:StatusTranslation.Keys) {
+            New-HTMLTableCondition -Name 'Assesment' -Value $Script:StatusTranslation[$Status] -BackgroundColor $Script:StatusTranslationColors[$Status] #-Row
+        }
+        New-HTMLTableCondition -Name 'Assesment' -Value $true -BackgroundColor $TestResults['Configuration']['Colors']['ColorPassed'] -Color $TestResults['Configuration']['Colors']['ColorPassedText'] #-Row
+        New-HTMLTableCondition -Name 'Assesment' -Value $false -BackgroundColor $TestResults['Configuration']['Colors']['ColorFailed'] -Color $TestResults['Configuration']['Colors']['ColorFailedText'] #-Row
     }
-    $TestResults['Configuration']['ResultConditionsEmail'] = {
-        New-TableCondition -Name 'Status' -Value $true -BackgroundColor 'LawnGreen' -Inline
-        New-TableCondition -Name 'Status' -Value $false -BackgroundColor 'Tomato' -Inline
-        New-TableCondition -Name 'Status' -Value $null -BackgroundColor 'DeepSkyBlue' -Inline
+    $TestResults['Configuration']['ResultConditionsEmail'] = & {
+        #New-TableCondition -Name 'Status' -Value $true -BackgroundColor 'LawnGreen' -Inline
+        # New-TableCondition -Name 'Status' -Value $false -BackgroundColor 'Tomato' -Inline
+        #New-TableCondition -Name 'Status' -Value $null -BackgroundColor 'DeepSkyBlue' -Inline
+        foreach ($Status in $Script:StatusTranslation.Keys) {
+            New-HTMLTableCondition -Name 'Assesment' -Value $Script:StatusTranslation[$Status] -BackgroundColor $Script:StatusTranslationColors[$Status] -Inline
+        }
+        New-HTMLTableCondition -Name 'Assesment' -Value $true -BackgroundColor $TestResults['Configuration']['Colors']['ColorPassed'] -Color $TestResults['Configuration']['Colors']['ColorPassedText'] -Inline
+        New-HTMLTableCondition -Name 'Assesment' -Value $false -BackgroundColor $TestResults['Configuration']['Colors']['ColorFailed'] -Color $TestResults['Configuration']['Colors']['ColorFailedText'] -Inline
     }
     [Array] $PassedTests = $TestResults['Results'] | Where-Object { $_.Status -eq $true }
     [Array] $FailedTests = $TestResults['Results'] | Where-Object { $_.Status -eq $false }
@@ -85,10 +95,17 @@
                         New-HTMLText -Text @(
                             "Below you can find overall summary of all tests executed in this Testimo run."
                         ) -FontSize 10pt
-                        New-HTMLTable -DataTable $TestResults['Results'] {
-                            New-HTMLTableCondition -Name 'Status' -Value $true -BackgroundColor $TestResults['Configuration']['Colors']['ColorPassed'] -Color $TestResults['Configuration']['Colors']['ColorPassedText']  #-Row
-                            New-HTMLTableCondition -Name 'Status' -Value $false -BackgroundColor $TestResults['Configuration']['Colors']['ColorFailed'] -Color $TestResults['Configuration']['Colors']['ColorFailedText']  #-Row
-                            New-HTMLTableCondition -Name 'Status' -Value $null -BackgroundColor $TestResults['Configuration']['Colors']['ColorSkipped'] -Color $TestResults['Configuration']['Colors']['ColorSkippedText']  #-Row
+
+                        $ResultsDisplay = $TestResults['Results'] | Select-Object -Property DisplayName, Type, Category, Assesment, Importance, Action, Extended, Domain, DomainController
+                        New-HTMLTable -DataTable $ResultsDisplay {
+                            #New-HTMLTableCondition -Name 'Status' -Value $true -BackgroundColor $TestResults['Configuration']['Colors']['ColorPassed'] -Color $TestResults['Configuration']['Colors']['ColorPassedText']  #-Row
+                            #New-HTMLTableCondition -Name 'Status' -Value $false -BackgroundColor $TestResults['Configuration']['Colors']['ColorFailed'] -Color $TestResults['Configuration']['Colors']['ColorFailedText']  #-Row
+                            #New-HTMLTableCondition -Name 'Status' -Value $null -BackgroundColor $TestResults['Configuration']['Colors']['ColorSkipped'] -Color $TestResults['Configuration']['Colors']['ColorSkippedText']  #-Row
+                            foreach ($Status in $Script:StatusTranslation.Keys) {
+                                New-HTMLTableCondition -Name 'Assesment' -Value $Script:StatusTranslation[$Status] -BackgroundColor $Script:StatusTranslationColors[$Status] -Row
+                            }
+                            New-HTMLTableCondition -Name 'Assesment' -Value $true -BackgroundColor $TestResults['Configuration']['Colors']['ColorPassed'] -Color $TestResults['Configuration']['Colors']['ColorPassedText'] -Row
+                            New-HTMLTableCondition -Name 'Assesment' -Value $false -BackgroundColor $TestResults['Configuration']['Colors']['ColorFailed'] -Color $TestResults['Configuration']['Colors']['ColorFailedText'] -Row
                         } -Filtering
                     }
                 }
@@ -103,9 +120,9 @@
                     $Data = $TestResults['Forest']['Tests'][$Source]['Data']
                     $Information = $TestResults['Forest']['Tests'][$Source]['Information']
                     $SourceCode = $TestResults['Forest']['Tests'][$Source]['SourceCode']
-                    $Results = $TestResults['Forest']['Tests'][$Source]['Results'] | Select-Object -Property DisplayName, Type, Category, Status, Importance, Action, Extended
+                    $Results = $TestResults['Forest']['Tests'][$Source]['Results'] #| Select-Object -Property DisplayName, Type, Category, Assesment, Importance, Action, Extended
                     $WarningsAndErrors = $TestResults['Forest']['Tests'][$Source]['WarningsAndErrors']
-                    Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -TestResults $TestResults
+                    Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -TestResults $TestResults -Type 'Forest'
                 }
             } else {
                 New-HTMLTab -Name 'Forest' -IconBrands first-order {
@@ -114,9 +131,9 @@
                         $Data = $TestResults['Forest']['Tests'][$Source]['Data']
                         $Information = $TestResults['Forest']['Tests'][$Source]['Information']
                         $SourceCode = $TestResults['Forest']['Tests'][$Source]['SourceCode']
-                        $Results = $TestResults['Forest']['Tests'][$Source]['Results'] | Select-Object -Property DisplayName, Type, Category, Status, Importance, Action, Extended
+                        $Results = $TestResults['Forest']['Tests'][$Source]['Results'] #| Select-Object -Property DisplayName, Type, Category, Assesment, Importance, Action, Extended
                         $WarningsAndErrors = $TestResults['Forest']['Tests'][$Source]['WarningsAndErrors']
-                        Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -TestResults $TestResults
+                        Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -TestResults $TestResults -Type 'Forest'
                     }
                 }
             }
@@ -138,9 +155,9 @@
                                 $Name = $TestResults['Domains'][$Domain]['Tests'][$Source]['Name']
                                 $Data = $TestResults['Domains'][$Domain]['Tests'][$Source]['Data']
                                 $SourceCode = $TestResults['Domains'][$Domain]['Tests'][$Source]['SourceCode']
-                                $Results = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results'] | Select-Object -Property DisplayName, Type, Category, Status, Importance, Action, Extended, Domain
+                                $Results = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results'] #| Select-Object -Property DisplayName, Type, Category, Assesment, Importance, Action, Extended, Domain
                                 $WarningsAndErrors = $TestResults['Domains'][$Domain]['Tests'][$Source]['WarningsAndErrors']
-                                Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -HideSteps:$HideSteps -TestResults $TestResults
+                                Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -HideSteps:$HideSteps -TestResults $TestResults -Type 'Domain'
                             }
                         }
                     }
@@ -172,10 +189,10 @@
                                                     $Name = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Name']
                                                     $Data = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Data']
                                                     $SourceCode = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['SourceCode']
-                                                    $Results = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Results'] | Select-Object -Property DisplayName, Type, Category, Status, Importance, Action, Extended, Domain, DomainController
+                                                    $Results = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Results'] #| Select-Object -Property DisplayName, Type, Category, Assesment, Importance, Action, Extended, Domain, DomainController
                                                     $WarningsAndErrors = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['WarningsAndErrors']
 
-                                                    Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -TestResults $TestResults
+                                                    Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -TestResults $TestResults -Type 'DC'
                                                 }
                                             }
                                         }

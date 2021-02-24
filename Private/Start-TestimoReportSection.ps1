@@ -5,18 +5,28 @@ function Start-TestimoReportSection {
         [Array] $Data,
         [System.Collections.IDictionary]$Information,
         [Scriptblock]$SourceCode,
-        [PSCustomObject] $Results,
+        [Array] $Results,
         [Array] $WarningsAndErrors,
         [switch] $HideSteps,
-        [System.Collections.IDictionary]$TestResults
+        [System.Collections.IDictionary]$TestResults,
+        [string] $Type
     )
     [Array] $PassedTestsSingular = $Results | Where-Object { $_.Status -eq $true }
     [Array] $FailedTestsSingular = $Results | Where-Object { $_.Status -eq $false }
     [Array] $SkippedTestsSingular = $Results | Where-Object { $_.Status -ne $true -and $_.Status -ne $false }
 
+    if ($Type -eq 'Forest') {
+        $ResultsDisplay = $Results | Select-Object -Property DisplayName, Type, Category, Assesment, Importance, Action, Extended
+    } elseif ($Type -eq 'DC') {
+        $ResultsDisplay = $Results | Select-Object -Property DisplayName, Type, Category, Assesment, Importance, Action, Extended, Domain
+    } elseif ($Type -eq 'Domain') {
+        $ResultsDisplay = $Results | Select-Object -Property DisplayName, Type, Category, Assesment, Importance, Action, Extended, Domain, DomainController
+    }
+
+
     $ColorPassed = 'LawnGreen'
     $ColorSkipped = 'DeepSkyBlue'
-    $ColorFailed = 'Tomato'
+    $ColorFailed = 'TorchRed'
     $ColorPassedText = 'Black'
     $ColorFailedText = 'Black'
     $ColorSkippedText = 'Black'
@@ -82,7 +92,7 @@ function Start-TestimoReportSection {
                         "Action"
                         " columns. "
                     ) -FontWeight normal, bold, normal, bold, normal, normal, normal, bold, normal, bold, normal, bold, normal, bold, normal
-                    New-HTMLTable -DataTable $Results {
+                    New-HTMLTable -DataTable $ResultsDisplay {
                         & $TestResults['Configuration']['ResultConditions']
                     } -Filtering
                 }
