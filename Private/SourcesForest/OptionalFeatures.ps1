@@ -9,13 +9,14 @@
         Details        = [ordered] @{
             Category    = 'Configuration'
             Description = "Optional features verify availability of Recycle Bin, LAPS and PAM in the Active Directory Forest."
-            Resolution  = 'Enable RecycleBin, implement LAPS, consider PAM.'
             Importance  = 0
             ActionType  = 0
             Severity    = 'Medium'
             Resources   = @(
 
             )
+            StatusTrue  = 0
+            StatusFalse = 5
         }
         ExpectedOutput = $true
     }
@@ -29,7 +30,7 @@
                 OperationType = 'eq'
             }
             Details    = [ordered] @{
-                Area        = 'Configuration'
+                Category    = 'Configuration'
                 Description = "The AD Recycle bin allows you to quickly restore deleted objects without the need of a system state or 3rd party backup. The recycle bin feature preserves all link valued and non link valued attributes. This means that a restored object will retain all it's settings when restored."
                 Resolution  = 'Enable AD Recycle bin for the whole forest.'
                 Importance  = 5
@@ -37,6 +38,8 @@
                 Resources   = @(
                     'https://activedirectorypro.com/enable-active-directory-recycle-bin-server-2016/'
                 )
+                StatusTrue  = 1
+                StatusFalse = 4
             }
         }
         LapsAvailable        = @{
@@ -59,6 +62,8 @@
                     'https://evotec.xyz/getting-bitlocker-and-laps-summary-report-with-powershell/'
                     'https://evotec.xyz/backing-up-bitlocker-keys-and-laps-passwords-from-active-directory/'
                 )
+                StatusTrue  = 1
+                StatusFalse = 4
             }
         }
         PrivAccessManagement = @{
@@ -79,6 +84,8 @@
                 Resources   = @(
                     'https://docs.microsoft.com/en-us/microsoft-identity-manager/pam/privileged-identity-management-for-active-directory-domain-services'
                 )
+                StatusTrue  = 1
+                StatusFalse = 0
             }
         }
     }
