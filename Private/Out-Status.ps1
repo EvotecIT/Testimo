@@ -57,6 +57,18 @@
         } else {
             $Action = 'Not defined'
         }
+
+        if ($null -ne $Source.Details.StatusTrue -and $null -ne $Source.Details.StatusFalse) {
+            if ($Status -eq $true) {
+                $StatusTranslation = $Script:StatusTranslation[$Source.Details.StatusTrue]
+            } elseif ($Status -eq $false) {
+                $StatusTranslation = $Script:StatusTranslation[$Source.Details.StatusFalse]
+            } elseif ($null -eq $Status) {
+                $StatusTranslation = $Script:StatusTranslation[-1]
+            }
+        } else {
+            $StatusTranslation = $Status
+        }
     } else {
         if ($null -ne $Test.Details.Importance) {
             $ImportanceInformation = $Script:Importance[$Test.Details.Importance]
@@ -73,13 +85,26 @@
         } else {
             $Action = 'Not defined'
         }
+        if ($null -ne $Test.Details.StatusTrue -and $null -ne $Test.Details.StatusFalse) {
+            if ($Status -eq $true) {
+                $StatusTranslation = $Script:StatusTranslation[$Test.Details.StatusTrue]
+            } elseif ($Status -eq $false) {
+                $StatusTranslation = $Script:StatusTranslation[$Test.Details.StatusFalse]
+            } elseif ($null -eq $Status) {
+                $StatusTranslation = $Script:StatusTranslation[-1]
+            }
+        } else {
+            $StatusTranslation = $Status
+        }
     }
+
 
     $Output = [PSCustomObject]@{
         Name             = $TestText
         DisplayName      = $Text
         Type             = $TestType
         Category         = $Category
+        Assesment        = $StatusTranslation
         Status           = $Status
         Action           = $Action
         Importance       = $ImportanceInformation
