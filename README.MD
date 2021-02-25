@@ -76,6 +76,19 @@ Please keep in mind that there is currently known issue that running all tests w
 
 ## ChangeLog
 
+- 0.0.58
+  - [x] Tests
+    - [x] Added `ForestSubnets`
+    - [x] Improved `DomainDomainControllers`
+    - [x] Improved `DomainLDAP`
+    - [x] Improved `ForestBackup`
+    - [x] Improved `ForestOrphanedAdmins`
+    - [x] Improved `ForestConfigurationPartitionOwners`
+    - [x] Improved `DomainDuplicateObjects`
+    - [x] Improved `ForestSites`
+  - [x] General
+    - [x] Improved reporting
+    - [x] Improved reporting status (assesment)
 - 0.0.57 - 2021.02.21
   - [x] Tests
     - [x] Added `DomainLDAP` - takes over `DCLDAP`
