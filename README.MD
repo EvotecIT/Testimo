@@ -76,7 +76,7 @@ Please keep in mind that there is currently known issue that running all tests w
 
 ## ChangeLog
 
-- 0.0.58
+- 0.0.58 - 2021.02.25
   - [x] Tests
     - [x] Added `ForestSubnets`
     - [x] Improved `DomainDomainControllers`
