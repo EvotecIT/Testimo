@@ -16,6 +16,7 @@
         ForestSiteLinks                              = $SiteLinks
         ForestSiteLinksConnections                   = $SiteLinksConnections
         ForestRoles                                  = $ForestFSMORoles
+        ForestSubnets                                = $ForestSubnets
         ForestOrphanedAdmins                         = $OrphanedAdmins
         ForestTombstoneLifetime                      = $TombstoneLifetime
         ForestTrusts                                 = $Trusts
