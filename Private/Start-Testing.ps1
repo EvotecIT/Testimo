@@ -343,7 +343,7 @@
                         } else {
                             $TestsResults = $null
                             $TestsSummary.Failed = $TestsSummary.Failed + 1
-                            Out-Failure -Text $CurrentTest['Name'] -Level $LevelTestFailure -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -ExtendedValue 'Input data not provided. Failing test.' -Source $CurrentSource
+                            Out-Failure -Text $CurrentTest['Name'] -Level $LevelTestFailure -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -ExtendedValue 'Input data not provided. Failing test.' -Source $CurrentTest
                         }
 
                         if ($Domain -and $DomainController) {
