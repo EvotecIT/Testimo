@@ -1,6 +1,6 @@
 $Script:Importance = @{
     0  = 'Informational'
-    1  = 'Neglible)'
+    1  = 'Neglible'
     2  = 'Very low'
     3  = 'Low'
     4  = 'Minor'
@@ -8,8 +8,8 @@ $Script:Importance = @{
     6  = 'Moderate'
     7  = 'High'
     8  = 'Very High'
-    9  = 'Signiciant'
-    10 = 'Extream'
+    9  = 'Significant'
+    10 = 'Extreme'
 }
 $Script:StatusTranslation = @{
     -1 = 'Skipped'
