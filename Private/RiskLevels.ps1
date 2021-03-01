@@ -1,6 +1,6 @@
 $Script:Importance = @{
     0  = 'Informational'
-    1  = 'Neglible'
+    1  = 'Negligible'
     2  = 'Very low'
     3  = 'Low'
     4  = 'Minor'
