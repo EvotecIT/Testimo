@@ -76,6 +76,9 @@ Please keep in mind that there is currently known issue that running all tests w
 
 ## ChangeLog
 
+- 0.0.59 - 2021.03.01
+  - [x] General
+    - [x] Misspelled word in report (Extream -> Extreme) [#120](https://github.com/EvotecIT/Testimo/issues/120) - tnx mojomojoman
 - 0.0.58 - 2021.02.25
   - [x] Tests
     - [x] Added `ForestSubnets`
