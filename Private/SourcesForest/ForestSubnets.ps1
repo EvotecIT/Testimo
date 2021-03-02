@@ -60,7 +60,7 @@
             New-HTMLText -Text @(
                 "AD subnets are used so that a machine can work out which AD site they should be in. "
                 "If you have a subnet that hasn’t been defined to Active Directory, any machines will have difficulty identifying which AD site they should be in. "
-                "This can easily lead to them authenticating against a domain controller that’s inappropriate from a network standpoint, which will cause a poor logon experience for those users."
+                "This can easily lead to them authenticating against a domain controller that’s inappropriate from a network standpoint, which will cause a poor logon experience for those users. "
                 "There are 3 stages to this test: "
             )
             New-HTMLList {
@@ -69,7 +69,7 @@
                 New-HTMLListItem -Text "Find subnets that are overlapping with other subnets. "
             }
             New-HTMLText -Text @(
-                "All three tests are required for properly configured Active Directory. "
+                "All three tests are required to pass for properly configured Active Directory. "
             )
         }
     }
@@ -78,6 +78,33 @@
         New-HTMLTableCondition -Name 'SiteStatus' -ComparisonType string -BackgroundColor Salmon -Value $false -Operator eq
         New-HTMLTableCondition -Name 'Overlap' -ComparisonType string -BackgroundColor PaleGreen -Value $false -Operator eq
         New-HTMLTableCondition -Name 'Overlap' -ComparisonType string -BackgroundColor Salmon -Value $true -Operator eq
-
+    }
+    Solution        = {
+        New-HTMLContainer {
+            New-HTMLSpanStyle -FontSize 10pt {
+                New-HTMLWizard {
+                    New-HTMLWizardStep -Name 'Investigate Subnets without Sites' {
+                        New-HTMLText -Text @(
+                            "Subnets without sites are pretty uncommon. "
+                            "This usually happens if site is deleted while the subnets are still attached to it. "
+                            "Subnets without sites have no use. "
+                            ""
+                            "Please move subnet to proper site, or if it's no longer needed, remove it totally. "
+                        )
+                    }
+                    New-HTMLWizardStep -Name 'Investigate Subnets overlapping' {
+                        New-HTMLText -Text @(
+                            "Subnets are supposed to be unique across forest. "
+                            "You can assign only one subnet to only one site. "
+                            "However it's possible to define subnets that overlap already defined subnets such as 10.0.0.0/8 will overlap with 10.0.20.32/32. "
+                            "This shouldn't happen as it will influence authentication process and cause poor logon experience. "
+                            ""
+                            "Investigate why subnets are added with overlap and fix it. "
+                            "Please make sure to consult it with appriopriate people or/and network team. "
+                        ) -FontWeight normal, bold, normal, normal, normal, normal, bold, bold
+                    }
+                } -RemoveDoneStepOnNavigateBack -Theme arrows -ToolbarButtonPosition center -EnableAllAnchors
+            }
+        }
     }
 }
