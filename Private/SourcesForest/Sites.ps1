@@ -2,7 +2,7 @@
     Enable          = $true
     Scope           = 'Forest'
     Source          = [ordered] @{
-        Name           = 'Sites verification'
+        Name           = 'Forest Sites'
         Data           = {
             Get-WinADForestSites -Forest $ForestName
         }
@@ -60,7 +60,7 @@
                 "Site information allows administrators to configure Active Directory access and replication to optimize usage of the physical network. "
                 "Site objects are associated with a set of subnets, and each domain controller in a forest is associated with an Active Directory site according to its IP address. "
                 "Sites can host domain controllers from more than one domain, and a domain can be represented in more than one site."
-            ) -LineBreak
+            ) #-LineBreak
             New-HTMLText -Text @(
                 "Sites without subnets have no role and just stay there unused. "
                 "Sites without Domain Controllers still have their role in the Active Directory Topology. "
