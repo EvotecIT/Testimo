@@ -27,6 +27,7 @@ function Invoke-Testimo {
         [Parameter(DontShow)][switch] $ShowReport,
         [switch] $HideHTML,
         [alias('HideSolution')][switch] $HideSteps,
+        [alias('AlwaysShowSolution')][switch] $AlwaysShowSteps,
         [switch] $SkipRODC,
         [switch] $Online,
         [string[]] $ExternalTests
@@ -142,7 +143,7 @@ function Invoke-Testimo {
     }
     $Time = Start-TimeLog
     Out-Informative -OverrideTitle 'Testimo' -Text 'HTML Report Generation Started' -Level 0 -Status $null #-ExtendedValue $Script:Reporting['Version']
-    Start-TestimoReport -FilePath $FilePath -Online:$Online -ShowHTML:(-not $HideHTML.IsPresent) -TestResults $Script:Reporting -HideSteps:$HideSteps
+    Start-TestimoReport -FilePath $FilePath -Online:$Online -ShowHTML:(-not $HideHTML.IsPresent) -TestResults $Script:Reporting -HideSteps:$HideSteps -AlwaysShowSteps:$AlwaysShowSteps
     $TimeEnd = Stop-TimeLog -Time $Time
     Out-Informative -OverrideTitle 'Testimo' -Text "HTML Report Saved to $FilePath" -Level 0 -Status $null -ExtendedValue $TimeEnd
 }
