@@ -78,4 +78,28 @@
         New-HTMLTableCondition -Name 'SubnetsCount' -ComparisonType number -BackgroundColor Salmon -Value 0 -Operator eq
         New-HTMLTableCondition -Name 'DomainControllersCount' -ComparisonType number -BackgroundColor PaleGreen -Value 0 -Operator gt
     }
+    Solution        = {
+        New-HTMLContainer {
+            New-HTMLSpanStyle -FontSize 10pt {
+                New-HTMLWizard {
+                    New-HTMLWizardStep -Name 'Investigate Sites without Subnets' {
+                        New-HTMLText -Text @(
+                            "Sites without subnets have no use. "
+                            "It can mean the site is no longer in use and can be safely deleted. "
+                            ""
+                            "Please investigate and find out if that's really the case. "
+                            "Otherwise you should create proper subnet for given site. "
+                        )
+                    }
+                    New-HTMLWizardStep -Name 'Investigate Sites without Domain Controllers (optional)' {
+                        New-HTMLText -Text @(
+                            "Sites without Domain Controllers do happen and are quite common. "
+                            "But this isn't always true. "
+                            "Consider investigating whether sites without Domain Controller are as expected. "
+                        ) -FontWeight normal, bold, normal, normal, normal, normal, bold, bold
+                    }
+                } -RemoveDoneStepOnNavigateBack -Theme arrows -ToolbarButtonPosition center -EnableAllAnchors
+            }
+        }
+    }
 }
