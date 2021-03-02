@@ -1,14 +1,14 @@
 ﻿$OptionalFeatures = [ordered] @{
-    Enable = $true
-    Scope  = 'Forest'
-    Source = [ordered] @{
+    Enable          = $true
+    Scope           = 'Forest'
+    Source          = [ordered] @{
         Name           = 'Optional Features'
         Data           = {
             Get-WinADForestOptionalFeatures
         }
         Details        = [ordered] @{
             Category    = 'Configuration'
-            Description = "Optional features verify availability of Recycle Bin, LAPS and PAM in the Active Directory Forest."
+            Description = "Verifies availability of Recycle Bin, LAPS and PAM in the Active Directory Forest."
             Importance  = 0
             ActionType  = 0
             Severity    = 'Medium'
@@ -20,7 +20,7 @@
         }
         ExpectedOutput = $true
     }
-    Tests  = [ordered] @{
+    Tests           = [ordered] @{
         RecycleBinEnabled    = @{
             Enable     = $true
             Name       = 'Recycle Bin Enabled'
@@ -88,5 +88,18 @@
                 StatusFalse = 0
             }
         }
+    }
+    DataDescription = {
+        New-HTMLSpanStyle -FontSize 10pt {
+            New-HTMLText -Text @(
+                "Following test verifies availability of Recycle Bin, LAPS and PAM in the Active Directory Forest. "
+                "While LAPS and RecycleBin are quite critical for properly functioning Active Directory, PAM is just a recommendation and is not so easy to implement. "
+                "Therefore only 2 out of 3 tests are considered critical. PAM test is optional. "
+            )
+        }
+    }
+    DataHighlights  = {
+        New-HTMLTableCondition -Name 'Value' -ComparisonType string -BackgroundColor PaleGreen -Value $true -Operator eq
+        New-HTMLTableCondition -Name 'Value' -ComparisonType string -BackgroundColor Salmon -Value $false -Operator eq
     }
 }
