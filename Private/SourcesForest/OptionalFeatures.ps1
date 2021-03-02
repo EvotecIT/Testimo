@@ -79,7 +79,7 @@
                 Description = "Privileged Access Management (PAM) is a solution that helps organizations restrict privileged access within an existing Active Directory environment."
                 Resolution  = 'Consider introducing PAM to your environment.'
                 Severity    = 'Recommendation'
-                Importance  = 4
+                Importance  = 5
                 ActionType  = 0
                 Resources   = @(
                     'https://docs.microsoft.com/en-us/microsoft-identity-manager/pam/privileged-identity-management-for-active-directory-domain-services'
