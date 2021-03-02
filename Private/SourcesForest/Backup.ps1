@@ -24,7 +24,7 @@
     Tests           = [ordered] @{
         LastBackupTests = @{
             Enable     = $true
-            Name       = 'Forest Last Backup Time - Context'
+            Name       = 'Forest Last Backup Time'
             Parameters = @{
                 ExpectedValue         = 2
                 OperationType         = 'lt'
@@ -33,9 +33,9 @@
                 OverwriteName         = { "Last Backup $($_.NamingContext)" }
             }
             Details    = [ordered] @{
-                Category   = 'Configuration'
-                Importance = 10
-                ActionType = 2
+                Category    = 'Configuration'
+                Importance  = 10
+                ActionType  = 2
                 StatusTrue  = 1
                 StatusFalse = 5
             }
