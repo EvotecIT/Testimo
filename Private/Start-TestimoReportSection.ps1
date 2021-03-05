@@ -8,6 +8,7 @@ function Start-TestimoReportSection {
         [Array] $Results,
         [Array] $WarningsAndErrors,
         [switch] $HideSteps,
+        [switch] $AlwaysShowSteps,
         [System.Collections.IDictionary]$TestResults,
         [string] $Type
     )
@@ -58,8 +59,33 @@ function Start-TestimoReportSection {
                         } elseif ($Information.Source.Details.Description) {
                             New-HTMLText -Text $Information.Source.Details.Description -FontSize 10pt
                         }
+
+                        $SummaryOfTests = foreach ($Test in $Information.Tests.Keys) {
+                            if ($Information.Tests[$Test].Enable -eq $true -and $Information.Tests[$Test].Details.Description) {
+                                New-HTMLListItem -FontSize 10pt -Text $Information.Tests[$Test].Name, " - ", $Information.Tests[$Test].Details.Description
+                                if ($Information.Tests[$Test].Details.Resources) {
+                                    New-HTMLList -FontSize 10pt {
+                                        foreach ($Resource in $Information.Tests[$Test].Details.Resources) {
+                                            if ($Resource.StartsWith('[')) {
+                                                New-HTMLListItem -Text $Resource
+                                            } else {
+                                                # Since the link is given in pure form, we want to convert it to markdown link
+                                                $Resource = "[$Resource]($Resource)"
+                                                New-HTMLListItem -Text $Resource
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if ($SummaryOfTests) {
+                            New-HTMLList {
+                                $SummaryOfTests
+                            }
+                        }
+
                         if ($Information.Source.Details.Resources) {
-                            New-HTMLText -LineBreak
+                            #New-HTMLText -LineBreak
                             New-HTMLText -Text 'Following resources may be helpful to understand this topic', ', please make sure to read those to understand this topic before following any instructions.' -FontSize 10pt -FontWeight bold, normal
                             New-HTMLList -FontSize 10pt {
                                 foreach ($Resource in $Information.Source.Details.Resources) {
@@ -74,24 +100,19 @@ function Start-TestimoReportSection {
                             }
                         }
                     }
-                    New-HTMLText -FontSize 10pt -Text 'Summary of Test results for ', $Name -FontWeight bold
+                    #New-HTMLText -FontSize 10pt -Text 'Summary of Test results for ', $Name -FontWeight bold
                     New-HTMLText -FontSize 10pt -Text @(
-                        'If any of the tests below have '
-                        'Status',
-                        ' set to '
-                        ' FALSE ',
-                        'AD Team needs to investigate according to the steps provided or using their internal processes (for example SOP). '
-                        "It's important to have a read of attached blog posts to understand more about described problems. "
-                        "Please keep in mind that while Status may be "
-                        "TRUE"
-                        " or "
-                        "FALSE"
-                        " it's important to take into account "
-                        "Importance"
-                        " and "
-                        "Action"
-                        " columns. "
-                    ) -FontWeight normal, bold, normal, bold, normal, normal, normal, bold, normal, bold, normal, bold, normal, bold, normal
+                        "In the table below you can find summary of tests executed in the "
+                        $Name
+                        " category. Each test has their "
+                        "assesment level ", ', '
+                        "importance level ", ' and '
+                        "action ",
+                        "defined. "
+                        "Depending on the assesment, importance and action AD Team needs to investigate according to the steps provided including using their internal processes (for example SOP). "
+                        "It's important to have an understanding what the test is trying to tell you and what solution is provided. "
+                        "If you have doubts, or don't understand some test please consider talking to senior admins for guidance. "
+                    ) -FontWeight normal, bold, normal, bold, normal, bold, normal, bold, normal, normal, normal, normal
                     New-HTMLTable -DataTable $ResultsDisplay {
                         & $TestResults['Configuration']['ResultConditions']
                     } -Filtering
@@ -113,9 +134,11 @@ function Start-TestimoReportSection {
                 }
             }
         }
-        if ($Information.Solution -and $HideSteps.IsPresent -eq $false -and $FailedTestsSingular.Count -gt 0) {
-            New-HTMLSection -Name 'Solution' {
-                & $Information.Solution
+        if ($Information.Solution) {
+            if (($HideSteps.IsPresent -eq $false -and $FailedTestsSingular.Count -gt 0) -or $AlwaysShowSteps.IsPresent) {
+                New-HTMLSection -Name 'Solution' {
+                    & $Information.Solution
+                }
             }
         }
     }
