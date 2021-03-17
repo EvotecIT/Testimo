@@ -83,8 +83,12 @@ Please keep in mind that there is currently known issue that running all tests w
     - [x] Improved `ForestOptionalFeatures`
     - [x] Improved `ForestBackup`
     - [x] Improved `ForestTombstoneLifetime`
-  - [ ] General
-    - [ ] Added `AlwaysShowSteps`
+    - [x] Improved `DomainDomainControllers`
+    - [x] Improved `DomainLDAP`
+    - [x] Improved `DomainOrphanedSecurityPrincipals`
+  - [x] General
+    - [x] Added `AlwaysShowSteps`
+    - [x] Improved support for new [PSWriteHTML](https://github.com/EvotecIT/pswritehtml)
 - 0.0.59 - 2021.03.01
   - [x] General
     - [x] Misspelled word in report (Extream -> Extreme) [#120](https://github.com/EvotecIT/Testimo/issues/120) - tnx mojomojoman
