@@ -76,6 +76,12 @@ Please keep in mind that there is currently known issue that running all tests w
 
 ## ChangeLog
 
+- 0.0.61 - 2021.03.17
+  - [x] Tests
+    - [x] Improved `ForestTrusts`
+    - [x] Improved `ForestRoles`
+  - [x] General
+    - [ ] Improvement of HTML
 - 0.0.60 - 2021.03.17
   - [x] Tests
     - [x] Improved `ForestSubnets`
