@@ -71,10 +71,10 @@
             }
             Details    = [ordered] @{
                 Category    = 'Security'
-                Importance  = 10
+                Importance  = 3
                 ActionType  = 2
                 StatusTrue  = 1
-                StatusFalse = 5
+                StatusFalse = 2
             }
         }
         DNSStatus          = @{
