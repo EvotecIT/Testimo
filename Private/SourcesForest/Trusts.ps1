@@ -7,16 +7,17 @@
             Get-WinADTrust -Forest $ForestName
         }
         Details        = [ordered] @{
-            Area        = 'Health', 'Configuration'
-            Category    = 'Trusts'
-            Severity    = ''
-            Importance  = 0
+            Category    = 'Health', 'Configuration'
+            Importance  = 4
+            ActionType  = 0
             Description = 'Verifies if trusts are available and tests for trust unconstrained TGTDelegation'
             Resolution  = ''
             Resources   = @(
                 '[Changes to Ticket-Granting Ticket (TGT) Delegation Across Trusts in Windows Server (CIS edition)](https://techcommunity.microsoft.com/t5/core-infrastructure-and-security/changes-to-ticket-granting-ticket-tgt-delegation-across-trusts/ba-p/440261)'
                 "[Visually display Active Directory Trusts using PowerShell](https://evotec.xyz/visually-display-active-directory-trusts-using-powershell/)"
             )
+            StatusTrue  = 0
+            StatusFalse = 3
         }
         ExpectedOutput = $null
     }
@@ -30,6 +31,13 @@
                 ExpectedValue = 'OK'
                 OperationType = 'eq'
             }
+            Details    = [ordered] @{
+                Category    = 'Configuration'
+                Importance  = 5
+                ActionType  = 2
+                StatusTrue  = 1
+                StatusFalse = 0
+            }
         }
         TrustsQueryStatus             = @{
             Enable     = $true
@@ -39,6 +47,13 @@
                 Property      = 'QueryStatus'
                 ExpectedValue = 'OK'
                 OperationType = 'eq'
+            }
+            Details    = [ordered] @{
+                Category    = 'Configuration'
+                Importance  = 5
+                ActionType  = 2
+                StatusTrue  = 1
+                StatusFalse = 5
             }
         }
         TrustsUnconstrainedDelegation = @{
@@ -51,6 +66,13 @@
                 Property      = 'IsTGTDelegationEnabled'
                 ExpectedValue = $false
                 OperationType = 'eq'
+            }
+            Details    = [ordered] @{
+                Category    = 'Configuration'
+                Importance  = 5
+                ActionType  = 2
+                StatusTrue  = 1
+                StatusFalse = 5
             }
         }
     }
