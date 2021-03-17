@@ -181,8 +181,8 @@
             New-HTMLText -Text @(
                 "If any/all of those ports are unavailable for any of the Domain Controllers "
                 "it means that either DC is not available from location it's getting tested from ("
-                "$Env:COMPUTERNAME "
-                ")or those ports are down, or DC doesn't have a proper certificate installed. "
+                "$Env:COMPUTERNAME"
+                ") or those ports are down, or DC doesn't have a proper certificate installed. "
                 "Please make sure to verify Domain Controllers that are reporting errors and talk to network team if required to make sure "
                 "proper ports are open thru firewall. "
             ) -Color None, None, BilobaFlower, None, None, None
