@@ -76,7 +76,7 @@ Please keep in mind that there is currently known issue that running all tests w
 
 ## ChangeLog
 
-- 0.0.60
+- 0.0.60 - 2021.03.17
   - [x] Tests
     - [x] Improved `ForestSubnets`
     - [x] Improved `ForestSites`
