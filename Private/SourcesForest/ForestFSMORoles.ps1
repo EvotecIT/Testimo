@@ -10,11 +10,14 @@
             Category    = 'Health'
             Description = ''
             Resolution  = ''
-            Importance  = 10
+            Importance  = 0
+            ActionType  = 0
             Severity    = 'High'
             Resources   = @(
 
             )
+            StatusTrue  = 0
+            StatusFalse = 2
         }
         ExpectedOutput = $true
     }
@@ -28,6 +31,13 @@
                 OperationType         = 'eq'
                 PropertyExtendedValue = 'SchemaMaster'
             }
+            Details    = [ordered] @{
+                Category    = 'Health'
+                Importance  = 10
+                ActionType  = 2
+                StatusTrue  = 1
+                StatusFalse = 10
+            }
         }
         DomainNamingMasterAvailability = @{
             Enable     = $true
@@ -37,6 +47,13 @@
                 Property              = 'DomainNamingMasterAvailability'
                 OperationType         = 'eq'
                 PropertyExtendedValue = 'DomainNamingMaster'
+            }
+            Details    = [ordered] @{
+                Category    = 'Health'
+                Importance  = 10
+                ActionType  = 2
+                StatusTrue  = 1
+                StatusFalse = 10
             }
         }
     }
