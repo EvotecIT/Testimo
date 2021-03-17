@@ -56,11 +56,26 @@
                         }
                         New-HTMLText -Text "It provides same data as you see in table above just doesn't prettify it for you."
                     }
+                    New-HTMLWizardStep -Name 'Verify Trusts' {
+                        New-HTMLText -Text @(
+                            "It's important before deleting any FSP that all trusts are working correctly. "
+                            "If trusts are down, translation FSP objects doesn't happen and therefore it would look like that FSP or orphaned. "
+                            "Please run following command "
+                        )
+                        New-HTMLCodeBlock -Code {
+                            Show-WinADTrust -Online -Recursive -Verbose
+                        }
+                        New-HTMLText -Text @(
+                            "Zero level trusts are required to be functional and responding. "
+                            "First level and above are optional, but should be verified if that's expected before removing FSP objects. "
+                        )
+                    }
                     New-HTMLWizardStep -Name 'Remove Orphaned FSP Objects (manual)' {
                         New-HTMLText -Text @(
                             "You can find all FSPs in the Active Directory Users and Computers (ADUC) console in a container named ForeignSecurityPrincipals. "
                             "However, you must first enable Advanced Features in the console. Otherwise the container won't show anything."
                             "You can recognize orphan FSPs by empty readable names in the ADUC console. "
+                            ""
                             "However, there is a potential issue you need to be aware of. If, at the same time you are looking for orphaned FSPs, "
                             "there is a network connectivity issue between domain controllers and domain controllers from other trusted forests, "
                             "you won't be able to see the readable names. Thus the script and you will incorrectly deduce that they are orphans."
