@@ -70,7 +70,7 @@
 
     New-HTML -FilePath $FilePath -Online:$Online {
         New-HTMLSectionStyle -BorderRadius 0px -HeaderBackGroundColor Grey -RemoveShadow
-        New-HTMLTableOption -DataStore JavaScript -BoolAsString
+        New-HTMLTableOption -DataStore JavaScript -BoolAsString -ArrayJoin -ArrayJoinString ', ' -DateTimeFormat 'dd.MM.yyyy HH:mm:ss'
         New-HTMLTabStyle -BorderRadius 0px -BackgroundColorActive SlateGrey
 
         New-HTMLHeader {
@@ -102,9 +102,9 @@
                             New-ChartPie -Name 'Skipped' -Value ($SkippedTests.Count) -Color $ColorSkipped
                         }
                         New-HTMLTable -DataTable $TestResults['Summary'] -HideFooter -DisableSearch {
-                            New-HTMLTableContent -ColumnName 'Passed' -BackgroundColor $TestResults['Configuration']['Colors']['ColorPassed'] -Color $TestResults['Configuration']['Colors']['ColorPassedText']
-                            New-HTMLTableContent -ColumnName 'Failed' -BackgroundColor $TestResults['Configuration']['Colors']['ColorFailed'] -Color $TestResults['Configuration']['Colors']['ColorFailedText']
-                            New-HTMLTableContent -ColumnName 'Skipped' -BackgroundColor $TestResults['Configuration']['Colors']['ColorSkipped'] -Color $TestResults['Configuration']['Colors']['ColorSkippedText']
+                            New-HTMLTableContent -ColumnName 'Passed' -BackGroundColor $TestResults['Configuration']['Colors']['ColorPassed'] -Color $TestResults['Configuration']['Colors']['ColorPassedText']
+                            New-HTMLTableContent -ColumnName 'Failed' -BackGroundColor $TestResults['Configuration']['Colors']['ColorFailed'] -Color $TestResults['Configuration']['Colors']['ColorFailedText']
+                            New-HTMLTableContent -ColumnName 'Skipped' -BackGroundColor $TestResults['Configuration']['Colors']['ColorSkipped'] -Color $TestResults['Configuration']['Colors']['ColorSkippedText']
                         } -DataStore HTML -Buttons @() -DisablePaging
                     } -Width '35%'
                     New-HTMLContainer {

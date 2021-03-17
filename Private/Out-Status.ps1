@@ -64,7 +64,7 @@
             } elseif ($Status -eq $false) {
                 $StatusTranslation = $Script:StatusTranslation[$Source.Details.StatusFalse]
             } elseif ($null -eq $Status) {
-                $StatusTranslation = $Script:StatusTranslation[-1]
+                $StatusTranslation = $Script:StatusTranslation[0]
             }
         } else {
             $StatusTranslation = $Status
@@ -91,7 +91,7 @@
             } elseif ($Status -eq $false) {
                 $StatusTranslation = $Script:StatusTranslation[$Test.Details.StatusFalse]
             } elseif ($null -eq $Status) {
-                $StatusTranslation = $Script:StatusTranslation[-1]
+                $StatusTranslation = $Script:StatusTranslation[0]
             }
         } else {
             $StatusTranslation = $Status
