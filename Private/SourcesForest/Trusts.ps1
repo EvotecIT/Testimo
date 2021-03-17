@@ -10,11 +10,12 @@
             Area        = 'Health', 'Configuration'
             Category    = 'Trusts'
             Severity    = ''
-            Importance   = 0
+            Importance  = 0
             Description = 'Verifies if trusts are available and tests for trust unconstrained TGTDelegation'
             Resolution  = ''
             Resources   = @(
-                'https://blogs.technet.microsoft.com/askpfeplat/2019/04/11/changes-to-ticket-granting-ticket-tgt-delegation-across-trusts-in-windows-server-askpfeplat-edition/'
+                '[Changes to Ticket-Granting Ticket (TGT) Delegation Across Trusts in Windows Server (CIS edition)](https://techcommunity.microsoft.com/t5/core-infrastructure-and-security/changes-to-ticket-granting-ticket-tgt-delegation-across-trusts/ba-p/440261)'
+                "[Visually display Active Directory Trusts using PowerShell](https://evotec.xyz/visually-display-active-directory-trusts-using-powershell/)"
             )
         }
         ExpectedOutput = $null
