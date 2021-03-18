@@ -5,7 +5,7 @@
         Name           = "Resolves external DNS queries"
         Data           = {
             $Output = Invoke-Command -ComputerName $DomainController -ErrorAction Stop {
-                Resolve-DnsName -Name 'evotec.xyz' -ErrorAction SilentlyContinue
+                Resolve-DnsName -Name 'testimo-check.evotec.xyz' -ErrorAction SilentlyContinue
             }
             $Output
         }
@@ -28,7 +28,7 @@
             Name        = 'Should resolve External DNS'
             Parameters  = @{
                 Property      = 'IPAddress'
-                ExpectedValue = '37.59.176.139'
+                ExpectedValue = '1.1.1.1'
                 OperationType = 'eq'
             }
             Description = 'DNS should resolve external queries properly.'
