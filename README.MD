@@ -76,6 +76,9 @@ Please keep in mind that there is currently known issue that running all tests w
 
 ## ChangeLog
 
+- 0.0.62
+  - [x] Tests
+    - [x] Fixed `DCDNSResolveExternal` reported in [#122](https://github.com/EvotecIT/Testimo/issues/122)
 - 0.0.61 - 2021.03.17
   - [x] Tests
     - [x] Improved `ForestTrusts`
