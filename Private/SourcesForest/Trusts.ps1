@@ -1,7 +1,7 @@
 ﻿$Trusts = @{
-    Enable = $true
-    Scope  = 'Forest'
-    Source = @{
+    Enable         = $true
+    Scope          = 'Forest'
+    Source         = @{
         Name           = "Trust Availability"
         Data           = {
             Get-WinADTrust -Forest $ForestName
@@ -21,7 +21,7 @@
         }
         ExpectedOutput = $null
     }
-    Tests  = [ordered] @{
+    Tests          = [ordered] @{
         TrustsConnectivity            = @{
             Enable     = $true
             Name       = 'Trust status'
@@ -75,5 +75,22 @@
                 StatusFalse = 5
             }
         }
+    }
+    DataHighlights = {
+        New-HTMLTableCondition -Name 'QueryStatus' -ComparisonType string -BackgroundColor PaleGreen -Value 'OK' -Operator eq -FailBackgroundColor Salmon
+        New-HTMLTableCondition -Name 'TrustStatus' -ComparisonType string -BackgroundColor PaleGreen -Value 'OK' -Operator eq -FailBackgroundColor Orange
+        New-TableConditionGroup {
+            New-HTMLTableCondition -Name 'TrustType' -ComparisonType string -Value 'Forest', 'External' -Operator in
+            New-HTMLTableCondition -Name 'SIDFilteringQuarantined' -ComparisonType string -Value $true -Operator eq
+        } -Logic AND -HighlightHeaders 'SIDFilteringQuarantined', 'TrustType' -BackgroundColor PaleGreen
+
+        New-TableConditionGroup {
+            New-HTMLTableCondition -Name 'TrustType' -ComparisonType string -Value 'Forest', 'External' -Operator in
+            New-HTMLTableCondition -Name 'SIDFilteringQuarantined' -ComparisonType string -Value $false -Operator eq
+        } -Logic AND -HighlightHeaders 'SIDFilteringQuarantined', 'TrustType' -BackgroundColor Salmon
+
+        New-TableConditionGroup {
+            New-HTMLTableCondition -Name 'TrustType' -ComparisonType string -Value 'TreeRoot' -Operator eq
+        } -Logic AND -HighlightHeaders 'SIDFilteringQuarantined', 'TrustType' -BackgroundColor PaleGreen
     }
 }
