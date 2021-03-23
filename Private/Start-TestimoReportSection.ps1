@@ -115,7 +115,7 @@ function Start-TestimoReportSection {
                     ) -FontWeight normal, bold, normal, bold, normal, bold, normal, bold, normal, normal, normal, normal
                     New-HTMLTable -DataTable $ResultsDisplay {
                         & $TestResults['Configuration']['ResultConditions']
-                    } -Filtering
+                    } -Filtering -PagingLength 10
                 }
             }
         }
