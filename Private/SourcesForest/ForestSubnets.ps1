@@ -74,10 +74,19 @@
         }
     }
     DataHighlights  = {
-        New-HTMLTableCondition -Name 'SiteStatus' -ComparisonType string -BackgroundColor PaleGreen -Value $true -Operator eq
-        New-HTMLTableCondition -Name 'SiteStatus' -ComparisonType string -BackgroundColor Salmon -Value $false -Operator eq
+        New-HTMLTableCondition -Name 'SiteStatus' -ComparisonType string -BackgroundColor PaleGreen -Value $true -Operator eq -FailBackgroundColor Salmon
+        #New-HTMLTableCondition -Name 'SiteStatus' -ComparisonType string -BackgroundColor Salmon -Value $false -Operator eq
         New-HTMLTableCondition -Name 'Overlap' -ComparisonType string -BackgroundColor PaleGreen -Value $false -Operator eq
         New-HTMLTableCondition -Name 'Overlap' -ComparisonType string -BackgroundColor Salmon -Value $true -Operator eq
+    }
+    DataInformation = {
+        New-HTMLText -Text 'Explanation to table columns:' -FontSize 10pt
+        New-HTMLList {
+            New-HTMLListItem -FontWeight bold, normal -Text "SiteStatus", " - means subnet is assigned to a site. If it's false that means subnet is orphaned and it should be reassigned to proper site or deleted. "
+            New-HTMLListItem -FontWeight bold, normal -Text "Overlap", " - means subnet is overlapping with other subnets which are shown in OverLapList column. This needs to be resolved by working with Network Team. "
+        } -FontSize 10pt
+
+        New-HTMLText -Text "Please keep in mind that overlapping is only assesed for IPv4. IPv6 is not assed. Site Status however works as expected for IPv6 as well." -FontSize 10pt
     }
     Solution        = {
         New-HTMLContainer {
