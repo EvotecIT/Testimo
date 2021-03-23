@@ -76,6 +76,12 @@ Please keep in mind that there is currently known issue that running all tests w
 
 ## ChangeLog
 
+- 0.0.65 - 2021.03.24
+  - [x] Tests
+    - [x] Improvement `DomainSecurityUsers`
+    - [x] Improvement `DomainSecurityKRBGT`
+  - [x] General
+    - [x] Improvement of HTML
 - 0.0.64 - 2021.03.23
   - [x] Tests
     - [x] Improvement `DomainSecurityUsers`
