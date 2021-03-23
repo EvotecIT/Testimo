@@ -76,7 +76,11 @@ Please keep in mind that there is currently known issue that running all tests w
 
 ## ChangeLog
 
-- 0.0.63 - 2021.03.21
+- 0.0.64 - 2021.03.23
+  - [x] Tests
+    - [x] Improvement `DomainSecurityUsers`
+    - [x] Improvement `DomainSecurityKRBGT`
+- 0.0.63 - 2021.03.23
   - [x] Tests
     - [x] Improvement `ForestSubnets`
 - 0.0.62 - 2021.03.20
