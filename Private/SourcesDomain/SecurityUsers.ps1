@@ -26,7 +26,8 @@
             )
             $GuestSID = "$($DomainInformation.DomainSID)-501"
             # Skipping trusts with SamAccountType and Guests
-            Get-ADUser -Filter { (AllowReversiblePasswordEncryption -eq $true -or UseDESKeyOnly -eq $true -or PrimaryGroupID -ne '513' -or PasswordNotRequired -eq $true) -and (SID -ne $GuestSID -and SamAccountType -ne 805306370) } -Properties $Properties -Server $Domain | Select-Object -Property $Properties
+            # Skipping Exchange_Online-ApplicationAccount because it doesn't require password by default (also disabled)
+            Get-ADUser -Filter { (AllowReversiblePasswordEncryption -eq $true -or UseDESKeyOnly -eq $true -or PrimaryGroupID -ne '513' -or PasswordNotRequired -eq $true) -and (SID -ne $GuestSID -and SamAccountType -ne 805306370) } -Properties $Properties -Server $Domain | Where-Object { $_.UserPrincipalName -notlike 'Exchange_Online-ApplicationAccount*' } | Select-Object -Property $Properties
         }
         Details        = [ordered] @{
             Category    = 'Security', 'Cleanup'
@@ -42,18 +43,6 @@
         ExpectedOutput = $false
     }
     Tests           = [ordered] @{
-        <#
-        PasswordLastSet                   = @{
-            Enable      = $true
-            Name        = 'User Last Password Change Should be less than 360 days ago'
-            Parameters  = @{
-                Property      = 'PasswordLastSet'
-                ExpectedValue = '(Get-Date).AddDays(-360)'
-                OperationType = 'gt'
-            }
-            Description = 'User account should be disabled or LastPasswordChange should be less than 1 year ago.'
-        }
-        #>
         KeberosDES                        = @{
             Enable      = $true
             Name        = 'Kerberos DES detection'
