@@ -50,6 +50,6 @@
         New-HTMLText -Text "Please keep in mind that if there are more than one keberos account it means there are RODC having own krbtgt account. " -FontSize 10pt
     }
     DataHighlights  = {
-        New-HTMLTableCondition -Name 'PasswordLastSet' -ComparisonType date -BackgroundColor PaleGreen -Value (Get-Date).AddDays(-180) -Operator gt -FailBackgroundColor Salmon
+        New-HTMLTableCondition -Name 'PasswordLastSet' -ComparisonType date -BackgroundColor PaleGreen -Value (Get-Date).AddDays(-180) -Operator gt -FailBackgroundColor Salmon -DateTimeFormat 'DD.MM.YYYY HH:mm:ss'
     }
 }
