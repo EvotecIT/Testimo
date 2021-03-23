@@ -27,9 +27,9 @@
         ExpectedOutput = $true
     }
     Tests           = [ordered] @{
-        PasswordLastSet     = @{
-            Enable      = $true
-            Name        = 'Krbtgt Last Password Change Should be less than 180 days ago'
+        PasswordLastSet        = @{
+            Enable      = $false
+            Name        = 'Krbtgt Last Password Change should changed frequently'
             Parameters  = @{
                 Property      = 'PasswordLastSet'
                 ExpectedValue = '(Get-Date).AddDays(-180)'
@@ -44,7 +44,41 @@
             }
             Description = 'LastPasswordChange should be less than 180 days ago.'
         }
-        DeadKerberosAccount = @{
+        PasswordLastSetPrimary = @{
+            Enable      = $true
+            Name        = 'Krbtgt DC password should be changed frequently'
+            Parameters  = @{
+                WhereObject   = { $_.Name -eq 'krbtgt' -and $_.PasswordLastSet -lt (Get-Date).AddDays(-180) }
+                ExpectedCount = 0
+                OperationType = 'eq'
+            }
+            Details     = [ordered] @{
+                Category    = 'Security'
+                Importance  = 8
+                ActionType  = 2
+                StatusTrue  = 1
+                StatusFalse = 5
+            }
+            Description = 'LastPasswordChange should be less than 180 days ago.'
+        }
+        PasswordLastSetRODC    = @{
+            Enable      = $true
+            Name        = 'Krbtgt RODC password should be changed frequently'
+            Parameters  = @{
+                WhereObject   = { $_.Name -ne 'krbtgt' -and $_.PasswordLastSet -lt (Get-Date).AddDays(-180) }
+                ExpectedCount = 0
+                OperationType = 'eq'
+            }
+            Details     = [ordered] @{
+                Category    = 'Security'
+                Importance  = 8
+                ActionType  = 2
+                StatusTrue  = 1
+                StatusFalse = 5
+            }
+            Description = 'LastPasswordChange should be less than 180 days ago.'
+        }
+        DeadKerberosAccount    = @{
             Enable      = $true
             Name        = 'Krbtgt RODC account without RODC'
             Parameters  = @{
