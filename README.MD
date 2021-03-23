@@ -80,6 +80,8 @@ Please keep in mind that there is currently known issue that running all tests w
   - [x] Tests
     - [x] Improvement `DomainSecurityUsers`
     - [x] Improvement `DomainSecurityKRBGT`
+  - [x] General
+    - [x] Improvement of HTML
 - 0.0.63 - 2021.03.23
   - [x] Tests
     - [x] Improvement `ForestSubnets`
