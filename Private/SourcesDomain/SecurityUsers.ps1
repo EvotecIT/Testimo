@@ -151,6 +151,8 @@
         New-HTMLTableCondition -Name 'AllowReversiblePasswordEncryption' -ComparisonType string -BackgroundColor PaleGreen -Value $false -Operator eq -FailBackgroundColor Salmon
         New-HTMLTableCondition -Name 'UseDESKeyOnly' -ComparisonType string -BackgroundColor PaleGreen -Value $false -Operator eq -FailBackgroundColor Salmon
         New-HTMLTableCondition -Name 'PrimaryGroupID' -ComparisonType string -BackgroundColor PaleGreen -Value '513' -Operator eq -FailBackgroundColor Salmon -HighlightHeaders 'PrimaryGroupID', 'PrimaryGroup'
+        New-HTMLTableCondition -Name 'PasswordLastSet' -ComparisonType date -BackgroundColor PaleGreen -Value (Get-Date).AddDays(-180) -Operator gt -FailBackgroundColor Salmon -DateTimeFormat 'DD.MM.YYYY HH:mm:ss'
+        New-HTMLTableCondition -Name 'LastLogonDate' -ComparisonType date -BackgroundColor PaleGreen -Value (Get-Date).AddDays(-180) -Operator gt -FailBackgroundColor Salmon -DateTimeFormat 'DD.MM.YYYY HH:mm:ss'
     }
     DataInformation = {
         New-HTMLText -Text 'Explanation to table columns:' -FontSize 10pt
