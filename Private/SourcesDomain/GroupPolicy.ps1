@@ -1,8 +1,8 @@
-$GroupPolicyAssesment = @{
+$GroupPolicyAssessment = @{
     Enable = $true
     Scope  = 'Domain'
     Source = @{
-        Name           = "Group Policy Assesment"
+        Name           = "Group Policy Assessment"
         Data           = {
             Get-GPOZaurr -Forest $ForestName -IncludeDomains $Domain
         }

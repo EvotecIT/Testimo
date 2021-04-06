@@ -27,7 +27,7 @@
         DomainRoles                                  = $DomainFSMORoles
         DomainWellKnownFolders                       = $WellKnownFolders
         DomainPasswordComplexity                     = $PasswordComplexity
-        DomainGroupPolicyAssesment                   = $GroupPolicyAssesment
+        DomainGroupPolicyAssessment                  = $GroupPolicyAssessment
         DomainGroupPolicyPermissions                 = $GroupPolicyPermissions
         DomainGroupPolicyPermissionConsistency       = $GroupPolicyPermissionConsistency
         DomainGroupPolicyOwner                       = $GroupPolicyOwner

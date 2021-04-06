@@ -615,7 +615,7 @@
                                                                                    }
                                                }
                                  },
-    "DomainGroupPolicyAssesment":  {
+    "DomainGroupPolicyAssessment":  {
                                        "Enable":  true,
                                        "Source":  {
                                                       "ExpectedOutput":  true
