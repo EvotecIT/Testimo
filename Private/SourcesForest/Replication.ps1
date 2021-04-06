@@ -1,19 +1,23 @@
 ﻿$Replication = @{
     Enable = $true
+    Scope  = 'Forest'
     Source = @{
-        Name       = 'Forest Replication'
-        Data       = {
-            Get-WinADForestReplication -WarningAction SilentlyContinue
+        Name           = 'Forest Replication'
+        Data           = {
+            Get-WinADForestReplication -WarningAction SilentlyContinue -Forest $ForestName
         }
-        Details = [ordered] @{
-            Area             = ''
-            Description      = ''
-            Resolution   = ''
-            RiskLevel        = 10
-            Resources = @(
+        Details        = [ordered] @{
+            Area        = 'Health'
+            Category    = 'Replication'
+            Description = ''
+            Resolution  = ''
+            Importance   = 10
+            Severity    = 'High'
+            Resources   = @(
 
             )
         }
+        ExpectedOutput = $null
     }
     Tests  = [ordered] @{
         ReplicationTests = @{

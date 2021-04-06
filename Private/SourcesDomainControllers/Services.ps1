@@ -1,20 +1,22 @@
 ﻿$Services = [ordered] @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
-        Name    = 'Service Status'
-        Data    = {
-            $Services = @('ADWS', 'DNS', 'DFS', 'DFSR', 'Eventlog', 'EventSystem', 'KDC', 'LanManWorkstation', 'LanManServer', 'NetLogon', 'NTDS', 'RPCSS', 'SAMSS', 'Spooler', 'W32Time')
+        Name           = 'Service Status'
+        Data           = {
+            $Services = @('ADWS', 'DNS', 'DFS', 'DFSR', 'Eventlog', 'EventSystem', 'KDC', 'LanManWorkstation', 'LanManServer', 'NetLogon', 'NTDS', 'RPCSS', 'SAMSS', 'Spooler', 'W32Time', 'XblGameSave', 'XblAuthManager')
             Get-PSService -Computers $DomainController -Services $Services
         }
-        Details = [ordered] @{
+        Details        = [ordered] @{
             Area        = ''
             Description = ''
             Resolution  = ''
-            RiskLevel   = 10
+            Importance   = 10
             Resources   = @(
 
             )
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         ADWSServiceStatus                 = @{
@@ -34,7 +36,7 @@
             Parameters = @{
                 WhereObject   = { $_.Name -eq 'ADWS' }
                 Property      = 'StartType'
-                ExpectedValue = 'Automatic'
+                ExpectedValue = 'Auto'
                 OperationType = 'eq'
             }
         }
@@ -55,7 +57,7 @@
             Parameters = @{
                 WhereObject   = { $_.Name -eq 'DNS' }
                 Property      = 'StartType'
-                ExpectedValue = 'Automatic'
+                ExpectedValue = 'Auto'
                 OperationType = 'eq'
             }
         }
@@ -76,7 +78,7 @@
             Parameters = @{
                 WhereObject   = { $_.Name -eq 'DFS' }
                 Property      = 'StartType'
-                ExpectedValue = 'Automatic'
+                ExpectedValue = 'Auto'
                 OperationType = 'eq'
             }
         }
@@ -97,7 +99,7 @@
             Parameters = @{
                 WhereObject   = { $_.Name -eq 'DFSR' }
                 Property      = 'StartType'
-                ExpectedValue = 'Automatic'
+                ExpectedValue = 'Auto'
                 OperationType = 'eq'
             }
         }
@@ -118,7 +120,7 @@
             Parameters = @{
                 WhereObject   = { $_.Name -eq 'Eventlog' }
                 Property      = 'StartType'
-                ExpectedValue = 'Automatic'
+                ExpectedValue = 'Auto'
                 OperationType = 'eq'
             }
         }
@@ -139,7 +141,7 @@
             Parameters = @{
                 WhereObject   = { $_.Name -eq 'EventSystem' }
                 Property      = 'StartType'
-                ExpectedValue = 'Automatic'
+                ExpectedValue = 'Auto'
                 OperationType = 'eq'
             }
         }
@@ -160,7 +162,7 @@
             Parameters = @{
                 WhereObject   = { $_.Name -eq 'KDC' }
                 Property      = 'StartType'
-                ExpectedValue = 'Automatic'
+                ExpectedValue = 'Auto'
                 OperationType = 'eq'
             }
         }
@@ -181,7 +183,7 @@
             Parameters = @{
                 WhereObject   = { $_.Name -eq 'LanManWorkstation' }
                 Property      = 'StartType'
-                ExpectedValue = 'Automatic'
+                ExpectedValue = 'Auto'
                 OperationType = 'eq'
             }
         }
@@ -204,7 +206,7 @@
             Parameters = @{
                 WhereObject   = { $_.Name -eq 'LanManServer' }
                 Property      = 'StartType'
-                ExpectedValue = 'Automatic'
+                ExpectedValue = 'Auto'
                 OperationType = 'eq'
             }
         }
@@ -227,7 +229,7 @@
             Parameters = @{
                 WhereObject   = { $_.Name -eq 'NetLogon' }
                 Property      = 'StartType'
-                ExpectedValue = 'Automatic'
+                ExpectedValue = 'Auto'
                 OperationType = 'eq'
             }
         }
@@ -250,7 +252,7 @@
             Parameters = @{
                 WhereObject   = { $_.Name -eq 'NTDS' }
                 Property      = 'StartType'
-                ExpectedValue = 'Automatic'
+                ExpectedValue = 'Auto'
                 OperationType = 'eq'
             }
         }
@@ -273,7 +275,7 @@
             Parameters = @{
                 WhereObject   = { $_.Name -eq 'RPCSS' }
                 Property      = 'StartType'
-                ExpectedValue = 'Automatic'
+                ExpectedValue = 'Auto'
                 OperationType = 'eq'
             }
         }
@@ -296,7 +298,7 @@
             Parameters = @{
                 WhereObject   = { $_.Name -eq 'SAMSS' }
                 Property      = 'StartType'
-                ExpectedValue = 'Automatic'
+                ExpectedValue = 'Auto'
                 OperationType = 'eq'
             }
         }
@@ -305,16 +307,17 @@
             Name       = 'Spooler Service is STOPPED'
 
             Parameters = @{
-                WhereObject   = { $_.Name -eq 'Spooler' }
-                Property      = 'Status'
-                ExpectedValue = 'Stopped'
-                OperationType = 'eq'
+                WhereObject    = { $_.Name -eq 'Spooler' }
+                Property       = 'Status'
+                ExpectedValue  = 'Stopped'
+                OperationType  = 'eq'
+                ExpectedOutput = $false
             }
             Details    = [ordered] @{
                 Area        = 'Security'
                 Category    = 'Services'
                 Severity    = ''
-                RiskLevel   = 0
+                Importance   = 0
                 Description = 'Due to security concerns SPOOLER should be disabled and stopped. However in some cases it may be required to have SPOOLER service up and running to cleanup stale printer objects from AD.'
                 Resolution  = ''
                 Resources   = @(
@@ -329,16 +332,17 @@
             Name       = 'Spooler Service START TYPE is DISABLED'
 
             Parameters = @{
-                WhereObject   = { $_.Name -eq 'Spooler' }
-                Property      = 'StartType'
-                ExpectedValue = 'Disabled'
-                OperationType = 'eq'
+                WhereObject    = { $_.Name -eq 'Spooler' }
+                Property       = 'StartType'
+                ExpectedValue  = 'Disabled'
+                OperationType  = 'eq'
+                ExpectedOutput = $false
             }
             Details    = [ordered] @{
                 Area        = 'Security'
                 Category    = 'Services'
                 Severity    = ''
-                RiskLevel   = 0
+                Importance   = 0
                 Description = 'Due to security concerns SPOOLER should be disabled and stopped. However in some cases it may be required to have SPOOLER service up and running to cleanup stale printer objects from AD.'
                 Resolution  = ''
                 Resources   = @(
@@ -367,9 +371,57 @@
             Parameters = @{
                 WhereObject   = { $_.Name -eq 'W32Time' }
                 Property      = 'StartType'
-                ExpectedValue = 'Automatic'
+                ExpectedValue = 'Auto'
                 OperationType = 'eq'
             }
+        }
+        XblAuthManagerServiceStatus       = @{
+            Enable     = $true
+            Name       = 'XblAuthManager Service is STOPPED'
+
+            Parameters = @{
+                WhereObject    = { $_.Name -eq 'XblAuthManager' }
+                Property       = 'Status'
+                ExpectedValue  = 'Stopped', 'N/A'
+                OperationType  = 'in'
+                ExpectedOutput = $false
+            }
+        }
+        XblAuthManagerStartupType         = @{
+            Enable     = $true
+            Name       = 'XblAuthManager Service START TYPE is Disabled'
+
+            Parameters = @{
+                WhereObject    = { $_.Name -eq 'XblAuthManager' }
+                Property       = 'StartType'
+                ExpectedValue  = 'Disabled', 'N/A'
+                OperationType  = 'in'
+                ExpectedOutput = $false
+            }
+        }
+        XblGameSaveServiceStatus          = @{
+            Enable     = $true
+            Name       = 'XblGameSave Service is STOPPED'
+            Parameters = @{
+                WhereObject    = { $_.Name -eq 'XblGameSave' }
+                Property       = 'Status'
+                ExpectedValue  = 'Stopped', 'N/A'
+                OperationType  = 'in'
+                ExpectedOutput = $false
+            }
+        }
+        XblGameSaveStartupType            = @{
+            Enable     = $true
+            Name       = 'XblGameSave Service START TYPE is Disabled'
+
+            Parameters = @{
+                WhereObject    = { $_.Name -eq 'XblGameSave' }
+                Property       = 'StartType'
+                ExpectedValue  = 'Disabled', 'N/A'
+                OperationType  = 'in'
+                ExpectedOutput = $false
+            }
+
         }
     }
 }

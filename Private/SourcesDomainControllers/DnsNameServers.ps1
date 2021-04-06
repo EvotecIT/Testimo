@@ -1,20 +1,23 @@
 ﻿$DNSNameServers = @{
-    # (Get-Help <Command> -Parameter *).Name
     Enable = $true
+    Scope  = 'DC'
     Source = @{
-        Name = "Name servers for primary domain zone"
-        Data = {
+        Name           = "Name servers for primary domain zone"
+        Data           = {
             Test-DNSNameServers -Domain $Domain -DomainController $DomainController
         }
-        Details = [ordered] @{
-            Area             = ''
-            Description      = ''
-            Resolution   = ''
-            RiskLevel        = 10
-            Resources = @(
+        Details        = [ordered] @{
+            Area        = 'Configuration'
+            Category    = 'DNS'
+            Severity    = 'Medium'
+            Description = ''
+            Resolution  = ''
+            Importance   = 10
+            Resources   = @(
 
             )
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         DnsNameServersIdentical = @{

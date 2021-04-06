@@ -1,8 +1,20 @@
 ﻿Import-Module .\Testimo.psd1 -Force
 
-#Invoke-Testimo -Sources DomainPasswordComplexity, ForestBackup #-ShowReport
-#Invoke-Testimo -Sources DomainDNSForwaders,DCDiskSpace
-#Invoke-Testimo -Sources DomainComputersUnsupported,DomainComputersUnsupportedMainstream,DomainPasswordComplexity
-#Invoke-Testimo -Sources DCDiskSpace -SkipRODC -ShowReport
+$Sources = @(
+    'ForestBackup'
+    #'ForestConfigurationPartitionOwners'
+    #'ForestConfigurationPartitionOwnersContainers'
+    #'ForestOptionalFeatures'
+    #'ForestOrphanedAdmins'
+    #'DomainDuplicateObjects'
+    #'DomainDomainControllers'
+    'DomainLDAP'
+)
 
-Invoke-Testimo -Sources DCLDAPInsecureBindings -IncludeDomains 'ad.evotec.xyz'
+# Tests one by one
+foreach ($_ in $Sources) {
+    # Invoke-Testimo -Source $_ -Online #-ReportPath $PSScriptRoot\Reports\TestimoSummary.html
+}
+
+# Tests in single report
+Invoke-Testimo -Source $Sources -Online -ReportPath $PSScriptRoot\Reports\TestimoSummary.html

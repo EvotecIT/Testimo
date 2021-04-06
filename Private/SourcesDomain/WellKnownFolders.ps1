@@ -1,8 +1,9 @@
 ﻿$WellKnownFolders = @{
     Enable = $true
+    Scope  = 'Domain'
     Source = @{
-        Name    = 'Well known folders'
-        Data    = {
+        Name           = 'Well known folders'
+        Data           = {
             $DomainInformation = Get-ADDomain -Server $Domain
             $WellKnownFolders = $DomainInformation | Select-Object -Property UsersContainer, ComputersContainer, DomainControllersContainer, DeletedObjectsContainer, SystemsContainer, LostAndFoundContainer, QuotasContainer, ForeignSecurityPrincipalsContainer
             $CurrentWellKnownFolders = [ordered] @{ }
@@ -20,21 +21,21 @@
             }
             foreach ($_ in $WellKnownFolders.PSObject.Properties.Name) {
                 $CurrentWellKnownFolders[$_] = $DomainInformation.$_
-                $CurrentWellKnownFolders[$_] = $DomainInformation.$_
             }
             Compare-MultipleObjects -Object @($DefaultWellKnownFolders, $CurrentWellKnownFolders) -SkipProperties
         }
-        Details = [ordered] @{
-            Area        = ''
-            Category    = ''
-            Severity    = ''
-            RiskLevel   = 0
+        Details        = [ordered] @{
+            Area        = 'Configuration'
+            Category    = 'OrganizationalUnits'
+            Severity    = 'Low'
+            Importance   = 5
             Description = 'Verifies whether well-known folders are at their defaults or not.'
-            Resolution  = ''
+            Resolution  = 'Follow given resources to redirect users and computers containers to managable Organizational Units. If other Well Known folers are wrong - investigate.'
             Resources   = @(
-
+                'https://support.microsoft.com/en-us/help/324949/redirecting-the-users-and-computers-containers-in-active-directory-dom'
             )
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         UsersContainer                     = @{
@@ -105,7 +106,7 @@
         }
         QuotasContainer                    = @{
             Enable     = $true
-            Name       = "Quotas Container shouldn be at default location"
+            Name       = "Quotas Container should be at default location"
             Parameters = @{
                 WhereObject           = { $_.Name -eq 'QuotasContainer' }
                 ExpectedValue         = $true

@@ -1,50 +1,35 @@
 ﻿function Get-TestimoSources {
     [CmdletBinding()]
     param(
-        [string[]] $Source,
-        [switch] $Enabled
+        [string[]] $Sources,
+        [switch] $SourcesOnly,
+        [switch] $Enabled,
+        [switch] $Advanced
     )
-    if ($Source) {
-        $DetectedSource = ConvertTo-Source -Source $Source
-        $Scope = $DetectedSource.Scope
-        $Name = $DetectedSource.Name
-        $Script:TestimoConfiguration.$Scope[$Name].Tests.Keys
-
-    } else {
-        $ForestKeys = $TestimoConfiguration.Forest.Keys
-        $DomainKeys = $TestimoConfiguration.Domain.Keys
-        $DomainControllerKeys = $TestimoConfiguration.DomainControllers.Keys
-
-        $TestSources = @(
-            foreach ($Key in $ForestKeys) {
-                if ($Enabled) {
-                    if ($TestimoConfiguration.Forest["$Key"].Enable) {
-                        "Forest$Key"
-                    }
-                } else {
-                    "Forest$Key"
-                }
-
-            }
-            foreach ($Key in $DomainKeys) {
-                if ($Enabled) {
-                    if ($TestimoConfiguration.Domain["$Key"].Enable) {
-                        "Domain$Key"
-                    }
-                } else {
-                    "Domain$Key"
-                }
-            }
-            foreach ($Key in $DomainControllerKeys) {
-                if ($Enabled) {
-                    if ($TestimoConfiguration.DomainControllers["$Key"].Enable) {
-                        "DC$Key"
-                    }
-                } else {
-                    "DC$Key"
-                }
-            }
-        )
-        $TestSources | Sort-Object
+    if (-not $Sources) {
+        $Sources = $Script:TestimoConfiguration.ActiveDirectory.Keys
+    }
+    if ($SourcesOnly) {
+        return $Sources
+    }
+    foreach ($S in $Sources) {
+        $Object = [ordered]@{
+            Source = $S
+            Scope  = $Script:TestimoConfiguration.ActiveDirectory[$S].Scope
+            Name   = $Script:TestimoConfiguration.ActiveDirectory[$S].Source.Name
+            Tests  = $Script:TestimoConfiguration.ActiveDirectory[$S].Tests.Keys
+        }
+        $Object['Area'] = $Script:TestimoConfiguration.ActiveDirectory[$S].Source.Details.Area
+        $Object['Category'] = $Script:TestimoConfiguration.ActiveDirectory[$S].Source.Details.Category
+        $Object['Tags'] = $Script:TestimoConfiguration.ActiveDirectory[$S].Source.Details.Tags
+        $Object['Severity'] = $Script:TestimoConfiguration.ActiveDirectory[$S].Source.Details.Severity
+        $Object['RiskLevel'] = $Script:TestimoConfiguration.ActiveDirectory[$S].Source.Details.RiskLevel
+        $Object['Description'] = $Script:TestimoConfiguration.ActiveDirectory[$S].Source.Details.Description
+        $Object['Resolution'] = $Script:TestimoConfiguration.ActiveDirectory[$S].Source.Details.Resolution
+        $Object['Resources'] = $Script:TestimoConfiguration.ActiveDirectory[$S].Source.Details.Resources
+        if ($Advanced) {
+            $Object['Advanced'] = $Script:TestimoConfiguration.ActiveDirectory[$S]
+        }
+        [PSCustomObject] $Object
     }
 }

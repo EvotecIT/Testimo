@@ -2,20 +2,24 @@
 
 $Diagnostics = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
-        Name    = 'Diagnostics (DCIAG)'
-        Data    = {
-            Test-ADDomainController -ComputerName $DomainController -WarningAction SilentlyContinue
+        Name           = 'Diagnostics (DCIAG)'
+        Data           = {
+            Test-ADDomainController -Forest $ForestName -ComputerName $DomainController -WarningAction SilentlyContinue
         }
-        Details = [ordered] @{
-            Area        = ''
+        Details        = [ordered] @{
+            Area        = 'Health'
+            Category    = 'Overall'
             Description = ''
             Resolution  = ''
-            RiskLevel   = 10
+            Importance   = 10
+            Severity    = 'Medium'
             Resources   = @(
                 'https://social.technet.microsoft.com/Forums/en-US/b48ee073-eb71-4852-8f56-ecf6f76b3fff/how-could-i-change-result-of-dcdiag-language-to-english-?forum=winserver8gen'
             )
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         Connectivity                     = @{

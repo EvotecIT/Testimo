@@ -25,6 +25,10 @@ It's goal is to be fully automated solution where one can run the command and ge
 
 If you're new to **Testimo** you should read this [blog post](https://evotec.xyz/what-do-we-say-to-health-checking-active-directory/)!
 
+**Note:** At present this module is not supported in PowerShell Core/PowerShell 7.
+This is because the Testimo module depends on other Microsoft moodules that are also not supported in PowerShell 7, including GroupPolicy and ServerManager.
+There is an issue tracking this compatibiity which you can follow: <https://github.com/EvotecIT/Testimo/issues/110>.
+
 Things to know:
 
 - [x] Configuration hash is not written in stone and can change rapidly as Testimo gets tested
@@ -32,8 +36,293 @@ Things to know:
 - [x] There's a big mess in files/function names - I'm still testing things out creating some random names, will be cleaned up later on
 - [x] There are lots of details missing for tests, and some things may not work as you want - please report issues or if you know how, fix them
 - [x] I don't know EVERYTHING - I'm very open to help with making Testimo more robust, detailed and easy to use
+- [x] This module works great in Windows PowerShell!
+
+- [Testimo - PowerShell Module](#testimo---powershell-module)
+  - [Execution](#execution)
+  - [ChangeLog](#changelog)
+    - [Comments](#comments)
+    - [Things to consider](#things-to-consider)
+  - [Known Issues / By Design](#known-issues--by-design)
+  - [To install](#to-install)
+    - [And to update](#and-to-update)
+  - [To use after installation](#to-use-after-installation)
+  - [Changing default configuration](#changing-default-configuration)
+    - [Straight to FILE/JSON](#straight-to-filejson)
+      - [Straight to JSON](#straight-to-json)
+      - [Output to Hashtable so you can edit it freely and keep in ps1](#output-to-hashtable-so-you-can-edit-it-freely-and-keep-in-ps1)
+  - [Using Invoke-Testimo with non-default configuration](#using-invoke-testimo-with-non-default-configuration)
+    - [Dependencies](#dependencies)
+    - [Portability](#portability)
+    - [Removal](#removal)
+      - [Option 1](#option-1)
+      - [Option 2](#option-2)
+
+## Execution
+
+Generate all tests and show HTML report (I'm currently thinking on making -ShowReport obsolete and adding -HideReport instead)
+
+```powershell
+Invoke-Testimo -ShowReport
+```
+
+Generate all tests but display content only in PowerShell
+
+```powershell
+Invoke-Testimo
+```
+
+Please keep in mind that there is currently known issue that running all tests while works correctly generated HTML is very very slow when switching Tabs.
 
 ## ChangeLog
+
+- 0.0.65 - 2021.03.23
+  - [x] Tests
+    - [x] Improvement `DomainSecurityUsers`
+    - [x] Improvement `DomainSecurityKRBGT`
+  - [x] General
+    - [x] Improvement of HTML
+- 0.0.64 - 2021.03.23
+  - [x] Tests
+    - [x] Improvement `DomainSecurityUsers`
+    - [x] Improvement `DomainSecurityKRBGT`
+  - [x] General
+    - [x] Improvement of HTML
+- 0.0.63 - 2021.03.23
+  - [x] Tests
+    - [x] Improvement `ForestSubnets`
+- 0.0.62 - 2021.03.20
+  - [x] Tests
+    - [x] Fixed `DCDNSResolveExternal` reported in [#122](https://github.com/EvotecIT/Testimo/issues/122)
+    - [x] Improvement `ForestTrusts`
+  - [x] General
+    - [x] Improvement of HTML
+- 0.0.61 - 2021.03.17
+  - [x] Tests
+    - [x] Improved `ForestTrusts`
+    - [x] Improved `ForestRoles`
+  - [x] General
+    - [ ] Improvement of HTML
+- 0.0.60 - 2021.03.17
+  - [x] Tests
+    - [x] Improved `ForestSubnets`
+    - [x] Improved `ForestSites`
+    - [x] Improved `ForestOptionalFeatures`
+    - [x] Improved `ForestBackup`
+    - [x] Improved `ForestTombstoneLifetime`
+    - [x] Improved `DomainDomainControllers`
+    - [x] Improved `DomainLDAP`
+    - [x] Improved `DomainOrphanedSecurityPrincipals`
+  - [x] General
+    - [x] Added `AlwaysShowSteps`
+    - [x] Improved support for new [PSWriteHTML](https://github.com/EvotecIT/pswritehtml)
+- 0.0.59 - 2021.03.01
+  - [x] General
+    - [x] Misspelled word in report (Extream -> Extreme) [#120](https://github.com/EvotecIT/Testimo/issues/120) - tnx mojomojoman
+- 0.0.58 - 2021.02.25
+  - [x] Tests
+    - [x] Added `ForestSubnets`
+    - [x] Improved `DomainDomainControllers`
+    - [x] Improved `DomainLDAP`
+    - [x] Improved `ForestBackup`
+    - [x] Improved `ForestOrphanedAdmins`
+    - [x] Improved `ForestConfigurationPartitionOwners`
+    - [x] Improved `DomainDuplicateObjects`
+    - [x] Improved `ForestSites`
+  - [x] General
+    - [x] Improved reporting
+    - [x] Improved reporting status (assesment)
+- 0.0.57 - 2021.02.21
+  - [x] Tests
+    - [x] Added `DomainLDAP` - takes over `DCLDAP`
+    - [x] Disabled `DCLDAP` by default. Still there just not used.
+    - [x] Improved `ForestOrphanedAdmins`
+    - [x] Improved `ForestConfigurationPartitionOwners`
+    - [x] Improved `DomainDuplicateObjects`
+    - [x] Improved `DomainDomainControllers`
+  - [x] General
+    - [x] Renamed Parameter `ReturnResults` to `PassThru` (left as an alias)
+    - [x] Fixed loading configuration from JSON/File/HashTable - **Configuration changed so much rebuild will be required**
+    - [x] Fixed saving configuration to JSON/File/HashTable - **Configuration changed so much rebuild will be required**
+    - [x] Parameter for `Invoke-Testimo` **ShowReport** is deprecated and doesn't do anything
+    - [x] Parameter for `Invoke-Testimo` **HideHTML** was added and prevents auto-opening of HTML
+    - [x] Parameter for `Invoke-Testimo` **HideSteps**/**HideSolution** was added to hide solution/steps in case it's not needed
+    - [x] Added additional information about HTML report generating where the file was saved (useful if no FilePath was provided)
+    - [x] Parameter `ReportPath` was renamed to `FilePath`, `ReportPath` is still an alias - to get it the same as [GPOZaurr](https://github.com/EvotecIT/GPOZaurr)
+  - [x] Reporting
+    - [x] Solution/Steps added to Report when available for display
+    - [x] Reporting is still getting more and more changes
+- 0.0.56 - 2021.02.07
+  - [x] Tests
+    - [x] Improved `ForestOrphanedAdmins`
+    - [x] Added `ForestConfigurationPartitionOwners`
+    - [x] Improved `DomainDuplicateObjects`
+    - [x] Improved `DomainDomainControllers`
+    - [x] Improved `DCTimeSynchronizationExternal`
+  - [x] Reporting
+    - [x] HTML report updated with new format, still not final
+    - [x] Added Importance/Category visibility in HTML -> if only those were updated in all tests 🤣
+    - [x] Added Description visibility in HTML -> if only those were updated in all tests 🤣
+    - [x] Added Resources visibility in HTML -> if only those were updated in all tests 🤣
+- 0.0.55 - 2021.02.02
+  - [x] Improvement to report (domain section)
+  - [x] Improvement to `DomainDuplicateObjects`
+  - [x] Improvement to `OrphanedForeignSecurityPrincipals`
+  - [x] Removed `ForestDuplicateObjects` - duplicate of `DomainDuplicateObjects`
+- 0.0.54 - 2021.01.29
+  - [x] Fixes report to work with IE 11 (not great, not bad either)
+- 0.0.53 - 2021.01.28
+  - [x] Improved `DomainDomainControllers`
+- 0.0.52 - 2021.01.27
+  - [x] Improved `DCUNCHardenedPaths` to check for multiple values
+- 0.0.51 - 2021.01.26
+  - [x] Fix for Invoke-Testimo crashing on dead/non-responding/no-access DC [#117](https://github.com/EvotecIT/Testimo/issues/117)
+- 0.0.50 - 2021.01.25
+  - [x] Fix for Invoke-Testimo returning more than one line of error which would stop Testimo [#116](https://github.com/EvotecIT/Testimo/issues/116)
+- 0.0.49 - 2021.01.25
+  - [x] Fix for Invoke-Testimo not working correctly with some tests [#116](https://github.com/EvotecIT/Testimo/issues/116)
+  - [x] Improved some tests
+  - [x] Reporting
+    - [x] HTML report improved a bit for Domain based checks
+- 0.0.48 - 2021.01.21
+  - [x] Fix for Invoke-Testimo not working when no tests are defined
+  - [x] Tests
+    - [x] Added `DomainDomainControllers` - covers DC ACL owner, DC Manager, DC Password Last Set, DC Last Logon, Enabled
+- 0.0.47 - 2021.01.19
+  - [x] Improvements
+    - [x] Added warning & errors to HTML
+    - [x] Removed dependency on `PSWinDocumentation.AD` temporary (no tests for now)
+  - [x] Tests
+    - [x] Removed `DomainGroupPolicyPermissionUnknown`
+    - [x] Removed `GroupPolicyMissingPermissions`
+    - [x] Added `DomainGroupPolicyPermissions` - covers unknown, adminitrative, authenticated users and system (both removed + some)
+    - [x] Removed `DomainGroupPolicyEmptyUnlinked`
+    - [x] Added `DomainGroupPolicyAssesment` - covers empty, unlinked, disabled, with problem, optimized, no apply permission
+    - [x] Added `DomainNetLogonOwner`
+    - [x] Improved `ForestSiteLinksConnections` [#92](https://github.com/EvotecIT/Testimo/issues/92)
+    - [x] Improved `ForestTombstoneLifetime` - support for forest
+- 0.0.46 - 2020.10.29
+  - [x] Improvement to `HTML`
+    - [x] DataStore is now set to `JavaStore` which allows handling of more data within single HTML file
+    - [x] Should have less errors on tab switching
+    - [ ] Known issue: **with lots of tables/charts switching between tabs can take time, be patient**
+  - [x] Improvement to `DomainSecurityKRBGT`
+  - [x] Improvement to `DCWindowsUpdates`
+  - [x] Removed `DomainKerberosAccountAge` as it's identical to `DomainSecurityKRBGT`
+  - [x] Removed `DomainTrusts` as it wasn't really working great
+  - [x] Added `ForestTrusts` with improvements
+  - [x] `ForestObjectsWithConflict` renamed to `ForestDuplicateObjects`
+  - [x] `ForestDuplicateObjects` disabled by default (same thing as `DomainDuplicateObjects` just done forest wide)
+  - [x] `DomainDuplicateObjects` enabled by default (same thing as forest just done per domain)
+  - [x] `DCTimeSettings` updated with proper NTP recommendation [#65](https://github.com/EvotecIT/Testimo/issues/65) - tnx SolidKnight, SUBnet192, itpro-tips
+- 0.0.45 - 2020.10.20
+  - [x] Reversed on HTML change due to issues
+- 0.0.44 - 2020.10.19
+  - HTML
+    - [x] HTML report should now be much faster to work with even with larger datasets
+  - Tests
+    - [x] `DomainWellKnownFolders` - removed duplicate code
+    - [x] Added some additional descriptions to tests, still long way to go
+    - [x] Small name fix for `DomainGroupPolicySysvol`
+    - [x] `DomainGroupPolicyEmptyUnlinked` - added new test
+    - [x] Silent `GitHub` version check
+    - [x] Fixes working with lowercase source names
+    - [x] Fixes issue `Service Status fails on value "Auto"` [#106](https://github.com/EvotecIT/Testimo/issues/106) due to change in `PSSharedGoods`
+- 0.0.43 - 2020.06.17
+  - Tests
+    - [x] Small name update to `OrganizationalUnitsEmpty` and `OrganizationalUnitsProtected` fixing [#103](https://github.com/EvotecIT/Testimo/issues/103)
+- 0.0.42 - 2020.06.08
+  - Tests
+    - [x] Fix for `DCNetSessionEnumeration` not run against target [#102](https://github.com/EvotecIT/Testimo/issues/102)
+  - Engine
+    - [x] Better `Sources` handling during typing
+- 0.0.41 - 2020.06.06
+  - Engine
+    - [x] Renamed `MustExists` to `ExpectedOutput` for Parameters in Tests for unified experience
+    - [x] Added `ExpectedResult` for Parameters in Tests
+      - [ ] This works in a way where if we use WhereObject filtering on Array you can check if output is given or not and fail/pass right away
+      - [ ] This brings 3 ways to test `ExpectedCount`, `ExpectedValue` or `ExpectedResult`
+      - [ ] `ExpectedResult` ignores all other settings in parameters except for `WhereObject`
+  - Tests
+    - [x] Added `DomainGroupPolicyPermissionConsistency` (requires `GPOZaurr` PowerShell module)
+    - [x] Added `DomainGroupPolicyOwner` (requires `GPOZaurr` PowerShell module)
+      - [x] Test for: `GPO: Owner Consistent`
+      - [x] Test for: `GPO: Owner Administrative`
+    - [x] Added `DomainGroupPolicyPermissionUnknown` (requires `GPOZaurr` PowerShell module)
+    - [x] Added `DomainGroupPolicySysvol` (requires `GPOZaurr` PowerShell module)
+    - [x] Renamed `DCGroupPolicySYSVOL` to `DCGroupPolicySYSVOLDC` to prevent conflict with per Domain checks
+    - [x] Replaced `DomainGroupPolicyADM` with `GPOZaurr` command
+
+- 0.0.40 - 2020.05.09
+  - Engine
+    - [x] ExpectedOutput is now required for Source
+  - Tests
+    - [x] ExpectedOutput (true/false/null) added for all tests
+    - [x] Fix regression `ForestReplicationStatus` if multiple DC
+    - [x] Fix regression `ForestReplication` if multiple DC
+    - [x] Added `DomainDuplicateObjects` test - finds CNF objects
+
+- 0.0.39 - 2020.04.11
+  - Engine
+    - [x] Add requirements (IsInternalForest = $true) for tests that do not support external forest (such as repadmin)
+    - [x] Fixed `ExpectedCount` not working correctly for some values (no sure why it worked at all)
+  - Reporting
+    - [x] Improved output to not include empty tabs
+  - Tests
+    - [x] Improved `ForestReplicationStatus` if only 1 DC, disabled if asking for external forest
+    - [x] Improved `ForestReplication` if only 1 DC
+    - [x] Renamed `DomainEmptyOrganizationalUnits` to `DomainOrganizationalUnitsEmpty`
+    - [x] Added `DomainOrganizationalUnitsProtected`
+    - [x] Improved `DCServices` for non-existing spooler service
+    - [x] Changed `DomainPasswordComplexity` Lockout Treshold changed to 5+
+    - [x] Renamed `DCNetSessionEnumaration` to `DCNetSessionEnumeration` - tnx subnet192 [#99](https://github.com/EvotecIT/Testimo/pull/99)
+    - [x] Added `DCDNSForwarders` - DNS: More than one forwarding server should be configured
+    - [x] Added `DomainExchangeUsers` - Exchange Users: Missing MailNickName [monitors for issue described on blog](https://evotec.xyz/office-365-msexchhidefromaddresslists-does-not-synchronize-with-office-365/)
+    - [x] Improved `DNSScavengingForPrimaryDNSServer`
+  - Other
+    - Fix typos - tnx subnet192 [#99](https://github.com/EvotecIT/Testimo/pull/99)
+
+- 0.0.38 - 2020.03.14
+  - Added GroupPolicy and ActiveDirectory to RequiredModules and ExternalModuleDependencies preventing error reported in [#91](https://github.com/EvotecIT/Testimo/issues/91)
+
+- 0.0.37 - 2020.03.13
+  - Engine
+    - [x] Update to `DomainSecurityUsers` to exclude DomainGuests
+    - [x] Fix for ExpectedOutput $false
+  - Tests
+    - [x] Fix for `DomainSecurityUsers` - tnx itpro-tips [#89](https://github.com/EvotecIT/Testimo/issues/89)
+    - [x] Added DomainSecurityKRBGT
+    - [x] Improved `DCNetworkSettings` - DNS: DNS servers on Ethernet should include the loopback address, but not as the first entry - [#90](https://github.com/EvotecIT/Testimo/pull/90) - tnx itpro-tips
+    - [x] Improved `DCNetworkSettings` - DNS: Ethernet should have static IPv4 settings (disabled by default) - [#90](https://github.com/EvotecIT/Testimo/pull/90) - tnx itpro-tips
+    - [x] Improved `DCLanManServer` - [ADV200005 | Microsoft Guidance for Disabling SMBv3 Compression](https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/adv200005) - Disabled by default, as patch is available
+
+- 0.0.36 - 2020.03.04
+  - Engine
+    - [x] Fix for broken tests
+
+- 0.0.35 - 2020.03.04
+  - Engine
+    - [x] Added MustExists (True/False) for Parameters
+    - [x] Fixes for In/NotIn
+    - [x] Fixes for Inclusion/Exclusion DC/Domain
+    - [x] Fixes for ExpectedCount 0 not working
+  - Tests
+    - [x] DCServices Improvement with XBOX Service
+    - [x] Added DCSMBSharesPermissions
+    - [x] Added DomainSecurityUsers
+    - [x] Added DCUNCHardenedPaths - read potential issues of implementing UNC Hardened Paths. If you enable and things go south GPOs won't work.
+
+- 0.0.34 - 2020.01.29
+  - Tests
+    - [x] Modify repadmin (ForestReplicationStatus) for non-english OS [#86](https://github.com/EvotecIT/Testimo/pull/86) - tnx Fiyorden
+
+- 0.0.33 - 2020.01.28
+  - Tests
+    - [x] Fixing legacy ADM files check - [#84](https://github.com/EvotecIT/Testimo/issues/84) - tnx PMORMR
+
+- 0.0.32 - 2020.01.27
+  - Tests
+    - [x] Fix for DCGroupPolicySYSVOL - [#83](https://github.com/EvotecIT/Testimo/issues/83) - tnx PMORMR
 
 - 0.0.31 - 2020.01.23
   - Engine
@@ -94,7 +383,7 @@ Things to know:
       - [x] Smb2CreditsMin
       - [x] Smb2CreditsMax
       - [x] RequireSecuritySignature
-    - [x] DCNetSessionEnumaration (Net Cease) - **Added**
+    - [x] DCNetSessionEnumeration (Net Cease) - **Added**
       - [x] Hardening Net Session Enumeration
     - [x] DCLanManServer - **Added**
       - [x] Microsoft network server: Digitally sign communications (if client agrees)
@@ -188,8 +477,8 @@ Things to know:
 
 - 0.0.21 - 2019.09.10
   - Tests
-    - [x] DCPorts - Checking for port 139 - Require PORT CLOSED ([#29 - tnx	SP3269](https://github.com/EvotecIT/Testimo/issues/29))
-    - [x] DCNetworkSettings - Netbios TCPIP settings on network card - Require DISABLED ([#29 - tnx	SP3269](https://github.com/EvotecIT/Testimo/issues/29))
+    - [x] DCPorts - Checking for port 139 - Require PORT CLOSED ([#29 - tnx SP3269](https://github.com/EvotecIT/Testimo/issues/29))
+    - [x] DCNetworkSettings - Netbios TCPIP settings on network card - Require DISABLED ([#29 - tnx SP3269](https://github.com/EvotecIT/Testimo/issues/29))
     - [x] DCWindowsFirewall - was renamed to DCNetworkSettings
     - [x] DomainEmptyOrganizationalUnits - fix for lacking Contacts ([#32 - tnx JasonCook599](https://github.com/EvotecIT/Testimo/pull/32))
     - [x] DNSScavengingForPrimaryDNSServer - fix LT should be GT ([#33 - tnx JasonCook599](https://github.com/EvotecIT/Testimo/pull/33))
@@ -224,7 +513,6 @@ Tests are based on:
 - Some tests I've defined myself
 - Feel free to submit your own ideas either via Issues or direct PR.
 
-
 | Type              | Name                                                   | Area              | Description                                                                              |
 | ----------------- | ------------------------------------------------------ | ----------------- | ---------------------------------------------------------------------------------------- |
 | Forest            | Backup                                                 | Backup            | Verify `last backup time should be [less than X days]`                                   |
@@ -239,7 +527,7 @@ Tests are based on:
 | Forest            | Site Links                                             | Site Links        | Verify each `site link uses notifications`                                               |
 | Forest            | Site Links                                             | Site Links        | Verify each `site link does not use notifications`                                       |
 | Forest            | Roles                                                  | Connectivity      | Verify each `FSMO holder is [reachable]`                                                 |
-| Forest            | Orphaned/Empty Admins                                  | Security          | Verify `there are no Orphaned Admins (users/groups/computers) `                          |
+| Forest            | Orphaned/Empty Admins                                  | Security          | Verify `there are no Orphaned Admins (users/groups/computers)`                           |
 | Forest            | Tombstone Lifetime                                     | Features          | Verify `Tombstone lifetime is greater or equal 180 days`                                 |
 | Domain            | Roles                                                  | Connectivity      | Verify each `FSMO holder is [reachable]`                                                 |
 | Domain            | Password Complexity Requirements                       | Password          | Verify Password `Complexity Policy should be [Enabled]`                                  |
@@ -353,7 +641,7 @@ Invoke-Testimo -ReturnResults
 
 ## Changing default configuration
 
-**Testimo** comes with a preset rules that may not apply to your enrivovment.
+**Testimo** comes with preset rules that may not apply to your environment.
 You may want to change some things like disabling some tests or changing some values (to an extent).
 There are 3 ways to do it.
 Depending on how you want to save/edit/pass configuration to TestIMO - I leave it up to you.
@@ -374,9 +662,9 @@ Get-TestimoConfiguration -AsJson
 
 ```powershell
 $OutputOrderedDictionary = Get-TestimoConfiguration
-$OutputOrderedDictionary.Forest.OptionalFeatures.Tests.RecycleBinEnabled.Enable = $false
-$OutputOrderedDictionary.Forest.OptionalFeatures.Tests.LapsAvailable.Enable = $true
-$OutputOrderedDictionary.Forest.OptionalFeatures.Tests.LapsAvailable.Parameters.ExpectedValue = $false
+$OutputOrderedDictionary.ForestOptionalFeatures.Tests.RecycleBinEnabled.Enable = $false
+$OutputOrderedDictionary.ForestOptionalFeatures.Tests.LapsAvailable.Enable = $true
+$OutputOrderedDictionary.ForestOptionalFeatures.Tests.LapsAvailable.Parameters.ExpectedValue = $false
 ```
 
 ## Using Invoke-Testimo with non-default configuration
@@ -386,15 +674,15 @@ Following configuration allows you to:
 - Edit default TestImo configuration with some other values
 - Exclude one of the domains
 - Return Results for future processing
-- Limit sources to only 4 types (you could also limit that via Hashtable but this way is quicker for adhoc enabling/disabling)
+- Limit sources to only 4 types (you could also limit that via Hashtable but this way is quicker for Adhoc enabling/disabling)
 
 ```powershell
 Import-Module Testimo
 
 $OutputOrderedDictionary = Get-TestimoConfiguration
-$OutputOrderedDictionary.Forest.OptionalFeatures.Tests.RecycleBinEnabled.Enable = $false
-$OutputOrderedDictionary.Forest.OptionalFeatures.Tests.LapsAvailable.Enable = $true
-$OutputOrderedDictionary.Forest.OptionalFeatures.Tests.LapsAvailable.Parameters.ExpectedValue = $false
+$OutputOrderedDictionary.ForestOptionalFeatures.Tests.RecycleBinEnabled.Enable = $false
+$OutputOrderedDictionary.ForestOptionalFeatures.Tests.LapsAvailable.Enable = $true
+$OutputOrderedDictionary.ForestOptionalFeatures.Tests.LapsAvailable.Parameters.ExpectedValue = $false
 
 $Sources = @(
     'ForestFSMORoles'
@@ -407,7 +695,7 @@ $Sources = @(
     'DCWindowsUpdates'
 )
 
-$TestResults = Invoke-Testimo -ReturnResults -ExcludeDomains 'ad.evotec.pl' -Sources $Sources -Configuration $OutputOrderedDictionary
+$TestResults = Invoke-Testimo -PassThru -ExcludeDomains 'ad.evotec.pl' -Sources $Sources -Configuration $OutputOrderedDictionary
 $TestResults | Format-Table -AutoSize *
 ```
 
@@ -418,9 +706,9 @@ Be sure to checkout **Examples** section for more **How-To**.
 - [x] PowerShell 5.1 - I know, bummer right?
 - [x] RSAT if run externally from Windows 10 machine
 
-When you use `Install-Module` option what happens in the backgrouns is that Windows will use [PowershellGallery](https://www.powershellgallery.com/) (hosted by Microsoft) to download **Testimo** and any dependencies this module needs.
+When you use the `Install-Module` option what happens in the backgrouns is that Windows will use [PowershellGallery](https://www.powershellgallery.com/) (hosted by Microsoft) to download **Testimo** and any dependencies this module needs.
 As it stands all dependencies except one (**DSInternals**) are my other PowerShell Modules.
-Why I am using it this way? Because I don't want to write multiple times same code over and over.
+Why I am using it this way? Because I don't want to write multiple times the same code over and over.
 
 - [x] Testimo - this module
   - [x] [PSWinDocumentation.AD](https://github.com/EvotecIT/PSWinDocumentation.AD) - PowerShell Module that's main purpose is deliver formmated/compressive Active Directory data for documentation purposes. It's read only.
@@ -433,7 +721,7 @@ Why I am using it this way? Because I don't want to write multiple times same co
   - [x] [PSWriteHTML](https://github.com/EvotecIT/PSWriteHTML) - PowerShell Module that creates nice looking reports. Responsible for visual HTML reporting.
   - [x] [Emailimo](https://github.com/EvotecIT/Emailimo) - PowerShell Module that creates nice looking emails. Responsible for emails in Testimo.
 
-In **Testimo** I'm using internal functions from some of the modules, without any real documentation.
+In **Testimo** I'm using internal functions from some of the modules without any real documentation.
 
 ### Portability
 
@@ -446,7 +734,7 @@ It was written specifically for Testimo.
 Initialize-ModulePortable -Name 'Testimo' -Path "$PSScriptRoot\TestimoPortable" -Download
 ```
 
-After that you can use `Invoke-Testimo` as you normally would.
+After that,, you can use `Invoke-Testimo` as you normally would.
 You can also skip **Download** parameter if you already downloaded all the modules before.
 This function is also available as part of [PSSharedGoods](https://github.com/EvotecIT/PSSharedGoods) module.
 

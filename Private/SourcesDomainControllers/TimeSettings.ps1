@@ -1,22 +1,24 @@
 ﻿$TimeSettings = [ordered] @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
-        Name    = "Time Settings"
-        Data    = {
+        Name           = "Time Settings"
+        Data           = {
             Get-TimeSetttings -ComputerName $DomainController -Domain $Domain
         }
-        Details = [ordered] @{
-            Area        = ''
+        Details        = [ordered] @{
+            Area        = 'Configuration'
             Description = ''
             Resolution  = ''
-            RiskLevel   = 10
+            Importance   = 2
             Resources   = @(
 
             )
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
-        NTPServerEnabled  = @{
+        NTPServerEnabled           = @{
             Enable     = $true
             Name       = 'NtpServer must be enabled.'
             Parameters = @{
@@ -26,7 +28,7 @@
                 OperationType = 'eq'
             }
         }
-        NTPServerIntervalMissing = @{
+        NTPServerIntervalMissing   = @{
             Enable     = $true
             Name       = 'Ntp Server Interval should be set'
             Parameters = @{
@@ -46,7 +48,7 @@
                 OperationType = 'notcontains'
             }
         }
-        VMTimeProvider    = @{
+        VMTimeProvider             = @{
             Enable     = $true
             Name       = 'Virtual Machine Time Provider should be disabled.'
             Parameters = @{
@@ -56,7 +58,7 @@
                 OperationType = 'eq'
             }
         }
-        NtpTypeNonPDC     = [ordered]  @{
+        NtpTypeNonPDC              = [ordered]  @{
             Enable       = $true
             Name         = 'NTP Server should be set to Domain Hierarchy'
             Requirements = @{
@@ -70,16 +72,16 @@
 
             }
         }
-        NtpTypePDC        = [ordered] @{
+        NtpTypePDC                 = [ordered] @{
             Enable       = $true
-            Name         = 'NTP Server should be set to AllSync'
+            Name         = 'NTP Server should be set to NTP'
             Requirements = @{
                 IsPDC = $true
             }
             Parameters   = @{
                 WhereObject   = { $_.ComputerName -eq $DomainController }
                 Property      = 'NtpType'
-                ExpectedValue = 'AllSync'
+                ExpectedValue = 'NTP'
                 OperationType = 'eq'
 
             }

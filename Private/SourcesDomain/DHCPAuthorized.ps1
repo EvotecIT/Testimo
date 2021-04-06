@@ -1,5 +1,6 @@
 ﻿$DHCPAuthorized = @{
     Enable = $false
+    Scope  = 'Domain'
     Source = @{
         Name    = "DHCP authorized in domain"
         Data    = {
@@ -11,13 +12,14 @@
             Area        = 'Configuration'
             Category    = 'DHCP'
             Severity    = ''
-            RiskLevel   = 0
+            Importance   = 0
             Description = ""
             Resolution  = ''
             Resources   = @(
 
             )
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         DHCPAuthorized = @{

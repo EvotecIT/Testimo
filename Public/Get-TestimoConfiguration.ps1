@@ -5,49 +5,44 @@
         [string] $FilePath
     )
     $NewConfig = [ordered] @{ }
+    foreach ($Source in ($Script:TestimoConfiguration.ActiveDirectory).Keys) {
+        $NewConfig[$Source] = [ordered] @{ }
+        $NewConfig[$Source]['Enable'] = $Script:TestimoConfiguration['ActiveDirectory'][$Source]['Enable']
 
-    $Scopes = 'Forest', 'Domain', 'DomainControllers'
-    foreach ($Scope in $Scopes) {
-        $NewConfig[$Scope] = [ordered] @{ }
-        foreach ($Source in ($Script:TestimoConfiguration[$Scope]).Keys) {
-            $NewConfig[$Scope][$Source] = [ordered] @{ }
-            $NewConfig[$Scope][$Source]['Enable'] = $Script:TestimoConfiguration[$Scope][$Source]['Enable']
+        if ($null -ne $Script:TestimoConfiguration['ActiveDirectory'][$Source]['Source']['ExpectedOutput']) {
+            $NewConfig[$Source]['Source'] = [ordered] @{ }
+            $NewConfig[$Source]['Source']['ExpectedOutput'] = $Script:TestimoConfiguration['ActiveDirectory'][$Source]['Source']['ExpectedOutput']
+        }
 
-            if ($null -ne $Script:TestimoConfiguration[$Scope][$Source]['Source']['ExpectedOutput']) {
-                $NewConfig[$Scope][$Source]['Source'] = [ordered] @{ }
-                $NewConfig[$Scope][$Source]['Source']['ExpectedOutput'] = $Script:TestimoConfiguration[$Scope][$Source]['Source']['ExpectedOutput']
-            }
+        if ($null -ne $Script:TestimoConfiguration['ActiveDirectory'][$Source]['Source']['Parameters']) {
+            $NewConfig[$Source]['Source'] = [ordered] @{ }
+            $NewConfig[$Source]['Source']['Parameters'] = $Script:TestimoConfiguration['ActiveDirectory'][$Source]['Source']['Parameters']
+        }
 
-            if ($null -ne $Script:TestimoConfiguration[$Scope][$Source]['Source']['Parameters']) {
-                $NewConfig[$Scope][$Source]['Source'] = [ordered] @{ }
-                $NewConfig[$Scope][$Source]['Source']['Parameters'] = $Script:TestimoConfiguration[$Scope][$Source]['Source']['Parameters']
-            }
+        $NewConfig[$Source]['Tests'] = [ordered] @{ }
+        foreach ($Test in $Script:TestimoConfiguration['ActiveDirectory'][$Source]['Tests'].Keys) {
+            $NewConfig[$Source]['Tests'][$Test] = [ordered] @{ }
+            $NewConfig[$Source]['Tests'][$Test]['Enable'] = $Script:TestimoConfiguration['ActiveDirectory'][$Source]['Tests'][$Test]['Enable']
+            $NewConfig[$Source]['Tests'][$Test]['Parameters'] = [ordered] @{ }
 
-            $NewConfig[$Scope][$Source]['Tests'] = [ordered] @{ }
-            foreach ($Test in $Script:TestimoConfiguration[$Scope][$Source]['Tests'].Keys) {
-                $NewConfig[$Scope][$Source]['Tests'][$Test] = [ordered] @{ }
-                $NewConfig[$Scope][$Source]['Tests'][$Test]['Enable'] = $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Enable']
-                $NewConfig[$Scope][$Source]['Tests'][$Test]['Parameters'] = [ordered] @{ }
+            if ($null -ne $Script:TestimoConfiguration['ActiveDirectory'][$Source]['Tests'][$Test]['Parameters']) {
+                if ($null -ne $Script:TestimoConfiguration['ActiveDirectory'][$Source]['Tests'][$Test]['Parameters']['Property']) {
 
-                if ($null -ne $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']) {
-                    if ($null -ne $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']['Property']) {
-
-                        if ($null -ne $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']['Property']) {
-                            $NewConfig[$Scope][$Source]['Tests'][$Test]['Parameters']['Property'] = $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']['Property']
-                        }
-                        if ($null -ne $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']['ExpectedValue']) {
-                            $NewConfig[$Scope][$Source]['Tests'][$Test]['Parameters']['ExpectedValue'] = $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']['ExpectedValue']
-                        }
-                        if ($null -ne $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']['ExpectedCount']) {
-                            $NewConfig[$Scope][$Source]['Tests'][$Test]['Parameters']['ExpectedCount'] = $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']['ExpectedCount']
-                        }
-                        if ($null -ne $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']['OperationType']) {
-                            $NewConfig[$Scope][$Source]['Tests'][$Test]['Parameters']['OperationType'] = $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']['OperationType']
-                        }
-                        #if ($nulle -ne $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']['PropertyExtendedValue']) {
-                        #    $NewConfig[$Scope][$Source]['Tests'][$Test]['Parameters']['PropertyExtendedValue'] = $Script:TestimoConfiguration[$Scope][$Source]['Tests'][$Test]['Parameters']['PropertyExtendedValue']
-                        #}
+                    if ($null -ne $Script:TestimoConfiguration['ActiveDirectory'][$Source]['Tests'][$Test]['Parameters']['Property']) {
+                        $NewConfig[$Source]['Tests'][$Test]['Parameters']['Property'] = $Script:TestimoConfiguration['ActiveDirectory'][$Source]['Tests'][$Test]['Parameters']['Property']
                     }
+                    if ($null -ne $Script:TestimoConfiguration['ActiveDirectory'][$Source]['Tests'][$Test]['Parameters']['ExpectedValue']) {
+                        $NewConfig[$Source]['Tests'][$Test]['Parameters']['ExpectedValue'] = $Script:TestimoConfiguration['ActiveDirectory'][$Source]['Tests'][$Test]['Parameters']['ExpectedValue']
+                    }
+                    if ($null -ne $Script:TestimoConfiguration['ActiveDirectory'][$Source]['Tests'][$Test]['Parameters']['ExpectedCount']) {
+                        $NewConfig[$Source]['Tests'][$Test]['Parameters']['ExpectedCount'] = $Script:TestimoConfiguration['ActiveDirectory'][$Source]['Tests'][$Test]['Parameters']['ExpectedCount']
+                    }
+                    if ($null -ne $Script:TestimoConfiguration['ActiveDirectory'][$Source]['Tests'][$Test]['Parameters']['OperationType']) {
+                        $NewConfig[$Source]['Tests'][$Test]['Parameters']['OperationType'] = $Script:TestimoConfiguration['ActiveDirectory'][$Source]['Tests'][$Test]['Parameters']['OperationType']
+                    }
+                    #if ($nulle -ne $Script:TestimoConfiguration['ActiveDirectory'][$Source]['Tests'][$Test]['Parameters']['PropertyExtendedValue']) {
+                    #    $NewConfig[$Source]['Tests'][$Test]['Parameters']['PropertyExtendedValue'] = $Script:TestimoConfiguration['ActiveDirectory'][$Source]['Tests'][$Test]['Parameters']['PropertyExtendedValue']
+                    #}
                 }
             }
         }

@@ -7,7 +7,9 @@
         [string] $DomainController,
         [bool] $IsPDC,
         [Object] $ForestInformation,
-        [Object] $DomainInformation
+        [Object] $DomainInformation,
+        [System.Collections.IDictionary] $ForestDetails,
+        [switch] $SkipRODC
     )
     $GlobalTime = Start-TimeLog
 
@@ -46,11 +48,14 @@
     # Out-Begin -Type 'i' -Text $SummaryText -Level ($LevelSummary - 3) -Domain $Domain -DomainController $DomainController
     # Out-Status -Text $SummaryText -Status $null -ExtendedValue '' -Domain $Domain -DomainController $DomainController
 
-    Out-Informative -Text $SummaryText -Status $null -ExtendedValue '' -Domain $Domain -DomainController $DomainController  -Level ($LevelSummary - 3)
+    Out-Informative -Text $SummaryText -Status $null -ExtendedValue '' -Domain $Domain -DomainController $DomainController -Level ($LevelSummary - 3)
 
     $TestsSummaryTogether = @(
-        foreach ($Source in $($Script:TestimoConfiguration.$Scope.Keys)) {
-            $CurrentSection = $Script:TestimoConfiguration.$Scope[$Source]
+        foreach ($Source in ($($Script:TestimoConfiguration.ActiveDirectory)).Keys) {
+            if ($Scope -ne $Script:TestimoConfiguration.ActiveDirectory[$Source].Scope) {
+                continue
+            }
+            $CurrentSection = $Script:TestimoConfiguration.ActiveDirectory[$Source]
             if ($null -eq $CurrentSection) {
                 # Probably should write some tests
                 Write-Warning "Source $Source in scope: $Scope is defined improperly. Please verify."
@@ -59,6 +64,7 @@
             if ($CurrentSection['Enable'] -eq $true) {
                 $Time = Start-TimeLog
                 $CurrentSource = $CurrentSection['Source']
+                #$CurrentTests = $CurrentSection['Tests']
                 [Array] $AllTests = $CurrentSection['Tests'].Keys
 
                 $ReferenceID = $Source #Get-RandomStringName -Size 8
@@ -69,36 +75,29 @@
                     Total   = 0 # $AllTests.Count + 1 # +1 includes availability of data test
                 }
                 # build data output for extended results
-
-                if ($Domain -and $DomainController) {
-                    $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID] = [ordered] @{
-                        Name             = $CurrentSource['Name']
-                        SourceCode       = $CurrentSource['Data']
-                        Details          = $CurrentSource['Details']
-                        Results          = [System.Collections.Generic.List[PSCustomObject]]::new()
-                        Domain           = $Domain
-                        DomainController = $DomainController
-                    }
-                } elseif ($Domain) {
-                    $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID] = [ordered] @{
-                        Name             = $CurrentSource['Name']
-                        SourceCode       = $CurrentSource['Data']
-                        Details          = $CurrentSource['Details']
-                        Results          = [System.Collections.Generic.List[PSCustomObject]]::new()
-                        Domain           = $Domain
-                        DomainController = $DomainController
-                    }
-                } else {
-                    $Script:Reporting['Forest']['Tests'][$ReferenceID] = [ordered] @{
-                        Name             = $CurrentSource['Name']
-                        SourceCode       = $CurrentSource['Data']
-                        Details          = $CurrentSource['Details']
-                        Results          = [System.Collections.Generic.List[PSCustomObject]]::new()
-                        Domain           = $Domain
-                        DomainController = $DomainController
-                    }
+                $TestOutput = [ordered] @{
+                    Name             = $CurrentSource['Name']
+                    SourceCode       = $CurrentSource['Data']
+                    Details          = $CurrentSource['Details']
+                    Results          = [System.Collections.Generic.List[PSCustomObject]]::new()
+                    Domain           = $Domain
+                    DomainController = $DomainController
                 }
 
+                # Lets divide tests results into by type Forest/Domain/Domain Controller
+                if ($Domain -and $DomainController) {
+                    $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID] = $TestOutput
+                } elseif ($Domain) {
+                    $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID] = $TestOutput
+                } else {
+                    $Script:Reporting['Forest']['Tests'][$ReferenceID] = $TestOutput
+                }
+
+                # Lets divide tests by source (same content/different way to use later on)
+                if (-not $Script:Reporting['BySource'][$Source]) {
+                    $Script:Reporting['BySource'][$Source] = [System.Collections.Generic.List[PSCustomObject]]::new()
+                }
+                $Script:Reporting['BySource'][$Source].Add($TestOutput)
                 if (-not $CurrentSection['Source']) {
                     Write-Warning "Source $Source in scope: $Scope is defined improperly. Please verify."
                     continue
@@ -108,15 +107,13 @@
                 if ($CurrentSource['Requirements']) {
                     if ($null -ne $CurrentSource['Requirements']['IsDomainRoot']) {
                         if (-not $CurrentSource['Requirements']['IsDomainRoot'] -eq $IsDomainRoot) {
-                            Out-Skip -Test $CurrentSource['Name'] -DomainController $DomainController `
-                                -Domain $Domain -TestsSummary $TestsSummary -Source $ReferenceID -Level $Level
+                            Out-Skip -Test $CurrentSource['Name'] -DomainController $DomainController -Domain $Domain -TestsSummary $TestsSummary -Source $ReferenceID -Level $Level
                             continue
                         }
                     }
                     if ($null -ne $CurrentSource['Requirements']['IsPDC']) {
                         if (-not $CurrentSource['Requirements']['IsPDC'] -eq $IsPDC) {
-                            Out-Skip -Test $CurrentSource['Name'] -DomainController $DomainController `
-                                -Domain $Domain -TestsSummary $TestsSummary -Source $ReferenceID -Level $Level
+                            Out-Skip -Test $CurrentSource['Name'] -DomainController $DomainController -Domain $Domain -TestsSummary $TestsSummary -Source $ReferenceID -Level $Level
                             continue
                         }
                     }
@@ -133,65 +130,166 @@
                         }
                         if ($Commands -contains $false) {
                             $CommandsTested = $CurrentSource['Requirements']['CommandAvailable'] -join ', '
-                            Out-Skip -Test $CurrentSource['Name'] -DomainController $DomainController `
-                                -Domain $Domain -TestsSummary $TestsSummary -Source $ReferenceID -Level $Level `
-                                -Reason "Skipping - At least one command unavailable ($CommandsTested)"
+                            Out-Skip -Test $CurrentSource['Name'] -DomainController $DomainController -Domain $Domain -TestsSummary $TestsSummary -Source $ReferenceID -Level $Level -Reason "Skipping - At least one command unavailable ($CommandsTested)"
                             continue
                         }
                     }
+                    if ($null -ne $CurrentSource['Requirements']['IsInternalForest']) {
+                        if ($CurrentSource['Requirements']['IsInternalForest'] -eq $true) {
+                            if ($ForestName) {
+                                Out-Skip -Test $CurrentSource['Name'] -DomainController $DomainController -Domain $Domain -TestsSummary $TestsSummary -Source $ReferenceID -Level $Level -Reason "Skipping - External forest requested. Not supported test."
+                                continue
+                            }
+                        }
+                    }
                 }
-
-
-
+                # START - Execute TEST - By getting the Data SOURCE
+                Out-Informative -Text $CurrentSource['Name'] -Level $Level -Domain $Domain -DomainController $DomainController -Start
                 if ($CurrentSource['Parameters']) {
                     $SourceParameters = $CurrentSource['Parameters']
-                    #$Object = Start-TestProcessing -Test $CurrentSource['Name'] -Level $Level -OutputRequired -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID {
-                    $Object = Start-TestProcessing -Test $CurrentSource['Name'] -Level $Level -OutputRequired -Domain $Domain -DomainController $DomainController {
-                        & $CurrentSource['Data'] @SourceParameters -DomainController $DomainController -Domain $Domain
-                    }
                 } else {
-                    #$Object = Start-TestProcessing -Test $CurrentSource['Name'] -Level $Level -OutputRequired -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID {
-                    $Object = Start-TestProcessing -Test $CurrentSource['Name'] -Level $Level -OutputRequired -Domain $Domain -DomainController $DomainController {
-                        & $CurrentSource['Data'] -DomainController $DomainController -Domain $Domain
+                    $SourceParameters = @{}
+                }
+                $SourceParameters['DomainController'] = $DomainController
+                if ($Scope -eq 'Forest') {
+                    $SourceParameters['QueryServer'] = $ForestDetails['QueryServers']['Forest']['HostName'][0]
+                } else {
+                    $SourceParameters['QueryServer'] = $ForestDetails['QueryServers'][$Domain]['HostName'][0]
+                }
+                $SourceParameters['Domain'] = $Domain
+                $SourceParameters['ForestDetails'] = $ForestDetails
+                $SourceParameters['ForestName'] = $ForestInformation.Name
+                $SourceParameters['DomainInformation'] = $DomainInformation
+                $SourceParameters['ForestInformation'] = $ForestInformation
+                $SourceParameters['SkipRODC'] = $SkipRODC.IsPresent # bool true/false
+                if ($Script:TestimoConfiguration.Debug.ShowErrors) {
+                    & $CurrentSource['Data'] -DomainController $DomainController -Domain $Domain
+                    $ErrorMessage = $null
+                } else {
+                    $OutputInvoke = Invoke-CommandCustom -ScriptBlock $CurrentSource['Data'] -Parameter $SourceParameters -ReturnVerbose -ReturnError -ReturnWarning -AddParameter
+                    if ($OutputInvoke.Error) {
+                        $ErrorMessage = $OutputInvoke.Error.Exception.Message -replace "`n", " " -replace "`r", " "
+                    } else {
+                        $ErrorMessage = $null
                     }
                 }
+                $WarningsAndErrors = @(
+                    #if ($ShowWarning) {
+                    foreach ($War in $OutputInvoke.Warning) {
+                        [PSCustomObject] @{
+                            Type       = 'Warning'
+                            Comment    = $War
+                            Reason     = ''
+                            TargetName = ''
+                        }
+                    }
+                    #}
+                    #if ($ShowError) {
+                    foreach ($Err in $OutputInvoke.Error) {
+                        [PSCustomObject] @{
+                            Type       = 'Error'
+                            Comment    = $Err
+                            Reason     = $Err.CategoryInfo.Reason
+                            TargetName = $Err.CategoryInfo.TargetName
+                        }
+                    }
+                    #}
+                )
+                Out-Informative -Text $CurrentSource['Name'] -Status $null -ExtendedValue $null -Domain $Domain -DomainController $DomainController -End
+                # END - Execute TEST - By getting the Data SOURCE
+                $Object = $OutputInvoke.Output
                 # Add data output to extended results
                 if ($Domain -and $DomainController) {
                     $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['Data'] = $Object
+                    $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['Verbose'] = $OutputInvoke.Verbose
+                    $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['Warning'] = $OutputInvoke.Warning
+                    $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['Error'] = $OutputInvoke.Error
+                    $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['WarningsAndErrors'] = $WarningsAndErrors
+                    $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['DetailsTests'] = [ordered]@{ }
+                    $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['ResultsTests'] = [ordered]@{ }
+                    $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['Information'] = $CurrentSection
                 } elseif ($Domain) {
                     $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['Data'] = $Object
+                    $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['Verbose'] = $OutputInvoke.Verbose
+                    $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['Warning'] = $OutputInvoke.Warning
+                    $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['Error'] = $OutputInvoke.Error
+                    $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['WarningsAndErrors'] = $WarningsAndErrors
+                    $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['DetailsTests'] = [ordered]@{ }
+                    $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['ResultsTests'] = [ordered]@{ }
+                    $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['Information'] = $CurrentSection
                 } else {
                     $Script:Reporting['Forest']['Tests'][$ReferenceID]['Data'] = $Object
+                    $Script:Reporting['Forest']['Tests'][$ReferenceID]['Verbose'] = $OutputInvoke.Verbose
+                    $Script:Reporting['Forest']['Tests'][$ReferenceID]['Warning'] = $OutputInvoke.Warning
+                    $Script:Reporting['Forest']['Tests'][$ReferenceID]['Error'] = $OutputInvoke.Error
+                    $Script:Reporting['Forest']['Tests'][$ReferenceID]['WarningsAndErrors'] = $WarningsAndErrors
+                    $Script:Reporting['Forest']['Tests'][$ReferenceID]['DetailsTests'] = [ordered]@{ }
+                    $Script:Reporting['Forest']['Tests'][$ReferenceID]['ResultsTests'] = [ordered]@{ }
+                    $Script:Reporting['Forest']['Tests'][$ReferenceID]['Information'] = $CurrentSection
                 }
                 # If there's no output from Source Data all other tests will fail
-                if ($Object -and ($null -eq $CurrentSource['ExpectedOutput'] -or $CurrentSource['ExpectedOutput'] -eq $true)) {
-                    # Output is provided and we did expect it or didn't provide expectation
+                if ($ErrorMessage) {
+                    $FailAllTests = $true
+                    $ExtendedValue = $ErrorMessage -join "; "
+                    Out-Failure -Text $CurrentSource['Name'] -Level $LevelTest -ExtendedValue $ExtendedValue -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Source $CurrentSource
+                    $TestsSummary.Failed = $TestsSummary.Failed + 1
+                } elseif ($Object -and $CurrentSource['ExpectedOutput'] -eq $true) {
+                    # Output is provided and we did expect it - passed test
                     $FailAllTests = $false
                     Out-Begin -Text $CurrentSource['Name'] -Level $LevelTest -Domain $Domain -DomainController $DomainController
-                    Out-Status -Text $CurrentSource['Name'] -Status $true -ExtendedValue 'Data is available.' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
+                    Out-Status -Text $CurrentSource['Name'] -Status $true -ExtendedValue 'Data is available.' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Source $CurrentSource
                     $TestsSummary.Passed = $TestsSummary.Passed + 1
 
                 } elseif ($Object -and $CurrentSource['ExpectedOutput'] -eq $false) {
                     # Output is provided, but we expected no output - failing test
-
-                    $FailAllTests = $true
-                    Out-Failure -Text $CurrentSource['Name'] -Level $LevelTest -ExtendedValue 'Data is available. This is a bad thing.' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
+                    $FailAllTests = $false
+                    Out-Failure -Text $CurrentSource['Name'] -Level $LevelTest -ExtendedValue 'Data is available. This is a bad thing.' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Source $CurrentSource
                     $TestsSummary.Failed = $TestsSummary.Failed + 1
 
+                } elseif ($Object -and $null -eq $CurrentSource['ExpectedOutput']) {
+                    # Output is provided, but we weren't sure if there should be output or not
+                    $FailAllTests = $false
+                    Out-Begin -Text $CurrentSource['Name'] -Level $LevelTest -Domain $Domain -DomainController $DomainController
+                    Out-Status -Text $CurrentSource['Name'] -Status $null -ExtendedValue 'Data is available.' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Source $CurrentSource
+                    #$TestsSummary.Passed = $TestsSummary.Passed + 1
+                    $TestsSummary.Skipped = $TestsSummary.Skipped + 1
+
+                } elseif ($null -eq $Object -and $CurrentSource['ExpectedOutput'] -eq $true) {
+                    # Output was not provided and we expected it
+                    $FailAllTests = $true
+                    Out-Failure -Text $CurrentSource['Name'] -Level $LevelTest -ExtendedValue 'No data available.' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Source $CurrentSource
+                    $TestsSummary.Failed = $TestsSummary.Failed + 1
                 } elseif ($null -eq $Object -and $CurrentSource['ExpectedOutput'] -eq $false) {
                     # This tests whether there was an output from Source or not.
                     # Sometimes it makes sense to ask for data and get null/empty in return
                     # you just need to make sure to define ExpectedOutput = $false in source definition
                     $FailAllTests = $false
                     Out-Begin -Text $CurrentSource['Name'] -Level $LevelTest -Domain $Domain -DomainController $DomainController
-                    Out-Status -Text $CurrentSource['Name'] -Status $true -ExtendedValue 'No data returned, which is a good thing.' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
+                    Out-Status -Text $CurrentSource['Name'] -Status $true -ExtendedValue 'No data returned, which is a good thing.' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Source $CurrentSource
                     $TestsSummary.Passed = $TestsSummary.Passed + 1
+                } elseif ($null -eq $Object -and $null -eq $CurrentSource['ExpectedOutput']) {
+                    # Output is not provided, but we weren't sure if there should be output or not
+                    $FailAllTests = $false
+                    Out-Begin -Text $CurrentSource['Name'] -Level $LevelTest -Domain $Domain -DomainController $DomainController
+                    Out-Status -Text $CurrentSource['Name'] -Status $null -ExtendedValue 'No data returned.' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Source $CurrentSource
+                    # $TestsSummary.Passed = $TestsSummary.Passed + 1
+                    $TestsSummary.Skipped = $TestsSummary.Skipped + 1
                 } else {
                     $FailAllTests = $true
-                    Out-Failure -Text $CurrentSource['Name'] -Level $LevelTest -ExtendedValue 'No data available.' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
+                    Out-Failure -Text $CurrentSource['Name'] -Level $LevelTest -ExtendedValue 'No data available.' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Source $CurrentSource
                     $TestsSummary.Failed = $TestsSummary.Failed + 1
                 }
+
                 foreach ($Test in $AllTests) {
+                    # Add content with description of the test
+                    if ($Domain -and $DomainController) {
+                        $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['DetailsTests'][$Test] = $CurrentSection['Tests'][$Test]['Details']
+                    } elseif ($Domain) {
+                        $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['DetailsTests'][$Test] = $CurrentSection['Tests'][$Test]['Details']
+                    } else {
+                        $Script:Reporting['Forest']['Tests'][$ReferenceID]['DetailsTests'][$Test] = $CurrentSection['Tests'][$Test]['Details']
+                    }
+
                     $CurrentTest = $CurrentSection['Tests'][$Test]
                     if ($CurrentTest['Enable'] -eq $True) {
                         # Check for requirements
@@ -208,21 +306,52 @@
                                     continue
                                 }
                             }
+                            #if ($null -ne $CurrentTest['Requirements']['ExpectedOutput']) {
+                            #    if ($CurrentTest['Requirements']['ExpectedOutput'] -eq $false) {
+                            #        $TestsSummary.Skipped = $TestsSummary.Skipped + 1
+                            #        continue
+                            #    }
+                            #}
                         }
                         if (-not $FailAllTests) {
-                            if ($CurrentTest['Parameters']) {
-                                $Parameters = $CurrentTest['Parameters']
+                            $testStepOneSplat = @{
+                                Test             = $CurrentTest
+                                Object           = $Object
+                                Domain           = $Domain
+                                DomainController = $DomainController
+                                Level            = $LevelTest
+                                TestName         = $CurrentTest['Name']
+                                ReferenceID      = $ReferenceID
+                                Requirements     = $CurrentTest['Requirements']
+                            }
+                            # We provide whatever parameters are available in Data Source to Tests (mainly for use within WhereObject)
+                            #if ($CurrentSource['Parameters']) {
+                            #    $testStepOneSplat['Parameters'] = $CurrentSource['Parameters']
+                            #}
+                            if ($Scope -eq 'Forest') {
+                                $testStepOneSplat['QueryServer'] = $ForestDetails['QueryServers']['Forest']['HostName'][0]
                             } else {
-                                $Parameters = $null
+                                $testStepOneSplat['QueryServer'] = $ForestDetails['QueryServers'][$Domain]['HostName'][0]
                             }
-                            $TestsResults = Start-TestingTest -Test $CurrentTest['Name'] -Level $LevelTest -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID {
-                                Test-StepOne -Object $Object -Domain $Domain -DomainController $DomainController @Parameters -Level $LevelTest -TestName $CurrentTest['Name'] -ReferenceID $ReferenceID
-                            }
+                            $testStepOneSplat['ForestDetails'] = $ForestDetails
+                            $testStepOneSplat['ForestName'] = $ForestInformation.Name
+                            $testStepOneSplat['DomainInformation'] = $DomainInformation
+                            $testStepOneSplat['ForestInformation'] = $ForestInformation
+                            $TestsResults = Test-StepOne @testStepOneSplat
                             $TestsSummary.Passed = $TestsSummary.Passed + ($TestsResults | Where-Object { $_ -eq $true }).Count
                             $TestsSummary.Failed = $TestsSummary.Failed + ($TestsResults | Where-Object { $_ -eq $false }).Count
                         } else {
+                            $TestsResults = $null
                             $TestsSummary.Failed = $TestsSummary.Failed + 1
-                            Out-Failure -Text $CurrentTest['Name'] -Level $LevelTestFailure -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
+                            Out-Failure -Text $CurrentTest['Name'] -Level $LevelTestFailure -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -ExtendedValue 'Input data not provided. Failing test.' -Source $CurrentTest
+                        }
+
+                        if ($Domain -and $DomainController) {
+                            $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['ResultsTests'][$Test] = $TestsResults
+                        } elseif ($Domain) {
+                            $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['ResultsTests'][$Test] = $TestsResults
+                        } else {
+                            $Script:Reporting['Forest']['Tests'][$ReferenceID]['ResultsTests'][$Test] = $TestsResults
                         }
                     } else {
                         $TestsSummary.Skipped = $TestsSummary.Skipped + 1

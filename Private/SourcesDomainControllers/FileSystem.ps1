@@ -1,5 +1,6 @@
 ﻿$FileSystem = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name           = "FileSystem"
         Data           = {
@@ -10,7 +11,7 @@
             Area        = ''
             Description = ''
             Resolution  = ''
-            RiskLevel   = 10
+            Importance   = 10
             Resources   = @(
                 ''
             )
@@ -33,7 +34,7 @@
                 Area        = ''
                 Description = ''
                 Resolution  = ''
-                RiskLevel   = 10
+                Importance   = 10
                 Resources   = @(
                     'https://guyrleech.wordpress.com/2014/04/15/ntfs-8-3-short-names-solving-the-issues/'
                     'https://blogs.technet.microsoft.com/josebda/2012/11/13/windows-server-2012-file-server-tip-disable-8-3-naming-and-strip-those-short-names-too/'

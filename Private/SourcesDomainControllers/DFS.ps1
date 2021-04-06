@@ -1,19 +1,20 @@
 ﻿$DFS = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
-        Name       = "SYSVOL/DFS Verification"
-        Data       = {
-            Get-WinADDFSHealth -Domains $Domain -DomainControllers $DomainController
+        Name           = "SYSVOL/DFS Verification"
+        Data           = {
+            Get-WinADDFSHealth -Forest $ForestName -Domains $Domain -DomainControllers $DomainController -EventDays $EventDays
         }
-        Parameters = @{
+        Parameters     = @{
             EventDays = 3
         }
-        Details    = [ordered] @{
-            Area        = 'Configuration'
+        Details        = [ordered] @{
+            Area        = 'Health'
             Category    = 'DFS'
-            Severity    = ''
-            RiskLevel   = 0
-            Description = ""
+            Severity    = 'High'
+            Importance   = 0
+            Description = "Provides health verification of SYSVOL/DFS on Domain Controller."
             Resolution  = ''
             Resources   = @(
                 'https://support.microsoft.com/en-us/help/2218556/how-to-force-an-authoritative-and-non-authoritative-synchronization-fo'
@@ -31,6 +32,7 @@
                 'https://jackstromberg.com/2014/07/sysvol-and-group-policy-out-of-sync-on-server-2012-r2-dcs-using-dfsr/'
             )
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         Status              = @{
@@ -135,7 +137,7 @@
                 Area        = ''
                 Description = ''
                 Resolution  = ''
-                RiskLevel   = 10
+                Importance   = 10
                 Resources   = @(
                     'https://secureinfra.blog/2019/04/30/field-notes-a-quick-tip-on-dfsr-automatic-recovery-while-you-prepare-for-an-ad-domain-upgrade/'
                     'https://richardjgreen.net/active-directory-dfs-r-auto-recovery/'

@@ -2,6 +2,7 @@
 
 $RDPPorts = [ordered] @{
     Enable = $false
+    Scope  = 'DC'
     Source = [ordered] @{
         Name = 'RDP Port is open'
         Data = {
@@ -11,11 +12,12 @@ $RDPPorts = [ordered] @{
             Area             = ''
             Description      = ''
             Resolution   = ''
-            RiskLevel        = 10
+            Importance        = 10
             Resources = @(
 
             )
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         PortOpen = [ordered] @{

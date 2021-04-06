@@ -66,11 +66,13 @@ WoW64 Support                                       WoW64-Support               
 
 $WindowsRolesAndFeatures = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name = "Windows Roles and Features"
         Data = {
             Get-WindowsFeature -ComputerName $DomainController #| Where-Object { $_.'InstallState' -eq 'Installed' }
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         ActiveDirectoryDomainServices = @{

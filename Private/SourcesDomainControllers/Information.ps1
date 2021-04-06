@@ -27,6 +27,7 @@ SslPort                    : 636
 
 $Information = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name    = "Domain Controller Information"
         Data    = {
@@ -36,11 +37,12 @@ $Information = @{
             Area        = ''
             Description = ''
             Resolution  = ''
-            RiskLevel   = 10
+            Importance   = 10
             Resources   = @(
 
             )
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         IsEnabled       = @{

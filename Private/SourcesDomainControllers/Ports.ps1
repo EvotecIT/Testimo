@@ -1,8 +1,9 @@
 ﻿$Ports = [ordered] @{
     Enable = $true
+    Scope  = 'DC'
     Source = [ordered] @{
-        Name    = 'TCP Ports are open/closed as required' # UDP Testing is unreliable for now
-        Data    = {
+        Name           = 'TCP Ports are open/closed as required' # UDP Testing is unreliable for now
+        Data           = {
             # Port 389, 636, 3268, 3269 are tested as LDAP Ports with proper LDAP
             $TcpPorts = @(53, 88, 135, 139, 389, 445, 464, 636, 3268, 3269, 9389)
             # $TcpPorts = @(25, 53, 88, 464, 5722, 9389)
@@ -28,20 +29,21 @@
                 Test-ComputerPort -ComputerName $DomainController -PortTCP 25, 88, 389, 464, 636, 5722, 9389 -PortUDP 88, 123, 389, 464
             #>
         }
-        Requirements = @{
+        Requirements   = @{
             CommandAvailable = 'Test-NetConnection'
         }
-        Details = [ordered] @{
+        Details        = [ordered] @{
             Area        = ''
             Category    = ''
             Severity    = ''
-            RiskLevel   = 0
+            Importance   = 0
             Description = ''
             Resolution  = ''
             Resources   = @(
 
             )
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         Port53   = [ordered] @{
@@ -91,7 +93,7 @@
                 Area        = ''
                 Category    = ''
                 Severity    = ''
-                RiskLevel   = 0
+                Importance   = 0
                 Description = @'
                 NetBIOS over TCP/IP is a networking protocol that allows legacy computer applications relying on the NetBIOS to be used on modern TCP/IP networks.
                 Enabling NetBios might help an attackers access shared directories, files and also gain sensitive information such as computer name, domain, or workgroup.

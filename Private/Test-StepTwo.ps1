@@ -1,6 +1,7 @@
-﻿function Test-StepTwo{
+﻿function Test-StepTwo {
     [CmdletBinding()]
     param(
+        [System.Collections.IDictionary] $Test,
         [string] $Domain,
         [string] $DomainController,
         [Array] $Object,
@@ -10,7 +11,7 @@
         [string[]] $Property,
         [string[]] $PropertyExtendedValue,
         [Array] $ExpectedValue,
-        [int] $ExpectedCount = -1,
+        [nullable[int]] $ExpectedCount,
         [string] $OperationResult,
         [string] $ReferenceID,
         [nullable[bool]] $ExpectedOutput
@@ -19,49 +20,54 @@
 
     $ScriptBlock = {
         $Operators = @{
-            'lt'          = 'LessThan'
-            'gt'          = 'GreaterThan'
-            'le'          = 'LessOrEqual'
-            'ge'          = 'GreaterOrEqual'
+            'lt'          = 'Less Than'
+            'gt'          = 'Greater Than'
+            'le'          = 'Less Or Equal'
+            'ge'          = 'Greater Or Equal'
             'eq'          = 'Equal'
             'contains'    = 'Contains'
             'notcontains' = 'Not contains'
             'like'        = 'Like'
             'match'       = 'Match'
             'notmatch'    = 'Not match'
+            'notin'       = 'Not in'
+            'in'          = 'Either Value'
         }
-
-
         [Object] $TestedValue = $Object
         foreach ($V in $Property) {
             $TestedValue = $TestedValue.$V
         }
 
-        if ($ExpectedCount -ne -1) {
+        if ($null -ne $ExpectedCount) {
+            if ($null -eq $Object) {
+                $TestedValueCount = 0
+            } else {
+                $TestedValueCount = $TestedValue.Count
+            }
             if ($OperationType -eq 'lt') {
-                $TestResult = $Object.Count -lt $ExpectedCount
+                $TestResult = $TestedValueCount -lt $ExpectedCount
             } elseif ($OperationType -eq 'gt') {
-                $TestResult = $Object.Count -lt $ExpectedCount
+                $TestResult = $TestedValueCount -gt $ExpectedCount
             } elseif ($OperationType -eq 'ge') {
-                $TestResult = $Object.Count -lt $ExpectedCount
+                $TestResult = $TestedValueCount -ge $ExpectedCount
             } elseif ($OperationType -eq 'le') {
-                $TestResult = $Object.Count -lt $ExpectedCount
+                $TestResult = $TestedValueCount -le $ExpectedCount
             } elseif ($OperationType -eq 'like') {
                 # Useless - doesn't make any sense
-                $TestResult = $Object.Count -like $ExpectedCount
+                $TestResult = $TestedValueCount -like $ExpectedCount
             } elseif ($OperationType -eq 'contains') {
                 # Useless - doesn't make any sense
-                $TestResult = $Object.Count -like $ExpectedCount
+                $TestResult = $TestedValueCount -contains $ExpectedCount
             } elseif ($OperationType -eq 'in') {
                 # Useless - doesn't make any sense
-                $TestResult = $ExpectedCount -in $Object.Count
+                $TestResult = $ExpectedCount -in $TestedValueCount
             } elseif ($OperationType -eq 'notin') {
                 # Useless - doesn't make any sense
-                $TestResult = $ExpectedCount -notin $Object.Count
+                $TestResult = $ExpectedCount -notin $TestedValueCount
             } else {
-                $TestResult = $Object.Count -eq $ExpectedCount
+                $TestResult = $TestedValueCount -eq $ExpectedCount
             }
-            $TextTestedValue = $Object.Count
+            $TextTestedValue = $TestedValueCount
             $TextExpectedValue = $ExpectedCount
 
         } elseif ($null -ne $ExpectedValue) {
@@ -85,15 +91,14 @@
                 }
                 $TextExpectedValue = $OutputValues -join ', '
                 $TextTestedValue = 'Null'
-
             } else {
                 [Array] $TestResult = @(
                     if ($OperationType -eq 'notin') {
                         $ExpectedValue -notin $TestedValue
                         $TextExpectedValue = $ExpectedValue
                     } elseif ($OperationType -eq 'in') {
-                        $ExpectedValue -in $TestedValue
-                        $TextExpectedValue = $ExpectedValue
+                        $TestedValue -in $ExpectedValue
+                        $TextExpectedValue = $ExpectedValue -join ' or '
                     } else {
                         for ($i = 0; $i -lt $ExpectedValue.Count; $i++) {
 
@@ -163,7 +168,11 @@
                     $ReportExtended = "Expected value ($($Operators[$OperationType])): $($TextExpectedValue)"
                 } else {
                     $ReportResult = $false
-                    $ReportExtended = "Expected value ($($Operators[$OperationType])): $TextExpectedValue, Found value: $($TextTestedValue)"
+                    if ($Test.Parameters.DisplayResult -ne $false) {
+                        $ReportExtended = "Expected value ($($Operators[$OperationType])): $TextExpectedValue, Found value: $($TextTestedValue)"
+                    } else {
+                        $ReportExtended = "Expected value ($($Operators[$OperationType])): $TextExpectedValue"
+                    }
                 }
             } else {
                 if ($TestResult -notcontains $false) {
@@ -171,7 +180,11 @@
                     $ReportExtended = "Expected value ($($Operators[$OperationType])): $($TextExpectedValue)"
                 } else {
                     $ReportResult = $false
-                    $ReportExtended = "Expected value ($($Operators[$OperationType])): $TextExpectedValue, Found value: $($TextTestedValue)"
+                    if ($Test.Parameters.DisplayResult -ne $false) {
+                        $ReportExtended = "Expected value ($($Operators[$OperationType])): $TextExpectedValue, Found value: $($TextTestedValue)"
+                    } else {
+                        $ReportExtended = "Expected value ($($Operators[$OperationType])): $TextExpectedValue"
+                    }
                 }
 
             }
@@ -183,7 +196,7 @@
             }
             $ReportExtended = $ReportExtended -join ', '
         }
-        Out-Status -Text $TestName -Status $ReportResult -ExtendedValue $ReportExtended -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
+        Out-Status -Text $TestName -Status $ReportResult -ExtendedValue $ReportExtended -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Test $Test
         return $ReportResult
     }
 
@@ -193,7 +206,7 @@
         try {
             & $ScriptBlock
         } catch {
-            Out-Status -Text $TestName -Status $false -ExtendedValue $_.Exception.Message -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID
+            Out-Status -Text $TestName -Status $false -ExtendedValue $_.Exception.Message -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Test $Test
             return $False
         }
     }

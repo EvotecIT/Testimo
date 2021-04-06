@@ -18,10 +18,3 @@
     }
     $ADModule
 }
-<#
-$Output = (Import-PrivateModule -Name 'PSWinDocumentation.AD1')
-& $Output {
-    Get-WinADForestOptionalFeatures -WarningAction SilentlyContinue
-}
-
-#>

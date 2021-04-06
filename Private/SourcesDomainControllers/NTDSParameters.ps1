@@ -24,6 +24,7 @@ ComputerName                                     : AD1
 
 $NTDSParameters = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name = "NTDS Parameters"
         Data = {
@@ -33,11 +34,12 @@ $NTDSParameters = @{
             Area             = ''
             Description      = ''
             Resolution   = ''
-            RiskLevel        = 10
+            Importance        = 10
             Resources = @(
 
             )
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         DsaNotWritable = @{

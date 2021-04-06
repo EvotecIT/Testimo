@@ -1,7 +1,8 @@
-﻿$EmptyOrganizationalUnits = @{
+﻿$OrganizationalUnitsEmpty = @{
     Enable = $true
+    Scope  = 'Domain'
     Source = @{
-        Name           = "Orphaned/Empty Organizational Units"
+        Name           = "Organizational Units: Orphaned/Empty"
         Data           = {
             $OrganizationalUnits = Get-ADOrganizationalUnit -Filter * -Properties distinguishedname -Server $Domain | Select-Object -ExpandProperty distinguishedname
             $WellKnownContainers = Get-ADDomain | Select-Object *Container
@@ -13,17 +14,17 @@
 
             $OrganizationalUnits | Where-Object { ($AllUsedOU -notcontains $_) -and -not (Get-ADOrganizationalUnit -Filter * -SearchBase $_ -SearchScope 1 -Server $Domain) -and (($_ -notlike $WellKnownContainers.UsersContainer) -or ($_ -notlike $WellKnownContainers.ComputersContainer)) }
         }
-        ExpectedOutput = $false
-        Details = [ordered] @{
+        Details        = [ordered] @{
             Area        = ''
             Category    = ''
             Severity    = ''
-            RiskLevel   = 0
+            Importance   = 0
             Description = ''
             Resolution  = ''
             Resources   = @(
 
             )
         }
+        ExpectedOutput = $false
     }
 }

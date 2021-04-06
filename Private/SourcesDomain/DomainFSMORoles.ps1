@@ -1,5 +1,6 @@
 ﻿$DomainFSMORoles = @{
     Enable = $true
+    Scope  = 'Domain'
     Source = @{
         Name       = 'Roles availability'
         Data       = {
@@ -9,13 +10,14 @@
             Area        = ''
             Category    = ''
             Severity    = ''
-            RiskLevel   = 0
+            Importance   = 0
             Description = ''
             Resolution  = ''
             Resources   = @(
 
             )
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         PDCEmulator          = @{

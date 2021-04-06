@@ -1,5 +1,6 @@
 ﻿$SMBShares = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name       = 'Default SMB Shares'
         Data       = {
@@ -9,7 +10,7 @@
             Area             = ''
             Description      = ''
             Resolution   = ''
-            RiskLevel        = 10
+            Importance        = 10
             Resources = @(
 
             )
@@ -17,6 +18,7 @@
         Requirements = @{
             CommandAvailable = 'Get-ComputerSMBShare'
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         AdminShare   = @{

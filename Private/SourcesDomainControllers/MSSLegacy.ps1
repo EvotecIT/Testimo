@@ -1,5 +1,6 @@
 ﻿$MSSLegacy = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name           = "MSS (Legacy)"
         Data           = {
@@ -7,11 +8,11 @@
             # Get-PSRegistry -RegistryPath 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters' -ComputerName AD1
         }
         Details        = [ordered] @{
-            Type        = 'Security'
-            Area        = ''
-            Description = ''
+            Area        = 'Security'
+            Category    = 'Network'
+            Description = 'Provides verification of MSS Network Settings on Domain Controllers'
             Resolution  = ''
-            RiskLevel   = 10
+            Importance   = 10
             Resources   = @(
                 'https://blogs.technet.microsoft.com/secguide/2016/10/02/the-mss-settings/'
             )
@@ -34,7 +35,7 @@
                 Area        = ''
                 Description = 'Highest protection, source routing is completely disabled'
                 Resolution  = ''
-                RiskLevel   = 10
+                Importance   = 10
                 Resources   = @(
                     'https://blogs.technet.microsoft.com/secguide/2016/10/02/the-mss-settings/'
                 )
@@ -52,7 +53,7 @@
                 Area        = ''
                 Description = ''
                 Resolution  = ''
-                RiskLevel   = 10
+                Importance   = 10
                 Resources   = @(
                     'https://blogs.technet.microsoft.com/secguide/2016/10/02/the-mss-settings/'
                 )

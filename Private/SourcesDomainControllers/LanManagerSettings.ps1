@@ -1,5 +1,6 @@
 ﻿$LanManagerSettings = @{
     Enable = $true
+    Scope  = 'DC'
     Source = @{
         Name           = "Lan Manager Settings"
         Data           = {
@@ -9,7 +10,7 @@
             Area        = ''
             Description = ''
             Resolution  = ''
-            RiskLevel   = 10
+            Importance   = 10
             Resources   = @(
                 'https://adsecurity.org/?p=3377'
             )
@@ -32,7 +33,7 @@
                 Area        = ''
                 Description = ''
                 Resolution  = ''
-                RiskLevel   = 10
+                Importance   = 10
                 Resources   = @(
 
                 )
@@ -50,7 +51,7 @@
                 Area        = ''
                 Description = ''
                 Resolution  = ''
-                RiskLevel   = 10
+                Importance   = 10
                 Resources   = @(
                     'https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-gpac/262a2bed-93d4-4c04-abec-cf06e9ec72fd'
                 )
@@ -68,7 +69,7 @@
                 Area        = ''
                 Description = ''
                 Resolution  = ''
-                RiskLevel   = 10
+                Importance   = 10
                 Resources   = @(
                     'http://systemmanager.ru/win2k_regestry.en/46686.htm'
                 )
@@ -87,7 +88,7 @@
                 Area        = ''
                 Description = 'This setting helps to prevent an unauthorized user could from anonymously listing account names and shared resources and use using the information to attempt to guess passwords, perform social engineering attacks, or launch DoS attacks.'
                 Resolution  = ''
-                RiskLevel   = 10
+                Importance   = 10
                 Resources   = @(
                     'https://www.stigviewer.com/stig/windows_7/2014-04-02/finding/V-3377'
                 )
@@ -105,7 +106,7 @@
                 Area        = ''
                 Description = ''
                 Resolution  = ''
-                RiskLevel   = 10
+                Importance   = 10
                 Resources   = @(
 
                 )
@@ -123,7 +124,7 @@
                 Area        = ''
                 Description = ''
                 Resolution  = ''
-                RiskLevel   = 10
+                Importance   = 10
                 Resources   = @(
 
                 )
@@ -141,7 +142,7 @@
                 Area        = ''
                 Description = ''
                 Resolution  = ''
-                RiskLevel   = 10
+                Importance   = 10
                 Resources   = @(
 
                 )
@@ -159,7 +160,7 @@
                 Area        = ''
                 Description = ''
                 Resolution  = ''
-                RiskLevel   = 10
+                Importance   = 10
                 Resources   = @(
 
                 )
@@ -177,7 +178,7 @@
                 Area        = ''
                 Description = ''
                 Resolution  = ''
-                RiskLevel   = 10
+                Importance   = 10
                 Resources   = @(
                     'https://www.stigviewer.com/stig/windows_8/2014-01-07/finding/V-3376'
                 )
@@ -195,7 +196,7 @@
                 Area        = ''
                 Description = ''
                 Resolution  = ''
-                RiskLevel   = 10
+                Importance   = 10
                 Resources   = @(
 
                 )

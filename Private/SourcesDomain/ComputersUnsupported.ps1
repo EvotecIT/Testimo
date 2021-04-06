@@ -1,5 +1,6 @@
 ﻿$ComputersUnsupported = @{
     Enable = $true
+    Scope  = 'Domain'
     Source = @{
         Name           = "Computers Unsupported"
         Data           = {
@@ -7,10 +8,10 @@
             $Computers | Select-Object Name, OperatingSystem, OperatingSystemServicePack, @{name = "lastlogontimestamp"; expression = { [datetime]::fromfiletime($_.lastlogontimestamp) } }
         }
         Details        = [ordered] @{
-            Area        = ''
+            Area        = 'Cleanup'
             Category    = ''
             Severity    = ''
-            RiskLevel   = 0
+            Importance   = 0
             Description = 'Computers running an unsupported operating system.'
             Resolution  = 'Upgrade or remove computers from Domain.'
             Resources   = @(

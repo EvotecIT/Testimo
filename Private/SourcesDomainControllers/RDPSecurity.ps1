@@ -1,5 +1,6 @@
 ﻿$RDPSecurity = [ordered] @{
     Enable = $true
+    Scope  = 'DC'
     Source = [ordered] @{
         Name    = 'RDP Security'
         Data    = {
@@ -9,11 +10,12 @@
             Area        = 'Connectivity'
             Description = ''
             Resolution  = ''
-            RiskLevel   = 10
+            Importance   = 10
             Resources   = @(
 
             )
         }
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         PortOpen                    = [ordered] @{
@@ -29,7 +31,7 @@
                 Area        = 'Connectivity'
                 Description = ''
                 Resolution  = ''
-                RiskLevel   = 10
+                Importance   = 10
                 Resources   = @(
                     'https://lazywinadmin.com/2014/04/powershell-getset-network-level.html'
                     'https://devblogs.microsoft.com/scripting/weekend-scripter-report-on-network-level-authentication/'
@@ -48,7 +50,7 @@
                 Area        = 'Connectivity'
                 Description = ''
                 Resolution  = ''
-                RiskLevel   = 10
+                Importance   = 10
                 Resources   = @(
                     'https://lazywinadmin.com/2014/04/powershell-getset-network-level.html'
                     'https://devblogs.microsoft.com/scripting/weekend-scripter-report-on-network-level-authentication/'
@@ -68,7 +70,7 @@
                 Area        = 'Connectivity'
                 Description = 'Remote connections must be encrypted to prevent interception of data or sensitive information. Selecting "High Level" will ensure encryption of Remote Desktop Services sessions in both directions.'
                 Resolution  = ''
-                RiskLevel   = 10
+                Importance   = 10
                 Resources   = @(
                     'https://www.stigviewer.com/stig/windows_server_2012_member_server/2014-01-07/finding/V-3454'
                 )
