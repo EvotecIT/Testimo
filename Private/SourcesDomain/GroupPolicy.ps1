@@ -1,8 +1,8 @@
-$GroupPolicyAssesment = @{
+$GroupPolicyAssessment = @{
     Enable = $true
     Scope  = 'Domain'
     Source = @{
-        Name           = "Group Policy Assesment"
+        Name           = "Group Policy Assessment"
         Data           = {
             Get-GPOZaurr -Forest $ForestName -IncludeDomains $Domain
         }
@@ -28,7 +28,7 @@ $GroupPolicyAssesment = @{
             Name       = 'Group Policy Empty'
             Parameters = @{
                 #Bundle        = $true
-                WhereObject    = { $_.Empty -eq $false }
+                WhereObject    = { $_.Empty -ne $false }
                 ExpectedCount  = 0
                 ExpectedOutput = $true
             }
@@ -57,7 +57,7 @@ $GroupPolicyAssesment = @{
             Name       = 'Group Policy with Problem'
             Parameters = @{
                 #Bundle        = $true
-                WhereObject   = { $_.Problem -eq $false }
+                WhereObject   = { $_.Problem -ne $false }
                 ExpectedCount = 0
             }
         }
