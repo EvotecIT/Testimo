@@ -1,7 +1,7 @@
 $GroupPolicyAssessment = @{
-    Enable = $true
-    Scope  = 'Domain'
-    Source = @{
+    Enable         = $true
+    Scope          = 'Domain'
+    Source         = @{
         Name           = "Group Policy Assessment"
         Data           = {
             Get-GPOZaurr -Forest $ForestName -IncludeDomains $Domain
@@ -13,7 +13,7 @@ $GroupPolicyAssessment = @{
             Area        = 'Cleanup'
             Category    = 'Group Policy'
             Severity    = ''
-            Importance   = 0
+            Importance  = 0
             Description = ""
             Resolution  = ''
             Resources   = @(
@@ -22,15 +22,14 @@ $GroupPolicyAssessment = @{
         }
         ExpectedOutput = $true
     }
-    Tests  = [ordered] @{
+    Tests          = [ordered] @{
         Empty           = @{
             Enable     = $true
             Name       = 'Group Policy Empty'
             Parameters = @{
                 #Bundle        = $true
-                WhereObject    = { $_.Empty -ne $false }
-                ExpectedCount  = 0
-                ExpectedOutput = $true
+                WhereObject   = { $_.Empty -eq $true }
+                ExpectedCount = 0
             }
         }
         Linked          = @{
@@ -47,9 +46,8 @@ $GroupPolicyAssessment = @{
             Name       = 'Group Policy Disabled'
             Parameters = @{
                 #Bundle        = $true
-                WhereObject    = { $_.Enabled -eq $false }
-                ExpectedCount  = 0
-                ExpectedOutput = $true
+                WhereObject   = { $_.Enabled -eq $false }
+                ExpectedCount = 0
             }
         }
         Problem         = @{
@@ -57,7 +55,7 @@ $GroupPolicyAssessment = @{
             Name       = 'Group Policy with Problem'
             Parameters = @{
                 #Bundle        = $true
-                WhereObject   = { $_.Problem -ne $false }
+                WhereObject   = { $_.Problem -eq $true }
                 ExpectedCount = 0
             }
         }
@@ -79,5 +77,13 @@ $GroupPolicyAssessment = @{
                 ExpectedCount = 0
             }
         }
+    }
+    DataHighlights = {
+        New-HTMLTableCondition -Name 'Empty' -ComparisonType string -BackgroundColor PaleGreen -Value $false -Operator eq -FailBackgroundColor Salmon
+        New-HTMLTableCondition -Name 'Linked' -ComparisonType string -BackgroundColor PaleGreen -Value $true -Operator eq -FailBackgroundColor Salmon
+        New-HTMLTableCondition -Name 'Enabled' -ComparisonType string -BackgroundColor PaleGreen -Value $true -Operator eq -FailBackgroundColor Salmon
+        New-HTMLTableCondition -Name 'Optimized' -ComparisonType string -BackgroundColor PaleGreen -Value $true -Operator eq -FailBackgroundColor Salmon
+        New-HTMLTableCondition -Name 'Problem' -ComparisonType string -BackgroundColor PaleGreen -Value $false -Operator eq -FailBackgroundColor Salmon
+        New-HTMLTableCondition -Name 'ApplyPermission' -ComparisonType string -BackgroundColor PaleGreen -Value $true -Operator eq -FailBackgroundColor Salmon
     }
 }
