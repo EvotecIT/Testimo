@@ -31,51 +31,141 @@ There is an issue tracking this compatibiity which you can follow: <https://gith
 
 Things to know:
 
-- [x] Configuration hash is not written in stone and can change rapidly as Testimo gets tested
-- [x] Ideas are VERY welcome
-- [x] There's a big mess in files/function names - I'm still testing things out creating some random names, will be cleaned up later on
-- [x] There are lots of details missing for tests, and some things may not work as you want - please report issues or if you know how, fix them
-- [x] I don't know EVERYTHING - I'm very open to help with making Testimo more robust, detailed and easy to use
-- [x] This module works great in Windows PowerShell!
+- ✅ Configuration hash is not written in stone and can change rapidly as **Testimo** gets tested
+- ✅ Ideas are VERY welcome
+- ✅ There's a big mess in files/function names - I'm still testing things out creating some random names, will be cleaned up later on
+- ✅ There are lots of details missing for tests, and some things may not work as you want - please report issues or if you know how, fix them
+- ✅ I don't know EVERYTHING - I'm very open to help with making Testimo more robust, detailed and easy to use
+- ✅ This module works great in Windows PowerShell!
 
-- [Testimo - PowerShell Module](#testimo---powershell-module)
-  - [Execution](#execution)
-  - [ChangeLog](#changelog)
-    - [Comments](#comments)
-    - [Things to consider](#things-to-consider)
-  - [Known Issues / By Design](#known-issues--by-design)
-  - [To install](#to-install)
-    - [And to update](#and-to-update)
-  - [To use after installation](#to-use-after-installation)
-  - [Changing default configuration](#changing-default-configuration)
-    - [Straight to FILE/JSON](#straight-to-filejson)
-      - [Straight to JSON](#straight-to-json)
-      - [Output to Hashtable so you can edit it freely and keep in ps1](#output-to-hashtable-so-you-can-edit-it-freely-and-keep-in-ps1)
-  - [Using Invoke-Testimo with non-default configuration](#using-invoke-testimo-with-non-default-configuration)
-    - [Dependencies](#dependencies)
-    - [Portability](#portability)
-    - [Removal](#removal)
-      - [Option 1](#option-1)
-      - [Option 2](#option-2)
+## Known Issues / By Design
 
-## Execution
+- Requirements for Sources work differently then for Tests
+  - For Sources when Requirements are not met Testimo skips it totally from output
+  - For Tests when Requirements are not met Testimo marks it as skipped
 
-Generate all tests and show HTML report (I'm currently thinking on making -ShowReport obsolete and adding -HideReport instead)
+## Installation
 
 ```powershell
-Invoke-Testimo -ShowReport
+Install-Module -Name Testimo -AllowClobber -Force
 ```
 
-Generate all tests but display content only in PowerShell
+Force and AllowClobber aren't really nessecary but they do skip errors in case some appear.
+
+## Updates
+
+```powershell
+Update-Module -Name Testimo
+```
+
+Alternatively, rerunnng `Install-Module` with force will trigger reinstallation or update
+
+```powershell
+Install-Module -Name Testimo -AllowClobber -Force
+```
+
+That's it. Whenever there's new version you simply run the command and you can enjoy it. Remember, that you may need to close, reopen PowerShell session if you have already used module before updating it.
+
+**The important thing** is if something works for you on production, keep using it till you test the new version on a test computer. I do changes that may not be big, but big enough that auto-update will break your code. For example, small rename to a parameter and your code stops working! Be responsible!
+
+## Usage
+
+With output to screen and HTML
 
 ```powershell
 Invoke-Testimo
 ```
 
+Generate all tests but display content only in PowerShell
+
+```powershell
+Invoke-Testimo -HideHTML
+```
+
+![Image](https://evotec.xyz/wp-content/uploads/2019/08/img_5d68310c9f9a5.png)
+![Image](https://evotec.xyz/wp-content/uploads/2019/08/img_5d6831266a8ac.png)
+![Image](https://evotec.xyz/wp-content/uploads/2019/08/img_5d68323befd13.png)
+
 Please keep in mind that there is currently known issue that running all tests while works correctly generated HTML is very very slow when switching Tabs.
+It's advised to run seperate tests which will generate smaller file which will be more responsive
+
+```powershell
+Invoke-Testimo -Source 'ForestOptionalFeatures','DomainWellKnownFolders','ForestSubnets' -Online -ReportPath $PSScriptRoot\Reports\TestimoSummary.html -AlwaysShowSteps
+```
+
+There are also other parameters available With option to be able to process output - for example to email
+
+```powershell
+Invoke-Testimo -ReturnResults
+```
+
+### Using Invoke-Testimo with non-default configuration
+
+Following configuration allows you to:
+
+- Edit default TestImo configuration with some other values
+- Exclude one of the domains
+- Return Results for future processing
+- Limit sources to only 4 types (you could also limit that via Hashtable but this way is quicker for Adhoc enabling/disabling)
+
+```powershell
+Import-Module Testimo
+
+$OutputOrderedDictionary = Get-TestimoConfiguration
+$OutputOrderedDictionary.ForestOptionalFeatures.Tests.RecycleBinEnabled.Enable = $false
+$OutputOrderedDictionary.ForestOptionalFeatures.Tests.LapsAvailable.Enable = $true
+$OutputOrderedDictionary.ForestOptionalFeatures.Tests.LapsAvailable.Parameters.ExpectedValue = $false
+
+$Sources = @(
+    'ForestFSMORoles'
+    'ForestOptionalFeatures'
+    'ForestBackup'
+    'ForestOrphanedAdmins'
+    'DomainPasswordComplexity'
+    'DomainKerberosAccountAge'
+    'DomainDNSScavengingForPrimaryDNSServer'
+    'DCWindowsUpdates'
+)
+
+$TestResults = Invoke-Testimo -PassThru -ExcludeDomains 'ad.evotec.pl' -Sources $Sources -Configuration $OutputOrderedDictionary
+$TestResults | Format-Table -AutoSize *
+```
+
+Be sure to checkout **Examples** section for more **How-To**.
+
+### Changing default configuration
+
+**Testimo** comes with preset rules that may not apply to your environment.
+You may want to change some things like disabling some tests or changing some values (to an extent).
+There are 3 ways to do it.
+Depending on how you want to save/edit/pass configuration to TestIMO - I leave it up to you.
+
+#### Straight to FILE/JSON
+
+```powershell
+Get-TestimoConfiguration -FilePath $PSScriptRoot\Configuration\TestimoConfiguration.json
+```
+
+#### Straight to JSON
+
+```powershell
+Get-TestimoConfiguration -AsJson
+```
+
+#### Output to Hashtable so you can edit it freely and keep in ps1
+
+```powershell
+$OutputOrderedDictionary = Get-TestimoConfiguration
+$OutputOrderedDictionary.ForestOptionalFeatures.Tests.RecycleBinEnabled.Enable = $false
+$OutputOrderedDictionary.ForestOptionalFeatures.Tests.LapsAvailable.Enable = $true
+$OutputOrderedDictionary.ForestOptionalFeatures.Tests.LapsAvailable.Parameters.ExpectedValue = $false
+```
 
 ## ChangeLog
 
+- 0.0.66
+  - Tests
+    - ☣ Added `DomainSecurityComputers`
 - 0.0.65 - 2021.03.23
   - [x] Tests
     - [x] Improvement `DomainSecurityUsers`
@@ -493,7 +583,7 @@ Please keep in mind that there is currently known issue that running all tests w
 - 0.0.19 - 2019.09.08
   - [x] First public release - More information in [blog post](https://evotec.xyz/what-do-we-say-to-health-checking-active-directory/)!
 
-### Comments
+## Comments
 
 Keep in mind not all tests apply to each environment.
 I'm adding those to be flexible and be able to test things as needed.
@@ -501,7 +591,7 @@ Each of those tests will need additional description and recommendation, most li
 Some of the tests are very basic and will need feedback, work on making it a robust test.
 Nothing is written in stone for now. Things can change day by day.
 
-### Things to consider
+## Things to consider
 
 - Criticality of Tests - some tests are critical, some are less critical, some are informative only
 - Recommended, Default, Sane - not all tests are equal or make sense in all conditions
@@ -596,110 +686,6 @@ Tests are based on:
 | Domain Controller | SMB Shares                                             | Security          | Verify `default SMB shares NETLOGON/SYSVOL are visible`                                  |
 | Domain Controller | DFSR AutoRecovery                                      | Security          | Verify `DFSR AutoRecovery is enabled`                                                    |
 | Domain Controller | Windows Roles and Features                             | Security          | Verify `Windows Features for AD/DNS/File Services are enabled`                           |
-
-## Known Issues / By Design
-
-- Requirements for Sources work differently then for Tests
-  - For Sources when Requirements are not met Testimo skips it totally from output
-  - For Tests when Requirements are not met Testimo marks it as skipped
-
-## To install
-
-```powershell
-Install-Module -Name Testimo -AllowClobber -Force
-```
-
-Force and AllowClobber aren't really nessecary but they do skip errors in case some appear.
-
-### And to update
-
-```powershell
-Update-Module -Name Testimo
-```
-
-That's it. Whenever there's new version you simply run the command and you can enjoy it. Remember, that you may need to close, reopen PowerShell session if you have already used module before updating it.
-
-**The important thing** is if something works for you on production, keep using it till you test the new version on a test computer. I do changes that may not be big, but big enough that auto-update will break your code. For example, small rename to a parameter and your code stops working! Be responsible!
-
-## To use after installation
-
-With output to screen only
-
-```powershell
-Invoke-Testimo
-```
-
-![Image](https://evotec.xyz/wp-content/uploads/2019/08/img_5d68310c9f9a5.png)
-![Image](https://evotec.xyz/wp-content/uploads/2019/08/img_5d6831266a8ac.png)
-![Image](https://evotec.xyz/wp-content/uploads/2019/08/img_5d68323befd13.png)
-
-With option to be able to process output - for example to email
-
-```powershell
-Invoke-Testimo -ReturnResults
-```
-
-## Changing default configuration
-
-**Testimo** comes with preset rules that may not apply to your environment.
-You may want to change some things like disabling some tests or changing some values (to an extent).
-There are 3 ways to do it.
-Depending on how you want to save/edit/pass configuration to TestIMO - I leave it up to you.
-
-### Straight to FILE/JSON
-
-```powershell
-Get-TestimoConfiguration -FilePath $PSScriptRoot\Configuration\TestimoConfiguration.json
-```
-
-#### Straight to JSON
-
-```powershell
-Get-TestimoConfiguration -AsJson
-```
-
-#### Output to Hashtable so you can edit it freely and keep in ps1
-
-```powershell
-$OutputOrderedDictionary = Get-TestimoConfiguration
-$OutputOrderedDictionary.ForestOptionalFeatures.Tests.RecycleBinEnabled.Enable = $false
-$OutputOrderedDictionary.ForestOptionalFeatures.Tests.LapsAvailable.Enable = $true
-$OutputOrderedDictionary.ForestOptionalFeatures.Tests.LapsAvailable.Parameters.ExpectedValue = $false
-```
-
-## Using Invoke-Testimo with non-default configuration
-
-Following configuration allows you to:
-
-- Edit default TestImo configuration with some other values
-- Exclude one of the domains
-- Return Results for future processing
-- Limit sources to only 4 types (you could also limit that via Hashtable but this way is quicker for Adhoc enabling/disabling)
-
-```powershell
-Import-Module Testimo
-
-$OutputOrderedDictionary = Get-TestimoConfiguration
-$OutputOrderedDictionary.ForestOptionalFeatures.Tests.RecycleBinEnabled.Enable = $false
-$OutputOrderedDictionary.ForestOptionalFeatures.Tests.LapsAvailable.Enable = $true
-$OutputOrderedDictionary.ForestOptionalFeatures.Tests.LapsAvailable.Parameters.ExpectedValue = $false
-
-$Sources = @(
-    'ForestFSMORoles'
-    'ForestOptionalFeatures'
-    'ForestBackup'
-    'ForestOrphanedAdmins'
-    'DomainPasswordComplexity'
-    'DomainKerberosAccountAge'
-    'DomainDNSScavengingForPrimaryDNSServer'
-    'DCWindowsUpdates'
-)
-
-$TestResults = Invoke-Testimo -PassThru -ExcludeDomains 'ad.evotec.pl' -Sources $Sources -Configuration $OutputOrderedDictionary
-$TestResults | Format-Table -AutoSize *
-```
-
-Be sure to checkout **Examples** section for more **How-To**.
 
 ### Dependencies
 
