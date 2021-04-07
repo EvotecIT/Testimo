@@ -40,6 +40,7 @@
         DomainDNSScavengingForPrimaryDNSServer       = $DNSScavengingForPrimaryDNSServer
         DomainDNSForwaders                           = $DNSForwaders
         DomainDnsZonesAging                          = $DnsZonesAging
+        DomainSecurityComputers                      = $DomainSecurityComputers
         DomainSecurityGroupsAccountOperators         = $SecurityGroupsAccountOperators
         DomainSecurityGroupsSchemaAdmins             = $SecurityGroupsSchemaAdmins
         DomainSecurityUsers                          = $SecurityUsers
