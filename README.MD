@@ -163,6 +163,9 @@ $OutputOrderedDictionary.ForestOptionalFeatures.Tests.LapsAvailable.Parameters.E
 
 ## ChangeLog
 
+- 0.0.67 - 2021.04.07
+  - Tests
+  - 💡 Improved `DomainGroupPolicyAssessment`
 - 0.0.66 - 2021.04.07
   - Tests
     - 📦 Added `DomainSecurityComputers`
