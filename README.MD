@@ -163,9 +163,11 @@ $OutputOrderedDictionary.ForestOptionalFeatures.Tests.LapsAvailable.Parameters.E
 
 ## ChangeLog
 
-- 0.0.66
+- 0.0.66 - 2021.04.07
   - Tests
-    - ☣ Added `DomainSecurityComputers`
+    - 📦 Added `DomainSecurityComputers`
+    - 🔠 Renamed `DomainGroupPolicyAssessment` due to typo [#124](https://github.com/EvotecIT/Testimo/pull/124) / tnx JasonCook599
+    - 🐛 Fixed `DomainGroupPolicyAssessment` empty and problematic GPOs detection condition [#124](https://github.com/EvotecIT/Testimo/pull/124) / tnx JasonCook599
 - 0.0.65 - 2021.03.23
   - [x] Tests
     - [x] Improvement `DomainSecurityUsers`
