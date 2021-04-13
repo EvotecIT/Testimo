@@ -102,32 +102,35 @@ function Invoke-Testimo {
         Out-Informative -Text 'Following Domain Controllers will be ignored' -Level 0 -Status $null -ExtendedValue ($Script:TestimoConfiguration.Exclusions.DomainControllers -join ', ')
     }
 
-    $ForestDetails = Get-WinADForestDetails -Forest $ForestName -ExcludeDomains $ExcludeDomains -IncludeDomains $IncludeDomains -IncludeDomainControllers $IncludeDomainControllers -ExcludeDomainControllers $ExcludeDomainControllers -SkipRODC:$SkipRODC -Extended
+    $ForestDetails = Get-WinADForestDetails -WarningVariable ForestWarning -WarningAction SilentlyContinue -Forest $ForestName -ExcludeDomains $ExcludeDomains -IncludeDomains $IncludeDomains -IncludeDomainControllers $IncludeDomainControllers -ExcludeDomainControllers $ExcludeDomainControllers -SkipRODC:$SkipRODC -Extended
+    if ($ForestDetails) {
+        # Tests related to FOREST
+        $null = Start-Testing -Scope 'Forest' -ForestInformation $ForestDetails.Forest -ForestDetails $ForestDetails -SkipRODC:$SkipRODC {
+            # Tests related to DOMAIN
+            foreach ($Domain in $ForestDetails.Domains) {
+                $Script:Reporting['Domains'][$Domain] = [ordered] @{ }
+                $Script:Reporting['Domains'][$Domain]['Summary'] = [ordered] @{ }
+                $Script:Reporting['Domains'][$Domain]['Tests'] = [ordered] @{ }
+                $Script:Reporting['Domains'][$Domain]['DomainControllers'] = [ordered] @{ }
 
-    # Tests related to FOREST
-    $null = Start-Testing -Scope 'Forest' -ForestInformation $ForestDetails.Forest -ForestDetails $ForestDetails -SkipRODC:$SkipRODC {
-        # Tests related to DOMAIN
-        foreach ($Domain in $ForestDetails.Domains) {
-            $Script:Reporting['Domains'][$Domain] = [ordered] @{ }
-            $Script:Reporting['Domains'][$Domain]['Summary'] = [ordered] @{ }
-            $Script:Reporting['Domains'][$Domain]['Tests'] = [ordered] @{ }
-            $Script:Reporting['Domains'][$Domain]['DomainControllers'] = [ordered] @{ }
-
-            if ($ForestDetails['DomainsExtended']["$Domain"]) {
-                Start-Testing -Scope 'Domain' -Domain $Domain -DomainInformation $ForestDetails['DomainsExtended']["$Domain"] -ForestInformation $ForestDetails.Forest -ForestDetails $ForestDetails -SkipRODC:$SkipRODC {
-                    # Tests related to DOMAIN CONTROLLERS
-                    if (Get-TestimoSourcesStatus -Scope 'DC') {
-                        foreach ($DC in $ForestDetails['DomainDomainControllers'][$Domain]) {
-                            $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DC.HostName] = [ordered] @{ }
-                            $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DC.HostName]['Summary'] = [ordered] @{ }
-                            $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DC.HostName]['Tests'] = [ordered] @{ }
-                            Start-Testing -Scope 'DC' -Domain $Domain -DomainController $DC.HostName -IsPDC $DC.IsPDC -DomainInformation $ForestDetails['DomainsExtended']["$Domain"] -ForestInformation $ForestDetails.Forest -ForestDetails $ForestDetails
+                if ($ForestDetails['DomainsExtended']["$Domain"]) {
+                    Start-Testing -Scope 'Domain' -Domain $Domain -DomainInformation $ForestDetails['DomainsExtended']["$Domain"] -ForestInformation $ForestDetails.Forest -ForestDetails $ForestDetails -SkipRODC:$SkipRODC {
+                        # Tests related to DOMAIN CONTROLLERS
+                        if (Get-TestimoSourcesStatus -Scope 'DC') {
+                            foreach ($DC in $ForestDetails['DomainDomainControllers'][$Domain]) {
+                                $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DC.HostName] = [ordered] @{ }
+                                $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DC.HostName]['Summary'] = [ordered] @{ }
+                                $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DC.HostName]['Tests'] = [ordered] @{ }
+                                Start-Testing -Scope 'DC' -Domain $Domain -DomainController $DC.HostName -IsPDC $DC.IsPDC -DomainInformation $ForestDetails['DomainsExtended']["$Domain"] -ForestInformation $ForestDetails.Forest -ForestDetails $ForestDetails
+                            }
                         }
                     }
+                    #}
                 }
-                #}
             }
         }
+    } else {
+        Write-Color -Text '[e]', '[Testimo] ', "Forest Information couldn't be gathered. ", "[", "Error", "] ", "[", $ForestWarning, "]" -Color Red, DarkGray, Yellow, Cyan, DarkGray, Cyan, Cyan, Red, Cyan
     }
     $Script:Reporting['Results'] = $Script:TestResults
 

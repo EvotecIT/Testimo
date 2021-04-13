@@ -163,6 +163,9 @@ $OutputOrderedDictionary.ForestOptionalFeatures.Tests.LapsAvailable.Parameters.E
 
 ## ChangeLog
 
+- 0.0.68
+  - General
+    - 🐛 Small detection of problems with gathering information about Forest
 - 0.0.67 - 2021.04.07
   - Tests
   - 💡 Improved `DomainGroupPolicyAssessment`
