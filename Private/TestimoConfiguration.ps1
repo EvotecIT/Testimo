@@ -41,6 +41,7 @@
         DomainDNSForwaders                           = $DNSForwaders
         DomainDnsZonesAging                          = $DnsZonesAging
         DomainSecurityComputers                      = $DomainSecurityComputers
+        DomainSecurityDelegatedObjects               = $DomainSecurityDelegatedObjects
         DomainSecurityGroupsAccountOperators         = $SecurityGroupsAccountOperators
         DomainSecurityGroupsSchemaAdmins             = $SecurityGroupsSchemaAdmins
         DomainSecurityUsers                          = $SecurityUsers
