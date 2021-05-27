@@ -138,7 +138,7 @@
                     $SourceCode = $TestResults['Forest']['Tests'][$Source]['SourceCode']
                     $Results = $TestResults['Forest']['Tests'][$Source]['Results'] #| Select-Object -Property DisplayName, Type, Category, Assesment, Importance, Action, Extended
                     $WarningsAndErrors = $TestResults['Forest']['Tests'][$Source]['WarningsAndErrors']
-                    Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -TestResults $TestResults -Type 'Forest'
+                    Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -TestResults $TestResults -Type 'Forest' -AlwaysShowSteps:$AlwaysShowSteps.IsPresent
                 }
             } else {
                 New-HTMLTab -Name 'Forest' -IconBrands first-order {
@@ -149,7 +149,7 @@
                         $SourceCode = $TestResults['Forest']['Tests'][$Source]['SourceCode']
                         $Results = $TestResults['Forest']['Tests'][$Source]['Results'] #| Select-Object -Property DisplayName, Type, Category, Assesment, Importance, Action, Extended
                         $WarningsAndErrors = $TestResults['Forest']['Tests'][$Source]['WarningsAndErrors']
-                        Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -TestResults $TestResults -Type 'Forest'
+                        Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -TestResults $TestResults -Type 'Forest' -AlwaysShowSteps:$AlwaysShowSteps.IsPresent
                     }
                 }
             }
@@ -173,7 +173,7 @@
                                 $SourceCode = $TestResults['Domains'][$Domain]['Tests'][$Source]['SourceCode']
                                 $Results = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results'] #| Select-Object -Property DisplayName, Type, Category, Assesment, Importance, Action, Extended, Domain
                                 $WarningsAndErrors = $TestResults['Domains'][$Domain]['Tests'][$Source]['WarningsAndErrors']
-                                Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -HideSteps:$HideSteps -TestResults $TestResults -Type 'Domain' -AlwaysShowSteps:$AlwaysShowSteps
+                                Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -HideSteps:$HideSteps -TestResults $TestResults -Type 'Domain' -AlwaysShowSteps:$AlwaysShowSteps.IsPresent
                             }
                         }
                     }
@@ -208,7 +208,7 @@
                                                     $Results = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Results'] #| Select-Object -Property DisplayName, Type, Category, Assesment, Importance, Action, Extended, Domain, DomainController
                                                     $WarningsAndErrors = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['WarningsAndErrors']
 
-                                                    Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -TestResults $TestResults -Type 'DC'
+                                                    Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -TestResults $TestResults -Type 'DC' -AlwaysShowSteps:$AlwaysShowSteps.IsPresent
                                                 }
                                             }
                                         }

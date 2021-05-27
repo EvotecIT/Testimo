@@ -9,6 +9,7 @@
     }
     ActiveDirectory = [ordered]@{
         ForestBackup                                 = $Backup
+        ForestDHCP                                   = $ForestDHCP
         ForestReplication                            = $Replication # this should work 2012+
         ForestReplicationStatus                      = $ReplicationStatus # Thi is based on repadmin / could be useful for Windows 2008R2
         ForestOptionalFeatures                       = $OptionalFeatures

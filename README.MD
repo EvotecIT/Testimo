@@ -163,6 +163,11 @@ $OutputOrderedDictionary.ForestOptionalFeatures.Tests.LapsAvailable.Parameters.E
 
 ## ChangeLog
 
+- 0.0.69 - 2021.05.27
+  - General
+    - Small fix for reports
+  - Tests
+    - 📦 Added `ForestDHCP`
 - 0.0.68 - 2021.04.21
   - General
     - 🐛 Small detection of problems with gathering information about Forest
