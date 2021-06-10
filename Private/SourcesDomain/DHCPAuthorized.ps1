@@ -27,7 +27,7 @@
             Name       = 'At least 1 DHCP Server Authorized'
             Parameters = @{
                 ExpectedCount = '1'
-                OperationType = 'gt'
+                OperationType = 'ge'
             }
         }
     }
