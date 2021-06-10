@@ -163,6 +163,10 @@ $OutputOrderedDictionary.ForestOptionalFeatures.Tests.LapsAvailable.Parameters.E
 
 ## ChangeLog
 
+- 0.0.70 - 2021.06.10
+  - Tests
+    - 🐛 Fixed `DomainGroupPolicyPermission` - Unknown GPOs were detected incorrectly [#129](https://github.com/EvotecIT/Testimo/pull/129) tnx illumniN8i
+    - 🐛 Fixed `DomainDHCPAuthorized` - properly detects single DHCP [#128](https://github.com/EvotecIT/Testimo/pull/128) tnx illumniN8i
 - 0.0.69 - 2021.05.27
   - General
     - Small fix for reports
