@@ -55,7 +55,7 @@
             Parameters = @{
                 ExpectedCount = 0
                 OperationType = 'eq'
-                WhereObject   = { $_.Unknown -eq $false }
+                WhereObject   = { $_.Unknown -eq $true }
             }
         }
     }
