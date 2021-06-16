@@ -17,11 +17,11 @@ function Start-TestimoReportSection {
     [Array] $SkippedTestsSingular = $Results | Where-Object { $_.Status -ne $true -and $_.Status -ne $false }
 
     if ($Type -eq 'Forest') {
-        $ResultsDisplay = $Results | Select-Object -Property DisplayName, Type, Category, Assesment, Importance, Action, Extended
+        $ResultsDisplay = $Results | Select-Object -Property DisplayName, Type, Category, Assessment, Importance, Action, Extended
     } elseif ($Type -eq 'DC') {
-        $ResultsDisplay = $Results | Select-Object -Property DisplayName, Type, Category, Assesment, Importance, Action, Extended, Domain
+        $ResultsDisplay = $Results | Select-Object -Property DisplayName, Type, Category, Assessment, Importance, Action, Extended, Domain
     } elseif ($Type -eq 'Domain') {
-        $ResultsDisplay = $Results | Select-Object -Property DisplayName, Type, Category, Assesment, Importance, Action, Extended, Domain, DomainController
+        $ResultsDisplay = $Results | Select-Object -Property DisplayName, Type, Category, Assessment, Importance, Action, Extended, Domain, DomainController
     }
 
 
@@ -105,11 +105,11 @@ function Start-TestimoReportSection {
                         "In the table below you can find summary of tests executed in the "
                         $Name
                         " category. Each test has their "
-                        "assesment level ", ', '
+                        "assessment level ", ', '
                         "importance level ", ' and '
                         "action ",
                         "defined. "
-                        "Depending on the assesment, importance and action AD Team needs to investigate according to the steps provided including using their internal processes (for example SOP). "
+                        "Depending on the assessment, importance and action AD Team needs to investigate according to the steps provided including using their internal processes (for example SOP). "
                         "It's important to have an understanding what the test is trying to tell you and what solution is provided. "
                         "If you have doubts, or don't understand some test please consider talking to senior admins for guidance. "
                     ) -FontWeight normal, bold, normal, bold, normal, bold, normal, bold, normal, normal, normal, normal
