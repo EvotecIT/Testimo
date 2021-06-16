@@ -104,7 +104,7 @@
         DisplayName      = $Text
         Type             = $TestType
         Category         = $Category
-        Assesment        = $StatusTranslation
+        Assessment        = $StatusTranslation
         Status           = $Status
         Action           = $Action
         Importance       = $ImportanceInformation

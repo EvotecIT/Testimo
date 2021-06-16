@@ -4,7 +4,7 @@ $Diagnostics = @{
     Enable = $true
     Scope  = 'DC'
     Source = @{
-        Name           = 'Diagnostics (DCIAG)'
+        Name           = 'Diagnostics (DCDIAG)'
         Data           = {
             Test-ADDomainController -Forest $ForestName -ComputerName $DomainController -WarningAction SilentlyContinue
         }
