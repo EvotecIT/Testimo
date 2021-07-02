@@ -22,7 +22,7 @@ $Sources = @(
 
 $TestResults = Invoke-Testimo -ReturnResults  -ExtendedResults -Sources $Sources
 
-Documentimo -FilePath "$PSScriptRoot\Output\Starter-AD.docx" {
+Documentimo -FilePath "$PSScriptRoot\Reports\Starter-AD.docx" {
     DocToc -Title 'Table of content'
 
     DocPageBreak

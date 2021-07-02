@@ -20,12 +20,17 @@ $Sources = @(
     #'DomainSecurityKRBGT'
     # 'ForestTrusts'
     # 'ForestRoles'
-    'DomainGroupPolicyAssessment'
+    #'DomainGroupPolicyAssessment'
+    #'DomainSecurityDelegatedObjects'
     #'DomainSecurityComputers'
     #'DomainWellKnownFolders'
     #'DomainSecurityUsersAcccountAdministrator'
     #'DomainSecurityGroupsSchemaAdmins'
     #'DomainSecurityGroupsAccountOperators'
+    'DomainWellKnownFolders'
+    #'DomainDHCPAuthorized'
+    'ForestDHCP'
+    'DCDiskSpace'
 )
 
 # Tests one by one
