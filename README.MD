@@ -165,6 +165,7 @@ $OutputOrderedDictionary.ForestOptionalFeatures.Tests.LapsAvailable.Parameters.E
 
 - 0.0.71
   - Fixes spelling [#131](https://github.com/EvotecIT/Testimo/pull/131) - tnx ghBCollier
+  - Improves `DomainDNSResolveExternal` [#133](https://github.com/EvotecIT/Testimo/pull/133) - tnx rmbolger
 - 0.0.70 - 2021.06.10
   - Tests
     - 🐛 Fixed `DomainGroupPolicyPermission` - Unknown GPOs were detected incorrectly [#129](https://github.com/EvotecIT/Testimo/pull/129) tnx illumniN8i
