@@ -4,7 +4,7 @@
     Source = @{
         Name           = "Time Settings"
         Data           = {
-            Get-TimeSetttings -ComputerName $DomainController -Domain $Domain
+            Get-TimeSettings -ComputerName $DomainController -Domain $Domain
         }
         Details        = [ordered] @{
             Area        = 'Configuration'
