@@ -5,7 +5,7 @@
         Name           = "Resolves external DNS queries"
         Data           = {
             $Output = Invoke-Command -ComputerName $DomainController -ErrorAction Stop {
-                Resolve-DnsName -Name 'testimo-check.evotec.xyz' -ErrorAction SilentlyContinue | Where-Object { $_.Section -eq 'Answer -and $_.Type -eq 'A' }
+                Resolve-DnsName -Name 'testimo-check.evotec.xyz' -ErrorAction SilentlyContinue | Where-Object { $_.Section -eq 'Answer' -and $_.Type -eq 'A' }
             }
             $Output
         }
