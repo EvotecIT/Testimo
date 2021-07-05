@@ -163,7 +163,7 @@ $OutputOrderedDictionary.ForestOptionalFeatures.Tests.LapsAvailable.Parameters.E
 
 ## ChangeLog
 
-- 0.0.71
+- 0.0.71 - 2021.07.05
   - Fixes spelling [#131](https://github.com/EvotecIT/Testimo/pull/131) - tnx ghBCollier
   - Improves `DomainDNSResolveExternal` [#133](https://github.com/EvotecIT/Testimo/pull/133) - tnx rmbolger
 - 0.0.70 - 2021.06.10
