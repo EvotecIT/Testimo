@@ -163,7 +163,7 @@ $OutputOrderedDictionary.ForestOptionalFeatures.Tests.LapsAvailable.Parameters.E
 
 ## ChangeLog
 
-- 0.0.72
+- 0.0.72 - 2021.07.20
   - Fixes [Group Policy SysvolDC checking for non-existent property](https://github.com/EvotecIT/Testimo/issues/135) - tnx jwmoss
 - 0.0.71 - 2021.07.05
   - Fixes spelling [#131](https://github.com/EvotecIT/Testimo/pull/131) - tnx ghBCollier
