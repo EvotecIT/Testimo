@@ -24,6 +24,7 @@
         ForestConfigurationPartitionOwners           = $ForestConfigurationPartitionOwners
         ForestConfigurationPartitionOwnersContainers = $ForestConfigurationPartitionOwnersContainers
         DomainLDAP                                   = $DomainLDAP
+        DomainMachineQuota                           = $MachineQuota
         DomainDomainControllers                      = $DomainDomainControllers
         DomainRoles                                  = $DomainFSMORoles
         DomainWellKnownFolders                       = $WellKnownFolders
