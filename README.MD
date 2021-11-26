@@ -165,6 +165,7 @@ $OutputOrderedDictionary.ForestOptionalFeatures.Tests.LapsAvailable.Parameters.E
 
 - 0.0.73
   - Added `DomainMachineQuota` to check for `ms-DS-MachineAccountQuota`
+  - Fixed `Windows Server 2022 version flagged as failed` [#141](https://github.com/EvotecIT/Testimo/issues/141)
 - 0.0.72 - 2021.07.20
   - Fixes [Group Policy SysvolDC checking for non-existent property](https://github.com/EvotecIT/Testimo/issues/135) - tnx jwmoss
 - 0.0.71 - 2021.07.05
