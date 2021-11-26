@@ -17,7 +17,7 @@
             StatusTrue  = 1
             StatusFalse = 0
         }
-        ExpectedOutput = $false
+        ExpectedOutput = $null
     }
     Tests           = [ordered] @{
         FullDelegation = @{

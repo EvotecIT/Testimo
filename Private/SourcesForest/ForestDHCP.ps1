@@ -18,7 +18,7 @@
             StatusTrue  = 0
             StatusFalse = 0
         }
-        ExpectedOutput = $false
+        ExpectedOutput = $null
     }
     Tests           = [ordered] @{
         DHCPonDC          = @{
