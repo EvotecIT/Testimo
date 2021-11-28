@@ -130,7 +130,7 @@ function Start-TestimoReportSection {
                         if ($Information.DataHighlights) {
                             & $Information.DataHighlights
                         }
-                    } -PagingLength 7 -DateTimeSortingFormat 'DD.MM.YYYY HH:mm:ss' -SearchBuilder
+                    } -PagingLength 7 -DateTimeSortingFormat 'DD.MM.YYYY HH:mm:ss' #-SearchBuilder
                 }
             }
         }
