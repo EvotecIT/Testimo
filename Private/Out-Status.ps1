@@ -12,21 +12,6 @@
         [System.Collections.IDictionary] $Test,
         [string] $ReferenceID
     )
-    if ($Status -eq $true) {
-        [string] $TextStatus = 'Pass'
-        [ConsoleColor[]] $Color = [ConsoleColor]::Cyan, [ConsoleColor]::Green, [ConsoleColor]::Cyan, [ConsoleColor]::Cyan, [ConsoleColor]::Green, [ConsoleColor]::Cyan
-    } elseif ($Status -eq $false) {
-        [string] $TextStatus = 'Fail'
-        [ConsoleColor[]] $Color = [ConsoleColor]::Cyan, [ConsoleColor]::Red, [ConsoleColor]::Cyan, [ConsoleColor]::Cyan, [ConsoleColor]::Red, [ConsoleColor]::Cyan
-    } else {
-        [string] $TextStatus = 'Informative'
-        [ConsoleColor[]] $Color = [ConsoleColor]::Cyan, [ConsoleColor]::DarkGray, [ConsoleColor]::Cyan, [ConsoleColor]::Cyan, [ConsoleColor]::Magenta, [ConsoleColor]::Cyan
-    }
-    if ($ExtendedValue) {
-        Write-Color -Text ' [', $TextStatus, ']', " [", $ExtendedValue, "]" -Color $Color
-    } else {
-        Write-Color -Text ' [', $TextStatus, ']' -Color $Color
-    }
     if ($Domain -and $DomainController) {
         $TestType = 'Domain Controller'
         $TestText = "Domain Controller - $DomainController | $Text"
@@ -61,10 +46,13 @@
         if ($null -ne $Source.Details.StatusTrue -and $null -ne $Source.Details.StatusFalse) {
             if ($Status -eq $true) {
                 $StatusTranslation = $Script:StatusTranslation[$Source.Details.StatusTrue]
+                $StatusColor = $Script:StatusTranslationConsoleColors[$Source.Details.StatusTrue]
             } elseif ($Status -eq $false) {
                 $StatusTranslation = $Script:StatusTranslation[$Source.Details.StatusFalse]
+                $StatusColor = $Script:StatusTranslationConsoleColors[$Source.Details.StatusFalse]
             } elseif ($null -eq $Status) {
                 $StatusTranslation = $Script:StatusTranslation[0]
+                $StatusColor = $Script:StatusTranslationConsoleColors[0]
             }
         } else {
             $StatusTranslation = $Status
@@ -88,10 +76,13 @@
         if ($null -ne $Test.Details.StatusTrue -and $null -ne $Test.Details.StatusFalse) {
             if ($Status -eq $true) {
                 $StatusTranslation = $Script:StatusTranslation[$Test.Details.StatusTrue]
+                $StatusColor = $Script:StatusTranslationConsoleColors[$Test.Details.StatusTrue]
             } elseif ($Status -eq $false) {
                 $StatusTranslation = $Script:StatusTranslation[$Test.Details.StatusFalse]
+                $StatusColor = $Script:StatusTranslationConsoleColors[$Test.Details.StatusFalse]
             } elseif ($null -eq $Status) {
                 $StatusTranslation = $Script:StatusTranslation[0]
+                $StatusColor = $Script:StatusTranslationConsoleColors[0]
             }
         } else {
             $StatusTranslation = $Status
@@ -99,12 +90,13 @@
     }
 
 
+
     $Output = [PSCustomObject]@{
         Name             = $TestText
         DisplayName      = $Text
         Type             = $TestType
         Category         = $Category
-        Assessment        = $StatusTranslation
+        Assessment       = $StatusTranslation
         Status           = $Status
         Action           = $Action
         Importance       = $ImportanceInformation
@@ -123,5 +115,25 @@
             $Script:Reporting['Forest']['Tests'][$ReferenceID]['Results'].Add($Output)
         }
     }
+
+    <#
+    if ($Status -eq $true) {
+        [string] $TextStatus = 'Pass'
+        [ConsoleColor[]] $Color = [ConsoleColor]::Cyan, [ConsoleColor]::Green, [ConsoleColor]::Cyan, [ConsoleColor]::Cyan, [ConsoleColor]::Green, [ConsoleColor]::Cyan
+    } elseif ($Status -eq $false) {
+        [string] $TextStatus = 'Fail'
+        [ConsoleColor[]] $Color = [ConsoleColor]::Cyan, [ConsoleColor]::Red, [ConsoleColor]::Cyan, [ConsoleColor]::Cyan, [ConsoleColor]::Red, [ConsoleColor]::Cyan
+    } else {
+        [string] $TextStatus = 'Informative'
+        [ConsoleColor[]] $Color = [ConsoleColor]::Cyan, [ConsoleColor]::DarkGray, [ConsoleColor]::Cyan, [ConsoleColor]::Cyan, [ConsoleColor]::Magenta, [ConsoleColor]::Cyan
+    }
+    #>
+    [ConsoleColor[]] $Color = [ConsoleColor]::Cyan, $StatusColor, [ConsoleColor]::Cyan, [ConsoleColor]::Cyan, $StatusColor, [ConsoleColor]::Cyan
+    if ($ExtendedValue) {
+        Write-Color -Text ' [', $StatusTranslation, ']', " [", $ExtendedValue, "]" -Color $Color
+    } else {
+        Write-Color -Text ' [', $StatusTranslation, ']' -Color $Color
+    }
+
     $Script:TestResults.Add($Output)
 }
