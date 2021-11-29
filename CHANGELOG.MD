@@ -9,6 +9,7 @@
   - Modified console output to show statuses the same as HTML version instead of Pass/Fail [#145](https://github.com/EvotecIT/Testimo/issues/145)
   - Modified console output to remove full stop from some statuses [#147](https://github.com/EvotecIT/Testimo/issues/147)
   - Added a new test `ForestDuplicateSPN` to check for duplicate SPNs in a forest
+  - Fixed `Skipped section in diagram but everything is True in report` [#151](https://github.com/EvotecIT/Testimo/issues/151)
 ## 0.0..72 - 2021.07.20
   - Fixes [Group Policy SysvolDC checking for non-existent property](https://github.com/EvotecIT/Testimo/issues/135) - tnx jwmoss
 ## 0.0..71 - 2021.07.05
