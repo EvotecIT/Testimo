@@ -20,6 +20,17 @@ $Script:StatusTranslation = @{
     4  = 'High' # #7A5928 High Risk
     5  = 'Severe' # #D65742 Server Risk
 }
+
+$Script:StatusToColors = @{
+    'Skipped'       = 'DeepSkyBlue'
+    'Informational' = 'ElectricBlue'
+    'Good'          = 'LawnGreen'
+    'Low'           = 'ParisDaisy' #  # General Risk
+    'Elevated'      = 'SafetyOrange' #  # Significant Risk
+    'High'          = 'InternationalOrange' #  High Risk
+    'Severe'        = 'TorchRed' #  Server Risk
+}
+
 $Script:StatusTranslationColors = @{
     -1 = 'DeepSkyBlue'
     0  = 'ElectricBlue'
