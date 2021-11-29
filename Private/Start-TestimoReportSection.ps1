@@ -28,18 +28,33 @@ function Start-TestimoReportSection {
     $ColorPassed = 'LawnGreen'
     $ColorSkipped = 'DeepSkyBlue'
     $ColorFailed = 'TorchRed'
-    $ColorPassedText = 'Black'
-    $ColorFailedText = 'Black'
-    $ColorSkippedText = 'Black'
+    #$ColorPassedText = 'Black'
+    #$ColorFailedText = 'Black'
+    #$ColorSkippedText = 'Black'
+
+    $ChartData = [ordered] @{}
+    foreach ($Result in $Results) {
+        if (-not $ChartData[$Result.Assessment]) {
+            $ChartData[$Result.Assessment] = [ordered] @{
+                Count = 0
+                Color = $Script:StatusToColors[$Result.Assessment]
+            }
+        }
+        $ChartData[$Result.Assessment].Count++
+    }
+
 
     New-HTMLSection -HeaderText $Name -HeaderBackGroundColor CornflowerBlue -Direction column {
         New-HTMLSection -Invisible -Direction column {
             New-HTMLSection -HeaderText 'Information' {
                 New-HTMLContainer {
                     New-HTMLChart {
-                        New-ChartPie -Name 'Passed' -Value ($PassedTestsSingular.Count) -Color $ColorPassed
-                        New-ChartPie -Name 'Failed' -Value ($FailedTestsSingular.Count) -Color $ColorFailed
-                        New-ChartPie -Name 'Skipped' -Value ($SkippedTestsSingular.Count) -Color $ColorSkipped
+                        #New-ChartPie -Name 'Passed' -Value ($PassedTestsSingular.Count) -Color $ColorPassed
+                        #New-ChartPie -Name 'Failed' -Value ($FailedTestsSingular.Count) -Color $ColorFailed
+                        #New-ChartPie -Name 'Skipped' -Value ($SkippedTestsSingular.Count) -Color $ColorSkipped
+                        foreach ($Key in $ChartData.Keys) {
+                            New-ChartPie -Name $Key -Value $ChartData[$Key].Count -Color $ChartData[$Key].Color
+                        }
                     } -Height 250
                     New-HTMLText -Text @(
                         "Below command was used to generate and asses current data that is visible in this report. "
