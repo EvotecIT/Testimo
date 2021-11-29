@@ -55,12 +55,16 @@
                 $StatusColor = $Script:StatusTranslationConsoleColors[0]
             }
         } else {
-            $StatusTranslation = $Status
+            # We need to overwrite some values to better suite our reports
+            #$StatusTranslation = $Status
             if ($Status -eq $true) {
+                $StatusTranslation = $Script:StatusTranslation[1]
                 $StatusColor = $Script:StatusTranslationConsoleColors[1]
             } elseif ($Status -eq $false) {
+                $StatusTranslation = $Script:StatusTranslation[4]
                 $StatusColor = $Script:StatusTranslationConsoleColors[4]
             } elseif ($null -eq $Status) {
+                $StatusTranslation = $Script:StatusTranslation[0]
                 $StatusColor = $Script:StatusTranslationConsoleColors[0]
             }
         }
@@ -92,12 +96,16 @@
                 $StatusColor = $Script:StatusTranslationConsoleColors[0]
             }
         } else {
-            $StatusTranslation = $Status
+            # We need to overwrite some values to better suite our reports
+            #$StatusTranslation = $Status
             if ($Status -eq $true) {
+                $StatusTranslation = $Script:StatusTranslation[1]
                 $StatusColor = $Script:StatusTranslationConsoleColors[1]
             } elseif ($Status -eq $false) {
+                $StatusTranslation = $Script:StatusTranslation[4]
                 $StatusColor = $Script:StatusTranslationConsoleColors[4]
             } elseif ($null -eq $Status) {
+                $StatusTranslation = $Script:StatusTranslation[0]
                 $StatusColor = $Script:StatusTranslationConsoleColors[0]
             }
         }
