@@ -34,6 +34,16 @@ $Script:ActionType = @{
     1 = 'Recommended'
     2 = 'Must Implement'
 }
+$Script:StatusTranslationConsoleColors = @{
+    -1 = [System.ConsoleColor]::DarkBlue
+    0  = [System.ConsoleColor]::DarkBlue
+    1  = [System.ConsoleColor]::Green
+    2  = [System.ConsoleColor]::Magenta #  # General Risk
+    3  = [System.ConsoleColor]::DarkMagenta #  # Significant Risk
+    4  = [System.ConsoleColor]::Red #  High Risk
+    5  = [System.ConsoleColor]::DarkRed #  Server Risk
+}
+
 <#
 $Script:WarningSystem = @{
     0 = 'All Clear'
