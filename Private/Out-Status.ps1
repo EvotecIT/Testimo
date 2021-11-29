@@ -56,6 +56,13 @@
             }
         } else {
             $StatusTranslation = $Status
+            if ($Status -eq $true) {
+                $StatusColor = $Script:StatusTranslationConsoleColors[1]
+            } elseif ($Status -eq $false) {
+                $StatusColor = $Script:StatusTranslationConsoleColors[4]
+            } elseif ($null -eq $Status) {
+                $StatusColor = $Script:StatusTranslationConsoleColors[0]
+            }
         }
     } else {
         if ($null -ne $Test.Details.Importance) {
@@ -86,10 +93,15 @@
             }
         } else {
             $StatusTranslation = $Status
+            if ($Status -eq $true) {
+                $StatusColor = $Script:StatusTranslationConsoleColors[1]
+            } elseif ($Status -eq $false) {
+                $StatusColor = $Script:StatusTranslationConsoleColors[4]
+            } elseif ($null -eq $Status) {
+                $StatusColor = $Script:StatusTranslationConsoleColors[0]
+            }
         }
     }
-
-
 
     $Output = [PSCustomObject]@{
         Name             = $TestText
