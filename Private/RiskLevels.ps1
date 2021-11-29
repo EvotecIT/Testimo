@@ -29,6 +29,8 @@ $Script:StatusToColors = @{
     'Elevated'      = 'SafetyOrange' #  # Significant Risk
     'High'          = 'InternationalOrange' #  High Risk
     'Severe'        = 'TorchRed' #  Server Risk
+    $true           = 'LawnGreen'
+    $false          = 'TorchRed'
 }
 
 $Script:StatusTranslationColors = @{
