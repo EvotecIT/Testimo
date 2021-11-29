@@ -1,9 +1,13 @@
 ﻿# Testimo Release History
 
-## 0.0..73
+## 0.0.73
   - Added `DomainMachineQuota` to check for `ms-DS-MachineAccountQuota`
   - Fixed `Windows Server 2022 version flagged as failed` [#141](https://github.com/EvotecIT/Testimo/issues/141)
   - Fixed `Some tests report Fail but no reason why` [#143](https://github.com/EvotecIT/Testimo/issues/143)
+  - Fixed charts to show proper values (the ones from the table) [#149](https://github.com/EvotecIT/Testimo/issues/149)
+  - Modified charts colors to more eye friendly (at least to me) [#149](https://github.com/EvotecIT/Testimo/issues/149)
+  - Modified console output to show statuses the same as HTML version instead of Pass/Fail [#145](https://github.com/EvotecIT/Testimo/issues/145)
+  - Modified console output to remove full stop from some statuses [#147](https://github.com/EvotecIT/Testimo/issues/147)
 ## 0.0..72 - 2021.07.20
   - Fixes [Group Policy SysvolDC checking for non-existent property](https://github.com/EvotecIT/Testimo/issues/135) - tnx jwmoss
 ## 0.0..71 - 2021.07.05
