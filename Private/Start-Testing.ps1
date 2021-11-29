@@ -237,27 +237,27 @@
                     # Output is provided and we did expect it - passed test
                     $FailAllTests = $false
                     Out-Begin -Text $CurrentSource['Name'] -Level $LevelTest -Domain $Domain -DomainController $DomainController
-                    Out-Status -Text $CurrentSource['Name'] -Status $true -ExtendedValue 'Data is available.' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Source $CurrentSource
+                    Out-Status -Text $CurrentSource['Name'] -Status $true -ExtendedValue 'Data is available' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Source $CurrentSource
                     $TestsSummary.Passed = $TestsSummary.Passed + 1
 
                 } elseif ($Object -and $CurrentSource['ExpectedOutput'] -eq $false) {
                     # Output is provided, but we expected no output - failing test
                     $FailAllTests = $false
-                    Out-Failure -Text $CurrentSource['Name'] -Level $LevelTest -ExtendedValue 'Data is available. This is a bad thing.' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Source $CurrentSource
+                    Out-Failure -Text $CurrentSource['Name'] -Level $LevelTest -ExtendedValue 'Data is available. This is a bad thing' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Source $CurrentSource
                     $TestsSummary.Failed = $TestsSummary.Failed + 1
 
                 } elseif ($Object -and $null -eq $CurrentSource['ExpectedOutput']) {
                     # Output is provided, but we weren't sure if there should be output or not
                     $FailAllTests = $false
                     Out-Begin -Text $CurrentSource['Name'] -Level $LevelTest -Domain $Domain -DomainController $DomainController
-                    Out-Status -Text $CurrentSource['Name'] -Status $null -ExtendedValue 'Data is available.' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Source $CurrentSource
+                    Out-Status -Text $CurrentSource['Name'] -Status $null -ExtendedValue 'Data is available' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Source $CurrentSource
                     #$TestsSummary.Passed = $TestsSummary.Passed + 1
                     $TestsSummary.Skipped = $TestsSummary.Skipped + 1
 
                 } elseif ($null -eq $Object -and $CurrentSource['ExpectedOutput'] -eq $true) {
                     # Output was not provided and we expected it
                     $FailAllTests = $true
-                    Out-Failure -Text $CurrentSource['Name'] -Level $LevelTest -ExtendedValue 'No data available.' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Source $CurrentSource
+                    Out-Failure -Text $CurrentSource['Name'] -Level $LevelTest -ExtendedValue 'No data available' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Source $CurrentSource
                     $TestsSummary.Failed = $TestsSummary.Failed + 1
                 } elseif ($null -eq $Object -and $CurrentSource['ExpectedOutput'] -eq $false) {
                     # This tests whether there was an output from Source or not.
@@ -265,18 +265,18 @@
                     # you just need to make sure to define ExpectedOutput = $false in source definition
                     $FailAllTests = $false
                     Out-Begin -Text $CurrentSource['Name'] -Level $LevelTest -Domain $Domain -DomainController $DomainController
-                    Out-Status -Text $CurrentSource['Name'] -Status $true -ExtendedValue 'No data returned, which is a good thing.' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Source $CurrentSource
+                    Out-Status -Text $CurrentSource['Name'] -Status $true -ExtendedValue 'No data returned, which is a good thing' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Source $CurrentSource
                     $TestsSummary.Passed = $TestsSummary.Passed + 1
                 } elseif ($null -eq $Object -and $null -eq $CurrentSource['ExpectedOutput']) {
                     # Output is not provided, but we weren't sure if there should be output or not
                     $FailAllTests = $false
                     Out-Begin -Text $CurrentSource['Name'] -Level $LevelTest -Domain $Domain -DomainController $DomainController
-                    Out-Status -Text $CurrentSource['Name'] -Status $null -ExtendedValue 'No data returned.' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Source $CurrentSource
+                    Out-Status -Text $CurrentSource['Name'] -Status $null -ExtendedValue 'No data returned' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Source $CurrentSource
                     # $TestsSummary.Passed = $TestsSummary.Passed + 1
                     $TestsSummary.Skipped = $TestsSummary.Skipped + 1
                 } else {
                     $FailAllTests = $true
-                    Out-Failure -Text $CurrentSource['Name'] -Level $LevelTest -ExtendedValue 'No data available.' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Source $CurrentSource
+                    Out-Failure -Text $CurrentSource['Name'] -Level $LevelTest -ExtendedValue 'No data available' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Source $CurrentSource
                     $TestsSummary.Failed = $TestsSummary.Failed + 1
                 }
 
