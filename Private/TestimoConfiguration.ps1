@@ -23,6 +23,7 @@
         ForestTrusts                                 = $Trusts
         ForestConfigurationPartitionOwners           = $ForestConfigurationPartitionOwners
         ForestConfigurationPartitionOwnersContainers = $ForestConfigurationPartitionOwnersContainers
+        ForestDuplicateSPN                           = $DuplicateSPN
         DomainLDAP                                   = $DomainLDAP
         DomainMachineQuota                           = $MachineQuota
         DomainDomainControllers                      = $DomainDomainControllers
