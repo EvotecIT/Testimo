@@ -11,21 +11,24 @@ $ReplicationStatus = @{
             $data | ConvertFrom-Csv
         }
         Details        = [ordered] @{
-            Area        = 'Health'
-            Category    = 'Replication'
+            Category    = 'Health'
             Description = ''
-            Resolution  = ''
-            Importance   = 10
+            Importance  = 10
+            ActionType  = 2
             Severity    = 'High'
             Resources   = @(
-
+                "[Active Directory Replication](https://blog.netwrix.com/2017/02/20/active-directory-replication/)"
+                "[Active Directory Replication Concepts](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/replication/active-directory-replication-concepts)"
+                "[Repadmin: How to Check Active Directory Replication](https://activedirectorypro.com/repadmin-how-to-check-active-directory-replication/)"
             )
+            StatusTrue  = 1
+            StatusFalse = 5
         }
         Requirements   = @{
             CommandAvailable = 'repadmin'
             IsInternalForest = $true
         }
-        ExpectedOutput = $null
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         ReplicationTests = @{
@@ -37,6 +40,13 @@ $ReplicationStatus = @{
                 OperationType         = 'eq'
                 PropertyExtendedValue = 'Last Success Time'
                 OverwriteName         = { "Replication from $($_.'Source DSA') to $($_.'Destination DSA'), Naming Context: $($_.'Naming Context')" }
+            }
+            Details    = @{
+                Category    = 'Health'
+                Importance  = 10
+                ActionType  = 2
+                StatusTrue  = 1
+                StatusFalse = 5
             }
         }
     }

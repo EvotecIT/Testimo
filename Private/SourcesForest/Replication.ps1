@@ -7,17 +7,20 @@
             Get-WinADForestReplication -WarningAction SilentlyContinue -Forest $ForestName
         }
         Details        = [ordered] @{
-            Area        = 'Health'
-            Category    = 'Replication'
+            Category    = 'Health'
             Description = ''
-            Resolution  = ''
-            Importance   = 10
+            Importance  = 10
+            ActionType  = 2
             Severity    = 'High'
             Resources   = @(
-
+                "[Active Directory Replication](https://blog.netwrix.com/2017/02/20/active-directory-replication/)"
+                "[Active Directory Replication Concepts](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/replication/active-directory-replication-concepts)"
+                "[Repadmin: How to Check Active Directory Replication](https://activedirectorypro.com/repadmin-how-to-check-active-directory-replication/)"
             )
+            StatusTrue  = 1
+            StatusFalse = 5
         }
-        ExpectedOutput = $null
+        ExpectedOutput = $true
     }
     Tests  = [ordered] @{
         ReplicationTests = @{
@@ -29,6 +32,13 @@
                 OperationType         = 'eq'
                 PropertyExtendedValue = 'StatusMessage'
                 OverwriteName         = { "Replication from $($_.Server) to $($_.ServerPartner)" }
+            }
+            Details    = @{
+                Category    = 'Health'
+                Importance  = 10
+                ActionType  = 2
+                StatusTrue  = 1
+                StatusFalse = 5
             }
         }
     }
