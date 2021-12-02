@@ -13,7 +13,7 @@ $NetLogonOwner = @{
             Area        = 'Cleanup'
             Category    = 'SYSVOL'
             Severity    = ''
-            Importance   = 10
+            Importance  = 6
             Description = ""
             Resolution  = ''
             Resources   = @(
@@ -21,7 +21,7 @@ $NetLogonOwner = @{
             )
             Tags        = 'netlogon', 'grouppolicy', 'gpo', 'sysvol'
         }
-        ExpectedOutput = $true
+        ExpectedOutput = $null
     }
     Tests  = [ordered] @{
         Empty = @{
