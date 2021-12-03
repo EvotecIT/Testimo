@@ -12,9 +12,7 @@ function Start-TestimoReportSection {
         [System.Collections.IDictionary]$TestResults,
         [string] $Type
     )
-    [Array] $PassedTestsSingular = $Results | Where-Object { $_.Status -eq $true }
     [Array] $FailedTestsSingular = $Results | Where-Object { $_.Status -eq $false }
-    [Array] $SkippedTestsSingular = $Results | Where-Object { $_.Status -ne $true -and $_.Status -ne $false }
 
     if ($Type -eq 'Forest') {
         $ResultsDisplay = $Results | Select-Object -Property DisplayName, Type, Category, Assessment, Importance, Action, Extended
@@ -24,45 +22,13 @@ function Start-TestimoReportSection {
         $ResultsDisplay = $Results | Select-Object -Property DisplayName, Type, Category, Assessment, Importance, Action, Extended, Domain, DomainController
     }
 
-
-    $ColorPassed = 'LawnGreen'
-    $ColorSkipped = 'DeepSkyBlue'
-    $ColorFailed = 'TorchRed'
-    #$ColorPassedText = 'Black'
-    #$ColorFailedText = 'Black'
-    #$ColorSkippedText = 'Black'
-
-    $ChartData = [ordered] @{}
-    foreach ($Result in $Results) {
-        if ($null -ne $Result.Assessment) {
-            if (-not $ChartData[$Result.Assessment]) {
-                $ChartData[$Result.Assessment] = [ordered] @{
-                    Count = 0
-                    Color = $Script:StatusToColors[$Result.Assessment]
-                }
-            }
-            $ChartData[$Result.Assessment].Count++
-        } else {
-            # if for whatever reason result.assesment is null we need to improvise
-            if (-not $ChartData['Skipped']) {
-                $ChartData['Skipped'] = [ordered] @{
-                    Count = 0
-                    Color = $Script:StatusToColors['Skipped']
-                }
-            }
-            $ChartData['Skipped'].Count++
-        }
-    }
-
+    $ChartData = New-ChartData -Results $Results
 
     New-HTMLSection -HeaderText $Name -HeaderBackGroundColor CornflowerBlue -Direction column {
         New-HTMLSection -Invisible -Direction column {
             New-HTMLSection -HeaderText 'Information' {
                 New-HTMLContainer {
                     New-HTMLChart {
-                        #New-ChartPie -Name 'Passed' -Value ($PassedTestsSingular.Count) -Color $ColorPassed
-                        #New-ChartPie -Name 'Failed' -Value ($FailedTestsSingular.Count) -Color $ColorFailed
-                        #New-ChartPie -Name 'Skipped' -Value ($SkippedTestsSingular.Count) -Color $ColorSkipped
                         foreach ($Key in $ChartData.Keys) {
                             New-ChartPie -Name $Key -Value $ChartData[$Key].Count -Color $ChartData[$Key].Color
                         }

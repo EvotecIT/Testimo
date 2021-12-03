@@ -92,20 +92,34 @@
             $NumberOfSourcesExecuted += $TestResults['Domains'][$Domain]['DomainControllers'].Count
         }
 
+        $ChartData = New-ChartData -Results $TestResults['Results']
+        $TableData = [ordered] @{}
+        foreach ($Chart in $ChartData.Keys) {
+            $TableData[$Chart] = $ChartData[$Chart].Count
+        }
+        $TableData['Total'] = $TestResults['Summary'].Total
+        $DisplayTableData = [PSCustomObject] $TableData
+
         if ($NumberOfSourcesExecuted -gt 1) {
             New-HTMLTab -Name 'Summary' -IconBrands galactic-senate {
                 New-HTMLSection -HeaderText "Tests results" -HeaderBackGroundColor DarkGray {
                     New-HTMLContainer {
                         New-HTMLChart {
-                            New-ChartPie -Name 'Passed' -Value ($PassedTests.Count) -Color $ColorPassed
-                            New-ChartPie -Name 'Failed' -Value ($FailedTests.Count) -Color $ColorFailed
-                            New-ChartPie -Name 'Skipped' -Value ($SkippedTests.Count) -Color $ColorSkipped
+                            #New-ChartPie -Name 'Passed' -Value ($PassedTests.Count) -Color $ColorPassed
+                            #New-ChartPie -Name 'Failed' -Value ($FailedTests.Count) -Color $ColorFailed
+                            #New-ChartPie -Name 'Skipped' -Value ($SkippedTests.Count) -Color $ColorSkipped
+                            foreach ($Key in $ChartData.Keys) {
+                                New-ChartPie -Name $Key -Value $ChartData[$Key].Count -Color $ChartData[$Key].Color
+                            }
                         }
-                        New-HTMLTable -DataTable $TestResults['Summary'] -HideFooter -DisableSearch {
-                            New-HTMLTableContent -ColumnName 'Passed' -BackGroundColor $TestResults['Configuration']['Colors']['ColorPassed'] -Color $TestResults['Configuration']['Colors']['ColorPassedText']
-                            New-HTMLTableContent -ColumnName 'Failed' -BackGroundColor $TestResults['Configuration']['Colors']['ColorFailed'] -Color $TestResults['Configuration']['Colors']['ColorFailedText']
-                            New-HTMLTableContent -ColumnName 'Skipped' -BackGroundColor $TestResults['Configuration']['Colors']['ColorSkipped'] -Color $TestResults['Configuration']['Colors']['ColorSkippedText']
-                        } -DataStore HTML -Buttons @() -DisablePaging
+                        New-HTMLTable -DataTable $DisplayTableData -HideFooter -DisableSearch {
+                            foreach ($Chart in $ChartData.Keys) {
+                                New-HTMLTableContent -ColumnName $Chart -BackGroundColor $ChartData[$Chart].Color -Color Black
+                            }
+                            #New-HTMLTableContent -ColumnName 'Passed' -BackGroundColor $TestResults['Configuration']['Colors']['ColorPassed'] -Color $TestResults['Configuration']['Colors']['ColorPassedText']
+                            #New-HTMLTableContent -ColumnName 'Failed' -BackGroundColor $TestResults['Configuration']['Colors']['ColorFailed'] -Color $TestResults['Configuration']['Colors']['ColorFailedText']
+                            #New-HTMLTableContent -ColumnName 'Skipped' -BackGroundColor $TestResults['Configuration']['Colors']['ColorSkipped'] -Color $TestResults['Configuration']['Colors']['ColorSkippedText']
+                        } -DataStore HTML -Buttons @() -DisablePaging -DisableInfo -DisableOrdering
                     } -Width '35%'
                     New-HTMLContainer {
                         New-HTMLText -Text @(
