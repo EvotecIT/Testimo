@@ -1,6 +1,6 @@
 ﻿# Testimo Release History
 
-## 0.0.73
+## 0.0.73 - 2021.02.03
   - Added a new test `DomainMachineQuota` to check for `ms-DS-MachineAccountQuota`
   - Fixed `Windows Server 2022 version flagged as failed` [#141](https://github.com/EvotecIT/Testimo/issues/141)
   - Fixed `Some tests report Fail but no reason why` [#143](https://github.com/EvotecIT/Testimo/issues/143)
