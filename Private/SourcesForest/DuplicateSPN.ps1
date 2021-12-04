@@ -22,6 +22,27 @@
         }
         ExpectedOutput = $false
     }
+    DataDescription = {
+        New-HTMLSpanStyle -FontSize 10pt {
+            New-HTMLText -Text @(
+                'Services use service publication in the Active Directory directory service to provide information about themselves in the directory for easy discovery by client applications and other services. '
+                'Service publication occurs when the installation program for a service publishes information about the service, including binding and keyword data, to the directory. '
+                'Service publication happens by creating service objects (also called connection point objects) in Active Directory. '
+            )
+            New-HTMLText -Text @(
+                'In addition, Active Directory supports service principal names (SPNs) as a means by which client applications can identify '
+                'and authenticate the services that they use. Service authentication happens through Kerberos authentication of SPNs. '
+                'Kerberos uses SPNs extensively. When a Kerberos client uses its TGT to request a service ticket for a specific service, the service uses SPN to identify it. '
+                'The KDC will grant the client a service ticket that is encrypted in part with a shared secret '
+                'that the service account identified by the AD account matches the SPN has (basically the account password). '
+            )
+            New-HTMLText -Text @(
+                'In the case of a duplicate SPN, what can happen is that the KDC will generate a service ticket that may base its shared secret on the wrong account. '
+                'Then, when the client provides that ticket to the service during authentication, the service itself cannot decrypt it, and the authentication fails. '
+                'The server will typically log an "AP Modified" error, and the client will see a "wrong principal" error code.'
+            )
+        }
+    }
     DataInformation = {
         New-HTMLText -Text 'Explanation to table columns:' -FontSize 10pt
         New-HTMLList {
