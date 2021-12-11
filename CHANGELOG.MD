@@ -1,5 +1,9 @@
 ﻿# Testimo Release History
 
+## 0.0.74
+  - Improved test `ForestDuplicateSPN` to check for duplicate SPNs in a forest
+  - Added test `ForestRootKDS` to check for a KDS Root Key
+
 ## 0.0.73 - 2021.02.03
   - Added a new test `DomainMachineQuota` to check for `ms-DS-MachineAccountQuota`
   - Fixed `Windows Server 2022 version flagged as failed` [#141](https://github.com/EvotecIT/Testimo/issues/141)
