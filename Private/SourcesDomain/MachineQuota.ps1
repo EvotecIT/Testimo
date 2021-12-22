@@ -14,6 +14,7 @@
                 '[ms-DS-MachineAccountQuota](https://docs.microsoft.com/en-us/windows/win32/adschema/a-ms-ds-machineaccountquota)'
                 "[MachineAccountQuota is USEFUL Sometimes: Exploiting One of Active Directory's Oddest Settings](https://www.netspi.com/blog/technical/network-penetration-testing/machineaccountquota-is-useful-sometimes/)"
                 "[How to change the attribute ms-DS-MachineAccountQuota](https://www.jorgebernhardt.com/how-to-change-attribute-ms-ds-machineaccountquota/)"
+                "[Default limit to number of workstations a user can join to the domain](https://docs.microsoft.com/pl-PL/troubleshoot/windows-server/identity/default-workstation-numbers-join-domain)"
             )
             Tags        = 'Security', 'Configuration'
             StatusTrue  = 0
