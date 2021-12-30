@@ -113,7 +113,7 @@
         }
         PrimaryGroup                      = @{
             Enable      = $true
-            Name        = "Primary Group shouldn't be changed from default Domain Users."
+            Name        = "Domain Computers or Domain Controllers or Read-Only Domain Controllers."
             Parameters  = @{
                 #WhereObject    = { $_.PrimaryGroupID -ne 513 -and $_.SID -ne "$((Get-ADDomain).DomainSID.Value)-501" }
                 WhereObject    = { $_.PrimaryGroupID -notin 515, 516, 521 }
