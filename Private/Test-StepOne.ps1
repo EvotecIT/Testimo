@@ -1,6 +1,7 @@
 ﻿function Test-StepOne {
     [CmdletBinding()]
     param(
+        [string] $Scope,
         [System.Collections.IDictionary] $Test,
         [string] $Domain,
         [string] $DomainController,
@@ -49,33 +50,33 @@
             # - ExpectedOutput (true/false) - when we do Where-Object but it's possible that Array won't contain what we are looking for, and at the same time, it's not a problem
             if ($null -eq $Object) {
                 if ($ExpectedResult -eq $false) {
-                    Out-Begin -Text $TestName -Level $Level -Domain $Domain -DomainController $DomainController
-                    Out-Status -Text $TestName -Status $true -ExtendedValue "Data is not available. This is expected" -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Test $Test
+                    Out-Begin -Scope $Scope -Text $TestName -Level $Level -Domain $Domain -DomainController $DomainController
+                    Out-Status -Scope $Scope -Text $TestName -Status $true -ExtendedValue "Data is not available. This is expected" -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Test $Test
                     return $true
                 } elseif ($ExpectedResult -eq $true) {
-                    Out-Begin -Text $TestName -Level $Level -Domain $Domain -DomainController $DomainController
-                    Out-Status -Text $TestName -Status $false -ExtendedValue 'Data is not available. This is not expected' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Test $Test
+                    Out-Begin -Scope $Scope -Text $TestName -Level $Level -Domain $Domain -DomainController $DomainController
+                    Out-Status -Scope $Scope -Text $TestName -Status $false -ExtendedValue 'Data is not available. This is not expected' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Test $Test
                     return $false
                 }
                 # This checks for NULL after Where-Object
                 # Data Source is not null, but after WHERE-Object becomes NULL - we need to fail this
                 if ($null -eq $ExpectedOutput -or $ExpectedOutput -eq $true) {
-                    Out-Begin -Text $TestName -Level $Level -Domain $Domain -DomainController $DomainController
-                    Out-Status -Text $TestName -Status $false -ExtendedValue 'Data is not available' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Test $Test
+                    Out-Begin -Scope $Scope -Text $TestName -Level $Level -Domain $Domain -DomainController $DomainController
+                    Out-Status -Scope $Scope -Text $TestName -Status $false -ExtendedValue 'Data is not available' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Test $Test
                     return $false
                 } elseif ($ExpectedOutput -eq $false) {
-                    Out-Begin -Text $TestName -Level $Level -Domain $Domain -DomainController $DomainController
-                    Out-Status -Text $TestName -Status $true -ExtendedValue "Data is not available, but it's not required" -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Test $Test
+                    Out-Begin -Scope $Scope -Text $TestName -Level $Level -Domain $Domain -DomainController $DomainController
+                    Out-Status -Scope $Scope -Text $TestName -Status $true -ExtendedValue "Data is not available, but it's not required" -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Test $Test
                     return $true
                 }
             } else {
                 if ($ExpectedResult -eq $false) {
-                    Out-Begin -Text $TestName -Level $Level -Domain $Domain -DomainController $DomainController
-                    Out-Status -Text $TestName -Status $false -ExtendedValue 'Data is available. This is not expected' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Test $Test
+                    Out-Begin -Scope $Scope -Text $TestName -Level $Level -Domain $Domain -DomainController $DomainController
+                    Out-Status -Scope $Scope -Text $TestName -Status $false -ExtendedValue 'Data is available. This is not expected' -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Test $Test
                     return $false
                 } elseif ($ExpectedResult -eq $true) {
-                    Out-Begin -Text $TestName -Level $Level -Domain $Domain -DomainController $DomainController
-                    Out-Status -Text $TestName -Status $true -ExtendedValue "Data is available. This is expected" -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Test $Test
+                    Out-Begin -Scope $Scope -Text $TestName -Level $Level -Domain $Domain -DomainController $DomainController
+                    Out-Status -Scope $Scope -Text $TestName -Status $true -ExtendedValue "Data is available. This is expected" -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Test $Test
                     return $true
                 }
             }
@@ -85,17 +86,17 @@
             if ($OverwriteName) {
                 $TestName = & $OverwriteName
             }
-            Test-StepTwo -Test $Test -Object $Object -ExpectedCount $ExpectedCount -OperationType $OperationType -TestName $TestName -Level $Level -Domain $Domain -DomainController $DomainController -Property $Property -ExpectedValue $ExpectedValue -PropertyExtendedValue $PropertyExtendedValue -OperationResult $OperationResult -ReferenceID $ReferenceID -ExpectedOutput $ExpectedOutput
+            Test-StepTwo -Scope $Scope -Test $Test -Object $Object -ExpectedCount $ExpectedCount -OperationType $OperationType -TestName $TestName -Level $Level -Domain $Domain -DomainController $DomainController -Property $Property -ExpectedValue $ExpectedValue -PropertyExtendedValue $PropertyExtendedValue -OperationResult $OperationResult -ReferenceID $ReferenceID -ExpectedOutput $ExpectedOutput
         } else {
             if ($Test.Parameters.Bundle -eq $true) {
                 # We treat Input as a whole rather than line one by line
-                Test-StepTwo -Test $Test -Object $Object -OperationType $OperationType -TestName $TestName -Level $Level -Domain $Domain -DomainController $DomainController -Property $Property -ExpectedValue $ExpectedValue -PropertyExtendedValue $PropertyExtendedValue -OperationResult $OperationResult -ReferenceID $ReferenceID -ExpectedOutput $ExpectedOutput
+                Test-StepTwo -Scope $Scope -Test $Test -Object $Object -OperationType $OperationType -TestName $TestName -Level $Level -Domain $Domain -DomainController $DomainController -Property $Property -ExpectedValue $ExpectedValue -PropertyExtendedValue $PropertyExtendedValue -OperationResult $OperationResult -ReferenceID $ReferenceID -ExpectedOutput $ExpectedOutput
             } else {
                 foreach ($_ in $Object) {
                     if ($OverwriteName) {
                         $TestName = & $OverwriteName
                     }
-                    Test-StepTwo -Test $Test -Object $_ -OperationType $OperationType -TestName $TestName -Level $Level -Domain $Domain -DomainController $DomainController -Property $Property -ExpectedValue $ExpectedValue -PropertyExtendedValue $PropertyExtendedValue -OperationResult $OperationResult -ReferenceID $ReferenceID -ExpectedOutput $ExpectedOutput
+                    Test-StepTwo -Scope $Scope -Test $Test -Object $_ -OperationType $OperationType -TestName $TestName -Level $Level -Domain $Domain -DomainController $DomainController -Property $Property -ExpectedValue $ExpectedValue -PropertyExtendedValue $PropertyExtendedValue -OperationResult $OperationResult -ReferenceID $ReferenceID -ExpectedOutput $ExpectedOutput
                 }
             }
         }

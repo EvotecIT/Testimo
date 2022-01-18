@@ -1,6 +1,7 @@
 ﻿function Out-Status {
     [CmdletBinding()]
     param(
+        [string] $Scope,
         [string] $TestID,
         [string] $Text,
         [nullable[bool]] $Status,
@@ -18,11 +19,9 @@
     } elseif ($Domain) {
         $TestType = 'Domain'
         $TestText = "Domain - $Domain | $Text"
-    } elseif ($DomainController) {
-        $TestType = 'Should not happen. Find an error.'
     } else {
-        $TestType = 'Forest'
-        $TestText = "Forest | $Text"
+        $TestType = $Scope
+        $TestText = "$Scope | $Text"
     }
 
     if ($Source) {
@@ -127,27 +126,18 @@
     if (-not $ReferenceID) {
         $Script:Reporting['Errors'].Add($Output)
     } else {
-        if ($Domain -and $DomainController) {
-            $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['Results'].Add($Output)
-        } elseif ($Domain) {
-            $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['Results'].Add($Output)
+        if ($Scope -in 'Forest', 'Domain', 'DC') {
+            if ($Domain -and $DomainController) {
+                $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DomainController]['Tests'][$ReferenceID]['Results'].Add($Output)
+            } elseif ($Domain) {
+                $Script:Reporting['Domains'][$Domain]['Tests'][$ReferenceID]['Results'].Add($Output)
+            } else {
+                $Script:Reporting['Forest']['Tests'][$ReferenceID]['Results'].Add($Output)
+            }
         } else {
-            $Script:Reporting['Forest']['Tests'][$ReferenceID]['Results'].Add($Output)
+            $Script:Reporting[$Scope]['Tests'][$ReferenceID]['Results'].Add($Output)
         }
     }
-
-    <#
-    if ($Status -eq $true) {
-        [string] $TextStatus = 'Pass'
-        [ConsoleColor[]] $Color = [ConsoleColor]::Cyan, [ConsoleColor]::Green, [ConsoleColor]::Cyan, [ConsoleColor]::Cyan, [ConsoleColor]::Green, [ConsoleColor]::Cyan
-    } elseif ($Status -eq $false) {
-        [string] $TextStatus = 'Fail'
-        [ConsoleColor[]] $Color = [ConsoleColor]::Cyan, [ConsoleColor]::Red, [ConsoleColor]::Cyan, [ConsoleColor]::Cyan, [ConsoleColor]::Red, [ConsoleColor]::Cyan
-    } else {
-        [string] $TextStatus = 'Informative'
-        [ConsoleColor[]] $Color = [ConsoleColor]::Cyan, [ConsoleColor]::DarkGray, [ConsoleColor]::Cyan, [ConsoleColor]::Cyan, [ConsoleColor]::Magenta, [ConsoleColor]::Cyan
-    }
-    #>
     [ConsoleColor[]] $Color = [ConsoleColor]::Cyan, $StatusColor, [ConsoleColor]::Cyan, [ConsoleColor]::Cyan, $StatusColor, [ConsoleColor]::Cyan
     if ($ExtendedValue) {
         Write-Color -Text ' [', $StatusTranslation, ']', " [", $ExtendedValue, "]" -Color $Color

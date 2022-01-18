@@ -6,7 +6,8 @@
         [switch] $Online,
         [switch] $ShowHTML,
         [switch] $HideSteps,
-        [switch] $AlwaysShowSteps
+        [switch] $AlwaysShowSteps,
+        [string[]] $Scopes
     )
     if ($FilePath -eq '') {
         $FilePath = Get-FileName -Extension 'html' -Temporary
@@ -64,9 +65,9 @@
         New-HTMLTableCondition -Name 'Assessment' -Value $true -BackgroundColor 'LawnGreen' -Inline
         New-HTMLTableCondition -Name 'Assessment' -Value $false -BackgroundColor 'TorchRed' -Inline
     }
-    [Array] $PassedTests = $TestResults['Results'] | Where-Object { $_.Status -eq $true }
-    [Array] $FailedTests = $TestResults['Results'] | Where-Object { $_.Status -eq $false }
-    [Array] $SkippedTests = $TestResults['Results'] | Where-Object { $_.Status -ne $true -and $_.Status -ne $false }
+    # [Array] $PassedTests = $TestResults['Results'] | Where-Object { $_.Status -eq $true }
+    # [Array] $FailedTests = $TestResults['Results'] | Where-Object { $_.Status -eq $false }
+    # [Array] $SkippedTests = $TestResults['Results'] | Where-Object { $_.Status -ne $true -and $_.Status -ne $false }
 
     New-HTML -FilePath $FilePath -Online:$Online {
         New-HTMLSectionStyle -BorderRadius 0px -HeaderBackGroundColor Grey -RemoveShadow
@@ -86,7 +87,12 @@
 
         # Find amount of sources used. If just one, skip summary
         $NumberOfSourcesExecuted = 0
-        $NumberOfSourcesExecuted += $TestResults['Forest']['Tests'].Count
+        #$NumberOfSourcesExecuted += $TestResults['Forest']['Tests'].Count
+        foreach ($Key in $TestResults.Keys) {
+            if ($Key -notin 'Version', 'Errors', 'Results', 'Summary', 'Domains', 'BySource', 'Configuration') {
+                $NumberOfSourcesExecuted += $TestResults[$Key]['Tests'].Count
+            }
+        }
         foreach ($Domain in $TestResults['Domains'].Keys) {
             $NumberOfSourcesExecuted += $TestResults['Domains'][$Domain]['Tests'].Count
             $NumberOfSourcesExecuted += $TestResults['Domains'][$Domain]['DomainControllers'].Count
@@ -137,6 +143,35 @@
                             New-HTMLTableCondition -Name 'Assessment' -Value $true -BackgroundColor $TestResults['Configuration']['Colors']['ColorPassed'] -Color $TestResults['Configuration']['Colors']['ColorPassedText'] -Row
                             New-HTMLTableCondition -Name 'Assessment' -Value $false -BackgroundColor $TestResults['Configuration']['Colors']['ColorFailed'] -Color $TestResults['Configuration']['Colors']['ColorFailedText'] -Row
                         } -Filtering
+                    }
+                }
+            }
+        }
+        foreach ($Scope in $Scopes) {
+            if ($TestResults[$Scope]['Tests'].Count -gt 0) {
+                # There's at least 1 forest test - so lets go
+                if ($NumberOfSourcesExecuted -eq 1) {
+                    # there's just one forest test, and only 1 forest test in total so we don't need tabs
+                    foreach ($Source in $TestResults[$Scope]['Tests'].Keys) {
+                        $Name = $TestResults[$Scope]['Tests'][$Source]['Name']
+                        $Data = $TestResults[$Scope]['Tests'][$Source]['Data']
+                        $Information = $TestResults[$Scope]['Tests'][$Source]['Information']
+                        $SourceCode = $TestResults[$Scope]['Tests'][$Source]['SourceCode']
+                        $Results = $TestResults[$Scope]['Tests'][$Source]['Results'] #| Select-Object -Property DisplayName, Type, Category, Assessment, Importance, Action, Extended
+                        $WarningsAndErrors = $TestResults[$Scope]['Tests'][$Source]['WarningsAndErrors']
+                        Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -TestResults $TestResults -Type $Scope -AlwaysShowSteps:$AlwaysShowSteps.IsPresent
+                    }
+                } else {
+                    New-HTMLTab -Name $Scope -IconBrands first-order {
+                        foreach ($Source in $TestResults[$Scope]['Tests'].Keys) {
+                            $Name = $TestResults[$Scope]['Tests'][$Source]['Name']
+                            $Data = $TestResults[$Scope]['Tests'][$Source]['Data']
+                            $Information = $TestResults[$Scope]['Tests'][$Source]['Information']
+                            $SourceCode = $TestResults[$Scope]['Tests'][$Source]['SourceCode']
+                            $Results = $TestResults[$Scope]['Tests'][$Source]['Results'] #| Select-Object -Property DisplayName, Type, Category, Assessment, Importance, Action, Extended
+                            $WarningsAndErrors = $TestResults[$Scope]['Tests'][$Source]['WarningsAndErrors']
+                            Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -TestResults $TestResults -Type $Scope -AlwaysShowSteps:$AlwaysShowSteps.IsPresent
+                        }
                     }
                 }
             }

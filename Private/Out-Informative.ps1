@@ -9,26 +9,36 @@
         [nullable[bool]] $Status,
         [string] $ExtendedValue,
         [switch] $Start,
-        [switch] $End
+        [switch] $End,
+        [string] $Scope
     )
 
     if ($Start -or (-not $Start -and -not $End)) {
         $Type = 'i'
-        if ($Domain -and $DomainController) {
-            [ConsoleColor[]] $Color = [ConsoleColor]::Yellow, [ConsoleColor]::DarkGray, [ConsoleColor]::DarkGray, [ConsoleColor]::Yellow, [ConsoleColor]::Yellow
-            $TestText = "[$Type]", "[$Domain]", "[$($DomainController)] ", $Text
-        } elseif ($Domain) {
-            [ConsoleColor[]] $Color = [ConsoleColor]::Yellow, [ConsoleColor]::DarkGray, [ConsoleColor]::Yellow
-            $TestText = "[$Type]", "[$Domain] ", $Text
-        } elseif ($DomainController) {
-            # Shouldn't really happen
-            Write-Warning "Out-Begin - Shouldn't happen - Fix me."
+        if ($Scope -in 'Forest', 'Domain', 'DC') {
+            if ($Domain -and $DomainController) {
+                [ConsoleColor[]] $Color = [ConsoleColor]::Yellow, [ConsoleColor]::DarkGray, [ConsoleColor]::DarkGray, [ConsoleColor]::Yellow, [ConsoleColor]::Yellow
+                $TestText = "[$Type]", "[$Domain]", "[$($DomainController)] ", $Text
+            } elseif ($Domain) {
+                [ConsoleColor[]] $Color = [ConsoleColor]::Yellow, [ConsoleColor]::DarkGray, [ConsoleColor]::Yellow
+                $TestText = "[$Type]", "[$Domain] ", $Text
+            } elseif ($DomainController) {
+                # Shouldn't really happen
+                Write-Warning "Out-Begin - Shouldn't happen - Fix me."
+            } else {
+                [ConsoleColor[]] $Color = [ConsoleColor]::Yellow, [ConsoleColor]::DarkGray, [ConsoleColor]::Yellow
+                if ($OverrideTitle) {
+                    $TestText = "[$Type]", "[$OverrideTitle] ", $Text
+                } else {
+                    $TestText = "[$Type]", "[Forest] ", $Text
+                }
+            }
         } else {
             [ConsoleColor[]] $Color = [ConsoleColor]::Yellow, [ConsoleColor]::DarkGray, [ConsoleColor]::Yellow
             if ($OverrideTitle) {
                 $TestText = "[$Type]", "[$OverrideTitle] ", $Text
             } else {
-                $TestText = "[$Type]", "[Forest] ", $Text
+                $TestText = "[$Type]", "[$Scope] ", $Text
             }
         }
         Write-Color -Text $TestText -Color $Color -StartSpaces $Level -NoNewLine

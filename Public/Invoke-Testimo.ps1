@@ -2,17 +2,8 @@ function Invoke-Testimo {
     [alias('Test-ImoAD', 'Test-IMO')]
     [CmdletBinding()]
     param(
-        [ValidateScript(
-            {
-                $_ -in (& $SourcesAutoCompleter)
-            }
-        )]
         [alias('Type')][string[]] $Sources,
-        [ValidateScript(
-            {
-                $_ -in (& $SourcesAutoCompleter)
-            }
-        )] [alias('ExludeType')] [string[]] $ExcludeSources,
+        [alias('ExludeType')] [string[]] $ExcludeSources,
         [string[]] $ExcludeDomains,
         [string[]] $ExcludeDomainControllers,
         [string[]] $IncludeDomains,
@@ -30,8 +21,21 @@ function Invoke-Testimo {
         [alias('AlwaysShowSolution')][switch] $AlwaysShowSteps,
         [switch] $SkipRODC,
         [switch] $Online,
-        [string[]] $ExternalTests
+        [string[]] $ExternalTests,
+        [System.Collections.IDictionary] $Variables
     )
+    Add-TestimoSources -Folder $ExternalTests
+
+    $AllSources = @(
+        $Script:TestimoConfiguration.ActiveDirectory.Keys
+        $Script:TestimoConfiguration.Office365.Keys
+    )
+    foreach ($Source in $Sources) {
+
+    }
+    foreach ($Source in $ExcludeSources) {
+
+    }
     if (-not $Script:DefaultSources) {
         $Script:DefaultSources = Get-TestimoSources -Enabled -SourcesOnly
     } else {
@@ -46,11 +50,6 @@ function Invoke-Testimo {
     $Script:Reporting['Errors'] = [System.Collections.Generic.List[PSCustomObject]]::new()
     $Script:Reporting['Results'] = $null
     $Script:Reporting['Summary'] = [ordered] @{ }
-    $Script:Reporting['Forest'] = [ordered] @{ }
-    $Script:Reporting['Forest']['Summary'] = $null
-    $Script:Reporting['Forest']['Tests'] = [ordered] @{ }
-    $Script:Reporting['Domains'] = [ordered] @{ }
-    $Script:Reporting['BySource'] = [ordered] @{}
 
     $TestimoVersion = Get-Command -Name 'Invoke-Testimo' -ErrorAction SilentlyContinue
     $ProgressPreference = 'SilentlyContinue'
@@ -87,6 +86,19 @@ function Invoke-Testimo {
     }
     Set-TestsStatus -Sources $Sources -ExcludeSources $ExcludeSources
 
+    $Script:Reporting['Forest'] = [ordered] @{ }
+    $Script:Reporting['Forest']['Summary'] = $null
+    $Script:Reporting['Forest']['Tests'] = [ordered] @{ }
+    $Script:Reporting['Domains'] = [ordered] @{ }
+    $Scopes = $Script:TestimoConfiguration.Types.Keys
+    foreach ($Scope in $Scopes) {
+        $Script:Reporting[$Scope] = [ordered] @{ }
+        $Script:Reporting[$Scope]['Summary'] = $null
+        $Script:Reporting[$Scope]['Tests'] = [ordered] @{ }
+    }
+    $Script:Reporting['BySource'] = [ordered] @{}
+
+
     if ($Script:TestimoConfiguration.Inclusions.Domains) {
         Out-Informative -Text 'Only following Domains will be scanned' -Level 0 -Status $null -ExtendedValue ($Script:TestimoConfiguration.Inclusions.Domains -join ', ')
     }
@@ -102,35 +114,42 @@ function Invoke-Testimo {
         Out-Informative -Text 'Following Domain Controllers will be ignored' -Level 0 -Status $null -ExtendedValue ($Script:TestimoConfiguration.Exclusions.DomainControllers -join ', ')
     }
 
-    $ForestDetails = Get-WinADForestDetails -WarningVariable ForestWarning -WarningAction SilentlyContinue -Forest $ForestName -ExcludeDomains $ExcludeDomains -IncludeDomains $IncludeDomains -IncludeDomainControllers $IncludeDomainControllers -ExcludeDomainControllers $ExcludeDomainControllers -SkipRODC:$SkipRODC -Extended
-    if ($ForestDetails) {
-        # Tests related to FOREST
-        $null = Start-Testing -Scope 'Forest' -ForestInformation $ForestDetails.Forest -ForestDetails $ForestDetails -SkipRODC:$SkipRODC {
-            # Tests related to DOMAIN
-            foreach ($Domain in $ForestDetails.Domains) {
-                $Script:Reporting['Domains'][$Domain] = [ordered] @{ }
-                $Script:Reporting['Domains'][$Domain]['Summary'] = [ordered] @{ }
-                $Script:Reporting['Domains'][$Domain]['Tests'] = [ordered] @{ }
-                $Script:Reporting['Domains'][$Domain]['DomainControllers'] = [ordered] @{ }
+    if ($Script:TestimoConfiguration['Types']['ActiveDirectory']) {
+        $ForestDetails = Get-WinADForestDetails -WarningVariable ForestWarning -WarningAction SilentlyContinue -Forest $ForestName -ExcludeDomains $ExcludeDomains -IncludeDomains $IncludeDomains -IncludeDomainControllers $IncludeDomainControllers -ExcludeDomainControllers $ExcludeDomainControllers -SkipRODC:$SkipRODC -Extended
+        if ($ForestDetails) {
+            # Tests related to FOREST
+            $null = Start-Testing -Scope 'Forest' -ForestInformation $ForestDetails.Forest -ForestDetails $ForestDetails -SkipRODC:$SkipRODC -Variables $Variables {
+                # Tests related to DOMAIN
+                foreach ($Domain in $ForestDetails.Domains) {
+                    $Script:Reporting['Domains'][$Domain] = [ordered] @{ }
+                    $Script:Reporting['Domains'][$Domain]['Summary'] = [ordered] @{ }
+                    $Script:Reporting['Domains'][$Domain]['Tests'] = [ordered] @{ }
+                    $Script:Reporting['Domains'][$Domain]['DomainControllers'] = [ordered] @{ }
 
-                if ($ForestDetails['DomainsExtended']["$Domain"]) {
-                    Start-Testing -Scope 'Domain' -Domain $Domain -DomainInformation $ForestDetails['DomainsExtended']["$Domain"] -ForestInformation $ForestDetails.Forest -ForestDetails $ForestDetails -SkipRODC:$SkipRODC {
-                        # Tests related to DOMAIN CONTROLLERS
-                        if (Get-TestimoSourcesStatus -Scope 'DC') {
-                            foreach ($DC in $ForestDetails['DomainDomainControllers'][$Domain]) {
-                                $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DC.HostName] = [ordered] @{ }
-                                $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DC.HostName]['Summary'] = [ordered] @{ }
-                                $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DC.HostName]['Tests'] = [ordered] @{ }
-                                Start-Testing -Scope 'DC' -Domain $Domain -DomainController $DC.HostName -IsPDC $DC.IsPDC -DomainInformation $ForestDetails['DomainsExtended']["$Domain"] -ForestInformation $ForestDetails.Forest -ForestDetails $ForestDetails
+                    if ($ForestDetails['DomainsExtended']["$Domain"]) {
+                        Start-Testing -Scope 'Domain' -Domain $Domain -DomainInformation $ForestDetails['DomainsExtended']["$Domain"] -ForestInformation $ForestDetails.Forest -ForestDetails $ForestDetails -SkipRODC:$SkipRODC -Variables $Variables {
+                            # Tests related to DOMAIN CONTROLLERS
+                            if (Get-TestimoSourcesStatus -Scope 'DC') {
+                                foreach ($DC in $ForestDetails['DomainDomainControllers'][$Domain]) {
+                                    $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DC.HostName] = [ordered] @{ }
+                                    $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DC.HostName]['Summary'] = [ordered] @{ }
+                                    $Script:Reporting['Domains'][$Domain]['DomainControllers'][$DC.HostName]['Tests'] = [ordered] @{ }
+                                    Start-Testing -Scope 'DC' -Domain $Domain -DomainController $DC.HostName -IsPDC $DC.IsPDC -DomainInformation $ForestDetails['DomainsExtended']["$Domain"] -ForestInformation $ForestDetails.Forest -ForestDetails $ForestDetails -Variables $Variables
+                                }
                             }
                         }
+                        #}
                     }
-                    #}
                 }
             }
+        } else {
+            Write-Color -Text '[e]', '[Testimo] ', "Forest Information couldn't be gathered. ", "[", "Error", "] ", "[", $ForestWarning, "]" -Color Red, DarkGray, Yellow, Cyan, DarkGray, Cyan, Cyan, Red, Cyan
         }
-    } else {
-        Write-Color -Text '[e]', '[Testimo] ', "Forest Information couldn't be gathered. ", "[", "Error", "] ", "[", $ForestWarning, "]" -Color Red, DarkGray, Yellow, Cyan, DarkGray, Cyan, Cyan, Red, Cyan
+    }
+    foreach ($Scope in $Scopes) {
+        if ($Script:TestimoConfiguration['Types'][$Scope]) {
+            $null = Start-Testing -Scope $Scope -Variables $Variables
+        }
     }
     $Script:Reporting['Results'] = $Script:TestResults
 
@@ -146,14 +165,17 @@ function Invoke-Testimo {
     }
     $Time = Start-TimeLog
     Out-Informative -OverrideTitle 'Testimo' -Text 'HTML Report Generation Started' -Level 0 -Status $null #-ExtendedValue $Script:Reporting['Version']
-    Start-TestimoReport -FilePath $FilePath -Online:$Online -ShowHTML:(-not $HideHTML.IsPresent) -TestResults $Script:Reporting -HideSteps:$HideSteps -AlwaysShowSteps:$AlwaysShowSteps
+    Start-TestimoReport -Scopes $Scopes -FilePath $FilePath -Online:$Online -ShowHTML:(-not $HideHTML.IsPresent) -TestResults $Script:Reporting -HideSteps:$HideSteps -AlwaysShowSteps:$AlwaysShowSteps
     $TimeEnd = Stop-TimeLog -Time $Time
     Out-Informative -OverrideTitle 'Testimo' -Text "HTML Report Saved to $FilePath" -Level 0 -Status $null -ExtendedValue $TimeEnd
 }
 
 [scriptblock] $SourcesAutoCompleter = {
     param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
-    $Script:TestimoConfiguration.ActiveDirectory.Keys | Sort-Object | Where-Object { $_ -like "*$wordToComplete*" }
+    @(
+        $Script:TestimoConfiguration.ActiveDirectory.Keys
+        $Script:TestimoConfiguration.Office365.Keys
+    ) | Sort-Object | Where-Object { $_ -like "*$wordToComplete*" }
 }
 Register-ArgumentCompleter -CommandName Invoke-Testimo -ParameterName Sources -ScriptBlock $SourcesAutoCompleter
 Register-ArgumentCompleter -CommandName Invoke-Testimo -ParameterName ExcludeSources -ScriptBlock $SourcesAutoCompleter

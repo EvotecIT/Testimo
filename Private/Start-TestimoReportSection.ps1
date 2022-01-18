@@ -20,6 +20,9 @@ function Start-TestimoReportSection {
         $ResultsDisplay = $Results | Select-Object -Property DisplayName, Type, Category, Assessment, Importance, Action, Extended, Domain
     } elseif ($Type -eq 'Domain') {
         $ResultsDisplay = $Results | Select-Object -Property DisplayName, Type, Category, Assessment, Importance, Action, Extended, Domain, DomainController
+    } else {
+        # Office 365 and other scopes
+        $ResultsDisplay = $Results | Select-Object -Property DisplayName, Type, Category, Assessment, Importance, Action, Extended
     }
 
     $ChartData = New-ChartData -Results $Results
