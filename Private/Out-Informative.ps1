@@ -3,6 +3,7 @@
     param(
         [int] $Level = 0,
         [string] $OverrideTitle,
+        [string] $OverrideTextStatus,
         [string] $Domain,
         [string] $DomainController,
         [string] $Text,
@@ -38,7 +39,11 @@
             if ($OverrideTitle) {
                 $TestText = "[$Type]", "[$OverrideTitle] ", $Text
             } else {
-                $TestText = "[$Type]", "[$Scope] ", $Text
+                if ($Scope) {
+                    $TestText = "[$Type]", "[$Scope] ", $Text
+                } else {
+                    $TestText = "[$Type]", "[Testimo] ", $Text
+                }
             }
         }
         Write-Color -Text $TestText -Color $Color -StartSpaces $Level -NoNewLine
@@ -54,11 +59,13 @@
             [string] $TextStatus = 'Informative'
             [ConsoleColor[]] $Color = [ConsoleColor]::Cyan, [ConsoleColor]::DarkGray, [ConsoleColor]::Cyan, [ConsoleColor]::Cyan, [ConsoleColor]::Magenta, [ConsoleColor]::Cyan
         }
+        if ($OverrideTextStatus) {
+            $TextStatus = $OverrideTextStatus
+        }
         if ($ExtendedValue) {
             Write-Color -Text ' [', $TextStatus, ']', " [", $ExtendedValue, "]" -Color $Color
         } else {
             Write-Color -Text ' [', $TextStatus, ']' -Color $Color
         }
     }
-
 }
