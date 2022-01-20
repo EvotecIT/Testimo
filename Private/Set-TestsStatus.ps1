@@ -32,8 +32,6 @@
             }
         }
     }
-
-
     # foreach ($Source in $Script:TestimoConfiguration.ActiveDirectory.Keys) {
     #     if ($Script:TestimoConfiguration.ActiveDirectory[$Source]) {
     #         $Script:TestimoConfiguration.ActiveDirectory[$Source]['Enable'] = $false
