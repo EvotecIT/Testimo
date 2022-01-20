@@ -24,7 +24,7 @@
         $TestText = "$Scope | $Text"
     }
 
-    if ($Source) {
+    if ($Source -and -not $Test) {
         # This means we're dealing with source
         if ($null -ne $Source.Details.Importance) {
             $ImportanceInformation = $Script:Importance[$Source.Details.Importance]
@@ -112,6 +112,7 @@
 
     $Output = [PSCustomObject]@{
         Name             = $TestText
+        Source           = $Source.Name
         DisplayName      = $Text
         Type             = $TestType
         Category         = $Category
