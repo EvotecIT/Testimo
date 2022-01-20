@@ -29,7 +29,7 @@
         $Config = $Script:TestimoConfiguration['ActiveDirectory']
         Write-Color
         $SummaryText = "Domain $Domain"
-    } elseif ($Scope -eq 'DomainControllers') {
+    } elseif ($Scope -eq 'DC') {
         $Level = 9
         $LevelTest = 12
         $LevelSummary = 9
@@ -102,10 +102,11 @@
                 }
 
                 # Lets divide tests by source (same content/different way to use later on)
-                if (-not $Script:Reporting['BySource'][$Source]) {
-                    $Script:Reporting['BySource'][$Source] = [System.Collections.Generic.List[PSCustomObject]]::new()
-                }
-                $Script:Reporting['BySource'][$Source].Add($TestOutput)
+                #if (-not $Script:Reporting['BySource'][$Source]) {
+                #    $Script:Reporting['BySource'][$Source] = [System.Collections.Generic.List[PSCustomObject]]::new()
+                #}
+                #$Script:Reporting['BySource'][$Source].Add($TestOutput)
+                $Script:Reporting['BySource'][$Source] = $TestOutput
                 if (-not $CurrentSection['Source']) {
                     Write-Warning "Source $Source in scope: $Scope is defined improperly. Please verify."
                     continue
