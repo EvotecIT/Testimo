@@ -1,5 +1,8 @@
 ﻿# Testimo Release History
 
+## 0.0.75 - 2021.01.25
+  - Fixes errors that could happen for some tests during HTML creation
+
 ## 0.0.74 - 2022.01.25
   - Improved test `ForestDuplicateSPN` to check for duplicate SPNs in a forest
   - Added test `ForestRootKDS` to check for a KDS Root Key
