@@ -24,13 +24,6 @@ function Invoke-Testimo {
         [string[]] $ExternalTests,
         [System.Collections.IDictionary] $Variables
     )
-    Add-TestimoSources -Folder $ExternalTests
-
-    if (-not $Script:DefaultSources) {
-        $Script:DefaultSources = Get-TestimoSources -Enabled -SourcesOnly
-    } else {
-        Set-TestsStatus -Sources $Script:DefaultSources
-    }
     if ($ShowReport) {
         Write-Warning "Invoke-Testimo - Paramter ShowReport is deprecated. By default HTML report will open up after running Testimo. If you want to prevent that, use HideHTML switch instead. This message and parameter will be removed in future releases."
     }
@@ -59,6 +52,14 @@ function Invoke-Testimo {
         $Script:Reporting['Version'] = "Current: $($TestimoVersion.Version)"
     }
     Out-Informative -OverrideTitle 'Testimo' -Text 'Version' -Level 0 -Status $null -ExtendedValue $Script:Reporting['Version']
+
+    Add-TestimoSources -Folder $ExternalTests
+
+    if (-not $Script:DefaultSources) {
+        $Script:DefaultSources = Get-TestimoSources -Enabled -SourcesOnly
+    } else {
+        Set-TestsStatus -Sources $Script:DefaultSources
+    }
 
     # make sure that tests are initialized (small one line tests require more, default data)
     Initialize-TestimoTests

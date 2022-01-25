@@ -3,6 +3,8 @@
     param(
         [string[]] $FolderPath
     )
+    $ListNewSources = [System.Collections.Generic.List[string]]::new()
+    $ListOverwritten = [System.Collections.Generic.List[string]]::new()
     foreach ($Folder in $FolderPath) {
         $FilesWithCode = @( Get-ChildItem -Path "$Folder\*.ps1" -ErrorAction SilentlyContinue -Recurse )
 
@@ -14,8 +16,20 @@
                 if (-not $Script:TestimoConfiguration[$Source.Scope]) {
                     $Script:TestimoConfiguration[$Source.Scope] = [ordered] @{}
                 }
-                $Script:TestimoConfiguration[$Source.Scope][$Source.Source.Name] = $Source
+                if ($Source.Scope -in 'Forest', 'Domain', 'DC') {
+                    $Script:TestimoConfiguration['ActiveDirectory'][$Source.Name] = $Source
+                    $ListOverwritten.Add($Source.Name)
+                } else {
+                    $Script:TestimoConfiguration[$Source.Scope][$Source.Name] = $Source
+                    $ListNewSources.Add($Source.Name)
+                }
             }
         }
+    }
+    if ($ListNewSources.Count -gt 0) {
+        Out-Informative -Text 'Following external sources were added' -Level 0 -Status $true -ExtendedValue ($ListNewSources -join ', ') -OverrideTextStatus "External Sources"
+    }
+    if ($ListOverwritten.Count -gt 0) {
+        Out-Informative -Text 'Following external sources overwritten' -Level 0 -Status $true -ExtendedValue ($ListOverwritten -join ', ') -OverrideTextStatus "Overwritten Sources"
     }
 }
