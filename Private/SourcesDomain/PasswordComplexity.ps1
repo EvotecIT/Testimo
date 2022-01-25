@@ -1,4 +1,5 @@
 ﻿$PasswordComplexity = @{
+    Name   = 'DomainPasswordComplexity'
     Enable = $true
     Scope  = 'Domain'
     Source = @{
@@ -10,7 +11,7 @@
             Area        = 'Security'
             Category    = ''
             Severity    = ''
-            Importance   = 0
+            Importance  = 0
             Description = ''
             Resolution  = ''
             Resources   = @(
@@ -27,7 +28,7 @@
                 Area        = ''
                 Category    = ''
                 Severity    = ''
-                Importance   = 0
+                Importance  = 0
                 Description = ''
                 Resolution  = ''
                 Resources   = @(

@@ -1,4 +1,5 @@
 ﻿$GroupPolicyADM = @{
+    Name   = 'DomainGroupPolicyADM'
     Enable = $true
     Scope  = 'Domain'
     Source = @{
@@ -13,7 +14,7 @@
             Area        = 'Cleanup'
             Category    = 'Group Policy'
             Severity    = ''
-            Importance   = 0
+            Importance  = 0
             Description = ''
             Resolution  = ''
             Resources   = @(

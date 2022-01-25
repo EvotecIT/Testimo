@@ -1,4 +1,5 @@
 ﻿$DomainSecurityDelegatedObjects = @{
+    Name            = 'DomainSecurityDelegatedObjects'
     Enable          = $true
     Scope           = 'Domain'
     Source          = @{

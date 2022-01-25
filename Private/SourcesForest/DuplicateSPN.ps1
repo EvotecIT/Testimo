@@ -1,4 +1,5 @@
 ﻿$DuplicateSPN = @{
+    Name            = 'ForestDuplicateSPN'
     Enable          = $true
     Scope           = 'Forest'
     Source          = @{

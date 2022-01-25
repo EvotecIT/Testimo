@@ -1,4 +1,5 @@
 ﻿$WindowsUpdates = @{
+    Name   = 'DCWindowsUpdates'
     Enable = $true
     Scope  = 'DC'
     Source = @{
@@ -10,7 +11,7 @@
             Area        = ''
             Description = ''
             Resolution  = ''
-            Importance   = 10
+            Importance  = 10
             Resources   = @(
 
             )

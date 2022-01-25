@@ -1,4 +1,5 @@
 ﻿$MachineQuota = @{
+    Name            = 'DomainMachineQuota'
     Enable          = $true
     Scope           = 'Domain'
     Source          = @{

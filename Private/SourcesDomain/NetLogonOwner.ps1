@@ -1,4 +1,5 @@
 $NetLogonOwner = @{
+    Name   = 'DomainNetLogonOwner'
     Enable = $true
     Scope  = 'Domain'
     Source = @{

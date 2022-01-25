@@ -1,5 +1,6 @@
 ﻿
 $ReplicationStatus = @{
+    Name   = "ForestReplicationStatus"
     Enable = $true
     Scope  = 'Forest'
     Source = @{

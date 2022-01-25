@@ -1,4 +1,5 @@
 ﻿$DomainDomainControllers = @{
+    Name            = 'DomainDomainControllers'
     Enable          = $true
     Scope           = 'Domain'
     Source          = @{

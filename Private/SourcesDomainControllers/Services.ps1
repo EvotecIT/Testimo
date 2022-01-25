@@ -1,4 +1,5 @@
 ﻿$Services = [ordered] @{
+    Name   = 'DCServices'
     Enable = $true
     Scope  = 'DC'
     Source = @{

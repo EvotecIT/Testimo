@@ -1,4 +1,5 @@
 ﻿$ForestSubnets = @{
+    Name            = 'ForestSubnets'
     Enable          = $true
     Scope           = 'Forest'
     Source          = [ordered] @{

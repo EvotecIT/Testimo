@@ -1,4 +1,5 @@
 ﻿$DFS = @{
+    Name   = 'DCDFS'
     Enable = $true
     Scope  = 'DC'
     Source = @{
@@ -13,7 +14,7 @@
             Area        = 'Health'
             Category    = 'DFS'
             Severity    = 'High'
-            Importance   = 0
+            Importance  = 0
             Description = "Provides health verification of SYSVOL/DFS on Domain Controller."
             Resolution  = ''
             Resources   = @(
@@ -137,7 +138,7 @@
                 Area        = ''
                 Description = ''
                 Resolution  = ''
-                Importance   = 10
+                Importance  = 10
                 Resources   = @(
                     'https://secureinfra.blog/2019/04/30/field-notes-a-quick-tip-on-dfsr-automatic-recovery-while-you-prepare-for-an-ad-domain-upgrade/'
                     'https://richardjgreen.net/active-directory-dfs-r-auto-recovery/'

@@ -1,16 +1,17 @@
 ﻿$EventLogs = @{
+    Name   = 'DCEventLogs'
     Enable = $true
     Scope  = 'DC'
     Source = @{
-        Name    = "Event Logs"
-        Data    = {
+        Name           = "Event Logs"
+        Data           = {
             Get-EventsInformation -LogName 'Application', 'System', 'Security', 'Microsoft-Windows-PowerShell/Operational' -Machine $DomainController -WarningAction SilentlyContinue
         }
-        Details = [ordered] @{
+        Details        = [ordered] @{
             Area        = ''
             Description = ''
             Resolution  = ''
-            Importance   = 10
+            Importance  = 10
             Resources   = @(
 
             )

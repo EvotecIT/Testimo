@@ -1,16 +1,17 @@
 ﻿$NetworkCardSettings = @{
+    Name   = 'DCNetworkCardSettings'
     Enable = $true
     Scope  = 'DC'
     Source = @{
-        Name    = "Get all network interfaces and firewall status"
-        Data    = {
+        Name           = "Get all network interfaces and firewall status"
+        Data           = {
             Get-ComputerNetwork -ComputerName $DomainController
         }
-        Details = [ordered] @{
+        Details        = [ordered] @{
             Area        = 'Connectivity'
             Category    = ''
             Severity    = ''
-            Importance   = 0
+            Importance  = 0
             Description = ''
             Resolution  = ''
             Resources   = @(
@@ -20,7 +21,7 @@
         ExpectedOutput = $true
     }
     Tests  = [ordered] @{
-        NETBIOSOverTCIP = @{
+        NETBIOSOverTCIP        = @{
             Enable     = $true
             Name       = 'NetBIOS over TCIP should be disabled.'
             Parameters = @{
@@ -32,7 +33,7 @@
                 Area        = 'Connectivity'
                 Category    = 'Legacy Protocols'
                 Severity    = 'Critical'
-                Importance   = 90 # 100 is top
+                Importance  = 90 # 100 is top
                 Description = @'
                 NetBIOS over TCP/IP is a networking protocol that allows legacy computer applications relying on the NetBIOS to be used on modern TCP/IP networks.
                 Enabling NetBios might help an attackers access shared directories, files and also gain sensitive information such as computer name, domain, or workgroup.
@@ -43,40 +44,40 @@
                 )
             }
         }
-        Loopbackpresent = @{
+        Loopbackpresent        = @{
             Enable     = $true
             Name       = 'Loopback IP address should be list in DNS servers on network card'
             Parameters = @{
-                Property              = 'DNSServerSearchOrder'
-                ExpectedValue         = '127.0.0.1'
-                OperationType         = 'Contains'
+                Property      = 'DNSServerSearchOrder'
+                ExpectedValue = '127.0.0.1'
+                OperationType = 'Contains'
             }
         }
-        WindowsFirewall = @{
+        WindowsFirewall        = @{
             Enable     = $true
             Name       = 'Windows Firewall should be enabled on network card'
             Parameters = @{
-                Property              = 'FirewallStatus'
-                ExpectedValue         = $true
-                OperationType         = 'eq'
+                Property      = 'FirewallStatus'
+                ExpectedValue = $true
+                OperationType = 'eq'
             }
         }
         WindowsFirewallProfile = @{
             Enable     = $true
             Name       = 'Windows Firewall should be set on domain network profile'
             Parameters = @{
-                Property              = 'FirewallProfile'
-                ExpectedValue         = 'DomainAuthenticated'
-                OperationType         = 'eq'
+                Property      = 'FirewallProfile'
+                ExpectedValue = 'DomainAuthenticated'
+                OperationType = 'eq'
             }
         }
-        DHCPDisabled = @{
+        DHCPDisabled           = @{
             Enable     = $false
             Name       = 'DHCP should be disabled on network card'
             Parameters = @{
-                Property              = 'DHCPEnabled'
-                ExpectedValue         = $false
-                OperationType         = 'eq'
+                Property      = 'DHCPEnabled'
+                ExpectedValue = $false
+                OperationType = 'eq'
             }
         }
     }

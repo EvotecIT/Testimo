@@ -1,4 +1,5 @@
 ﻿$TimeSynchronizationExternal = @{
+    Name               = 'DCTimeSynchronizationExternal'
     Enable             = $true
     Scope              = 'DC'
     Source             = @{
@@ -14,7 +15,7 @@
             Category    = 'Configuration'
             Description = ''
             Resolution  = ''
-            Importance   = 2
+            Importance  = 2
             Resources   = @(
                 '[How to: Fix Time Sync in your Domain](https://community.spiceworks.com/how_to/166215-fix-time-sync-in-your-domain-use-w32time)'
                 '[Windows Time Settings in a Domain](https://www.concurrency.com/blog/october-2018/windows-time-settings-in-a-domain)'
@@ -30,7 +31,7 @@
                 Area        = ''
                 Category    = 'Configuration'
                 Description = ''
-                Importance   = 2
+                Importance  = 2
                 Resources   = @(
 
                 )

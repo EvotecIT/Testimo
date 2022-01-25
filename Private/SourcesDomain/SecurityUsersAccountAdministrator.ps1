@@ -1,9 +1,10 @@
 ﻿$SecurityUsersAcccountAdministrator = @{
+    Name   = 'DomainSecurityUsersAcccountAdministrator'
     Enable = $true
     Scope  = 'Domain'
     Source = @{
-        Name       = "Users: Administrator"
-        Data       = {
+        Name           = "Users: Administrator"
+        Data           = {
             # this test is kind of special
             # basically when account is disabled it doesn't make sense to check for PasswordLastSet
             # therefore i'm adding setting PasswordLastSet to current date to be able to test just that field
@@ -23,11 +24,11 @@
                 }
             }
         }
-        Details = [ordered] @{
+        Details        = [ordered] @{
             Area        = ''
             Category    = ''
             Severity    = ''
-            Importance   = 0
+            Importance  = 0
             Description = ''
             Resolution  = ''
             Resources   = @(

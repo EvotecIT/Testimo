@@ -1,4 +1,5 @@
 ﻿$ForestConfigurationPartitionOwners = @{
+    Name           = 'ForestConfigurationPartitionOwners'
     Enable         = $true
     Scope          = 'Forest'
     Source         = @{

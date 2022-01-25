@@ -1,4 +1,5 @@
 ﻿$SecurityKRBGT = @{
+    Name            = 'DomainSecurityKRBGT'
     Enable          = $true
     Scope           = 'Domain'
     Source          = @{

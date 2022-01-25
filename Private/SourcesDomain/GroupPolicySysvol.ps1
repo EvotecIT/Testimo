@@ -1,4 +1,5 @@
 ﻿$GroupPolicySysvol = @{
+    Name   = 'DomainGroupPolicySysvol'
     Enable = $true
     Scope  = 'Domain'
     Source = @{
@@ -10,7 +11,7 @@
             Area        = 'Security'
             Category    = ''
             Severity    = ''
-            Importance   = 0
+            Importance  = 0
             Description = "GPO Permissions are stored in Active Directory and SYSVOL at the same time. Sometimes when deleting GPO or due to replication issues GPO becomes orphaned (no SYSVOL files) or SYSVOL files exists but no GPO."
             Resolution  = ''
             Resources   = @(
@@ -20,7 +21,7 @@
         ExpectedOutput = $true
     }
     Tests  = [ordered] @{
-        SysvolExists     = @{
+        SysvolExists = @{
             Enable     = $true
             Name       = 'GPO: Files on SYSVOL are not Orphaned'
             Parameters = @{

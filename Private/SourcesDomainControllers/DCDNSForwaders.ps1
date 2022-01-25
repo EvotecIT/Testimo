@@ -1,4 +1,5 @@
 ﻿$DCDNSForwaders = @{
+    Name   = 'DCDNSForwaders'
     Enable = $true
     Scope  = 'DC'
     Source = @{
@@ -11,7 +12,7 @@
             Area        = 'Configuration'
             Category    = 'DNS'
             Severity    = 'Medium'
-            Importance   = 0
+            Importance  = 0
             Description = ''
             Resolution  = ''
             Resources   = @(

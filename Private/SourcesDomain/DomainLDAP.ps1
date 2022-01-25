@@ -1,4 +1,5 @@
 ﻿$DomainLDAP = @{
+    Name            = 'DomainLDAP'
     Enable          = $true
     Scope           = 'Domain'
     Source          = @{

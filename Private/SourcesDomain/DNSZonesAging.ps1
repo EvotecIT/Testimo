@@ -1,16 +1,17 @@
 ﻿$DnsZonesAging = @{
+    Name   = 'DomainDnsZonesAging'
     Enable = $true
     Scope  = 'Domain'
     Source = @{
         Name           = "Aging primary DNS Zone"
         Data           = {
-            Get-WinDNSServerZones -Forest $ForestName -ZoneName $Domain -IncludeDomains $Domain
+            Get-WinDnsServerZones -Forest $ForestName -ZoneName $Domain -IncludeDomains $Domain
         }
         Details        = [ordered] @{
             Area        = ''
             Category    = ''
             Severity    = ''
-            Importance   = 0
+            Importance  = 0
             Description = ''
             Resolution  = ''
             Resources   = @(

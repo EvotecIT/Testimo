@@ -1,16 +1,17 @@
 ﻿$DomainFSMORoles = @{
+    Name   = 'DomainRoles'
     Enable = $true
     Scope  = 'Domain'
     Source = @{
-        Name       = 'Roles availability'
-        Data       = {
+        Name           = 'Roles availability'
+        Data           = {
             Test-ADRolesAvailability -Domain $Domain
         }
-        Details = [ordered] @{
+        Details        = [ordered] @{
             Area        = ''
             Category    = ''
             Severity    = ''
-            Importance   = 0
+            Importance  = 0
             Description = ''
             Resolution  = ''
             Resources   = @(

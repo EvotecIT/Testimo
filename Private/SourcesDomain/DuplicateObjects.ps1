@@ -1,4 +1,5 @@
 ﻿$DuplicateObjects = @{
+    Name           = 'DomainDuplicateObjects'
     Enable         = $true
     Scope          = 'Domain'
     Source         = @{

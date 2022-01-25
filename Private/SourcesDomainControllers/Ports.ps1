@@ -1,4 +1,5 @@
 ﻿$Ports = [ordered] @{
+    Name = 'DCPorts'
     Enable = $true
     Scope  = 'DC'
     Source = [ordered] @{

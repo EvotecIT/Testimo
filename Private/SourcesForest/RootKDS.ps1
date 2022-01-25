@@ -1,4 +1,5 @@
 ﻿$RootKDS = @{
+    Name            = "ForestRootKDS"
     Enable          = $true
     Scope           = 'Forest'
     Source          = @{
