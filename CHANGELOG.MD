@@ -1,9 +1,11 @@
 ﻿# Testimo Release History
 
-## 0.0.74
+## 0.0.74 - 2022.01.25
   - Improved test `ForestDuplicateSPN` to check for duplicate SPNs in a forest
   - Added test `ForestRootKDS` to check for a KDS Root Key
   - Fixes a typo in `DomainSecurityComputers` [#156](https://github.com/EvotecIT/Testimo/issues/156)
+  - Improved summary a bit (still requires work)
+  - Added support for external tests
 
 ## 0.0.73 - 2021.02.03
   - Added a new test `DomainMachineQuota` to check for `ms-DS-MachineAccountQuota`
