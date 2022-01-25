@@ -416,10 +416,14 @@
         } elseif ($Domain) {
             $Script:Reporting['Domains'][$Domain]['Summary'] = $TestsSummaryFinal
         } else {
-            $Script:Reporting['Summary'] = $TestsSummaryFinal
+            if ($Scope -ne 'Forest') {
+                $Script:Reporting['Summary'] = $TestsSummaryFinal
+            } else {
+                $Script:Reporting['Forest']['Summary'] = $TestsSummaryFinal
+            }
         }
     } else {
-        $Script:Reporting['Summary'] = $TestsSummaryFinal
+        $Script:Reporting[$Scope]['Summary'] = $TestsSummaryFinal
     }
     Out-Summary -Scope $Scope -Text $SummaryText -Time $GlobalTime -Level ($LevelSummary - 3) -Domain $Domain -DomainController $DomainController -TestsSummary $TestsSummaryFinal
 }

@@ -26,16 +26,6 @@ function Invoke-Testimo {
     )
     Add-TestimoSources -Folder $ExternalTests
 
-    $AllSources = @(
-        $Script:TestimoConfiguration.ActiveDirectory.Keys
-        $Script:TestimoConfiguration.Office365.Keys
-    )
-    foreach ($Source in $Sources) {
-
-    }
-    foreach ($Source in $ExcludeSources) {
-
-    }
     if (-not $Script:DefaultSources) {
         $Script:DefaultSources = Get-TestimoSources -Enabled -SourcesOnly
     } else {
@@ -69,6 +59,9 @@ function Invoke-Testimo {
         $Script:Reporting['Version'] = "Current: $($TestimoVersion.Version)"
     }
     Out-Informative -OverrideTitle 'Testimo' -Text 'Version' -Level 0 -Status $null -ExtendedValue $Script:Reporting['Version']
+
+    # make sure that tests are initialized (small one line tests require more, default data)
+    Initialize-TestimoTests
 
     Import-TestimoConfiguration -Configuration $Configuration
 
@@ -114,6 +107,8 @@ function Invoke-Testimo {
         Out-Informative -Text 'Following Domain Controllers will be ignored' -Level 0 -Status $null -ExtendedValue ($Script:TestimoConfiguration.Exclusions.DomainControllers -join ', ')
     }
 
+    Get-RequestedSources -Sources $Sources -ExcludeSources $ExcludeSources
+
     if ($Script:TestimoConfiguration['Types']['ActiveDirectory']) {
         $ForestDetails = Get-WinADForestDetails -WarningVariable ForestWarning -WarningAction SilentlyContinue -Forest $ForestName -ExcludeDomains $ExcludeDomains -IncludeDomains $IncludeDomains -IncludeDomainControllers $IncludeDomainControllers -ExcludeDomainControllers $ExcludeDomainControllers -SkipRODC:$SkipRODC -Extended
         if ($ForestDetails) {
@@ -146,7 +141,7 @@ function Invoke-Testimo {
             Write-Color -Text '[e]', '[Testimo] ', "Forest Information couldn't be gathered. ", "[", "Error", "] ", "[", $ForestWarning, "]" -Color Red, DarkGray, Yellow, Cyan, DarkGray, Cyan, Cyan, Red, Cyan
         }
     }
-    foreach ($Scope in $Scopes) {
+    foreach ($Scope in $Scopes | Where-Object { $_ -notin 'ActiveDirectory' }) {
         if ($Script:TestimoConfiguration['Types'][$Scope]) {
             $null = Start-Testing -Scope $Scope -Variables $Variables
         }
