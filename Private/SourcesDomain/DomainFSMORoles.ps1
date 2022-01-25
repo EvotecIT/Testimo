@@ -3,7 +3,7 @@
     Enable = $true
     Scope  = 'Domain'
     Source = @{
-        Name           = 'Roles availability'
+        Name           = 'Domain Roles Availability'
         Data           = {
             Test-ADRolesAvailability -Domain $Domain
         }
