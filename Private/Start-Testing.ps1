@@ -116,13 +116,13 @@
                 if ($CurrentSource['Requirements']) {
                     if ($null -ne $CurrentSource['Requirements']['IsDomainRoot']) {
                         if (-not $CurrentSource['Requirements']['IsDomainRoot'] -eq $IsDomainRoot) {
-                            Out-Skip -Test $CurrentSource['Name'] -DomainController $DomainController -Domain $Domain -TestsSummary $TestsSummary -Source $ReferenceID -Level $Level
+                            Out-Skip -Scope $Scope -Test $CurrentSource['Name'] -DomainController $DomainController -Domain $Domain -TestsSummary $TestsSummary -Source $ReferenceID -Level $Level
                             continue
                         }
                     }
                     if ($null -ne $CurrentSource['Requirements']['IsPDC']) {
                         if (-not $CurrentSource['Requirements']['IsPDC'] -eq $IsPDC) {
-                            Out-Skip -Test $CurrentSource['Name'] -DomainController $DomainController -Domain $Domain -TestsSummary $TestsSummary -Source $ReferenceID -Level $Level
+                            Out-Skip -Scope $Scope -Test $CurrentSource['Name'] -DomainController $DomainController -Domain $Domain -TestsSummary $TestsSummary -Source $ReferenceID -Level $Level
                             continue
                         }
                     }
@@ -139,14 +139,14 @@
                         }
                         if ($Commands -contains $false) {
                             $CommandsTested = $CurrentSource['Requirements']['CommandAvailable'] -join ', '
-                            Out-Skip -Test $CurrentSource['Name'] -DomainController $DomainController -Domain $Domain -TestsSummary $TestsSummary -Source $ReferenceID -Level $Level -Reason "Skipping - At least one command unavailable ($CommandsTested)"
+                            Out-Skip -Scope $Scope -Test $CurrentSource['Name'] -DomainController $DomainController -Domain $Domain -TestsSummary $TestsSummary -Source $ReferenceID -Level $Level -Reason "Skipping - At least one command unavailable ($CommandsTested)"
                             continue
                         }
                     }
                     if ($null -ne $CurrentSource['Requirements']['IsInternalForest']) {
                         if ($CurrentSource['Requirements']['IsInternalForest'] -eq $true) {
                             if ($ForestName) {
-                                Out-Skip -Test $CurrentSource['Name'] -DomainController $DomainController -Domain $Domain -TestsSummary $TestsSummary -Source $ReferenceID -Level $Level -Reason "Skipping - External forest requested. Not supported test."
+                                Out-Skip -Scope $Scope -Test $CurrentSource['Name'] -DomainController $DomainController -Domain $Domain -TestsSummary $TestsSummary -Source $ReferenceID -Level $Level -Reason "Skipping - External forest requested. Not supported test."
                                 continue
                             }
                         }
