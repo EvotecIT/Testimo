@@ -17,7 +17,7 @@
             )
             Tags        = 'Services', 'Configuration'
             StatusTrue  = 1
-            StatusFalse = 6
+            StatusFalse = 5
         }
         ExpectedOutput = $true
     }
