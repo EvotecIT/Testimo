@@ -26,17 +26,17 @@
 
     if ($Source -and -not $Test) {
         # This means we're dealing with source
-        if ($null -ne $Source.Details.Importance) {
+        if (-not [string]::IsNullOrWhitespace($Source.Details.Importance)) {
             $ImportanceInformation = $Script:Importance[$Source.Details.Importance]
         } else {
             $ImportanceInformation = 'Not defined'
         }
-        if ($null -ne $Source.Details.Category) {
+        if (-not [string]::IsNullOrWhitespace($Source.Details.Category)) {
             $Category = $Source.Details.Category
         } else {
             $Category = 'Not defined'
         }
-        if ($null -ne $Source.Details.ActionType) {
+        if (-not [string]::IsNullOrWhitespace($Source.Details.ActionType)) {
             $Action = $Script:ActionType[$Source.Details.ActionType]
         } else {
             $Action = 'Not defined'
@@ -68,17 +68,17 @@
             }
         }
     } else {
-        if ($null -ne $Test.Details.Importance) {
+        if (-not [string]::IsNullOrWhitespace($Test.Details.Importance)) {
             $ImportanceInformation = $Script:Importance[$Test.Details.Importance]
         } else {
             $ImportanceInformation = 'Not defined'
         }
-        if ($null -ne $Test.Details.Category) {
+        if (-not [string]::IsNullOrWhitespace($Test.Details.Category)) {
             $Category = $Test.Details.Category
         } else {
             $Category = 'Not defined'
         }
-        if ($null -ne $Test.Details.ActionType) {
+        if (-not [string]::IsNullOrWhitespace($Test.Details.ActionType)) {
             $Action = $Script:ActionType[$Test.Details.ActionType]
         } else {
             $Action = 'Not defined'
@@ -138,6 +138,10 @@
         } else {
             $Script:Reporting[$Scope]['Tests'][$ReferenceID]['Results'].Add($Output)
         }
+    }
+    if ($null -eq $StatusColor) {
+        Write-Warning -Message "Status color for $StatusTranslation is not within -1 and 5 range. Test: $($Output.Name). Fix test!!"
+        $StatusColor = [ConsoleColor]::Red
     }
     [ConsoleColor[]] $Color = [ConsoleColor]::Cyan, $StatusColor, [ConsoleColor]::Cyan, [ConsoleColor]::Cyan, $StatusColor, [ConsoleColor]::Cyan
     if ($ExtendedValue) {
