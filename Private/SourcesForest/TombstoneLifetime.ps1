@@ -1,4 +1,5 @@
 ﻿$TombstoneLifetime = @{
+    Name           = "ForestTombstoneLifetime"
     Enable         = $true
     Scope          = 'Forest'
     Source         = [ordered]@{

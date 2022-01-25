@@ -1,4 +1,5 @@
 ﻿$SysVolDFSR = @{
+    Name   = 'DomainSysVolDFSR'
     Enable = $true
     Scope  = 'Domain'
     Source = @{
@@ -23,7 +24,7 @@
             Area        = 'Health'
             Category    = 'SYSVOL'
             Severity    = ''
-            Importance   = 0
+            Importance  = 0
             Description = 'Checks if DFS-R is available.'
             Resolution  = ''
             Resources   = @(

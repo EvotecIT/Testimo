@@ -1,6 +1,7 @@
 ﻿function Test-StepTwo {
     [CmdletBinding()]
     param(
+        [string] $Scope,
         [System.Collections.IDictionary] $Test,
         [string] $Domain,
         [string] $DomainController,
@@ -16,7 +17,7 @@
         [string] $ReferenceID,
         [nullable[bool]] $ExpectedOutput
     )
-    Out-Begin -Text $TestName -Level $Level -Domain $Domain -DomainController $DomainController
+    Out-Begin -Scope $Scope -Text $TestName -Level $Level -Domain $Domain -DomainController $DomainController
 
     $ScriptBlock = {
         $Operators = @{
@@ -196,7 +197,7 @@
             }
             $ReportExtended = $ReportExtended -join ', '
         }
-        Out-Status -Text $TestName -Status $ReportResult -ExtendedValue $ReportExtended -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Test $Test
+        Out-Status -Scope $Scope -Text $TestName -Status $ReportResult -ExtendedValue $ReportExtended -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Test $Test
         return $ReportResult
     }
 
@@ -206,7 +207,7 @@
         try {
             & $ScriptBlock
         } catch {
-            Out-Status -Text $TestName -Status $false -ExtendedValue $_.Exception.Message -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Test $Test
+            Out-Status -Scope $Scope -Text $TestName -Status $false -ExtendedValue $_.Exception.Message -Domain $Domain -DomainController $DomainController -ReferenceID $ReferenceID -Test $Test
             return $False
         }
     }

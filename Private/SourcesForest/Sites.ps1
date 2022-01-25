@@ -1,4 +1,5 @@
 ﻿$Sites = @{
+    Name            = "ForestSites"
     Enable          = $true
     Scope           = 'Forest'
     Source          = [ordered] @{

@@ -1,4 +1,5 @@
 ﻿$TimeSynchronizationInternal = @{
+    Name   = 'DCTimeSynchronizationInternal'
     Enable = $true
     Scope  = 'DC'
     Source = @{
@@ -11,7 +12,7 @@
             Area        = ''
             Description = ''
             Resolution  = ''
-            Importance   = 2
+            Importance  = 2
             Resources   = @(
                 'https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc773263(v=ws.10)#w2k3tr_times_tools_uhlp'
             )

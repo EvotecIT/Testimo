@@ -1,4 +1,5 @@
 ﻿$OrganizationalUnitsProtected = @{
+    Name   = 'DomainOrganizationalUnitsProtected'
     Enable = $true
     Scope  = 'Domain'
     Source = @{
@@ -16,7 +17,7 @@
             Area        = 'Cleanup'
             Category    = ''
             Severity    = ''
-            Importance   = 0
+            Importance  = 0
             Description = ''
             Resolution  = ''
             Resources   = @(

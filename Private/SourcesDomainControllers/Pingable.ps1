@@ -1,17 +1,18 @@
 ﻿$Pingable = @{
+    Name   = 'DCPingable'
     Enable = $true
     Scope  = 'DC'
     Source = @{
-        Name       = 'Ping Connectivity'
-        Data       = {
+        Name           = 'Ping Connectivity'
+        Data           = {
             Test-NetConnection -ComputerName $DomainController -WarningAction SilentlyContinue
         }
-        Details = [ordered] @{
-            Area             = ''
-            Description      = ''
-            Resolution   = ''
-            Importance        = 10
-            Resources = @(
+        Details        = [ordered] @{
+            Area        = ''
+            Description = ''
+            Resolution  = ''
+            Importance  = 10
+            Resources   = @(
 
             )
         }

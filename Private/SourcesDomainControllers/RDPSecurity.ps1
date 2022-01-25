@@ -1,16 +1,17 @@
 ﻿$RDPSecurity = [ordered] @{
+    Name   = 'DCRDPSecurity'
     Enable = $true
     Scope  = 'DC'
     Source = [ordered] @{
-        Name    = 'RDP Security'
-        Data    = {
+        Name           = 'RDP Security'
+        Data           = {
             Get-ComputerRDP -ComputerName $DomainController -WarningAction SilentlyContinue
         }
-        Details = [ordered] @{
+        Details        = [ordered] @{
             Area        = 'Connectivity'
             Description = ''
             Resolution  = ''
-            Importance   = 10
+            Importance  = 10
             Resources   = @(
 
             )
@@ -18,7 +19,7 @@
         ExpectedOutput = $true
     }
     Tests  = [ordered] @{
-        PortOpen                    = [ordered] @{
+        PortOpen                 = [ordered] @{
             Enable     = $true
             Name       = 'Port is OPEN'
             Parameters = @{
@@ -31,14 +32,14 @@
                 Area        = 'Connectivity'
                 Description = ''
                 Resolution  = ''
-                Importance   = 10
+                Importance  = 10
                 Resources   = @(
                     'https://lazywinadmin.com/2014/04/powershell-getset-network-level.html'
                     'https://devblogs.microsoft.com/scripting/weekend-scripter-report-on-network-level-authentication/'
                 )
             }
         }
-        NLAAuthenticationEnabled    = [ordered] @{
+        NLAAuthenticationEnabled = [ordered] @{
             Enable     = $true
             Name       = 'NLA Authentication is Enabled'
             Parameters = @{
@@ -50,14 +51,14 @@
                 Area        = 'Connectivity'
                 Description = ''
                 Resolution  = ''
-                Importance   = 10
+                Importance  = 10
                 Resources   = @(
                     'https://lazywinadmin.com/2014/04/powershell-getset-network-level.html'
                     'https://devblogs.microsoft.com/scripting/weekend-scripter-report-on-network-level-authentication/'
                 )
             }
         }
-        MinimalEncryptionLevel = [ordered] @{
+        MinimalEncryptionLevel   = [ordered] @{
             Enable     = $true
             Name       = 'Minimal Encryption Level is set to at least High'
             Parameters = @{
@@ -70,7 +71,7 @@
                 Area        = 'Connectivity'
                 Description = 'Remote connections must be encrypted to prevent interception of data or sensitive information. Selecting "High Level" will ensure encryption of Remote Desktop Services sessions in both directions.'
                 Resolution  = ''
-                Importance   = 10
+                Importance  = 10
                 Resources   = @(
                     'https://www.stigviewer.com/stig/windows_server_2012_member_server/2014-01-07/finding/V-3454'
                 )

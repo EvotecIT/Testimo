@@ -1,4 +1,5 @@
 ﻿$DNSResolveExternal = @{
+    Name   = 'DCDnsResolveExternal'
     Enable = $true
     Scope  = 'DC'
     Source = @{
@@ -15,7 +16,7 @@
             Severity    = 'High'
             Description = ''
             Resolution  = ''
-            Importance   = 10
+            Importance  = 10
             Resources   = @(
 
             )

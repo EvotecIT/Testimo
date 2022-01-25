@@ -1,19 +1,20 @@
 ﻿# This is already done in RDPSecurity as well, stays disabled by default.
 
 $RDPPorts = [ordered] @{
+    Name   = 'DCRDPPorts'
     Enable = $false
     Scope  = 'DC'
     Source = [ordered] @{
-        Name = 'RDP Port is open'
-        Data = {
+        Name           = 'RDP Port is open'
+        Data           = {
             Test-ComputerPort -ComputerName $DomainController -PortTCP 3389 -WarningAction SilentlyContinue
         }
-        Details = [ordered] @{
-            Area             = ''
-            Description      = ''
-            Resolution   = ''
-            Importance        = 10
-            Resources = @(
+        Details        = [ordered] @{
+            Area        = ''
+            Description = ''
+            Resolution  = ''
+            Importance  = 10
+            Resources   = @(
 
             )
         }

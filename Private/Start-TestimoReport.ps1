@@ -6,7 +6,8 @@
         [switch] $Online,
         [switch] $ShowHTML,
         [switch] $HideSteps,
-        [switch] $AlwaysShowSteps
+        [switch] $AlwaysShowSteps,
+        [string[]] $Scopes
     )
     if ($FilePath -eq '') {
         $FilePath = Get-FileName -Extension 'html' -Temporary
@@ -64,9 +65,9 @@
         New-HTMLTableCondition -Name 'Assessment' -Value $true -BackgroundColor 'LawnGreen' -Inline
         New-HTMLTableCondition -Name 'Assessment' -Value $false -BackgroundColor 'TorchRed' -Inline
     }
-    [Array] $PassedTests = $TestResults['Results'] | Where-Object { $_.Status -eq $true }
-    [Array] $FailedTests = $TestResults['Results'] | Where-Object { $_.Status -eq $false }
-    [Array] $SkippedTests = $TestResults['Results'] | Where-Object { $_.Status -ne $true -and $_.Status -ne $false }
+    # [Array] $PassedTests = $TestResults['Results'] | Where-Object { $_.Status -eq $true }
+    # [Array] $FailedTests = $TestResults['Results'] | Where-Object { $_.Status -eq $false }
+    # [Array] $SkippedTests = $TestResults['Results'] | Where-Object { $_.Status -ne $true -and $_.Status -ne $false }
 
     New-HTML -FilePath $FilePath -Online:$Online {
         New-HTMLSectionStyle -BorderRadius 0px -HeaderBackGroundColor Grey -RemoveShadow
@@ -86,57 +87,45 @@
 
         # Find amount of sources used. If just one, skip summary
         $NumberOfSourcesExecuted = 0
-        $NumberOfSourcesExecuted += $TestResults['Forest']['Tests'].Count
+        #$NumberOfSourcesExecuted += $TestResults['Forest']['Tests'].Count
+        foreach ($Key in $TestResults.Keys) {
+            if ($Key -notin 'Version', 'Errors', 'Results', 'Summary', 'Domains', 'BySource', 'Configuration') {
+                $NumberOfSourcesExecuted += $TestResults[$Key]['Tests'].Count
+            }
+        }
         foreach ($Domain in $TestResults['Domains'].Keys) {
             $NumberOfSourcesExecuted += $TestResults['Domains'][$Domain]['Tests'].Count
             $NumberOfSourcesExecuted += $TestResults['Domains'][$Domain]['DomainControllers'].Count
         }
 
-        $ChartData = New-ChartData -Results $TestResults['Results']
-        $TableData = [ordered] @{}
-        foreach ($Chart in $ChartData.Keys) {
-            $TableData[$Chart] = $ChartData[$Chart].Count
-        }
-        $TableData['Total'] = $TestResults['Summary'].Total
-        $DisplayTableData = [PSCustomObject] $TableData
-
         if ($NumberOfSourcesExecuted -gt 1) {
-            New-HTMLTab -Name 'Summary' -IconBrands galactic-senate {
-                New-HTMLSection -HeaderText "Tests results" -HeaderBackGroundColor DarkGray {
-                    New-HTMLContainer {
-                        New-HTMLChart {
-                            #New-ChartPie -Name 'Passed' -Value ($PassedTests.Count) -Color $ColorPassed
-                            #New-ChartPie -Name 'Failed' -Value ($FailedTests.Count) -Color $ColorFailed
-                            #New-ChartPie -Name 'Skipped' -Value ($SkippedTests.Count) -Color $ColorSkipped
-                            foreach ($Key in $ChartData.Keys) {
-                                New-ChartPie -Name $Key -Value $ChartData[$Key].Count -Color $ChartData[$Key].Color
-                            }
+            Start-TestimoReportSummaryAdvanced -TestResults $TestResults
+        }
+        foreach ($Scope in $Scopes) {
+            if ($TestResults[$Scope]['Tests'].Count -gt 0) {
+                # There's at least 1 forest test - so lets go
+                if ($NumberOfSourcesExecuted -eq 1) {
+                    # there's just one forest test, and only 1 forest test in total so we don't need tabs
+                    foreach ($Source in $TestResults[$Scope]['Tests'].Keys) {
+                        $Name = $TestResults[$Scope]['Tests'][$Source]['Name']
+                        $Data = $TestResults[$Scope]['Tests'][$Source]['Data']
+                        $Information = $TestResults[$Scope]['Tests'][$Source]['Information']
+                        $SourceCode = $TestResults[$Scope]['Tests'][$Source]['SourceCode']
+                        $Results = $TestResults[$Scope]['Tests'][$Source]['Results'] #| Select-Object -Property DisplayName, Type, Category, Assessment, Importance, Action, Extended
+                        $WarningsAndErrors = $TestResults[$Scope]['Tests'][$Source]['WarningsAndErrors']
+                        Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -TestResults $TestResults -Type $Scope -AlwaysShowSteps:$AlwaysShowSteps.IsPresent
+                    }
+                } else {
+                    New-HTMLTab -Name $Scope -IconBrands first-order {
+                        foreach ($Source in $TestResults[$Scope]['Tests'].Keys) {
+                            $Name = $TestResults[$Scope]['Tests'][$Source]['Name']
+                            $Data = $TestResults[$Scope]['Tests'][$Source]['Data']
+                            $Information = $TestResults[$Scope]['Tests'][$Source]['Information']
+                            $SourceCode = $TestResults[$Scope]['Tests'][$Source]['SourceCode']
+                            $Results = $TestResults[$Scope]['Tests'][$Source]['Results'] #| Select-Object -Property DisplayName, Type, Category, Assessment, Importance, Action, Extended
+                            $WarningsAndErrors = $TestResults[$Scope]['Tests'][$Source]['WarningsAndErrors']
+                            Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -TestResults $TestResults -Type $Scope -AlwaysShowSteps:$AlwaysShowSteps.IsPresent
                         }
-                        New-HTMLTable -DataTable $DisplayTableData -HideFooter -DisableSearch {
-                            foreach ($Chart in $ChartData.Keys) {
-                                New-HTMLTableContent -ColumnName $Chart -BackGroundColor $ChartData[$Chart].Color -Color Black
-                            }
-                            #New-HTMLTableContent -ColumnName 'Passed' -BackGroundColor $TestResults['Configuration']['Colors']['ColorPassed'] -Color $TestResults['Configuration']['Colors']['ColorPassedText']
-                            #New-HTMLTableContent -ColumnName 'Failed' -BackGroundColor $TestResults['Configuration']['Colors']['ColorFailed'] -Color $TestResults['Configuration']['Colors']['ColorFailedText']
-                            #New-HTMLTableContent -ColumnName 'Skipped' -BackGroundColor $TestResults['Configuration']['Colors']['ColorSkipped'] -Color $TestResults['Configuration']['Colors']['ColorSkippedText']
-                        } -DataStore HTML -Buttons @() -DisablePaging -DisableInfo -DisableOrdering
-                    } -Width '35%'
-                    New-HTMLContainer {
-                        New-HTMLText -Text @(
-                            "Below you can find overall summary of all tests executed in this Testimo run."
-                        ) -FontSize 10pt
-
-                        $ResultsDisplay = $TestResults['Results'] | Select-Object -Property DisplayName, Type, Category, Assessment, Importance, Action, Extended, Domain, DomainController
-                        New-HTMLTable -DataTable $ResultsDisplay {
-                            #New-HTMLTableCondition -Name 'Status' -Value $true -BackgroundColor $TestResults['Configuration']['Colors']['ColorPassed'] -Color $TestResults['Configuration']['Colors']['ColorPassedText']  #-Row
-                            #New-HTMLTableCondition -Name 'Status' -Value $false -BackgroundColor $TestResults['Configuration']['Colors']['ColorFailed'] -Color $TestResults['Configuration']['Colors']['ColorFailedText']  #-Row
-                            #New-HTMLTableCondition -Name 'Status' -Value $null -BackgroundColor $TestResults['Configuration']['Colors']['ColorSkipped'] -Color $TestResults['Configuration']['Colors']['ColorSkippedText']  #-Row
-                            foreach ($Status in $Script:StatusTranslation.Keys) {
-                                New-HTMLTableCondition -Name 'Assessment' -Value $Script:StatusTranslation[$Status] -BackgroundColor $Script:StatusTranslationColors[$Status] -Row
-                            }
-                            New-HTMLTableCondition -Name 'Assessment' -Value $true -BackgroundColor $TestResults['Configuration']['Colors']['ColorPassed'] -Color $TestResults['Configuration']['Colors']['ColorPassedText'] -Row
-                            New-HTMLTableCondition -Name 'Assessment' -Value $false -BackgroundColor $TestResults['Configuration']['Colors']['ColorFailed'] -Color $TestResults['Configuration']['Colors']['ColorFailedText'] -Row
-                        } -Filtering
                     }
                 }
             }

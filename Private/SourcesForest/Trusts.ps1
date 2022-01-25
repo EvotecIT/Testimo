@@ -1,4 +1,5 @@
 ﻿$Trusts = @{
+    Name           = "ForestTrusts"
     Enable         = $true
     Scope          = 'Forest'
     Source         = @{

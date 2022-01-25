@@ -1,16 +1,17 @@
 ﻿$DNSScavengingForPrimaryDNSServer = @{
+    Name   = 'DomainDNSScavengingForPrimaryDNSServer'
     Enable = $true
     Scope  = 'Domain'
     Source = @{
-        Name    = "DNS Scavenging - Primary DNS Server"
-        Data    = {
+        Name           = "DNS Scavenging - Primary DNS Server"
+        Data           = {
             Get-WinDnsServerScavenging -Forest $ForestName -IncludeDomains $Domain
         }
-        Details = [ordered] @{
+        Details        = [ordered] @{
             Area        = ''
             Category    = ''
             Severity    = ''
-            Importance   = 0
+            Importance  = 0
             Description = ''
             Resolution  = ''
             Resources   = @(

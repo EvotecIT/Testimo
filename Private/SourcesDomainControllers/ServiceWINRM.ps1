@@ -1,4 +1,5 @@
 ﻿$ServiceWINRM = @{
+    Name   = 'DCServiceWINRM'
     Enable = $true
     Scope  = 'DC'
     Source = @{
@@ -11,7 +12,7 @@
             Area        = ''
             Description = 'Storage of administrative credentials could allow unauthorized access. Disallowing the storage of RunAs credentials for Windows Remote Management will prevent them from being used with plug-ins. The Windows Remote Management (WinRM) service must not store RunAs credentials.'
             Resolution  = ''
-            Importance   = 10
+            Importance  = 10
             Resources   = @(
 
             )
@@ -34,7 +35,7 @@
                 Area        = ''
                 Description = 'Storage of administrative credentials could allow unauthorized access. Disallowing the storage of RunAs credentials for Windows Remote Management will prevent them from being used with plug-ins. The Windows Remote Management (WinRM) service must not store RunAs credentials.'
                 Resolution  = ''
-                Importance   = 10
+                Importance  = 10
                 Resources   = @(
                     'https://www.stigviewer.com/stig/windows_server_2016/2018-03-07/finding/V-73603'
                 )

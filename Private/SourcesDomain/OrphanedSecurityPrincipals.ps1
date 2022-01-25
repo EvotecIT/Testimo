@@ -1,4 +1,5 @@
 ﻿$OrphanedForeignSecurityPrincipals = @{
+    Name     = 'DomainOrphanedForeignSecurityPrincipals'
     Enable   = $true
     Scope    = 'Domain'
     Source   = @{

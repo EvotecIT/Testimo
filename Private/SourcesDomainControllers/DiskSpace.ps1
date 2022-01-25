@@ -1,4 +1,5 @@
 ﻿$DiskSpace = @{
+    Name   = 'DCDiskSpace'
     Enable = $true
     Scope  = 'DC'
     Source = @{
@@ -11,7 +12,7 @@
             Category    = 'Disk'
             Description = ''
             Resolution  = ''
-            Importance   = 10
+            Importance  = 10
             Resources   = @(
 
             )

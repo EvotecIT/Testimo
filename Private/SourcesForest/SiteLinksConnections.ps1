@@ -1,4 +1,5 @@
 ﻿$SiteLinksConnections = @{
+    Name   = "ForestSiteLinksConnections"
     Enable = $true
     Scope  = 'Forest'
     Source = @{
@@ -11,7 +12,7 @@
             Category    = 'Sites'
             Description = ''
             Resolution  = ''
-            Importance   = 10
+            Importance  = 10
             Severity    = 'Informational'
             Resources   = @(
 

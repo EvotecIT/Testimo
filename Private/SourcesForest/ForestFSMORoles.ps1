@@ -1,4 +1,5 @@
 ﻿$ForestFSMORoles = @{
+    Name   = 'ForestRoles'
     Enable = $true
     Scope  = 'Forest'
     Source = @{

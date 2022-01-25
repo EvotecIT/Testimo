@@ -1,5 +1,6 @@
 ﻿$ForestConfigurationPartitionOwnersContainers = @{
     # This test is disabled by default because
+    Name           = 'ForestConfigurationPartitionOwnersContainers'
     Enable         = $false
     Scope          = 'Forest'
     Source         = @{

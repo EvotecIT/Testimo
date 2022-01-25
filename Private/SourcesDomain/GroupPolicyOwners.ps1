@@ -1,4 +1,5 @@
 ﻿$GroupPolicyOwner = @{
+    Name   = 'DomainGroupPolicyOwner'
     Enable = $true
     Scope  = 'Domain'
     Source = @{
@@ -10,7 +11,7 @@
             Area        = 'Security'
             Category    = ''
             Severity    = ''
-            Importance   = 0
+            Importance  = 0
             Description = ""
             Resolution  = ''
             Resources   = @(

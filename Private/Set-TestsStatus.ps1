@@ -4,13 +4,31 @@
         [string[]] $Sources,
         [string[]] $ExcludeSources
     )
-    foreach ($Source in $Script:TestimoConfiguration.ActiveDirectory.Keys) {
-        $Script:TestimoConfiguration.ActiveDirectory[$Source]['Enable'] = $false
+    # we first disable all sources to make sure it's a clean start
+    foreach ($Key in $Script:TestimoConfiguration.Keys) {
+        if ($Key -notin 'Types', 'Exclusions', 'Inclusions', 'Debug') {
+            foreach ($Source in $Script:TestimoConfiguration.$Key.Keys) {
+                if ($Script:TestimoConfiguration[$Key][$Source]) {
+                    $Script:TestimoConfiguration[$Key][$Source]['Enable'] = $false
+                    $Script:TestimoConfiguration.Types[$Key] = $false
+                }
+            }
+        }
     }
-    foreach ($Source in $Sources) {
-        $Script:TestimoConfiguration.ActiveDirectory[$Source]['Enable'] = $true
-    }
-    foreach ($Source in $ExcludeSources) {
-        $Script:TestimoConfiguration.ActiveDirectory[$Source]['Enable'] = $false
+    # then we go thru the sources and enable them
+    foreach ($Key in $Script:TestimoConfiguration.Keys) {
+        if ($Key -notin 'Types', 'Exclusions', 'Inclusions', 'Debug') {
+            foreach ($Source in $Sources) {
+                if ($Script:TestimoConfiguration[$Key][$Source]) {
+                    $Script:TestimoConfiguration[$Key][$Source]['Enable'] = $true
+                    $Script:TestimoConfiguration.Types[$Key] = $true
+                }
+            }
+            foreach ($Source in $ExcludeSources) {
+                if ($Script:TestimoConfiguration[$Key][$Source]) {
+                    $Script:TestimoConfiguration[$Key][$Source]['Enable'] = $false
+                }
+            }
+        }
     }
 }

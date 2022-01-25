@@ -1,21 +1,22 @@
 ﻿$SMBProtocols = @{
+    Name   = 'DCSMBProtocols'
     Enable = $true
     Scope  = 'DC'
     Source = @{
-        Name         = 'SMB Protocols'
-        Data         = {
+        Name           = 'SMB Protocols'
+        Data           = {
             Get-ComputerSMB -ComputerName $DomainController
         }
-        Details      = [ordered] @{
+        Details        = [ordered] @{
             Area        = ''
             Description = ''
             Resolution  = ''
-            Importance   = 10
+            Importance  = 10
             Resources   = @(
                 'https://community.spiceworks.com/topic/2153374-bpa-on-windows-server-2016-warns-about-smb-not-in-a-default-configuration'
             )
         }
-        Requirements = @{
+        Requirements   = @{
             CommandAvailable = 'Get-ComputerSMB'
         }
         ExpectedOutput = $true
@@ -34,7 +35,7 @@
                 Area        = ''
                 Description = 'AsynchronousCredits should have the recommended value'
                 Resolution  = ''
-                Importance   = 10
+                Importance  = 10
                 Resources   = @(
 
                 )
@@ -52,7 +53,7 @@
                 Area        = ''
                 Description = 'AutoDisconnectTimeout should have the recommended value'
                 Resolution  = ''
-                Importance   = 10
+                Importance  = 10
                 Resources   = @(
 
                 )
@@ -70,7 +71,7 @@
                 Area        = ''
                 Description = 'CachedOpenLimit should have the recommended value'
                 Resolution  = ''
-                Importance   = 10
+                Importance  = 10
                 Resources   = @(
 
                 )
@@ -88,7 +89,7 @@
                 Area        = ''
                 Description = 'DurableHandleV2TimeoutInSeconds should have the recommended value'
                 Resolution  = ''
-                Importance   = 10
+                Importance  = 10
                 Resources   = @(
 
                 )
@@ -106,7 +107,7 @@
                 Area        = ''
                 Description = ''
                 Resolution  = ''
-                Importance   = 10
+                Importance  = 10
                 Resources   = @(
 
                 )
@@ -124,7 +125,7 @@
                 Area        = ''
                 Description = ''
                 Resolution  = ''
-                Importance   = 10
+                Importance  = 10
                 Resources   = @(
 
                 )
@@ -142,7 +143,7 @@
                 Area        = ''
                 Description = 'MaxThreadsPerQueue should have the recommended value'
                 Resolution  = ''
-                Importance   = 10
+                Importance  = 10
                 Resources   = @(
 
                 )
@@ -160,7 +161,7 @@
                 Area        = ''
                 Description = 'Smb2CreditsMin should have the recommended value'
                 Resolution  = ''
-                Importance   = 10
+                Importance  = 10
                 Resources   = @(
 
                 )
@@ -178,7 +179,7 @@
                 Area        = ''
                 Description = 'Smb2CreditsMax should have the recommended value'
                 Resolution  = ''
-                Importance   = 10
+                Importance  = 10
                 Resources   = @(
                     'https://github.com/EvotecIT/Testimo/issues/50'
                 )
@@ -196,7 +197,7 @@
                 Area        = ''
                 Description = ''
                 Resolution  = ''
-                Importance   = 10
+                Importance  = 10
                 Resources   = @(
 
                 )

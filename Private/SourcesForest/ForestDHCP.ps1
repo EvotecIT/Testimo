@@ -1,4 +1,5 @@
 ﻿$ForestDHCP = @{
+    Name            = "ForestDHCP"
     Enable          = $true
     Scope           = 'Forest'
     Source          = @{

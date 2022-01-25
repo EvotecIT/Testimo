@@ -1,4 +1,5 @@
 ﻿$LDAP = @{
+    Name   = 'DCLDAP'
     Enable = $false
     Scope  = 'DC'
     Source = @{

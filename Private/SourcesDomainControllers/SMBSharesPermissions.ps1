@@ -1,21 +1,22 @@
 ﻿$SMBSharesPermissions = @{
+    Name   = 'DCSMBSharesPermissions'
     Enable = $true
     Scope  = 'DC'
     Source = @{
-        Name         = 'Default SMB Shares Permissions'
-        Data         = {
+        Name           = 'Default SMB Shares Permissions'
+        Data           = {
             Get-ComputerSMBSharePermissions -ComputerName $DomainController -ShareName 'Netlogon', 'Sysvol'
         }
-        Details      = [ordered] @{
+        Details        = [ordered] @{
             Area        = 'Security'
             Description = "SMB Shares for Sysvol and Netlogon should be at their defaults. That means 2 permissions for Netlogon and 3 for SysVol."
             Resolution  = 'Add/Remove unnecessary permissions.'
-            Importance   = 20
+            Importance  = 20
             Resources   = @(
 
             )
         }
-        Requirements = @{
+        Requirements   = @{
             CommandAvailable = 'Get-ComputerSMBSharePermissions'
         }
         ExpectedOutput = $true
@@ -31,7 +32,7 @@
                 Area        = 'Security'
                 Description = "SMB Shares for Sysvol and Netlogon should be at their defaults. That means 2 permissions for Netlogon and 3 for SysVol."
                 Resolution  = 'Add/Remove unnecessary permissions.'
-                Importance   = 5
+                Importance  = 5
                 Resources   = @(
 
                 )
@@ -47,7 +48,7 @@
             Area        = 'Security'
             Description = "SMB Shares for NETLOGON should contain Everyone with Read access rights."
             Resolution  = 'Add/Remove unnecessary permissions.'
-            Importance   = 5
+            Importance  = 5
             Resources   = @(
 
             )
@@ -62,7 +63,7 @@
             Area        = 'Security'
             Description = "SMB Shares for NETLOGON should contain BUILTIN\Administrators with Full access rights."
             Resolution  = 'Add/Remove unnecessary permissions.'
-            Importance   = 5
+            Importance  = 5
             Resources   = @(
 
             )
@@ -77,7 +78,7 @@
             Area        = 'Security'
             Description = "SMB Shares for SYSVOL should contain Everyone with Read access rights."
             Resolution  = 'Add/Remove unnecessary permissions.'
-            Importance   = 5
+            Importance  = 5
             Resources   = @(
 
             )
@@ -92,7 +93,7 @@
             Area        = 'Security'
             Description = "SMB Shares for SYSVOL should contain BUILTIN\Administrators with Full access rights."
             Resolution  = 'Add/Remove unnecessary permissions.'
-            Importance   = 5
+            Importance  = 5
             Resources   = @(
 
             )
@@ -107,7 +108,7 @@
             Area        = 'Security'
             Description = "SMB Shares for SYSVOL should contain NT AUTHORITY\Authenticated Users with Full access rights."
             Resolution  = 'Add/Remove unnecessary permissions.'
-            Importance   = 5
+            Importance  = 5
             Resources   = @(
 
             )
@@ -125,7 +126,7 @@
             Area        = 'Security'
             Description = "SMB Shares for NETLOGON should contain Everyone with Read access rights."
             Resolution  = 'Add/Remove unnecessary permissions.'
-            Importance   = 5
+            Importance  = 5
             Resources   = @(
 
             )
@@ -142,7 +143,7 @@
             Area        = 'Security'
             Description = "SMB Shares for NETLOGON should contain BUILTIN\Administrators with Full access rights."
             Resolution  = 'Add/Remove unnecessary permissions.'
-            Importance   = 5
+            Importance  = 5
             Resources   = @(
 
             )
@@ -159,7 +160,7 @@
             Area        = 'Security'
             Description = "SMB Shares for SYSVOL should contain Everyone with Read access rights."
             Resolution  = 'Add/Remove unnecessary permissions.'
-            Importance   = 5
+            Importance  = 5
             Resources   = @(
 
             )
@@ -176,7 +177,7 @@
             Area        = 'Security'
             Description = "SMB Shares for SYSVOL should contain BUILTIN\Administrators with Full access rights."
             Resolution  = 'Add/Remove unnecessary permissions.'
-            Importance   = 5
+            Importance  = 5
             Resources   = @(
 
             )
@@ -193,7 +194,7 @@
             Area        = 'Security'
             Description = "SMB Shares for SYSVOL should contain NT AUTHORITY\Authenticated Users with Full access rights."
             Resolution  = 'Add/Remove unnecessary permissions.'
-            Importance   = 5
+            Importance  = 5
             Resources   = @(
 
             )

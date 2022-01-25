@@ -1,9 +1,10 @@
 ﻿$DNSResolveInternal = @{
+    Name   = 'DCDnsResolveInternal'
     Enable = $true
     Scope  = 'DC'
     Source = @{
-        Name       = "Resolves internal DNS queries"
-        Data       = {
+        Name           = "Resolves internal DNS queries"
+        Data           = {
             $Output = Invoke-Command -ComputerName $DomainController -ErrorAction Stop {
                 param(
                     [string] $DomainController
@@ -19,12 +20,12 @@
             } -ArgumentList $DomainController
             $Output
         }
-        Details = [ordered] @{
-            Area             = ''
-            Description      = ''
-            Resolution   = ''
-            Importance        = 10
-            Resources = @(
+        Details        = [ordered] @{
+            Area        = ''
+            Description = ''
+            Resolution  = ''
+            Importance  = 10
+            Resources   = @(
 
             )
         }

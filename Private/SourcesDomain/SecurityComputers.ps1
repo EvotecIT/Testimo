@@ -1,4 +1,5 @@
 ﻿$DomainSecurityComputers = @{
+    Name            = 'DomainSecurityComputers'
     Enable          = $true
     Scope           = 'Domain'
     Source          = @{

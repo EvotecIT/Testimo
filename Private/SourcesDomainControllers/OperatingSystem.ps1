@@ -1,4 +1,5 @@
 ﻿$OperatingSystem = @{
+    Name   = 'DCOperatingSystem'
     Enable = $true
     Scope  = 'DC'
     Source = @{

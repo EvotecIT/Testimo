@@ -1,4 +1,5 @@
 ﻿$OrganizationalUnitsEmpty = @{
+    Name   = 'DomainOrganizationalUnitsEmpty'
     Enable = $true
     Scope  = 'Domain'
     Source = @{

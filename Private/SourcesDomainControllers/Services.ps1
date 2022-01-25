@@ -1,4 +1,5 @@
 ﻿$Services = [ordered] @{
+    Name   = 'DCServices'
     Enable = $true
     Scope  = 'DC'
     Source = @{
@@ -8,13 +9,15 @@
             Get-PSService -Computers $DomainController -Services $Services
         }
         Details        = [ordered] @{
-            Area        = ''
-            Description = ''
-            Resolution  = ''
-            Importance   = 10
+            Category    = 'Configuration'
+            Description = 'Active Directory is dependent on several Windows services. If one or more of these services is not configured for automatic startup, AD functions may be partially or completely unavailable until the services are manually started. This could result in a failure to replicate data or to support client authentication and authorization requests.'
+            Importance  = 0
             Resources   = @(
-
+                'https://www.stigviewer.com/stig/microsoft_windows_server_2012_domain_controller/2013-07-25/finding/WN12-AD-000010-DC'
             )
+            Tags        = 'Services', 'Configuration'
+            StatusTrue  = 1
+            StatusFalse = 6
         }
         ExpectedOutput = $true
     }
@@ -317,7 +320,7 @@
                 Area        = 'Security'
                 Category    = 'Services'
                 Severity    = ''
-                Importance   = 0
+                Importance  = 0
                 Description = 'Due to security concerns SPOOLER should be disabled and stopped. However in some cases it may be required to have SPOOLER service up and running to cleanup stale printer objects from AD.'
                 Resolution  = ''
                 Resources   = @(
@@ -342,7 +345,7 @@
                 Area        = 'Security'
                 Category    = 'Services'
                 Severity    = ''
-                Importance   = 0
+                Importance  = 0
                 Description = 'Due to security concerns SPOOLER should be disabled and stopped. However in some cases it may be required to have SPOOLER service up and running to cleanup stale printer objects from AD.'
                 Resolution  = ''
                 Resources   = @(

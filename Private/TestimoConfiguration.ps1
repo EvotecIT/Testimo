@@ -1,4 +1,5 @@
 ﻿$Script:TestimoConfiguration = [ordered] @{
+    Types           = [ordered]@{ }
     Exclusions      = [ordered] @{
         Domains           = @()
         DomainControllers = @()
@@ -96,6 +97,7 @@
         DCUNCHardenedPaths                           = $UNCHardenedPaths
         DCDNSForwaders                               = $DCDNSForwaders
     }
+    #Office365       = [ordered]@{ }
     Debug           = [ordered] @{
         ShowErrors = $false
     }

@@ -1,4 +1,5 @@
 ﻿$TimeSettings = [ordered] @{
+    Name   = 'DCTimeSettings'
     Enable = $true
     Scope  = 'DC'
     Source = @{
@@ -10,7 +11,7 @@
             Area        = 'Configuration'
             Description = ''
             Resolution  = ''
-            Importance   = 2
+            Importance  = 2
             Resources   = @(
 
             )

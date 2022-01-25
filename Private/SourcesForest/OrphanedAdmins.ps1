@@ -1,4 +1,5 @@
 ﻿$OrphanedAdmins = @{
+    Name            = "ForestOrphanedAdmins"
     Enable          = $true
     Scope           = 'Forest'
     Source          = @{

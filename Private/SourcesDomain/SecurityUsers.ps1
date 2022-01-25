@@ -1,4 +1,5 @@
 ﻿$SecurityUsers = @{
+    Name            = 'DomainSecurityUsers'
     Enable          = $true
     Scope           = 'Domain'
     Source          = @{

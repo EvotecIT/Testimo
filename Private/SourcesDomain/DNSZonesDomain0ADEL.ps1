@@ -1,4 +1,5 @@
 ﻿$DNSZonesDomain0ADEL = @{
+    Name   = 'DomainDNSZonesDomain0ADEL'
     Enable = $true
     Scope  = 'Domain'
     Source = @{
@@ -14,7 +15,7 @@
             Area        = 'Configuration'
             Category    = 'DNS'
             Severity    = ''
-            Importance   = 0
+            Importance  = 0
             Description = ""
             Resolution  = ''
             Resources   = @(

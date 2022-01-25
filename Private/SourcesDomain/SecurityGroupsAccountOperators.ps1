@@ -1,4 +1,5 @@
 ﻿$SecurityGroupsAccountOperators = @{
+    Name   = 'DomainSecurityGroupsAccountOperators'
     Enable = $true
     Scope  = 'Domain'
     Source = @{
@@ -10,7 +11,7 @@
             Area        = 'Cleanup', 'Security'
             Category    = ''
             Severity    = ''
-            Importance   = 0
+            Importance  = 0
             Description = "The Account Operators group should not be used. Custom delegate instead. This group is a great 'backdoor' priv group for attackers. Microsoft even says don't use this group!"
             Resolution  = ''
             Resources   = @()

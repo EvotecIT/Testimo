@@ -29,65 +29,87 @@
 
         if ($LoadedConfiguration -is [System.Collections.IDictionary]) {
             foreach ($Key in ($LoadedConfiguration).Keys) {
-                $Script:TestimoConfiguration['ActiveDirectory'][$Key]['Enable'] = $LoadedConfiguration.$Key.Enable
+                if ($Script:TestimoConfiguration['ActiveDirectory'][$Key]) {
+                    $Target = 'ActiveDirectory'
+                } elseif ($Script:TestimoConfiguration['Office365'][$Key]) {
+                    $Target = 'Office365'
+                } else {
+                    $Target = 'Unknown'
+                }
+                if ($Target -ne 'Unknown') {
+                    $Script:TestimoConfiguration[$Target][$Key]['Enable'] = $LoadedConfiguration.$Key.Enable
 
-                if ($null -ne $LoadedConfiguration[$Key]['Source']) {
-                    if ($null -ne $LoadedConfiguration[$Key]['Source']['ExpectedOutput']) {
-                        $Script:TestimoConfiguration['ActiveDirectory'][$Key]['Source']['ExpectedOutput'] = $LoadedConfiguration.$Key['Source']['ExpectedOutput']
-                    }
-                    if ($null -ne $LoadedConfiguration[$Key]['Source']['Parameters']) {
-                        foreach ($Parameter in [string] $LoadedConfiguration[$Key]['Source']['Parameters'].Keys) {
-                            $Script:TestimoConfiguration['ActiveDirectory'][$Key]['Source']['Parameters'][$Parameter] = $LoadedConfiguration[$Key]['Source']['Parameters'][$Parameter]
+                    if ($null -ne $LoadedConfiguration[$Key]['Source']) {
+                        if ($null -ne $LoadedConfiguration[$Key]['Source']['ExpectedOutput']) {
+                            $Script:TestimoConfiguration[$Target][$Key]['Source']['ExpectedOutput'] = $LoadedConfiguration.$Key['Source']['ExpectedOutput']
+                        }
+                        if ($null -ne $LoadedConfiguration[$Key]['Source']['Parameters']) {
+                            foreach ($Parameter in [string] $LoadedConfiguration[$Key]['Source']['Parameters'].Keys) {
+                                $Script:TestimoConfiguration[$Target][$Key]['Source']['Parameters'][$Parameter] = $LoadedConfiguration[$Key]['Source']['Parameters'][$Parameter]
+                            }
                         }
                     }
-                }
-                foreach ($Test in $LoadedConfiguration.$Key.Tests.Keys) {
-                    $Script:TestimoConfiguration['ActiveDirectory'][$Key]['Tests'][$Test]['Enable'] = $LoadedConfiguration.$Key.Tests.$Test.Enable
+                    foreach ($Test in $LoadedConfiguration.$Key.Tests.Keys) {
+                        $Script:TestimoConfiguration[$Target][$Key]['Tests'][$Test]['Enable'] = $LoadedConfiguration.$Key.Tests.$Test.Enable
 
-                    if ($null -ne $LoadedConfiguration.$Key.Tests.$Test.Parameters.ExpectedValue) {
-                        $Script:TestimoConfiguration['ActiveDirectory'][$Key]['Tests'][$Test]['Parameters']['ExpectedValue'] = $LoadedConfiguration.$Key.Tests.$Test.Parameters.ExpectedValue
+                        if ($null -ne $LoadedConfiguration.$Key.Tests.$Test.Parameters.ExpectedValue) {
+                            $Script:TestimoConfiguration[$Target][$Key]['Tests'][$Test]['Parameters']['ExpectedValue'] = $LoadedConfiguration.$Key.Tests.$Test.Parameters.ExpectedValue
+                        }
+                        if ($null -ne $LoadedConfiguration.$Key.Tests.$Test.Parameters.ExpectedCount) {
+                            $Script:TestimoConfiguration[$Target][$Key]['Tests'][$Test]['Parameters']['ExpectedCount'] = $LoadedConfiguration.$Key.Tests.$Test.Parameters.ExpectedCount
+                        }
+                        if ($null -ne $LoadedConfiguration.$Key.Tests.$Test.Parameters.Property) {
+                            $Script:TestimoConfiguration[$Target][$Key]['Tests'][$Test]['Parameters']['Property'] = $LoadedConfiguration.$Key.Tests.$Test.Parameters.Property
+                        }
+                        if ($null -ne $LoadedConfiguration.$Key.Tests.$Test.Parameters.OperationType) {
+                            $Script:TestimoConfiguration[$Target][$Key]['Tests'][$Test]['Parameters']['OperationType'] = $LoadedConfiguration.$Key.Tests.$Test.Parameters.OperationType
+                        }
                     }
-                    if ($null -ne $LoadedConfiguration.$Key.Tests.$Test.Parameters.ExpectedCount) {
-                        $Script:TestimoConfiguration['ActiveDirectory'][$Key]['Tests'][$Test]['Parameters']['ExpectedCount'] = $LoadedConfiguration.$Key.Tests.$Test.Parameters.ExpectedCount
-                    }
-                    if ($null -ne $LoadedConfiguration.$Key.Tests.$Test.Parameters.Property) {
-                        $Script:TestimoConfiguration['ActiveDirectory'][$Key]['Tests'][$Test]['Parameters']['Property'] = $LoadedConfiguration.$Key.Tests.$Test.Parameters.Property
-                    }
-                    if ($null -ne $LoadedConfiguration.$Key.Tests.$Test.Parameters.OperationType) {
-                        $Script:TestimoConfiguration['ActiveDirectory'][$Key]['Tests'][$Test]['Parameters']['OperationType'] = $LoadedConfiguration.$Key.Tests.$Test.Parameters.OperationType
-                    }
+                } else {
+
                 }
             }
         } else {
             foreach ($Key in ($LoadedConfiguration).PSObject.Properties.Name) {
-                $Script:TestimoConfiguration['ActiveDirectory'][$Key]['Enable'] = $LoadedConfiguration.$Key.Enable
+                if ($Script:TestimoConfiguration['ActiveDirectory'][$Key]) {
+                    $Target = 'ActiveDirectory'
+                } elseif ($Script:TestimoConfiguration['Office365'][$Key]) {
+                    $Target = 'Office365'
+                } else {
+                    $Target = 'Unknown'
+                }
+                if ($Target -ne 'Unknown') {
+                    $Script:TestimoConfiguration[$Target][$Key]['Enable'] = $LoadedConfiguration.$Key.Enable
 
-                if ($null -ne $LoadedConfiguration.$Key.'Source') {
-                    if ($null -ne $LoadedConfiguration.$Key.'Source'.'ExpectedOutput') {
-                        $Script:TestimoConfiguration['ActiveDirectory'][$Key]['Source']['ExpectedOutput'] = $LoadedConfiguration.$Key.'Source'.'ExpectedOutput'
-                    }
-                    if ($null -ne $LoadedConfiguration.$Key.'Source'.'Parameters') {
-                        foreach ($Parameter in $LoadedConfiguration.$Key.'Source'.'Parameters'.PSObject.Properties.Name) {
-                            $Script:TestimoConfiguration['ActiveDirectory'][$Key]['Source']['Parameters'][$Parameter] = $LoadedConfiguration.$Key.'Source'.'Parameters'.$Parameter
+                    if ($null -ne $LoadedConfiguration.$Key.'Source') {
+                        if ($null -ne $LoadedConfiguration.$Key.'Source'.'ExpectedOutput') {
+                            $Script:TestimoConfiguration[$Target][$Key]['Source']['ExpectedOutput'] = $LoadedConfiguration.$Key.'Source'.'ExpectedOutput'
+                        }
+                        if ($null -ne $LoadedConfiguration.$Key.'Source'.'Parameters') {
+                            foreach ($Parameter in $LoadedConfiguration.$Key.'Source'.'Parameters'.PSObject.Properties.Name) {
+                                $Script:TestimoConfiguration[$Target][$Key]['Source']['Parameters'][$Parameter] = $LoadedConfiguration.$Key.'Source'.'Parameters'.$Parameter
+                            }
                         }
                     }
-                }
 
-                foreach ($Test in $LoadedConfiguration.$Key.Tests.PSObject.Properties.Name) {
-                    $Script:TestimoConfiguration['ActiveDirectory'][$Key]['Tests'][$Test]['Enable'] = $LoadedConfiguration.$Key.Tests.$Test.Enable
+                    foreach ($Test in $LoadedConfiguration.$Key.Tests.PSObject.Properties.Name) {
+                        $Script:TestimoConfiguration[$Target][$Key]['Tests'][$Test]['Enable'] = $LoadedConfiguration.$Key.Tests.$Test.Enable
 
-                    if ($null -ne $LoadedConfiguration.$Key.Tests.$Test.Parameters.ExpectedValue) {
-                        $Script:TestimoConfiguration['ActiveDirectory'][$Key]['Tests'][$Test]['Parameters']['ExpectedValue'] = $LoadedConfiguration.$Key.Tests.$Test.Parameters.ExpectedValue
+                        if ($null -ne $LoadedConfiguration.$Key.Tests.$Test.Parameters.ExpectedValue) {
+                            $Script:TestimoConfiguration[$Target][$Key]['Tests'][$Test]['Parameters']['ExpectedValue'] = $LoadedConfiguration.$Key.Tests.$Test.Parameters.ExpectedValue
+                        }
+                        if ($null -ne $LoadedConfiguration.$Key.Tests.$Test.Parameters.ExpectedCount) {
+                            $Script:TestimoConfiguration[$Target][$Key]['Tests'][$Test]['Parameters']['ExpectedCount'] = $LoadedConfiguration.$Key.Tests.$Test.Parameters.ExpectedCount
+                        }
+                        if ($null -ne $LoadedConfiguration.$Key.Tests.$Test.Parameters.Property) {
+                            $Script:TestimoConfiguration[$Target][$Key]['Tests'][$Test]['Parameters']['Property'] = $LoadedConfiguration.$Key.Tests.$Test.Parameters.Property
+                        }
+                        if ($null -ne $LoadedConfiguration.$Key.Tests.$Test.Parameters.OperationType) {
+                            $Script:TestimoConfiguration[$Target][$Key]['Tests'][$Test]['Parameters']['OperationType'] = $LoadedConfiguration.$Key.Tests.$Test.Parameters.OperationType
+                        }
                     }
-                    if ($null -ne $LoadedConfiguration.$Key.Tests.$Test.Parameters.ExpectedCount) {
-                        $Script:TestimoConfiguration['ActiveDirectory'][$Key]['Tests'][$Test]['Parameters']['ExpectedCount'] = $LoadedConfiguration.$Key.Tests.$Test.Parameters.ExpectedCount
-                    }
-                    if ($null -ne $LoadedConfiguration.$Key.Tests.$Test.Parameters.Property) {
-                        $Script:TestimoConfiguration['ActiveDirectory'][$Key]['Tests'][$Test]['Parameters']['Property'] = $LoadedConfiguration.$Key.Tests.$Test.Parameters.Property
-                    }
-                    if ($null -ne $LoadedConfiguration.$Key.Tests.$Test.Parameters.OperationType) {
-                        $Script:TestimoConfiguration['ActiveDirectory'][$Key]['Tests'][$Test]['Parameters']['OperationType'] = $LoadedConfiguration.$Key.Tests.$Test.Parameters.OperationType
-                    }
+                } else {
+
                 }
             }
         }

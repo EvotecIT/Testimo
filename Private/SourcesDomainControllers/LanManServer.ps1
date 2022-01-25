@@ -1,4 +1,5 @@
 ﻿$LanManServer = @{
+    Name   = 'DCLanManServer'
     Enable = $true
     Scope  = 'DC'
     Source = @{
@@ -11,7 +12,7 @@
             Area        = 'Security'
             Description = 'Lan Man Server'
             Resolution  = ''
-            Importance   = 10
+            Importance  = 10
             Resources   = @(
 
             )
@@ -22,7 +23,7 @@
         ExpectedOutput = $true
     }
     Tests  = [ordered] @{
-        DisableCompression        = @{
+        DisableCompression       = @{
             Enable     = $false
             Name       = 'Disable Compression SMBv3'
             Parameters = @{
@@ -34,7 +35,7 @@
                 Area        = 'Security'
                 Description = 'Microsoft is aware of a remote code execution vulnerability in the way that the Microsoft Server Message Block 3.1.1 (SMBv3) protocol handles certain requests. An attacker who successfully exploited the vulnerability could gain the ability to execute code on the target SMB Server or SMB Client. To exploit the vulnerability against an SMB Server, an unauthenticated attacker could send a specially crafted packet to a targeted SMBv3 Server. To exploit the vulnerability against an SMB Client, an unauthenticated attacker would need to configure a malicious SMBv3 Server and convince a user to connect to it.'
                 Resolution  = 'Disable SMBv3 compression or apply patch. Since patch is available disabling is not nessecary.'
-                Importance   = 10
+                Importance  = 10
                 Resources   = @(
                     'https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/adv200005'
                 )
@@ -52,7 +53,7 @@
                 Area        = ''
                 Description = 'Users are not forcibly disconnected when logon hours expire.'
                 Resolution  = ''
-                Importance   = 10
+                Importance  = 10
                 Resources   = @(
                     'https://www.stigviewer.com/stig/windows_7/2012-07-02/finding/V-1136'
                 )
@@ -70,7 +71,7 @@
                 Area        = ''
                 Description = 'Microsoft network server: Digitally sign communications (if client agrees)'
                 Resolution  = ''
-                Importance   = 10
+                Importance  = 10
                 Resources   = @(
                     'https://support.microsoft.com/en-us/help/887429/overview-of-server-message-block-signing' # XP
                     'https://community.spiceworks.com/topic/2131862-how-to-set-microsoft-network-server-digitally-sign-communications-always'
@@ -103,7 +104,7 @@
                 SMB signing provides this authentication by placing a digital signature into each SMB, which is then verified by both the client computer and the server.
                 Implementing SMB signing may negatively affect performance because each packet must be signed and verified. If these policy settings are enabled on a server that is performing multiple roles, such as a small business server that is serving as a domain controller, file server, print server, and application server, performance may be substantially slowed. Additionally, if you configure computers to ignore all unsigned SMB communications, older applications and operating systems cannot connect. However, if you completely disable all SMB signing, computers are vulnerable to session-hijacking attacks.'
                 Resolution      = ''
-                Importance       = 10
+                Importance      = 10
                 Resources       = @(
                     'https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/hh125918(v=ws.10)?redirectedfrom=MSDN#vulnerability'
                     'https://support.microsoft.com/en-us/help/887429/overview-of-server-message-block-signing' # XP
