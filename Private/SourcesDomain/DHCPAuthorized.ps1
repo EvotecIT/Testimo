@@ -5,9 +5,12 @@
     Source = @{
         Name           = "DHCP authorized in domain"
         Data           = {
-            #$DomainInformation = Get-ADDomain
+            #$DomainInformation = Get-ADDomain -Identity 'ad.evotec.pl'
             $SearchBase = 'cn=configuration,{0}' -f $DomainInformation.DistinguishedName
             Get-ADObject -SearchBase $searchBase -Filter "objectclass -eq 'dhcpclass' -AND Name -ne 'dhcproot'" #| select name
+        }
+        Requirements   = @{
+           IsDomainRoot = $true
         }
         Details        = [ordered] @{
             Area        = 'Configuration'
