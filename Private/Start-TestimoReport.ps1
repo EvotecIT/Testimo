@@ -113,7 +113,11 @@
                         $SourceCode = $TestResults[$Scope]['Tests'][$Source]['SourceCode']
                         $Results = $TestResults[$Scope]['Tests'][$Source]['Results'] #| Select-Object -Property DisplayName, Type, Category, Assessment, Importance, Action, Extended
                         $WarningsAndErrors = $TestResults[$Scope]['Tests'][$Source]['WarningsAndErrors']
-                        Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -TestResults $TestResults -Type $Scope -AlwaysShowSteps:$AlwaysShowSteps.IsPresent
+                        try {
+                            Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -TestResults $TestResults -Type $Scope -AlwaysShowSteps:$AlwaysShowSteps.IsPresent
+                        } catch {
+                            Write-Warning -Message "Failed to generate report (1) for $Source in $Scope"
+                        }
                     }
                 } else {
                     New-HTMLTab -Name $Scope -IconBrands first-order {
@@ -124,7 +128,11 @@
                             $SourceCode = $TestResults[$Scope]['Tests'][$Source]['SourceCode']
                             $Results = $TestResults[$Scope]['Tests'][$Source]['Results'] #| Select-Object -Property DisplayName, Type, Category, Assessment, Importance, Action, Extended
                             $WarningsAndErrors = $TestResults[$Scope]['Tests'][$Source]['WarningsAndErrors']
-                            Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -TestResults $TestResults -Type $Scope -AlwaysShowSteps:$AlwaysShowSteps.IsPresent
+                            try {
+                                Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -TestResults $TestResults -Type $Scope -AlwaysShowSteps:$AlwaysShowSteps.IsPresent
+                            } catch {
+                                Write-Warning -Message "Failed to generate report (2) for $Source in $Scope"
+                            }
                         }
                     }
                 }
@@ -141,7 +149,11 @@
                     $SourceCode = $TestResults['Forest']['Tests'][$Source]['SourceCode']
                     $Results = $TestResults['Forest']['Tests'][$Source]['Results'] #| Select-Object -Property DisplayName, Type, Category, Assessment, Importance, Action, Extended
                     $WarningsAndErrors = $TestResults['Forest']['Tests'][$Source]['WarningsAndErrors']
-                    Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -TestResults $TestResults -Type 'Forest' -AlwaysShowSteps:$AlwaysShowSteps.IsPresent
+                    try {
+                        Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -TestResults $TestResults -Type 'Forest' -AlwaysShowSteps:$AlwaysShowSteps.IsPresent
+                    } catch {
+                        Write-Warning -Message "Failed to generate report (3) for $Source in $Scope"
+                    }
                 }
             } else {
                 New-HTMLTab -Name 'Forest' -IconBrands first-order {
@@ -152,7 +164,11 @@
                         $SourceCode = $TestResults['Forest']['Tests'][$Source]['SourceCode']
                         $Results = $TestResults['Forest']['Tests'][$Source]['Results'] #| Select-Object -Property DisplayName, Type, Category, Assessment, Importance, Action, Extended
                         $WarningsAndErrors = $TestResults['Forest']['Tests'][$Source]['WarningsAndErrors']
-                        Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -TestResults $TestResults -Type 'Forest' -AlwaysShowSteps:$AlwaysShowSteps.IsPresent
+                        try {
+                            Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -TestResults $TestResults -Type 'Forest' -AlwaysShowSteps:$AlwaysShowSteps.IsPresent
+                        } catch {
+                            Write-Warning -Message "Failed to generate report (4) for $Source in $Scope"
+                        }
                     }
                 }
             }
@@ -176,7 +192,11 @@
                                 $SourceCode = $TestResults['Domains'][$Domain]['Tests'][$Source]['SourceCode']
                                 $Results = $TestResults['Domains'][$Domain]['Tests'][$Source]['Results'] #| Select-Object -Property DisplayName, Type, Category, Assessment, Importance, Action, Extended, Domain
                                 $WarningsAndErrors = $TestResults['Domains'][$Domain]['Tests'][$Source]['WarningsAndErrors']
-                                Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -HideSteps:$HideSteps -TestResults $TestResults -Type 'Domain' -AlwaysShowSteps:$AlwaysShowSteps.IsPresent
+                                try {
+                                    Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -HideSteps:$HideSteps -TestResults $TestResults -Type 'Domain' -AlwaysShowSteps:$AlwaysShowSteps.IsPresent
+                                } catch {
+                                    Write-Warning -Message "Failed to generate report (5) for $Source in domain $Domain"
+                                }
                             }
                         }
                     }
@@ -203,15 +223,18 @@
                                         New-HTMLTab -TabName $DC -TextColor DarkSlateGray {
                                             #-HeaderText "Domain Controller - $DC" -HeaderBackGroundColor DarkSlateGray {
                                             New-HTMLContainer {
-                                                foreach ($Source in  $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'].Keys) {
+                                                foreach ($Source in $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'].Keys) {
                                                     $Information = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Information']
                                                     $Name = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Name']
                                                     $Data = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Data']
                                                     $SourceCode = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['SourceCode']
                                                     $Results = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['Results'] #| Select-Object -Property DisplayName, Type, Category, Assessment, Importance, Action, Extended, Domain, DomainController
                                                     $WarningsAndErrors = $TestResults['Domains'][$Domain]['DomainControllers'][$DC]['Tests'][$Source]['WarningsAndErrors']
-
-                                                    Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -TestResults $TestResults -Type 'DC' -AlwaysShowSteps:$AlwaysShowSteps.IsPresent
+                                                    try {
+                                                        Start-TestimoReportSection -Name $Name -Data $Data -Information $Information -SourceCode $SourceCode -Results $Results -WarningsAndErrors $WarningsAndErrors -TestResults $TestResults -Type 'DC' -AlwaysShowSteps:$AlwaysShowSteps.IsPresent
+                                                    } catch {
+                                                        Write-Warning -Message "Failed to generate report (6) for $Source in $Domain for $DC"
+                                                    }
                                                 }
                                             }
                                         }
