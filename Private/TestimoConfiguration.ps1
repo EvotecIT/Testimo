@@ -78,6 +78,7 @@
         DCNetworkCardSettings                        = $NetworkCardSettings
         DCWindowsUpdates                             = $WindowsUpdates
         DCWindowsRolesAndFeatures                    = $WindowsRolesAndFeatures
+        DCWindowsFeaturesOptional                    = $WindowsFeaturesOptional
         DCDnsResolveInternal                         = $DNSResolveInternal
         DCDnsResolveExternal                         = $DNSResolveExternal
         DCDnsNameServes                              = $DNSNameServers

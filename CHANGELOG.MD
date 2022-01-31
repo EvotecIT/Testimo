@@ -1,5 +1,8 @@
 ﻿# Testimo Release History
 
+## 0.0.76
+  - Added new test `DCWindowsFeaturesOptional` to check for PowerShell 2.0 on DCs
+
 ## 0.0.75 - 2021.01.25
   - Fixes errors that could happen for some tests during HTML creation
 
