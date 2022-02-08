@@ -21,7 +21,7 @@
     if ($OperationType -eq '') { $OperationType = 'eq' }
     [string[]] $Property = $Test.Parameters.Property
     [string[]] $PropertyExtendedValue = $Test.Parameters.PropertyExtendedValue
-    [Object] $ExpectedValue = $Test.Parameters.ExpectedValue
+    $ExpectedValue = $Test.Parameters.ExpectedValue
     [nullable[int]] $ExpectedCount = $Test.Parameters.ExpectedCount
     [scriptblock] $OverwriteName = $Test.Parameters.OverwriteName
     [scriptblock] $WhereObject = $Test.Parameters.WhereObject

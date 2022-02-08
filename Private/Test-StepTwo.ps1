@@ -19,6 +19,8 @@
     )
     Out-Begin -Scope $Scope -Text $TestName -Level $Level -Domain $Domain -DomainController $DomainController
 
+    $TemporaryBoundParameters = $PSBoundParameters
+
     $ScriptBlock = {
         $Operators = @{
             'lt'          = 'Less Than'
@@ -39,7 +41,7 @@
             $TestedValue = $TestedValue.$V
         }
 
-        if ($null -ne $ExpectedCount) {
+        if ($TemporaryBoundParameters.ContainsKey('ExpectedCount')) {
             if ($null -eq $Object) {
                 $TestedValueCount = 0
             } else {
@@ -71,7 +73,7 @@
             $TextTestedValue = $TestedValueCount
             $TextExpectedValue = $ExpectedCount
 
-        } elseif ($null -ne $ExpectedValue) {
+        } elseif ($TemporaryBoundParameters.ContainsKey('ExpectedValue')) {
             $OutputValues = [System.Collections.Generic.List[Object]]::new()
             if ($null -eq $TestedValue -and $null -ne $ExpectedValue) {
                 # if testedvalue is null and expected value is not null that means there's no sense in testing things
@@ -137,9 +139,17 @@
                             # gather comparevalue for display purposes
                             $OutputValues.Add($CompareValue)
                         }
-                        $TextExpectedValue = $OutputValues -join ', '
+                        if ($ExpectedValue.Count -eq 0) {
+                            $TextExpectedValue = 'Null'
+                        } else {
+                            $TextExpectedValue = $OutputValues -join ', '
+                        }
                     }
-                    $TextTestedValue = $TestedValue
+                    if ($null -eq $TestedValue) {
+                        $TextTestedValue = 'Null'
+                    } else {
+                        $TextTestedValue = $TestedValue
+                    }
                 )
             }
         } else {
