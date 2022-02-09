@@ -24,6 +24,10 @@ function Start-TestimoReportSection {
         # Office 365 and other scopes
         $ResultsDisplay = $Results | Select-Object -Property DisplayName, Type, Category, Assessment, Importance, Action, Extended
     }
+    $ResultsCache = [ordered] @{}
+    foreach ($Result in $ResultsDisplay) {
+        $ResultsCache[$Result.DisplayName] = $Result
+    }
 
     $ChartData = New-ChartData -Results $Results
 
@@ -124,8 +128,19 @@ function Start-TestimoReportSection {
                     New-HTMLTable -DataTable $Data -Filtering {
                         if ($Information.DataHighlights) {
                             & $Information.DataHighlights
+                        } else {
+                            foreach ($Test in $Information.Tests.Values) {
+                                if ($Test.Enable -eq $true) {
+                                    if ($null -ne $Test.Parameters -and $Test.Parameters.ContainsKey('ExpectedValue')) {
+                                        #$TemporaryResults = $ResultsCache[$Test.Name]
+                                        #$StatusColor = $Script:StatusToColors[$TemporaryResults.Assessment]
+                                        # We need to fix PSWriteHTML to support New-HTMLTableContent for javascript based content
+                                        #New-HTMLTableContent -ColumnName $Test.Parameters.Property -RowIndex 1 -BackGroundColor $StatusColor
+                                    }
+                                }
+                            }
                         }
-                    } -PagingLength 7 -DateTimeSortingFormat 'DD.MM.YYYY HH:mm:ss' #-SearchBuilder
+                    } -PagingLength 7 -DateTimeSortingFormat 'DD.MM.YYYY HH:mm:ss' #-DataStore HTML
                 }
             }
         }
