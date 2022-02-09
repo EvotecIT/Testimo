@@ -49,6 +49,7 @@
                                 }
                             }
                             $NameOfItem = "$($SourceData.Name) (number of tests: $($Results.Count))"
+                            Write-Verbose -Message "Generating SummaryItem for $NameOfItem"
                             New-HTMLSummaryItem -Text $NameOfItem {
                                 foreach ($Result in $Results) {
                                     if ($Result.Assessment -in 'Informational', 'Good') {
@@ -63,7 +64,7 @@
                                         }
                                     }
                                     New-HTMLSummaryItem -Text $Result.DisplayName {
-                                        New-HTMLSummaryItemData -Text "type" -Value $Result.Type
+                                        New-HTMLSummaryItemData -Text "type" -Value ($Result.Type -join ",")
                                         New-HTMLSummaryItemData -Text "category" -Value ($Result.Category -join ",")
                                         # New-HTMLSummaryItemData -Text "assesment" -Value $Result.Assessment
                                         # New-HTMLSummaryItemData -Text "action" -Value $Result.Action
