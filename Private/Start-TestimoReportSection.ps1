@@ -44,7 +44,11 @@ function Start-TestimoReportSection {
                         "Below command was used to generate and asses current data that is visible in this report. "
                         "In case there are more information required feel free to confirm problems found yourself. "
                     ) -FontSize 10pt
-                    New-HTMLCodeBlock -Code $SourceCode -Style 'PowerShell' -Theme enlighter
+                    if ($SourceCode) {
+                        New-HTMLCodeBlock -Code $SourceCode -Style 'PowerShell' -Theme enlighter
+                    } elseif ($Information.Source.DataCode) {
+                        New-HTMLCodeBlock -Code $Information.Source.DataCode -Style 'PowerShell' -Theme enlighter
+                    }
                     if ($WarningsAndErrors) {
                         New-HTMLSection -HeaderText 'Warnings & Errors' -HeaderBackGroundColor OrangePeel {
                             New-HTMLTable -DataTable $WarningsAndErrors -Filtering -PagingLength 7
@@ -140,7 +144,7 @@ function Start-TestimoReportSection {
                                 }
                             }
                         }
-                    } -PagingLength 7 -DateTimeSortingFormat 'DD.MM.YYYY HH:mm:ss' #-DataStore HTML
+                    } -PagingLength 7 -DateTimeSortingFormat 'DD.MM.YYYY HH:mm:ss' -WordBreak break-all
                 }
             }
         }

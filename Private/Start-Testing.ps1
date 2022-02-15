@@ -81,7 +81,7 @@
                 # build data output for extended results
                 $TestOutput = [ordered] @{
                     Name             = $CurrentSource['Name']
-                    SourceCode       = $CurrentSource['Data']
+                    SourceCode       = if ($CurrentSource['Data']) { $CurrentSource['Data'] } else { $null }
                     Details          = $CurrentSource['Details']
                     Results          = [System.Collections.Generic.List[PSCustomObject]]::new()
                     Domain           = $Domain
@@ -179,20 +179,25 @@
                 foreach ($Variable in $Variables.Keys) {
                     $SourceParameters[$Variable] = $Variables[$Variable]
                 }
-                if ($Script:TestimoConfiguration.Debug.ShowErrors) {
-                    & $CurrentSource['Data'] -DomainController $DomainController -Domain $Domain
-                    $ErrorMessage = $null
-                } else {
-                    # if ($Scope -in 'Forest', 'Domain', 'DC') {
-                    $OutputInvoke = Invoke-CommandCustom -ScriptBlock $CurrentSource['Data'] -Parameter $SourceParameters -ReturnVerbose -ReturnError -ReturnWarning -AddParameter
-                    if ($OutputInvoke.Error) {
-                        $ErrorMessage = $OutputInvoke.Error.Exception.Message -replace "`n", " " -replace "`r", " "
-                    } else {
+                if ($CurrentSource['Data'] -is [ScriptBlock]) {
+                    if ($Script:TestimoConfiguration.Debug.ShowErrors) {
+                        $OutputData = & $CurrentSource['Data'] -DomainController $DomainController -Domain $Domain
+                        $OutputInvoke = @{
+                            Output = $OutputData
+                        }
                         $ErrorMessage = $null
+                    } else {
+                        $OutputInvoke = Invoke-CommandCustom -ScriptBlock $CurrentSource['Data'] -Parameter $SourceParameters -ReturnVerbose -ReturnError -ReturnWarning -AddParameter
+                        if ($OutputInvoke.Error) {
+                            $ErrorMessage = $OutputInvoke.Error.Exception.Message -replace "`n", " " -replace "`r", " "
+                        } else {
+                            $ErrorMessage = $null
+                        }
                     }
-                    # } else {
-                    #     & $CurrentSource['Data']
-                    # }
+                } else {
+                    $OutputInvoke = @{
+                        Output = $CurrentSource['DataOutput']
+                    }
                 }
                 $WarningsAndErrors = @(
                     #if ($ShowWarning) {
