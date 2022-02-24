@@ -12,6 +12,14 @@
 
         #$Execute = Compare-MultipleObjects -FlattenObject -Objects $Source.BaseLineSource, $Source.BaseLineTarget
 
+        $ExcludeProperties = @(
+            "*@odata*"
+            "#microsoft.graph*"
+            if ($Source.ExcludeProperty) {
+                $Source.ExcludeProperty
+            }
+        )
+
         $Script:TestimoConfiguration[$Source.Scope][$Source.Name] = @{
             Name           = $Source.Name
             Enable         = $true
@@ -19,7 +27,7 @@
             Source         = @{
                 Name           = $Source.DisplayName
                 DataCode       = 'Compare-MultipleObjects -FlattenObject -Objects $Source.BaseLineSource, $Source.BaseLineTarget -CompareNames "Source", "Target" -ExcludeProperty "*@odata*" -SkipProperties'
-                DataOutput     = Compare-MultipleObjects -FlattenObject -Objects $Source.BaseLineSource, $Source.BaseLineTarget -ObjectsName "Source", "Target" -ExcludeProperty "*@odata*", "#microsoft.graph*" -SkipProperties
+                DataOutput     = Compare-MultipleObjects -FlattenObject -Objects $Source.BaseLineSource, $Source.BaseLineTarget -ObjectsName "Source", "Target" -ExcludeProperty $ExcludeProperties -SkipProperties -Summary
                 Details        = [ordered] @{
                     Area        = ''
                     Category    = $Source.Category
