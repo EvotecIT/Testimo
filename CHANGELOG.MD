@@ -1,9 +1,11 @@
 ﻿# Testimo Release History
 
-## 0.0.76
+## 0.0.76 - 2022.02.24
   - Added new test `DCWindowsFeaturesOptional` to check for PowerShell 2.0 on DCs
+  - Updated test `DomainSecurityUsersAcccountAdministrator`
+  - Added ability to use `Compare-Testimo` as a way to compare two JSON files (single object, can have nested properties)
 
-## 0.0.75 - 2021.01.25
+## 0.0.75 - 2022.01.25
   - Fixes errors that could happen for some tests during HTML creation
 
 ## 0.0.74 - 2022.01.25
