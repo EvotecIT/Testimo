@@ -161,4 +161,4 @@ $Configuration = @{
     }
 }
 
-New-PrepareModule -Configuration $Configuration #-Verbose
+New-PrepareModule -Configuration $Configuration
