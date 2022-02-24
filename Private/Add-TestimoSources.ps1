@@ -17,8 +17,12 @@
                     $Script:TestimoConfiguration[$Source.Scope] = [ordered] @{}
                 }
                 if ($Source.Scope -in 'Forest', 'Domain', 'DC') {
+                    if ($Script:TestimoConfiguration['ActiveDirectory'][$Source.Name]) {
+                        $ListOverwritten.Add($Source.Name)
+                    } else {
+                        $ListNewSources.Add($Source.Name)
+                    }
                     $Script:TestimoConfiguration['ActiveDirectory'][$Source.Name] = $Source
-                    $ListOverwritten.Add($Source.Name)
                 } else {
                     $Script:TestimoConfiguration[$Source.Scope][$Source.Name] = $Source
                     $ListNewSources.Add($Source.Name)

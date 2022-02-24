@@ -33,7 +33,7 @@ $Configuration = @{
                 @{ ModuleName = 'PSSharedGoods'; ModuleVersion = 'Latest'; Guid = 'ee272aa8-baaa-4edf-9f45-b6d6f7d844fe' }
                 @{ ModuleName = 'PSWinDocumentation.DNS'; ModuleVersion = "Latest"; Guid = '462dd5e2-f32a-4263-bff5-22edf28882d0' }
                 @{ ModuleName = 'PSEventViewer'; ModuleVersion = "Latest"; Guid = '5df72a79-cdf6-4add-b38d-bcacf26fb7bc' }
-                @{ ModuleName = 'PSWriteHTML'; ModuleVersion = "0.0.152"; Guid = 'a7bdf640-f5cb-4acf-9de0-365b322d245c' }
+                @{ ModuleName = 'PSWriteHTML'; ModuleVersion = "Latest"; Guid = 'a7bdf640-f5cb-4acf-9de0-365b322d245c' }
                 @{ ModuleName = 'ADEssentials'; ModuleVersion = "Latest"; Guid = '9fc9fd61-7f11-4f4b-a527-084086f1905f' }
                 @{ ModuleName = 'GPOZaurr'; ModuleVersion = "Latest"; Guid = 'f7d4c9e4-0298-4f51-ad77-e8e3febebbde' }
             )
@@ -48,8 +48,8 @@ $Configuration = @{
         Merge             = @{
             Sort           = 'None'
             FormatCodePSM1 = @{
-                Enabled           = $true
-                RemoveComments    = $true
+                Enabled           = $false
+                RemoveComments    = $false
                 FormatterSettings = @{
                     IncludeRules = @(
                         'PSPlaceOpenBrace',
@@ -153,12 +153,12 @@ $Configuration = @{
             Verbose         = $false
         }
         PublishModule      = @{  # requires Enable to be on to process all of that
-            Enabled      = $true
+            Enabled      = $false
             Prerelease   = ''
             RequireForce = $false
-            GitHub       = $true
+            GitHub       = $false
         }
     }
 }
 
-New-PrepareModule -Configuration $Configuration #-Verbose
+New-PrepareModule -Configuration $Configuration

@@ -2,6 +2,7 @@ function Invoke-Testimo {
     [alias('Test-ImoAD', 'Test-IMO')]
     [CmdletBinding()]
     param(
+        [ScriptBlock] $BaselineTests,
         [alias('Type')][string[]] $Sources,
         [alias('ExludeType')] [string[]] $ExcludeSources,
         [string[]] $ExcludeDomains,
@@ -52,6 +53,13 @@ function Invoke-Testimo {
         $Script:Reporting['Version'] = "Current: $($TestimoVersion.Version)"
     }
     Out-Informative -OverrideTitle 'Testimo' -Text 'Version' -Level 0 -Status $null -ExtendedValue $Script:Reporting['Version']
+
+    if ($BaselineTests) {
+        $BaseLineTestsObjects = & $BaselineTests
+        if ($BaseLineTestsObjects) {
+            Add-TestimoBaseLines -BaseLineObjects $BaseLineTestsObjects
+        }
+    }
 
     Add-TestimoSources -Folder $ExternalTests
 
