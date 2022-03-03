@@ -224,6 +224,10 @@
                 Out-Informative -Scope $Scope -Text $CurrentSource['Name'] -Status $null -ExtendedValue $null -Domain $Domain -DomainController $DomainController -End
                 # END - Execute TEST - By getting the Data SOURCE
                 $Object = $OutputInvoke.Output
+                if ($CurrentSource['Flatten'] -and $Object) {
+                    $Object = $Object | ConvertTo-FlatObject
+                }
+
                 # Add data output to extended results
                 if ($Scope -in 'Forest', 'Domain', 'DC') {
                     if ($Domain -and $DomainController) {
