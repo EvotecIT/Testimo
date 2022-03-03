@@ -39,8 +39,13 @@
             $BaseLineSource = Get-Content -LiteralPath $BaseLineSourcePath -Raw | ConvertFrom-Json
             $BaseLineTarget = Get-Content -LiteralPath $BaseLineTargetPath -Raw | ConvertFrom-Json
         } elseif ($SourcePath.Extension -eq '.ps1' -and $TargetPath.Extension -eq '.ps1') {
-            $BaseLineSource = ConvertTo-DSCObject -Path $BaseLineSourcePath
-            $BaseLineTarget = ConvertTo-DSCObject -Path $BaseLineTargetPath
+            $CommandExists = Get-Command -Name 'ConvertTo-DSCObject' -ErrorAction SilentlyContinue
+            if ($CommandExists) {
+                $BaseLineSource = ConvertTo-DSCObject -Path $BaseLineSourcePath
+                $BaseLineTarget = ConvertTo-DSCObject -Path $BaseLineTargetPath
+            } else {
+                Out-Informative -Text "DSCParser is not available. Skipping source $Name" -Level 0 -Status $null -ExtendedValue $null
+            }
         } else {
             Out-Informative -Text "Only PS1 (DSC) and JSON files are supported. Skipping source $Name" -Level 0 -Status $null -ExtendedValue $null
             return
