@@ -114,27 +114,48 @@
                             } else {
                                 $CompareValue = $ExpectedValue[$I]
                             }
+                            if ($TestedValue -is [System.Collections.ICollection] -or $TestedValue -is [Array]) {
+                                $CompareObjects = Compare-Object -ReferenceObject $TestedValue -DifferenceObject $CompareValue -IncludeEqual
+                                #$CompareObjects
 
-                            if ($OperationType -eq 'lt') {
-                                $TestedValue -lt $CompareValue
-                            } elseif ($OperationType -eq 'gt') {
-                                $TestedValue -gt $CompareValue
-                            } elseif ($OperationType -eq 'ge') {
-                                $TestedValue -ge $CompareValue
-                            } elseif ($OperationType -eq 'le') {
-                                $TestedValue -le $CompareValue
-                            } elseif ($OperationType -eq 'like') {
-                                $TestedValue -like $CompareValue
-                            } elseif ($OperationType -eq 'contains') {
-                                $TestedValue -contains $CompareValue
-                            } elseif ($OperationType -eq 'notcontains') {
-                                $TestedValue -notcontains $CompareValue
-                            } elseif ($OperationType -eq 'match') {
-                                $TestedValue -match $CompareValue
-                            } elseif ($OperationType -eq 'notmatch') {
-                                $TestedValue -notmatch $CompareValue
+                                if ($OperationType -eq 'eq') {
+                                    if ($CompareObjects.SideIndicator -notcontains "=>" -and $CompareObjects.SideIndicator -notcontains "<=" -and $CompareObjects.SideIndicator -contains "==") {
+                                        $true
+                                    } else {
+                                        $false
+                                    }
+                                } elseif ($OperationType -eq 'ne') {
+                                   if ($CompareObjects.SideIndicator -contains "=>" -or $CompareObjects.SideIndicator -contains "<=") {
+                                       $true
+                                   } else {
+                                       $false
+                                   }
+                                } else {
+                                    # Not supported for arrays
+                                    $null
+                                }
                             } else {
-                                $TestedValue -eq $CompareValue
+                                if ($OperationType -eq 'lt') {
+                                    $TestedValue -lt $CompareValue
+                                } elseif ($OperationType -eq 'gt') {
+                                    $TestedValue -gt $CompareValue
+                                } elseif ($OperationType -eq 'ge') {
+                                    $TestedValue -ge $CompareValue
+                                } elseif ($OperationType -eq 'le') {
+                                    $TestedValue -le $CompareValue
+                                } elseif ($OperationType -eq 'like') {
+                                    $TestedValue -like $CompareValue
+                                } elseif ($OperationType -eq 'contains') {
+                                    $TestedValue -contains $CompareValue
+                                } elseif ($OperationType -eq 'notcontains') {
+                                    $TestedValue -notcontains $CompareValue
+                                } elseif ($OperationType -eq 'match') {
+                                    $TestedValue -match $CompareValue
+                                } elseif ($OperationType -eq 'notmatch') {
+                                    $TestedValue -notmatch $CompareValue
+                                } else {
+                                    $TestedValue -eq $CompareValue
+                                }
                             }
                             # gather comparevalue for display purposes
                             $OutputValues.Add($CompareValue)
