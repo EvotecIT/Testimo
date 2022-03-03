@@ -29,8 +29,26 @@
 
 
     if ($PSBoundParameters.ContainsKey("BaseLineSourcePath")) {
-        $BaseLineSource = Get-Content -LiteralPath $BaseLineSourcePath -Raw | ConvertFrom-Json
-        $BaseLineTarget = Get-Content -LiteralPath $BaseLineTargetPath -Raw | ConvertFrom-Json
+        $SourcePath = Get-Item -LiteralPath $BaseLineSourcePath -ErrorAction SilentlyContinue
+        $TargetPath = Get-Item -LiteralPath $BaseLineTargetPath -ErrorAction SilentlyContinue
+        if (-not $SourcePath -or -not $TargetPath) {
+            Out-Informative -Text "Could not find baseline source or target. Invalid path. Skipping source $Name" -Level 0 -Status $null -ExtendedValue $null
+            return
+        }
+        if ($SourcePath.Extension -eq '.json' -and $TargetPath.Extension -eq '.json') {
+            $BaseLineSource = Get-Content -LiteralPath $BaseLineSourcePath -Raw | ConvertFrom-Json
+            $BaseLineTarget = Get-Content -LiteralPath $BaseLineTargetPath -Raw | ConvertFrom-Json
+        } elseif ($SourcePath.Extension -eq '.ps1' -and $TargetPath.Extension -eq '.ps1') {
+            $BaseLineSource = ConvertTo-DSCObject -Path $BaseLineSourcePath
+            $BaseLineTarget = ConvertTo-DSCObject -Path $BaseLineTargetPath
+        } else {
+            Out-Informative -Text "Only PS1 (DSC) and JSON files are supported. Skipping source $Name" -Level 0 -Status $null -ExtendedValue $null
+            return
+        }
+        if (-not $BaseLineSource -or -not $BaseLineTarget) {
+            Out-Informative -Text "Loading BaseLineSource or BaseLineTarget didn't work. Skipping source $Name" -Level 0 -Status $null -ExtendedValue $null
+            return
+        }
     }
     @{
         Name            = $Name
