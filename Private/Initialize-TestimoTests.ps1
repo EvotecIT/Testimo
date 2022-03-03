@@ -43,10 +43,11 @@
 
                         # Overwrite the test value with the default settings
                         # This is to support basic paramters testing in a way that DSC does
-                        $Script:TestimoConfiguration[$Key][$Source].Tests.$TestsName = [ordered] @{
+                        $Script:TestimoConfiguration[$Key][$Source].Tests.$TestName = [ordered] @{
                             Enable     = $true
                             Name       = $TestName
                             Parameters = @{
+                                Property = $TestName
                                 OperationType = 'eq'
                                 ExpectedValue = $TestValue
                             }
