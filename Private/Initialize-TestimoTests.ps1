@@ -21,7 +21,18 @@
                 foreach ($TestName in [string[]] $Script:TestimoConfiguration[$Key][$Source].Tests.Keys) {
                     $TestValue = $Script:TestimoConfiguration[$Key][$Source].Tests.$TestName
                     if ($TestValue -is [System.Collections.IDictionary]) {
-
+                        if ($TestValue.Details) {
+                            if (-not $TestValue.Details.Category) {
+                                if ($Script:TestimoConfiguration[$Key][$Source].Source.Details -and $Script:TestimoConfiguration[$Key][$Source].Source.Details.Category) {
+                                    $TestValue.Details.Category = $Script:TestimoConfiguration[$Key][$Source].Source.Details.Category
+                                }
+                            }
+                            if (-not $TestValue.Details.Category) {
+                                if ($Script:TestimoConfiguration[$Key][$Source].Source.Details -and $Script:TestimoConfiguration[$Key][$Source].Source.Details.ActionType) {
+                                    $TestValue.Details.ActionType = $Script:TestimoConfiguration[$Key][$Source].Source.Details.ActionType
+                                }
+                            }
+                        }
                     } else {
                         # we use configuration as default category
                         $DefaultCategory = 'Configuration'
