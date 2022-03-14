@@ -1,6 +1,7 @@
 ﻿# Testimo Release History
 
-## 0.0.77 - 2022.03.03
+## 0.0.77 - 2022.03.14
+  - Fixes [Well Know Folders test fails on ambiguous name #159](https://github.com/EvotecIT/Testimo/issues/159)
   - Added ability to use `Compare-Testimo` as a way to compare two DSC files (single object, can have nested properties)
 
 ## 0.0.76 - 2022.02.24
