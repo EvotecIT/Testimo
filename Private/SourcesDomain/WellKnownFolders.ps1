@@ -23,7 +23,7 @@
             foreach ($_ in $WellKnownFolders.PSObject.Properties.Name) {
                 $CurrentWellKnownFolders[$_] = $DomainInformation.$_
             }
-            Compare-MultipleObjects -Object @($DefaultWellKnownFolders, $CurrentWellKnownFolders) -SkipProperties
+            Compare-MultipleObjects -Objects @($DefaultWellKnownFolders, $CurrentWellKnownFolders) -SkipProperties
         }
         Details        = [ordered] @{
             Area        = 'Configuration'
