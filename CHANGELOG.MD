@@ -1,5 +1,8 @@
 ﻿# Testimo Release History
 
+## 0.0.78
+  - Fix PowerShell 2.0 detection [#161](https://github.com/EvotecIT/Testimo/pull/161) - tnx Sparticuz
+
 ## 0.0.77 - 2022.03.14
   - Fixes [Well Know Folders test fails on ambiguous name #159](https://github.com/EvotecIT/Testimo/issues/159)
   - Added ability to use `Compare-Testimo` as a way to compare two DSC files (single object, can have nested properties)
