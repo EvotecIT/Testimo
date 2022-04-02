@@ -1,6 +1,6 @@
 ﻿# Testimo Release History
 
-## 0.0.78
+## 0.0.78 - 2022.04.02
   - Fix PowerShell 2.0 detection [#161](https://github.com/EvotecIT/Testimo/pull/161) - tnx Sparticuz
 
 ## 0.0.77 - 2022.03.14
