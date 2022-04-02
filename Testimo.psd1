@@ -8,7 +8,7 @@
     Description          = 'Testimo is Powershell module that tests Active Directory against specific set of tests.'
     FunctionsToExport    = @('Compare-Testimo', 'Get-TestimoConfiguration', 'Get-TestimoSources', 'Import-PrivateModule', 'Invoke-Testimo')
     GUID                 = '0c1b99de-55ac-4410-8cb5-e689ff3be39b'
-    ModuleVersion        = '0.0.77'
+    ModuleVersion        = '0.0.78'
     PowerShellVersion    = '5.1'
     PrivateData          = @{
         PSData = @{
@@ -27,11 +27,11 @@
             ModuleName    = 'PSWinDocumentation.DNS'
             Guid          = '462dd5e2-f32a-4263-bff5-22edf28882d0'
         }, @{
-            ModuleVersion = '1.0.17'
+            ModuleVersion = '1.0.18'
             ModuleName    = 'PSEventViewer'
             Guid          = '5df72a79-cdf6-4add-b38d-bcacf26fb7bc'
         }, @{
-            ModuleVersion = '0.0.171'
+            ModuleVersion = '0.0.172'
             ModuleName    = 'PSWriteHTML'
             Guid          = 'a7bdf640-f5cb-4acf-9de0-365b322d245c'
         }, @{
