@@ -15,10 +15,23 @@
         $ExcludeProperties = @(
             "*@odata*"
             "#microsoft.graph*"
+            "ResourceID"
+            "Credential"
+            "ResourceName"
             if ($Source.ExcludeProperty) {
                 $Source.ExcludeProperty
             }
         )
+        If ($Source.BaseLineSource -and $Source.BaseLineTarget) {
+            try {
+                $DataOutput = Compare-MultipleObjects -FlattenObject -Objects $Source.BaseLineSource, $Source.BaseLineTarget -ObjectsName "Source", "Target" -ExcludeProperty $ExcludeProperties -SkipProperties -AllProperties
+            } catch {
+                $DataOutput = $null
+                Write-Warning -Message "Error comparing $($Source.BaseLineSource) and $($Source.BaseLineTarget) with error: $($_.Exception.Message)"
+            }
+        } else {
+            $DataOutput = $null
+        }
 
         $Script:TestimoConfiguration[$Source.Scope][$Source.Name] = @{
             Name           = $Source.Name
@@ -27,7 +40,7 @@
             Source         = @{
                 Name           = $Source.DisplayName
                 DataCode       = 'Compare-MultipleObjects -FlattenObject -Objects $Source.BaseLineSource, $Source.BaseLineTarget -CompareNames "Source", "Target" -ExcludeProperty "*@odata*" -SkipProperties'
-                DataOutput     = Compare-MultipleObjects -FlattenObject -Objects $Source.BaseLineSource, $Source.BaseLineTarget -ObjectsName "Source", "Target" -ExcludeProperty $ExcludeProperties -SkipProperties -Summary
+                DataOutput     = $DataOutput
                 Details        = [ordered] @{
                     Area        = ''
                     Category    = $Source.Category
@@ -50,7 +63,7 @@
                         Property      = 'Status'
                         ExpectedValue = $true
                         OperationType = 'eq'
-                        OverwriteName = { "Comparing $($_.Name)" }
+                        OverwriteName = { "Property $($_.Name)" }
                     }
                     Details    = [ordered] @{
                         Category    = $Source.Category
