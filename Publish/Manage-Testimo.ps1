@@ -36,6 +36,7 @@ $Configuration = @{
                 @{ ModuleName = 'PSWriteHTML'; ModuleVersion = "Latest"; Guid = 'a7bdf640-f5cb-4acf-9de0-365b322d245c' }
                 @{ ModuleName = 'ADEssentials'; ModuleVersion = "Latest"; Guid = '9fc9fd61-7f11-4f4b-a527-084086f1905f' }
                 @{ ModuleName = 'GPOZaurr'; ModuleVersion = "Latest"; Guid = 'f7d4c9e4-0298-4f51-ad77-e8e3febebbde' }
+                @{ ModuleName = 'PSWriteColor'; ModuleVersion = "Latest"; Guid = '0b0ba5c5-ec85-4c2b-a718-874e55a8bc3f' }
             )
             ExternalModuleDependencies = @(
                 "ActiveDirectory"
@@ -108,6 +109,7 @@ $Configuration = @{
                 RemoveComments = $false
             }
             Integrate      = @{
+                ApprovedModules = @('PSWriteColor', 'Connectimo', 'PSUnifi', 'PSWebToolbox', 'PSMyPassword')
                 #ApprovedModules = @('PSSharedGoods', 'PSWriteColor', 'Connectimo', 'PSUnifi', 'PSWebToolbox', 'PSMyPassword')
             }
         }
@@ -153,10 +155,10 @@ $Configuration = @{
             Verbose         = $false
         }
         PublishModule      = @{  # requires Enable to be on to process all of that
-            Enabled      = $true
+            Enabled      = $false
             Prerelease   = ''
             RequireForce = $false
-            GitHub       = $true
+            GitHub       = $false
         }
     }
 }
