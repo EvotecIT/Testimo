@@ -14,7 +14,8 @@
             Resolution  = 'Make sure to remove any Clients performing simple or unsigned bindings.'
             Importance  = 10
             Resources   = @(
-                'https://docs.microsoft.com/en-us/archive/blogs/russellt/identifying-clear-text-ldap-binds-to-your-dcs'
+                'https://evotec.xyz/four-commands-to-help-you-track-down-insecure-ldap-bindings-before-march-2020/'
+                'https://support.microsoft.com/en-us/topic/2020-ldap-channel-binding-and-ldap-signing-requirements-for-windows-kb4520412-ef185fb8-00f7-167d-744c-f299a66fc00a'
                 'https://support.microsoft.com/en-us/help/4520412/2020-ldap-channel-binding-and-ldap-signing-requirement-for-windows'
             )
         }

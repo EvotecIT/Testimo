@@ -1,5 +1,8 @@
 ﻿# Testimo Release History
 
+## 0.0.79
+- Fixes link to MSFT article on LDAP binding/signing in script is 404 [#160](https://github.com/EvotecIT/Testimo/issues/160)
+
 ## 0.0.78 - 2022.04.02
   - Fix PowerShell 2.0 detection [#161](https://github.com/EvotecIT/Testimo/pull/161) - tnx Sparticuz
 
