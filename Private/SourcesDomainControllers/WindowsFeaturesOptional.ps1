@@ -6,9 +6,9 @@
         Name           = "Windows Features Optional"
         Data           = {
             $Output = Invoke-Command -ComputerName $DomainController -ErrorAction Stop {
-                Get-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2 | Select-Object -Property DisplayName, Description, RestartRequired, FeatureName, State
+                Get-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2
             }
-            $Output
+            $Output | Select-Object -Property DisplayName, Description, RestartRequired, FeatureName, State
         }
         Details        = [ordered] @{
             Category    = 'Configuration'
