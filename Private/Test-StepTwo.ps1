@@ -40,6 +40,9 @@
         foreach ($V in $Property) {
             $TestedValue = $TestedValue.$V
         }
+        if ($TestedValue.GetType().BaseType.Name -eq 'ValueType') {
+            $TestedValue = $TestedValue.ToString()
+        }
 
         if ($TemporaryBoundParameters.ContainsKey('ExpectedCount')) {
             if ($null -eq $Object) {
@@ -125,11 +128,11 @@
                                         $false
                                     }
                                 } elseif ($OperationType -eq 'ne') {
-                                   if ($CompareObjects.SideIndicator -contains "=>" -or $CompareObjects.SideIndicator -contains "<=") {
-                                       $true
-                                   } else {
-                                       $false
-                                   }
+                                    if ($CompareObjects.SideIndicator -contains "=>" -or $CompareObjects.SideIndicator -contains "<=") {
+                                        $true
+                                    } else {
+                                        $false
+                                    }
                                 } else {
                                     # Not supported for arrays
                                     $null
