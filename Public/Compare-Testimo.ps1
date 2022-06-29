@@ -54,16 +54,24 @@
                 $DSCGroups = [ordered] @{}
                 $DSCGroupsTarget = [ordered] @{}
 
-                $BaseLineSource = ConvertTo-DSCObject -Path $BaseLineSourcePath
-                $BaseLineTarget = ConvertTo-DSCObject -Path $BaseLineTargetPath
+                [Array] $BaseLineSource = ConvertTo-DSCObject -Path $BaseLineSourcePath
+                [Array] $BaseLineTarget = ConvertTo-DSCObject -Path $BaseLineTargetPath
 
                 foreach ($DSC in $BaseLineSource) {
+                    if ($DSC.Keys -notcontains 'ResourceName') {
+                        Out-Informative -Text "Reading DSC Source failed. Probably missing module. File $BaseLineSourcePath" -Level 0 -Status $null -ExtendedValue $null
+                        continue
+                    }
                     if (-not $DSCGroups[$DSC.ResourceName]) {
                         $DSCGroups[$DSC.ResourceName] = [System.Collections.Generic.List[PSCustomObject]]::new()
                     }
                     $DSCGroups[$DSC.ResourceName].Add([PSCustomObject] $DSC)
                 }
                 foreach ($DSC in $BaseLineTarget) {
+                    if ($DSC.Keys -notcontains 'ResourceName') {
+                        Out-Informative -Text "Reading DSC Target failed. Probably missing module. File $BaseLineTargetPath" -Level 0 -Status $null -ExtendedValue $null
+                        continue
+                    }
                     if (-not $DSCGroupsTarget[$DSC.ResourceName]) {
                         $DSCGroupsTarget[$DSC.ResourceName] = [System.Collections.Generic.List[PSCustomObject]]::new()
                     }
