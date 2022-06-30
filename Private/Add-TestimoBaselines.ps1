@@ -13,6 +13,7 @@
         #$Execute = Compare-MultipleObjects -FlattenObject -Objects $Source.BaseLineSource, $Source.BaseLineTarget
 
         $ExcludeProperties = @(
+            'id'
             "*@odata*"
             "#microsoft.graph*"
             "ResourceID"
