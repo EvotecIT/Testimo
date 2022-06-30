@@ -79,25 +79,81 @@
                 }
 
                 foreach ($Source in $DSCGroups.Keys) {
-                    if ($DSCGroupsTarget[$Source]) {
-                        @{
-                            Name            = $Source
-                            DisplayName     = $Source
-                            Scope           = $Scope
-                            Category        = $Category
-                            BaseLineSource  = if ($DSCGroups[$Source].Count -eq 1) { $DSCGroups[$Source][0] } else { $DSCGroups[$Source] }
-                            BaseLineTarget  = if ($DSCGroupsTarget[$Source].Count -eq 1) { $DSCGroupsTarget[$Source][0] } else { $DSCGroupsTarget[$Source] }
-                            ExcludeProperty = $ExcludeProperty
+                    if ($DSCGroups[$Source].Count -gt 1 -or $DSCGroupsTarget[$Source].Count -gt 1) {
+                        # This is to handle arrays within objects like: AADConditionalAccessPolicy
+                        # By default its hard to compare array to array because the usual way is to do it by index.
+                        # So we're forcing an array to become single object with it's property
+                        $NewSourceObject = [ordered] @{}
+                        foreach ($DSC in $DSCGroups[$Source]) {
+                            if ($DSC.DisplayName) {
+                                $NewSourceObject[$DSC.DisplayName] = $DSC
+                            } elseif ($DSC.Name) {
+                                $NewSourceObject[$DSC.Name] = $DSC
+                            } elseif ($DSC.Identity) {
+                                $NewSourceObject[$DSC.Identity] = $DSC
+                            } else {
+                                $NewSourceObject[$DSC.ResourceName] = $DSC
+                            }
+                        }
+                        $SourceObject = [PSCustomObject] $NewSourceObject
+
+                        $NewTargetObject = [ordered] @{}
+                        foreach ($DSC in $DSCGroupsTarget[$Source]) {
+                            if ($DSC.DisplayName) {
+                                $NewTargetObject[$DSC.DisplayName] = $DSC
+                            } elseif ($DSC.Name) {
+                                $NewTargetObject[$DSC.Name] = $DSC
+                            } elseif ($DSC.Identity) {
+                                $NewTargetObject[$DSC.Identity] = $DSC
+                            } else {
+                                $NewTargetObject[$DSC.ResourceName] = $DSC
+                            }
+                        }
+                        $TargetObject = [PSCustomObject] $NewTargetObject
+
+                        if ($TargetObject) {
+                            @{
+                                Name            = $Source
+                                DisplayName     = $Source
+                                Scope           = $Scope
+                                Category        = $Category
+                                BaseLineSource  = $SourceObject
+                                BaseLineTarget  = $TargetObject
+                                ExcludeProperty = $ExcludeProperty
+                            }
+                        } else {
+                            @{
+                                Name            = $Source
+                                DisplayName     = $Source
+                                Scope           = $Scope
+                                Category        = $Category
+                                BaseLineSource  = $SourceObject
+                                BaseLineTarget  = $null
+                                ExcludeProperty = $ExcludeProperty
+                            }
                         }
                     } else {
-                        @{
-                            Name            = $Source
-                            DisplayName     = $Source
-                            Scope           = $Scope
-                            Category        = $Category
-                            BaseLineSource  = if ($DSCGroups[$Source].Count -eq 1) { $DSCGroups[$Source][0] } else { $DSCGroups[$Source] }
-                            BaseLineTarget  = $null
-                            ExcludeProperty = $ExcludeProperty
+                        # This is standard DSC comparison
+                        if ($DSCGroupsTarget[$Source]) {
+                            @{
+                                Name            = $Source
+                                DisplayName     = $Source
+                                Scope           = $Scope
+                                Category        = $Category
+                                BaseLineSource  = if ($DSCGroups[$Source].Count -eq 1) { $DSCGroups[$Source][0] } else { $DSCGroups[$Source] }
+                                BaseLineTarget  = if ($DSCGroupsTarget[$Source].Count -eq 1) { $DSCGroupsTarget[$Source][0] } else { $DSCGroupsTarget[$Source] }
+                                ExcludeProperty = $ExcludeProperty
+                            }
+                        } else {
+                            @{
+                                Name            = $Source
+                                DisplayName     = $Source
+                                Scope           = $Scope
+                                Category        = $Category
+                                BaseLineSource  = if ($DSCGroups[$Source].Count -eq 1) { $DSCGroups[$Source][0] } else { $DSCGroups[$Source] }
+                                BaseLineTarget  = $null
+                                ExcludeProperty = $ExcludeProperty
+                            }
                         }
                     }
                 }
