@@ -40,7 +40,7 @@
         foreach ($V in $Property) {
             $TestedValue = $TestedValue.$V
         }
-        if ($TestedValue.GetType().BaseType.Name -eq 'ValueType') {
+        if ($TestedValue.GetType().BaseType.Name -eq 'Enum') {
             $TestedValue = $TestedValue.ToString()
         }
 
