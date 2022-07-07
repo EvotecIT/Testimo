@@ -1,5 +1,8 @@
 ﻿# Testimo Release History
 
+## 0.0.80 - 2022.07.07
+- Fixes `Results meet expected values, but test listed as failure in 0.0.79` [#165](https://github.com/EvotecIT/Testimo/issues/165)
+
 ## 0.0.79 - 2022.06.30
 - Fixes link to MSFT article on LDAP binding/signing in script is 404 [#160](https://github.com/EvotecIT/Testimo/issues/160)
 - Fixes `DomainWellKnownFolders` [#162](https://github.com/EvotecIT/Testimo/issues/162)
