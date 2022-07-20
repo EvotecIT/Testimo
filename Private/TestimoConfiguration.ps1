@@ -26,6 +26,7 @@
         ForestConfigurationPartitionOwners           = $ForestConfigurationPartitionOwners
         ForestConfigurationPartitionOwnersContainers = $ForestConfigurationPartitionOwnersContainers
         ForestDuplicateSPN                           = $DuplicateSPN
+        ForestVulnerableSchemaClass                  = $VulnerableSchemaClass
         DomainLDAP                                   = $DomainLDAP
         DomainMachineQuota                           = $MachineQuota
         DomainDomainControllers                      = $DomainDomainControllers
