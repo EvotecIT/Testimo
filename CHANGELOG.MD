@@ -1,5 +1,8 @@
 ﻿# Testimo Release History
 
+## 0.0.81 - 2022.07.20
+- Added new test `ForestVulnerableSchemaClass`
+
 ## 0.0.80 - 2022.07.07
 - Fixes `Results meet expected values, but test listed as failure in 0.0.79` [#165](https://github.com/EvotecIT/Testimo/issues/165)
 
