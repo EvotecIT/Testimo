@@ -1,5 +1,8 @@
 ﻿# Testimo Release History
 
+## 0.0.82 - 2022.07.20
+- Small fix for `DomainMachineQuota` displaying unnessecary warnings and too many properties
+
 ## 0.0.81 - 2022.07.20
 - Added new test `ForestVulnerableSchemaClass`
 
