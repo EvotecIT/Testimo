@@ -57,7 +57,6 @@
     DataHighlights  = {
         New-HTMLTableCondition -Name 'ms-DS-MachineAccountQuota' -ComparisonType number -BackgroundColor PaleGreen -Value 0 -Operator eq
         New-HTMLTableCondition -Name 'ms-DS-MachineAccountQuota' -ComparisonType number -BackgroundColor Salmon -Value 0 -Operator gt
-        New-HTMLTableCondition -Name 'LastBackupDaysAgo' -ComparisonType number -BackgroundColor Salmon -Value 0 -Operator lt
     }
     Solution        = {
         New-HTMLContainer {
