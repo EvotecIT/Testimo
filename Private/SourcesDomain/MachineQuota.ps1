@@ -5,7 +5,7 @@
     Source          = @{
         Name           = "Machine Quota: Gathering ms-DS-MachineAccountQuota"
         Data           = {
-            Get-ADObject -Identity ((Get-ADDomain -Identity $Domain).distinguishedname) -Properties 'ms-DS-MachineAccountQuota' -Server $Domain
+            Get-ADObject -Identity ((Get-ADDomain -Identity $Domain).distinguishedname) -Properties 'ms-DS-MachineAccountQuota' -Server $Domain | Select-Object DistinguishedName, Name, ObjectClass, ObjectGUID, ms-DS-MachineAccountQuota
         }
         Details        = [ordered] @{
             Category    = 'Security'
