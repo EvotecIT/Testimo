@@ -1,5 +1,8 @@
 ﻿# Testimo Release History
 
+## 0.0.83 - 2022.07.29
+- Fixes issue with some tests returning an error `You cannot call a method on a null-valued expression.`
+
 ## 0.0.82 - 2022.07.20
 - Small fix for `DomainMachineQuota` displaying unnessecary warnings and too many properties
 
