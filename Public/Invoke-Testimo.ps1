@@ -1,4 +1,87 @@
 function Invoke-Testimo {
+    <#
+    .SYNOPSIS
+    Testimo simplifies Active Directory testing and reporting.
+
+    .DESCRIPTION
+    Testimo simplifies Active Directory testing and reporting. It provides a way to execute tests and generate HTML reports. It's a wrapper around other modules like PSWinDocumentation, PSSharedGoods, PSEventViewer, PSWriteHTML, ADEssentials, GPOZaurr, and more.
+
+    .PARAMETER BaselineTests
+    Parameter description
+
+    .PARAMETER Sources
+    Type of report to be generated from a list of available reports.
+
+    .PARAMETER ExcludeSources
+    Type of report to be excluded from a list of available reports. By default all reports are run. 
+
+    .PARAMETER ExcludeDomains
+    Exclude domain from search, by default whole forest is scanned
+
+    .PARAMETER IncludeDomains
+    Include only specific domains, by default whole forest is scanned
+
+    .PARAMETER ExcludeDomainControllers
+    Exclude specific domain controllers, by default there are no exclusions
+
+    .PARAMETER IncludeDomainControllers
+    Include only specific domain controllers, by default all domain controllers are included
+
+    .PARAMETER ForestName
+    Target different Forest, by default current forest is used
+
+    .PARAMETER PassThru
+    Returns created objects after the report is done
+
+    .PARAMETER ShowErrors
+    Parameter description
+
+    .PARAMETER ExtendedResults
+    Returns more information to console
+
+    .PARAMETER Configuration
+    Loads configuration from a file or an object
+
+    .PARAMETER FilePath
+    Path where the HTML report will be saved. If not specified, the report will be saved in the temporary directory and the path will be displayed in console.
+
+    .PARAMETER ShowReport
+    Parameter description
+
+    .PARAMETER HideHTML
+    Do not show HTML report once the tests are completed. By default HTML is opened in default browser upon completion.
+
+    .PARAMETER HideSteps
+    Do not show steps in report
+
+    .PARAMETER AlwaysShowSteps
+    Parameter description
+
+    .PARAMETER SkipRODC
+    Skip Read-Only Domain Controllers. By default all domain controllers are included.
+
+    .PARAMETER Online
+    HTML files should use CSS/JS from the Internet (CDN). By default, CSS/JS is embedded in the HTML file which can make the file much larger in size.
+
+    .PARAMETER ExternalTests
+    Parameter description
+
+    .PARAMETER Variables
+    Parameter description
+
+    .PARAMETER SplitReports
+    Split report into multiple files, one for each report. This can be useful for large domains with huge reports.
+
+    .EXAMPLE
+    Invoke-Testimo -Sources DCDiskSpace, DCFileSystem
+
+    .EXAMPLE
+    Invoke-Testimo -Sources DCDiskSpace, DCFileSystem -SplitReports -ReportPath "$PSScriptRoot\Reports\Testimo.html" -AlwaysShowSteps
+    Invoke-Testimo -Sources DomainComputersUnsupported, DomainDuplicateObjects -SplitReports -ReportPath "$PSScriptRoot\Reports\Testimo.html" -AlwaysShowSteps
+
+    .NOTES
+    General notes
+    #>
     [alias('Test-ImoAD', 'Test-IMO')]
     [CmdletBinding()]
     param(
@@ -23,7 +106,8 @@ function Invoke-Testimo {
         [switch] $SkipRODC,
         [switch] $Online,
         [string[]] $ExternalTests,
-        [System.Collections.IDictionary] $Variables
+        [System.Collections.IDictionary] $Variables,
+        [switch] $SplitReports
     )
     if ($ShowReport) {
         Write-Warning "Invoke-Testimo - Paramter ShowReport is deprecated. By default HTML report will open up after running Testimo. If you want to prevent that, use HideHTML switch instead. This message and parameter will be removed in future releases."
@@ -167,11 +251,8 @@ function Invoke-Testimo {
     if (-not $FilePath) {
         $FilePath = Get-FileName -Extension 'html' -Temporary
     }
-    $Time = Start-TimeLog
-    Out-Informative -OverrideTitle 'Testimo' -Text 'HTML Report Generation Started' -Level 0 -Status $null #-ExtendedValue $Script:Reporting['Version']
-    Start-TestimoReport -Scopes $Scopes -FilePath $FilePath -Online:$Online -ShowHTML:(-not $HideHTML.IsPresent) -TestResults $Script:Reporting -HideSteps:$HideSteps -AlwaysShowSteps:$AlwaysShowSteps
-    $TimeEnd = Stop-TimeLog -Time $Time
-    Out-Informative -OverrideTitle 'Testimo' -Text "HTML Report Saved to $FilePath" -Level 0 -Status $null -ExtendedValue $TimeEnd
+
+    Start-TestimoReport -Scopes $Scopes -FilePath $FilePath -Online:$Online -ShowHTML:(-not $HideHTML.IsPresent) -TestResults $Script:Reporting -HideSteps:$HideSteps -AlwaysShowSteps:$AlwaysShowSteps -SplitReports:$SplitReports
 }
 
 [scriptblock] $SourcesAutoCompleter = {
