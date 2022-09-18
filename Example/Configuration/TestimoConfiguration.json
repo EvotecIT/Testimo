@@ -15,8 +15,28 @@
                                                            }
                                    }
                      },
+    "ForestDHCP":  {
+                       "Enable":  true,
+                       "Tests":  {
+                                     "DHCPonDC":  {
+                                                      "Enable":  true,
+                                                      "Parameters":  {
+
+                                                                     }
+                                                  },
+                                     "DHCPResolvesInDNS":  {
+                                                               "Enable":  true,
+                                                               "Parameters":  {
+
+                                                                              }
+                                                           }
+                                 }
+                   },
     "ForestReplication":  {
                               "Enable":  true,
+                              "Source":  {
+                                             "ExpectedOutput":  true
+                                         },
                               "Tests":  {
                                             "ReplicationTests":  {
                                                                      "Enable":  true,
@@ -30,6 +50,9 @@
                           },
     "ForestReplicationStatus":  {
                                     "Enable":  true,
+                                    "Source":  {
+                                                   "ExpectedOutput":  true
+                                               },
                                     "Tests":  {
                                                   "ReplicationTests":  {
                                                                            "Enable":  true,
@@ -181,6 +204,35 @@
                                                                          }
                                   }
                     },
+    "ForestRootKDS":  {
+                          "Enable":  true,
+                          "Source":  {
+                                         "ExpectedOutput":  true
+                                     },
+                          "Tests":  {
+
+                                    }
+                      },
+    "ForestSubnets":  {
+                          "Enable":  true,
+                          "Source":  {
+                                         "ExpectedOutput":  true
+                                     },
+                          "Tests":  {
+                                        "SubnetsWithoutSites":  {
+                                                                    "Enable":  true,
+                                                                    "Parameters":  {
+
+                                                                                   }
+                                                                },
+                                        "SubnetsOverlapping":  {
+                                                                   "Enable":  true,
+                                                                   "Parameters":  {
+
+                                                                                  }
+                                                               }
+                                    }
+                      },
     "ForestOrphanedAdmins":  {
                                  "Enable":  true,
                                  "Source":  {
@@ -292,6 +344,15 @@
                                                                                           }
                                                                    }
                                                      },
+    "ForestDuplicateSPN":  {
+                               "Enable":  true,
+                               "Source":  {
+                                              "ExpectedOutput":  false
+                                          },
+                               "Tests":  {
+
+                                         }
+                           },
     "DomainLDAP":  {
                        "Enable":  true,
                        "Source":  {
@@ -354,6 +415,22 @@
                                                                   }
                                  }
                    },
+    "DomainMachineQuota":  {
+                               "Enable":  true,
+                               "Source":  {
+                                              "ExpectedOutput":  true
+                                          },
+                               "Tests":  {
+                                             "MachineQuotaIsZero":  {
+                                                                        "Enable":  true,
+                                                                        "Parameters":  {
+                                                                                           "Property":  "ms-DS-MachineAccountQuota",
+                                                                                           "ExpectedValue":  0,
+                                                                                           "OperationType":  "eq"
+                                                                                       }
+                                                                    }
+                                         }
+                           },
     "DomainDomainControllers":  {
                                     "Enable":  true,
                                     "Source":  {
@@ -616,49 +693,49 @@
                                                }
                                  },
     "DomainGroupPolicyAssessment":  {
-                                       "Enable":  true,
-                                       "Source":  {
-                                                      "ExpectedOutput":  true
-                                                  },
-                                       "Tests":  {
-                                                     "Empty":  {
-                                                                   "Enable":  true,
-                                                                   "Parameters":  {
-
-                                                                                  }
-                                                               },
-                                                     "Linked":  {
+                                        "Enable":  true,
+                                        "Source":  {
+                                                       "ExpectedOutput":  true
+                                                   },
+                                        "Tests":  {
+                                                      "Empty":  {
                                                                     "Enable":  true,
                                                                     "Parameters":  {
 
                                                                                    }
                                                                 },
-                                                     "Enabled":  {
+                                                      "Linked":  {
                                                                      "Enable":  true,
                                                                      "Parameters":  {
 
                                                                                     }
                                                                  },
-                                                     "Problem":  {
-                                                                     "Enable":  true,
-                                                                     "Parameters":  {
+                                                      "Enabled":  {
+                                                                      "Enable":  true,
+                                                                      "Parameters":  {
 
-                                                                                    }
-                                                                 },
-                                                     "Optimized":  {
-                                                                       "Enable":  true,
-                                                                       "Parameters":  {
+                                                                                     }
+                                                                  },
+                                                      "Problem":  {
+                                                                      "Enable":  true,
+                                                                      "Parameters":  {
 
-                                                                                      }
-                                                                   },
-                                                     "ApplyPermission":  {
-                                                                             "Enable":  true,
-                                                                             "Parameters":  {
+                                                                                     }
+                                                                  },
+                                                      "Optimized":  {
+                                                                        "Enable":  true,
+                                                                        "Parameters":  {
 
-                                                                                            }
-                                                                         }
-                                                 }
-                                   },
+                                                                                       }
+                                                                    },
+                                                      "ApplyPermission":  {
+                                                                              "Enable":  true,
+                                                                              "Parameters":  {
+
+                                                                                             }
+                                                                          }
+                                                  }
+                                    },
     "DomainGroupPolicyPermissions":  {
                                          "Enable":  true,
                                          "Source":  {
@@ -772,9 +849,6 @@
                                            },
     "DomainNetLogonOwner":  {
                                 "Enable":  true,
-                                "Source":  {
-                                               "ExpectedOutput":  true
-                                           },
                                 "Tests":  {
                                               "Empty":  {
                                                             "Enable":  true,
@@ -855,6 +929,55 @@
                                                                                   }
                                           }
                             },
+    "DomainSecurityComputers":  {
+                                    "Enable":  true,
+                                    "Source":  {
+                                                   "ExpectedOutput":  false
+                                               },
+                                    "Tests":  {
+                                                  "KeberosDES":  {
+                                                                     "Enable":  true,
+                                                                     "Parameters":  {
+
+                                                                                    }
+                                                                 },
+                                                  "AllowReversiblePasswordEncryption":  {
+                                                                                            "Enable":  true,
+                                                                                            "Parameters":  {
+
+                                                                                                           }
+                                                                                        },
+                                                  "PasswordNeverExpires":  {
+                                                                               "Enable":  true,
+                                                                               "Parameters":  {
+
+                                                                                              }
+                                                                           },
+                                                  "PasswordNotRequired":  {
+                                                                              "Enable":  true,
+                                                                              "Parameters":  {
+
+                                                                                             }
+                                                                          },
+                                                  "PrimaryGroup":  {
+                                                                       "Enable":  true,
+                                                                       "Parameters":  {
+
+                                                                                      }
+                                                                   }
+                                              }
+                                },
+    "DomainSecurityDelegatedObjects":  {
+                                           "Enable":  true,
+                                           "Tests":  {
+                                                         "FullDelegation":  {
+                                                                                "Enable":  true,
+                                                                                "Parameters":  {
+
+                                                                                               }
+                                                                            }
+                                                     }
+                                       },
     "DomainSecurityGroupsAccountOperators":  {
                                                  "Enable":  true,
                                                  "Source":  {
@@ -891,6 +1014,12 @@
 
                                                                                                        }
                                                                                     },
+                                              "PasswordNotRequired":  {
+                                                                          "Enable":  true,
+                                                                          "Parameters":  {
+
+                                                                                         }
+                                                                      },
                                               "PrimaryGroup":  {
                                                                    "Enable":  true,
                                                                    "Parameters":  {
@@ -922,13 +1051,31 @@
                                            },
                                 "Tests":  {
                                               "PasswordLastSet":  {
-                                                                      "Enable":  true,
+                                                                      "Enable":  false,
                                                                       "Parameters":  {
                                                                                          "Property":  "PasswordLastSet",
                                                                                          "ExpectedValue":  "(Get-Date).AddDays(-180)",
                                                                                          "OperationType":  "gt"
                                                                                      }
-                                                                  }
+                                                                  },
+                                              "PasswordLastSetPrimary":  {
+                                                                             "Enable":  true,
+                                                                             "Parameters":  {
+
+                                                                                            }
+                                                                         },
+                                              "PasswordLastSetRODC":  {
+                                                                          "Enable":  true,
+                                                                          "Parameters":  {
+
+                                                                                         }
+                                                                      },
+                                              "DeadKerberosAccount":  {
+                                                                          "Enable":  true,
+                                                                          "Parameters":  {
+
+                                                                                         }
+                                                                      }
                                           }
                             },
     "DomainSysVolDFSR":  {
@@ -1194,7 +1341,8 @@
                                                                                        "ExpectedValue":  [
                                                                                                              "Microsoft Windows Server 2019*",
                                                                                                              "Microsoft Windows Server 2016*",
-                                                                                                             "Microsoft Windows Server 2012*"
+                                                                                                             "Microsoft Windows Server 2012*",
+                                                                                                             "Microsoft Windows Server 2022*"
                                                                                                          ],
                                                                                        "OperationType":  "like"
                                                                                    }
@@ -1552,9 +1700,9 @@
                                                        "Parameters":  {
                                                                           "Property":  "X509NotBefore",
                                                                           "ExpectedValue":  {
-                                                                                                "value":  "\/Date(1613898552168)\/",
+                                                                                                "value":  "\/Date(1642690020746)\/",
                                                                                                 "DisplayHint":  2,
-                                                                                                "DateTime":  "niedziela, 21 lutego 2021 10:09:12"
+                                                                                                "DateTime":  "czwartek, 20 stycznia 2022 15:47:00"
                                                                                             },
                                                                           "OperationType":  "lt"
                                                                       }
@@ -1564,9 +1712,9 @@
                                                       "Parameters":  {
                                                                          "Property":  "X509NotAfter",
                                                                          "ExpectedValue":  {
-                                                                                               "value":  "\/Date(1613898552168)\/",
+                                                                                               "value":  "\/Date(1642690020746)\/",
                                                                                                "DisplayHint":  2,
-                                                                                               "DateTime":  "niedziela, 21 lutego 2021 10:09:12"
+                                                                                               "DateTime":  "czwartek, 20 stycznia 2022 15:47:00"
                                                                                            },
                                                                          "OperationType":  "gt"
                                                                      }
@@ -2049,7 +2197,7 @@
                                                                           "Enable":  true,
                                                                           "Parameters":  {
                                                                                              "Property":  "IPAddress",
-                                                                                             "ExpectedValue":  "37.59.176.139",
+                                                                                             "ExpectedValue":  "1.1.1.1",
                                                                                              "OperationType":  "eq"
                                                                                          }
                                                                       }
