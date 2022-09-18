@@ -15,5 +15,5 @@ $Sources = @(
     'DomainDHCPAuthorized'
 )
 
-$TestResults = Invoke-Testimo -ReturnResults -ExcludeDomains 'ad.evotec.pl' -ExtendedResults -Configuration $ConfigurationFile -Sources $Sources -ShowReport
+$TestResults = Invoke-Testimo -ReturnResults -ExcludeDomains 'ad.evotec.pl' -ExtendedResults -Configuration $ConfigurationFile -Sources $Sources
 $TestResults | Format-Table -AutoSize *
