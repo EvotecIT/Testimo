@@ -59,17 +59,22 @@
 
                 foreach ($DSC in $BaseLineSource) {
                     if ($DSC.Keys -notcontains 'ResourceName') {
-                        Out-Informative -Text "Reading DSC Source failed. Probably missing module. File $BaseLineSourcePath" -Level 0 -Status $null -ExtendedValue $null
+                        Out-Informative -Text "Reading DSC Source failed. Probably missing DSC module. File $BaseLineSourcePath" -Level 0 -Status $false -ExtendedValue $null
                         continue
                     }
                     if (-not $DSCGroups[$DSC.ResourceName]) {
                         $DSCGroups[$DSC.ResourceName] = [System.Collections.Generic.List[PSCustomObject]]::new()
                     }
-                    $DSCGroups[$DSC.ResourceName].Add([PSCustomObject] $DSC)
+                    try {
+                        $DSCGroups[$DSC.ResourceName].Add([PSCustomObject] $DSC)
+                    } catch {
+                        Out-Informative -Text "Reading DSC Source failed. Probably missing DSC module. File $BaseLineSourcePath" -Level 0 -Status $false -ExtendedValue $null
+                        continue
+                    }
                 }
                 foreach ($DSC in $BaseLineTarget) {
                     if ($DSC.Keys -notcontains 'ResourceName') {
-                        Out-Informative -Text "Reading DSC Target failed. Probably missing module. File $BaseLineTargetPath" -Level 0 -Status $null -ExtendedValue $null
+                        Out-Informative -Text "Reading DSC Target failed. Probably missing DSC module. File $BaseLineTargetPath" -Level 0 -Status $false -ExtendedValue $null
                         continue
                     }
                     if (-not $DSCGroupsTarget[$DSC.ResourceName]) {
