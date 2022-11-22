@@ -1,10 +1,8 @@
 ﻿# Testimo Release History
 
-## 0.0.85 - 2022.11.22
+## 0.0.84 - 2022.11.22
 - Improves error handling for DSC
 - Fixes Get-Get-TestimoConfiguration
-
-## 0.0.84 - 2022.09.18
 - Added `SplitReports` to `Invoke-Testimo` to allow splitting the reports into multiple files (1 per category) more easily
 - Added icons in `SplitReports` tabs to make it easier to identify if there's a problem in given DC/Domain
 
