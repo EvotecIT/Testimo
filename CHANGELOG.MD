@@ -1,6 +1,6 @@
 ﻿# Testimo Release History
 
-## 0.0.85
+## 0.0.85 - 2022.11.22
 - Improves error handling for DSC
 - Fixes Get-Get-TestimoConfiguration
 
