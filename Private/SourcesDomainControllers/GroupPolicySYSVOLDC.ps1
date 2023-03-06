@@ -5,7 +5,7 @@
     Source = @{
         Name           = "Group Policy SYSVOL Verification"
         Data           = {
-            Get-GPOZaurrSysvol -IncludeDomains $Domain -IncludeDomainControllers $DomainController -VerifyDomainControllers | Where-Object { $_.Status -ne 'Exists' }
+            Get-GPOZaurrBroken -IncludeDomains $Domain -IncludeDomainControllers $DomainController -VerifyDomainControllers | Where-Object { $_.Status -ne 'Exists' }
         }
         Details        = [ordered] @{
             Area        = ''
