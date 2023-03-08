@@ -5,7 +5,7 @@
     Source = @{
         Name           = 'Default SMB Shares Permissions'
         Data           = {
-            Get-ComputerSMBSharePermissions -ComputerName $DomainController -ShareName 'Netlogon', 'Sysvol'
+            Get-ComputerSMBSharePermissions -ComputerName $DomainController -ShareName 'Netlogon', 'Sysvol' -Translated
         }
         Details        = [ordered] @{
             Area        = 'Security'
