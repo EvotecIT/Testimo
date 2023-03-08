@@ -5,7 +5,7 @@
     Source = @{
         Name           = 'Default SMB Shares'
         Data           = {
-            Get-ComputerSMBShare -ComputerName $DomainController
+            Get-ComputerSMBShare -ComputerName $DomainController -Translated
         }
         Details        = [ordered] @{
             Area        = ''
