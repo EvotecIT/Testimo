@@ -1,5 +1,9 @@
 ﻿# Testimo Release History
 
+## 0.0.85 - 2023.03.08
+- Improve `DCSMBShares`
+- Improve `DCSMBSharesPermissions`
+
 ## 0.0.84 - 2022.11.22
 - Improves error handling for DSC
 - Fixes Get-Get-TestimoConfiguration
