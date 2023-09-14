@@ -105,34 +105,6 @@
                 ActionType = 2
             }
         }
-        X509NotBefore            = @{
-            Enable     = $true
-            Name       = 'Not Before Date should be within required range'
-            Parameters = @{
-                Property      = 'X509NotBefore'
-                ExpectedValue = Get-Date
-                OperationType = 'lt'
-            }
-            Details    = [ordered] @{
-                Category   = 'Health'
-                Importance = 0
-                ActionType = 0
-            }
-        }
-        X509NotAfter             = @{
-            Enable     = $true
-            Name       = 'Not After Date should be within required range'
-            Parameters = @{
-                Property      = 'X509NotAfter'
-                ExpectedValue = Get-Date
-                OperationType = 'gt'
-            }
-            Details    = [ordered] @{
-                Category   = 'Health'
-                Importance = 0
-                ActionType = 0
-            }
-        }
         X509NotBeforeDays        = @{
             Enable     = $true
             Name       = 'Not Before Days should be less/equal 0'
