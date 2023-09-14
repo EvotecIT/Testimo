@@ -4,6 +4,8 @@
 - Fixes `DCLDAP` date comparison
 - Improves `DCDiskSpace` to show more information
 - Improve `ForestOptionalFeatures` by adding WindowsLAPS detection
+- Rename `DomainSecurityKRBGT` to `DomainSecurityKrbtgt` as it should be
+- Improve `DomainSecurityKrbtgt` to detect Azure AD Keberbos account and measure it/ignore
 
 ## 0.0.85 - 2023.03.08
 - Improve `DCSMBShares`
