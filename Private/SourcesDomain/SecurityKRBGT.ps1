@@ -1,5 +1,5 @@
 ﻿$SecurityKRBGT = @{
-    Name            = 'DomainSecurityKRBGT'
+    Name            = 'DomainSecurityKrbtgt'
     Enable          = $true
     Scope           = 'Domain'
     Source          = @{
@@ -62,11 +62,28 @@
             }
             Description = 'LastPasswordChange should be less than 180 days ago.'
         }
+        PasswordLastSetAzure = @{
+            Enable      = $true
+            Name        = 'Krbtgt Azure AD password should be changed frequently'
+            Parameters  = @{
+                WhereObject   = { $_.Name -eq 'krbtgt_AzureAD' -and $_.PasswordLastSet -lt (Get-Date).AddDays(-180) }
+                ExpectedCount = 0
+                OperationType = 'eq'
+            }
+            Details     = [ordered] @{
+                Category    = 'Security'
+                Importance  = 8
+                ActionType  = 2
+                StatusTrue  = 1
+                StatusFalse = 5
+            }
+            Description = 'LastPasswordChange should be less than 180 days ago.'
+        }
         PasswordLastSetRODC    = @{
             Enable      = $true
             Name        = 'Krbtgt RODC password should be changed frequently'
             Parameters  = @{
-                WhereObject   = { $_.Name -ne 'krbtgt' -and $_.PasswordLastSet -lt (Get-Date).AddDays(-180) }
+                WhereObject   = { $_.Name -ne 'krbtgt' -and $_.Name -ne 'krbtgt_AzureAD' -and $_.PasswordLastSet -lt (Get-Date).AddDays(-180) }
                 ExpectedCount = 0
                 OperationType = 'eq'
             }
@@ -83,7 +100,7 @@
             Enable      = $true
             Name        = 'Krbtgt RODC account without RODC'
             Parameters  = @{
-                WhereObject   = { $_.Name -ne 'krbtgt' -and $_.'msDS-KrbTgtLinkBl'.Count -eq 0 }
+                WhereObject   = { $_.Name -ne 'krbtgt' -and $_.Name -ne 'krbtgt_AzureAD' -and $_.'msDS-KrbTgtLinkBl'.Count -eq 0 }
                 ExpectedCount = 0
                 OperationType = 'eq'
             }
