@@ -1,5 +1,10 @@
 ﻿# Testimo Release History
 
+## 0.0.86 - 2023.09.13
+- Fixes `DCLDAP` date comparison
+- Improves `DCDiskSpace` to show more information
+- Improve `ForestOptionalFeatures` by adding WindowsLAPS detection
+
 ## 0.0.85 - 2023.03.08
 - Improve `DCSMBShares`
 - Improve `DCSMBSharesPermissions`
