@@ -45,7 +45,7 @@
             Enable     = $true
             Name       = 'LAPS Schema Extended'
             Parameters = @{
-                Property      = 'Laps Enabled'
+                Property      = 'LAPS Enabled'
                 ExpectedValue = $true
                 OperationType = 'eq'
             }
@@ -60,6 +60,26 @@
                     '[Lithnet Access Manager](https://github.com/lithnet/access-manager)'
                     '[Getting Bitlocker and LAPS summary report with PowerShell](https://evotec.xyz/getting-bitlocker-and-laps-summary-report-with-powershell/)'
                     '[Backing up Bitlocker Keys and LAPS passwords from Active Directory](https://evotec.xyz/backing-up-bitlocker-keys-and-laps-passwords-from-active-directory/)'
+                )
+                StatusTrue  = 1
+                StatusFalse = 4
+            }
+        }
+        WindowsLapsAvailable = @{
+            Enable     = $true
+            Name       = 'Windows LAPS Schema Extended'
+            Parameters = @{
+                Property      = 'Windows LAPS Enabled'
+                ExpectedValue = $true
+                OperationType = 'eq'
+            }
+            Details    = [ordered] @{
+                Category    = 'Configuration'
+                Description = "Microsoft Local Administrator Password Solution (LAPS) is a password manager that utilizes Active Directory to manage and rotate passwords for local Administrator accounts across all of your Windows endpoints. LAPS is a great mitigation tool against lateral movement and privilege escalation, by forcing all local Administrator accounts to have unique, complex passwords, so an attacker compromising one local Administrator account can’t move laterally to other endpoints and accounts that may share that same password."
+                Importance  = 10
+                ActionType  = 2
+                Resources   = @(
+                    '[LAPS is now integrated into Windows](https://borncity.com/win/2023/04/19/windows-server-update-your-active-directory-schema-for-the-current-windows-laps-version/)'
                 )
                 StatusTrue  = 1
                 StatusFalse = 4
