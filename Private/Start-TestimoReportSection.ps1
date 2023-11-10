@@ -144,7 +144,7 @@ function Start-TestimoReportSection {
                                 }
                             }
                         }
-                    } -PagingLength 7 -DateTimeSortingFormat 'DD.MM.YYYY HH:mm:ss' -WordBreak break-all
+                    } -PagingLength 7 -DateTimeSortingFormat 'DD.MM.YYYY HH:mm:ss' -WordBreak break-all -ScrollX
                 }
             }
         }
