@@ -26,7 +26,7 @@
         ExpectedOutput = $true
     }
     Tests           = [ordered] @{
-        Enabled            = @{
+        Enabled              = @{
             Enable     = $true
             Name       = 'DC object should be enabled'
             Parameters = @{
@@ -43,7 +43,7 @@
             }
         }
 
-        OwnerType          = @{
+        OwnerType            = @{
             Enable     = $true
             Name       = 'DC OwnerType should be Administrative'
             Parameters = @{
@@ -62,7 +62,7 @@
                 StatusFalse = 5
             }
         }
-        ManagedBy          = @{
+        ManagedBy            = @{
             Enable     = $true
             Name       = 'DC field ManagedBy should be empty'
             Parameters = @{
@@ -78,7 +78,7 @@
                 StatusFalse = 2
             }
         }
-        DNSStatus          = @{
+        DNSStatus            = @{
             Enable     = $true
             Name       = 'DNS should return IP Address for DC'
             Parameters = @{
@@ -94,7 +94,7 @@
                 StatusFalse = 2
             }
         }
-        IPAddressStatusV4  = @{
+        IPAddressStatusV4    = @{
             Enable     = $true
             Name       = 'DNS returned IPAddressV4 should match AD'
             Parameters = @{
@@ -110,7 +110,7 @@
                 StatusFalse = 2
             }
         }
-        IPAddressStatusV6  = @{
+        IPAddressStatusV6    = @{
             Enable     = $true
             Name       = 'DNS returned IPAddressV6 should match AD'
             Parameters = @{
@@ -126,7 +126,7 @@
                 StatusFalse = 2
             }
         }
-        IPAddressSingleV4  = @{
+        IPAddressSingleV4    = @{
             Enable     = $true
             Name       = 'There should be single IPv4 address set'
             Parameters = @{
@@ -142,7 +142,7 @@
                 StatusFalse = 2
             }
         }
-        IPAddressSingleV6  = @{
+        IPAddressSingleV6    = @{
             Enable     = $true
             Name       = 'There should be single IPv6 address set'
             Parameters = @{
@@ -158,7 +158,39 @@
                 StatusFalse = 2
             }
         }
-        PasswordLastChange = @{
+        PasswordNotRequired  = @{
+            Enable     = $true
+            Name       = "PasswordNotRequired shouldn't be set"
+            Parameters = @{
+                ExpectedCount = 0
+                OperationType = 'eq'
+                WhereObject   = { $_.PasswordNotRequired -ne $false }
+            }
+            Details    = [ordered] @{
+                Category    = 'Security', 'Cleanup'
+                Importance  = 10
+                ActionType  = 2
+                StatusTrue  = 1
+                StatusFalse = 4
+            }
+        }
+        PasswordNeverExpires = @{
+            Enable     = $true
+            Name       = "PasswordNeverExpires shouldn't be set"
+            Parameters = @{
+                ExpectedCount = 0
+                OperationType = 'eq'
+                WhereObject   = { $_.PasswordNeverExpires -ne $false }
+            }
+            Details    = [ordered] @{
+                Category    = 'Security', 'Cleanup'
+                Importance  = 10
+                ActionType  = 2
+                StatusTrue  = 1
+                StatusFalse = 4
+            }
+        }
+        PasswordLastChange   = @{
             Enable     = $true
             Name       = 'DC Password Change Less Than X days'
             Parameters = @{
@@ -174,7 +206,7 @@
                 StatusFalse = 4
             }
         }
-        LastLogonDays      = @{
+        LastLogonDays        = @{
             Enable     = $true
             Name       = 'DC Last Logon Less Than X days'
             Parameters = @{
@@ -202,6 +234,7 @@
             New-HTMLListItem -FontWeight bold, normal -Text "IPAddressHasOneipV6", " - means Domain Controller has only one 1 IPV6 ipaddress (or not set at all). If it has more than 1 it's bad. "
             New-HTMLListItem -FontWeight bold, normal -Text "ManagerNotSet", " - means ManagedBy property is not set (as required). If it's set it's bad. "
             New-HTMLListItem -FontWeight bold, normal -Text "OwnerType", " - means Domain Controller Owner is of certain type. Required type is Administrative. If it's different that means there's security risk involved. "
+            New-HTMLListItem -FontWeight bold, normal -Text "PasswordNotRequired", " - should not be set. If it's set it can affect replication and security of Domain Controller. "
             New-HTMLListItem -FontWeight bold, normal -Text "PasswordLastChangedDays", " - displays last password change by Domain Controller. If it's more than 60 days it usually means DC is down or otherwise affected. "
             New-HTMLListItem -FontWeight bold, normal -Text "LastLogonDays", " - display last logon days of DC. If it's more than 15 days it usually means DC is down or otherwise affected. "
         } -FontSize 10pt
@@ -224,6 +257,8 @@
         New-HTMLTableCondition -Name 'OwnerType' -ComparisonType string -BackgroundColor Salmon -Value 'Administrative' -Operator ne
         New-HTMLTableCondition -Name 'OwnerType' -ComparisonType string -BackgroundColor PaleGreen -Value 'Administrative' -Operator eq
         New-HTMLTableCondition -Name 'ManagedBy' -ComparisonType string -Color Salmon -Value '' -Operator ne
+        New-HTMLTableCondition -Name 'PasswordNotRequired' -ComparisonType string -BackgroundColor PaleGreen -Value $false -FailBackgroundColor Salmon
+        New-HTMLTableCondition -Name 'PasswordNeverExpires' -ComparisonType string -BackgroundColor PaleGreen -Value $false -FailBackgroundColor Salmon
         New-HTMLTableCondition -Name 'PasswordLastChangedDays' -ComparisonType number -BackgroundColor PaleGreen -Value 40 -Operator le
         New-HTMLTableCondition -Name 'PasswordLastChangedDays' -ComparisonType number -BackgroundColor OrangePeel -Value 41 -Operator ge
         New-HTMLTableCondition -Name 'PasswordLastChangedDays' -ComparisonType number -BackgroundColor Crimson -Value 60 -Operator ge
@@ -310,7 +345,7 @@
                     New-HTMLWizardStep -Name 'Remaining Problems' {
                         New-HTMLText -Text @(
                             "If there are any Domain Controllers that are disabled, or last logon date or last password set are above thresholds those should be investigated if those are still up and running. "
-                            "In Active Directory–based domains, each device has an account and password. "
+                            "In Active Directory based domains, each device has an account and password. "
                             "By default, the domain members submit a password change every 30 days. "
                             "If last password change is above threshold that means DC may already be offline. "
                             "If last logon date is above threshold that also means DC may already be offline. "
