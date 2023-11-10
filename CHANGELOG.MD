@@ -1,5 +1,9 @@
 ﻿# Testimo Release History
 
+## 0.0.87
+- Improve `DomainDomainControllers` by adding checks for PasswordNotRequired/PasswordNeverExpires as those are critical for DCs
+- Tables in Testimo now use ScrollX to make it easier to read on smnaller screen
+
 ## 0.0.86 - 2023.09.13
 - Fixes `DCLDAP` date comparison
 - Improves `DCDiskSpace` to show more information
