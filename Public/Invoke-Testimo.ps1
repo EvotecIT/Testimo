@@ -13,7 +13,7 @@ function Invoke-Testimo {
     Type of report to be generated from a list of available reports.
 
     .PARAMETER ExcludeSources
-    Type of report to be excluded from a list of available reports. By default all reports are run. 
+    Type of report to be excluded from a list of available reports. By default all reports are run.
 
     .PARAMETER ExcludeDomains
     Exclude domain from search, by default whole forest is scanned
@@ -82,7 +82,7 @@ function Invoke-Testimo {
     .NOTES
     General notes
     #>
-    [alias('Test-ImoAD', 'Test-IMO')]
+    [alias('Test-ImoAD', 'Test-IMO', 'Testimo')]
     [CmdletBinding()]
     param(
         [ScriptBlock] $BaselineTests,
