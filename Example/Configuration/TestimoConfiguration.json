@@ -353,6 +353,22 @@
 
                                          }
                            },
+    "ForestVulnerableSchemaClass":  {
+                                        "Enable":  true,
+                                        "Source":  {
+                                                       "ExpectedOutput":  true
+                                                   },
+                                        "Tests":  {
+                                                      "VurnerableSchemaClass":  {
+                                                                                    "Enable":  true,
+                                                                                    "Parameters":  {
+                                                                                                       "Property":  "Vulnerable",
+                                                                                                       "ExpectedValue":  false,
+                                                                                                       "OperationType":  "eq"
+                                                                                                   }
+                                                                                }
+                                                  }
+                                    },
     "DomainLDAP":  {
                        "Enable":  true,
                        "Source":  {
@@ -1034,6 +1050,21 @@
                                                                     "ExpectedOutput":  true
                                                                 },
                                                      "Tests":  {
+                                                                   "LastLogonDate":  {
+                                                                                         "Enable":  true,
+                                                                                         "Parameters":  {
+                                                                                                            "Property":  "LastLogonDate",
+                                                                                                            "ExpectedValue":  "\/Date(1663965098272)\/",
+                                                                                                            "OperationType":  "lt"
+                                                                                                        }
+                                                                                     },
+                                                                   "ServicePrincipalName":  {
+                                                                                                "Enable":  true,
+                                                                                                "Parameters":  {
+                                                                                                                   "Property":  "servicePrincipalName",
+                                                                                                                   "OperationType":  "eq"
+                                                                                                               }
+                                                                                            },
                                                                    "PasswordLastSet":  {
                                                                                            "Enable":  true,
                                                                                            "Parameters":  {
@@ -1700,9 +1731,9 @@
                                                        "Parameters":  {
                                                                           "Property":  "X509NotBefore",
                                                                           "ExpectedValue":  {
-                                                                                                "value":  "\/Date(1642690020746)\/",
+                                                                                                "value":  "\/Date(1669152698285)\/",
                                                                                                 "DisplayHint":  2,
-                                                                                                "DateTime":  "czwartek, 20 stycznia 2022 15:47:00"
+                                                                                                "DateTime":  "Tuesday, November 22, 2022 22:31:38"
                                                                                             },
                                                                           "OperationType":  "lt"
                                                                       }
@@ -1712,9 +1743,9 @@
                                                       "Parameters":  {
                                                                          "Property":  "X509NotAfter",
                                                                          "ExpectedValue":  {
-                                                                                               "value":  "\/Date(1642690020746)\/",
+                                                                                               "value":  "\/Date(1669152698285)\/",
                                                                                                "DisplayHint":  2,
-                                                                                               "DateTime":  "czwartek, 20 stycznia 2022 15:47:00"
+                                                                                               "DateTime":  "Tuesday, November 22, 2022 22:31:38"
                                                                                            },
                                                                          "OperationType":  "gt"
                                                                      }
@@ -2169,6 +2200,22 @@
                                                                                                    "OperationType":  "eq"
                                                                                                }
                                                                             }
+                                                }
+                                  },
+    "DCWindowsFeaturesOptional":  {
+                                      "Enable":  true,
+                                      "Source":  {
+                                                     "ExpectedOutput":  true
+                                                 },
+                                      "Tests":  {
+                                                    "WindowsPowerShell2":  {
+                                                                               "Enable":  true,
+                                                                               "Parameters":  {
+                                                                                                  "Property":  "State",
+                                                                                                  "ExpectedValue":  "Disabled",
+                                                                                                  "OperationType":  "eq"
+                                                                                              }
+                                                                           }
                                                 }
                                   },
     "DCDnsResolveInternal":  {
