@@ -1,8 +1,10 @@
 ﻿function Get-RequestedSources {
     [CmdletBinding()]
     param(
-        $Sources,
-        $ExcludeSources
+        [string[]] $Sources,
+        [string[]] $ExcludeSources,
+        [string[]] $IncludeTags,
+        [string[]] $ExcludeTags
     )
     $NonWorking = [System.Collections.Generic.List[String]]::new()
     $Working = [System.Collections.Generic.List[String]]::new()
@@ -39,6 +41,23 @@
         } else {
             $NonWorkingExclusions.Add($Source)
         }
+    }
+    foreach ($Tag in $IncludeTags) {
+        foreach ($Key in $Script:TestimoConfiguration.Keys) {
+            if ($Key -notin 'Types', 'Exclusions', 'Inclusions', 'Debug') {
+                foreach ($Source in $Script:TestimoConfiguration[$Key].Keys) {
+                    if ($Tag -in $Script:TestimoConfiguration[$Key][$Source]['Source']['Details'].Tags) {
+                        $Working.Add($Source)
+                    }
+                }
+            }
+        }
+    }
+    if ($IncludeTags.Count -gt 0) {
+        Out-Informative -Text 'Following tags will be used' -Level 0 -Status $true -ExtendedValue ($IncludeTags -join ', ') -OverrideTextStatus "Tags"
+    }
+    if ($ExcludeTags.Count -gt 0) {
+        Out-Informative -Text 'Following tags will be excluded' -Level 0 -Status $true -ExtendedValue ($ExcludeTags -join ', ') -OverrideTextStatus "Tags"
     }
     if ($Working.Count -gt 0) {
         Out-Informative -Text 'Following sources will be used' -Level 0 -Status $true -ExtendedValue ($Working -join ', ') -OverrideTextStatus "Valid Sources"

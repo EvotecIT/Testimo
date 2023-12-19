@@ -27,6 +27,12 @@ function Invoke-Testimo {
     .PARAMETER IncludeDomainControllers
     Include only specific domain controllers, by default all domain controllers are included
 
+    .PARAMETER IncludeTags
+    Include only tests with specific tags, by default all tests are included
+
+    .PARAMETER ExcludeTags
+    Exclude tests with specific tags, by default no tests are excluded
+
     .PARAMETER ForestName
     Target different Forest, by default current forest is used
 
@@ -107,7 +113,9 @@ function Invoke-Testimo {
         [switch] $Online,
         [string[]] $ExternalTests,
         [System.Collections.IDictionary] $Variables,
-        [switch] $SplitReports
+        [switch] $SplitReports,
+        [alias('Tags')][string[]] $IncludeTags,
+        [string[]] $ExcludeTags
     )
     if ($ShowReport) {
         Write-Warning "Invoke-Testimo - Paramter ShowReport is deprecated. By default HTML report will open up after running Testimo. If you want to prevent that, use HideHTML switch instead. This message and parameter will be removed in future releases."
@@ -167,10 +175,10 @@ function Invoke-Testimo {
     $Script:TestimoConfiguration.Inclusions.Domains = $IncludeDomains
     $Script:TestimoConfiguration.Inclusions.DomainControllers = $IncludeDomainControllers
 
-    if (-not $Sources) {
+    if (-not $Sources -and -not ($IncludeTags -or $ExcludeTags)) {
         $Sources = $Script:DefaultSources
     }
-    Set-TestsStatus -Sources $Sources -ExcludeSources $ExcludeSources
+    Set-TestsStatus -Sources $Sources -ExcludeSources $ExcludeSources -IncludeTags $IncludeTags -ExcludeTags $ExcludeTags
 
     $Script:Reporting['Forest'] = [ordered] @{ }
     $Script:Reporting['Forest']['Summary'] = $null
@@ -200,7 +208,7 @@ function Invoke-Testimo {
         Out-Informative -Text 'Following Domain Controllers will be ignored' -Level 0 -Status $null -ExtendedValue ($Script:TestimoConfiguration.Exclusions.DomainControllers -join ', ')
     }
 
-    Get-RequestedSources -Sources $Sources -ExcludeSources $ExcludeSources
+    Get-RequestedSources -Sources $Sources -ExcludeSources $ExcludeSources -IncludeTags $IncludeTags -ExcludeTags $ExcludeTags
 
     if ($Script:TestimoConfiguration['Types']['ActiveDirectory']) {
         $ForestDetails = Get-WinADForestDetails -WarningVariable ForestWarning -WarningAction SilentlyContinue -Forest $ForestName -ExcludeDomains $ExcludeDomains -IncludeDomains $IncludeDomains -IncludeDomainControllers $IncludeDomainControllers -ExcludeDomainControllers $ExcludeDomainControllers -SkipRODC:$SkipRODC -Extended
