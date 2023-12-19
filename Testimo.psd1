@@ -1,5 +1,5 @@
 ﻿@{
-    AliasesToExport      = @('Test-ImoAD', 'Test-IMO')
+    AliasesToExport      = @('Test-ImoAD', 'Test-IMO', 'Testimo')
     Author               = 'Przemyslaw Klys'
     CmdletsToExport      = @()
     CompanyName          = 'Evotec'
@@ -20,7 +20,7 @@
     RequiredModules      = @(@{
             Guid          = 'ee272aa8-baaa-4edf-9f45-b6d6f7d844fe'
             ModuleName    = 'PSSharedGoods'
-            ModuleVersion = '0.0.265'
+            ModuleVersion = '0.0.272'
         }, @{
             Guid          = '462dd5e2-f32a-4263-bff5-22edf28882d0'
             ModuleName    = 'PSWinDocumentation.DNS'
@@ -32,15 +32,15 @@
         }, @{
             Guid          = 'a7bdf640-f5cb-4acf-9de0-365b322d245c'
             ModuleName    = 'PSWriteHTML'
-            ModuleVersion = '1.8.0'
+            ModuleVersion = '1.14.0'
         }, @{
             Guid          = '9fc9fd61-7f11-4f4b-a527-084086f1905f'
             ModuleName    = 'ADEssentials'
-            ModuleVersion = '0.0.165'
+            ModuleVersion = '0.0.179'
         }, @{
             Guid          = 'f7d4c9e4-0298-4f51-ad77-e8e3febebbde'
             ModuleName    = 'GPOZaurr'
-            ModuleVersion = '0.0.159'
+            ModuleVersion = '1.0.0'
         }, @{
             Guid          = '0b0ba5c5-ec85-4c2b-a718-874e55a8bc3f'
             ModuleName    = 'PSWriteColor'
