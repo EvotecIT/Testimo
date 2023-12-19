@@ -1,15 +1,14 @@
 ﻿# Testimo Release History
 
-## 0.0.87
+## 0.0.87 - 2023.12.12
 - Improve `DomainDomainControllers` by adding checks for PasswordNotRequired/PasswordNeverExpires as those are critical for DCs
 - Tables in Testimo now use ScrollX to make it easier to read on smnaller screen
-
-## 0.0.86 - 2023.09.13
 - Fixes `DCLDAP` date comparison
 - Improves `DCDiskSpace` to show more information
 - Improve `ForestOptionalFeatures` by adding WindowsLAPS detection
 - Rename `DomainSecurityKRBGT` to `DomainSecurityKrbtgt` as it should be
 - Improve `DomainSecurityKrbtgt` to detect Azure AD Keberbos account and measure it/ignore
+- Added ability to use `IncludeTags`,`ExcludeTags` to filter tests (only on Source level, not on tests level)
 
 ## 0.0.85 - 2023.03.08
 - Improve `DCSMBShares`
