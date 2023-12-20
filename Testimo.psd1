@@ -20,7 +20,7 @@
     RequiredModules      = @(@{
             Guid          = 'ee272aa8-baaa-4edf-9f45-b6d6f7d844fe'
             ModuleName    = 'PSSharedGoods'
-            ModuleVersion = '0.0.272'
+            ModuleVersion = '0.0.273'
         }, @{
             Guid          = '462dd5e2-f32a-4263-bff5-22edf28882d0'
             ModuleName    = 'PSWinDocumentation.DNS'
