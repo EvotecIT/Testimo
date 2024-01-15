@@ -5,7 +5,7 @@
     Source = @{
         Name           = "Computers Unsupported"
         Data           = {
-            $Computers = Get-ADComputer -Filter { (Get-operatingsystem -like "*xp*") -or (Get-operatingsystem -like "*vista*") -or (Get-operatingsystem -like "*Windows NT*") -or (Get-operatingsystem -like "*2000*") -or (Get-operatingsystem -like "*2003*") } -Property Name, OperatingSystem, OperatingSystemServicePack, lastlogontimestamp -Server $Domain
+            $Computers = Get-ADComputer -Filter { ( operatingsystem -like "*xp*") -or (operatingsystem -like "*vista*") -or ( operatingsystem -like "*Windows NT*") -or ( operatingsystem -like "*2000*") -or ( operatingsystem -like "*2003*") } -Property Name, OperatingSystem, OperatingSystemServicePack, lastlogontimestamp -Server $Domain
             $Computers | Select-Object Name, OperatingSystem, OperatingSystemServicePack, @{name = "lastlogontimestamp"; expression = { [datetime]::fromfiletime($_.lastlogontimestamp) } }
         }
         Details        = [ordered] @{

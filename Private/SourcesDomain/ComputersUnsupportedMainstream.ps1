@@ -5,7 +5,7 @@
     Source = @{
         Name           = "Computers Unsupported Mainstream Only"
         Data           = {
-            $Computers = Get-ADComputer -Filter { (Get-operatingsystem -like "*2008*") } -Property Name, OperatingSystem, OperatingSystemServicePack, lastlogontimestamp -Server $Domain
+            $Computers = Get-ADComputer -Filter { ( operatingsystem -like "*2008*") } -Property Name, OperatingSystem, OperatingSystemServicePack, lastlogontimestamp -Server $Domain
             $Computers | Select-Object Name, OperatingSystem, OperatingSystemServicePack, @{name = "lastlogontimestamp"; expression = { [datetime]::fromfiletime($_.lastlogontimestamp) } }
         }
         Details        = [ordered] @{
