@@ -32,7 +32,7 @@ Invoke-ModuleBuild -ModuleName 'Testimo' {
         'PSSharedGoods', 'PSWinDocumentation.DNS', 'PSEventViewer'
         'PSWriteHTML', 'ADEssentials', 'GPOZaurr', 'PSWriteColor'
     ) -Version Latest -Guid Auto
-    New-ConfigurationModule -Type ApprovedModule -Name 'PSSharedGoods', 'PSWriteColor', 'Connectimo', 'PSUnifi', 'PSWebToolbox', 'PSMyPassword'
+    New-ConfigurationModule -Type ApprovedModule -Name 'PSWriteColor', 'Connectimo', 'PSUnifi', 'PSWebToolbox', 'PSMyPassword'
     #New-ConfigurationModule -Type ExternalModule -Name 'ActiveDirectory', 'GroupPolicy', 'ServerManager'
     New-ConfigurationModuleSkip -IgnoreFunctionName @(
         'ConvertTo-DSCObject'
