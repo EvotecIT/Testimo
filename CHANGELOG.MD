@@ -1,5 +1,8 @@
 ﻿# Testimo Release History
 
+## 0.0.88 - 2024.01.23
+- Added `WindowsSecureTimeSeeding` check in `DCTimeSettings` check
+
 ## 0.0.87 - 2024.01.15
 - Fixes `DomainComputersUnsupported`,`DomainComputersUnsupportedMainstream`
 - Add missing dependency PSSharedGoods
