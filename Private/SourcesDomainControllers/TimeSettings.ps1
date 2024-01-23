@@ -87,5 +87,27 @@
 
             }
         }
+        WindowsSecureTimeSeeding   = [ordered] @{
+            Enable     = $true
+            Name       = 'Windows Secure Time Seeding should be disabled.'
+            Parameters = @{
+                WhereObject   = { $_.ComputerName -eq $DomainController }
+                Property      = 'WindowsSecureTimeSeeding'
+                ExpectedValue = $false
+                OperationType = 'eq'
+            }
+            Details    = @{
+                Importance  = 10
+                ActionType  = 2
+                StatusTrue  = 1
+                StatusFalse = 5
+                Resources   = @(
+                    '[Windows Secure Time Seeding, should you disable it?](https://www.askwoody.com/forums/topic/windows-secure-time-seeding-should-you-disable-it/)'
+                    '[Wrong system time and insecure Secure Time Seeding](https://www.kaspersky.com/blog/windows-system-time-sudden-changes/48956/)'
+                    '[How to enable or disable Secure Time Seeding in Windows computers](https://www.thewindowsclub.com/secure-time-seeding-windows-10)'
+                    '[Windows feature that resets system clocks based on random data is wreaking havoc](https://arstechnica.com/security/2023/08/windows-feature-that-resets-system-clocks-based-on-random-data-is-wreaking-havoc/3/)'
+                )
+            }
+        }
     }
 }
