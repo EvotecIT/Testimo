@@ -1,4 +1,40 @@
 ﻿function Start-TestimoReportHTMLWithSplit {
+    <#
+    .SYNOPSIS
+    Generates an HTML report based on test results with the option to split by sources.
+
+    .DESCRIPTION
+    This function generates an HTML report based on the provided test results. It allows for splitting the report by different sources. The report can be saved to a specified file path and can be viewed online. Additional options include showing or hiding steps, always showing steps, and specifying scopes for the report.
+
+    .PARAMETER TestResults
+    Specifies the test results to generate the report from.
+
+    .PARAMETER FilePath
+    Specifies the file path to save the generated HTML report.
+
+    .PARAMETER Online
+    Indicates whether the report should be viewable online.
+
+    .PARAMETER ShowHTML
+    Switch to display the generated HTML report.
+
+    .PARAMETER HideSteps
+    Switch to hide steps in the report.
+
+    .PARAMETER AlwaysShowSteps
+    Switch to always show steps in the report.
+
+    .PARAMETER Scopes
+    Specifies the scopes to include in the report.
+
+    .EXAMPLE
+    Start-TestimoReportHTMLWithSplit -TestResults $TestResults -FilePath "C:\Reports\TestReport.html" -Online -ShowHTML -Scopes "Forest", "Domains"
+    Generates an HTML report based on the test results stored in $TestResults, saves it to "C:\Reports\TestReport.html", makes it viewable online, displays the HTML report, and includes scopes "Forest" and "Domains".
+
+    .EXAMPLE
+    Start-TestimoReportHTMLWithSplit -TestResults $TestResults -FilePath "C:\Reports\TestReport.html" -HideSteps
+    Generates an HTML report based on the test results stored in $TestResults, saves it to "C:\Reports\TestReport.html", and hides steps in the report.
+    #>
     [cmdletBinding()]
     param(
         [System.Collections.IDictionary] $TestResults,

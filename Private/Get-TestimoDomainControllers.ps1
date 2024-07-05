@@ -1,4 +1,26 @@
 ﻿function Get-TestimoDomainControllers {
+    <#
+    .SYNOPSIS
+    Retrieves domain controllers in a specified domain, with an option to skip read-only domain controllers.
+
+    .DESCRIPTION
+    This function retrieves domain controllers in the specified domain. It can skip read-only domain controllers if desired.
+
+    .PARAMETER Domain
+    Specifies the name of the domain to retrieve domain controllers from.
+
+    .PARAMETER SkipRODC
+    Indicates whether to skip read-only domain controllers.
+
+    .EXAMPLE
+    Get-TestimoDomainControllers -Domain "contoso.com"
+    Retrieves all domain controllers in the "contoso.com" domain.
+
+    .EXAMPLE
+    Get-TestimoDomainControllers -Domain "contoso.com" -SkipRODC
+    Retrieves all domain controllers in the "contoso.com" domain, excluding read-only domain controllers.
+
+    #>
     [CmdletBinding()]
     param(
         [string] $Domain,

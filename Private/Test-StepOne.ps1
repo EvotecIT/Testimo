@@ -1,4 +1,56 @@
 ﻿function Test-StepOne {
+    <#
+    .SYNOPSIS
+    This function performs a specific test step with various parameters.
+
+    .DESCRIPTION
+    Test-StepOne function is used to execute a specific test step with the provided parameters. It allows testing different operations on objects and validating the results.
+
+    .PARAMETER Scope
+    Specifies the scope of the test step.
+
+    .PARAMETER Test
+    Specifies the test data to be used for the test step.
+
+    .PARAMETER Domain
+    Specifies the domain for the test operation.
+
+    .PARAMETER DomainController
+    Specifies the domain controller for the test operation.
+
+    .PARAMETER Object
+    Specifies the object on which the test operation will be performed.
+
+    .PARAMETER TestName
+    Specifies the name of the test step.
+
+    .PARAMETER Level
+    Specifies the level of the test step.
+
+    .PARAMETER ReferenceID
+    Specifies the reference ID for the test step.
+
+    .PARAMETER Requirements
+    Specifies additional requirements for the test step.
+
+    .PARAMETER QueryServer
+    Specifies the server to query for the test operation.
+
+    .PARAMETER ForestDetails
+    Specifies details related to the forest for the test operation.
+
+    .PARAMETER DomainInformation
+    Specifies information related to the domain for the test operation.
+
+    .PARAMETER ForestInformation
+    Specifies information related to the forest for the test operation.
+
+    .PARAMETER ForestName
+    Specifies the name of the forest for the test operation.
+
+    .EXAMPLE
+    Test-StepOne -Scope "Global" -Test $TestData -Domain "example.com" -DomainController "DC1" -Object $Object -TestName "Test1" -Level 1 -ReferenceID "Ref1" -Requirements @{"ExpectedOutput"=$true} -QueryServer "Server1" -ForestDetails @{"Detail1"="Value1"} -DomainInformation $DomainInfo -ForestInformation $ForestInfo -ForestName "Forest1"
+    #>
     [CmdletBinding()]
     param(
         [string] $Scope,

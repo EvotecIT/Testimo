@@ -1,4 +1,40 @@
 ﻿function Out-Summary {
+    <#
+    .SYNOPSIS
+    Outputs a summary of the tests performed.
+
+    .DESCRIPTION
+    The Out-Summary function outputs a summary of the tests performed, including various details such as test results, execution time, and test counts.
+
+    .PARAMETER Scope
+    Specifies the scope of the tests (e.g., 'Forest', 'Domain', 'DC').
+
+    .PARAMETER Time
+    Specifies the stopwatch object to measure the time taken for the tests.
+
+    .PARAMETER Text
+    Specifies additional text to include in the summary.
+
+    .PARAMETER Level
+    Specifies the level of the summary.
+
+    .PARAMETER Domain
+    Specifies the domain for the tests.
+
+    .PARAMETER DomainController
+    Specifies the domain controller for the tests.
+
+    .PARAMETER TestsSummary
+    Specifies a custom object containing the summary of the tests.
+
+    .EXAMPLE
+    Out-Summary -Scope 'Domain' -Time $stopwatch -Text 'Additional information' -Level 1 -Domain 'example.com' -DomainController 'DC1' -TestsSummary $summaryObject
+    Outputs a summary for the tests performed in the 'Domain' scope with the specified details.
+
+    .EXAMPLE
+    Out-Summary -Scope 'Forest' -Time $stopwatch -Text 'Detailed summary' -Level 2 -Domain 'example.com' -DomainController 'DC1' -TestsSummary $summaryObject
+    Outputs a detailed summary for the tests performed in the 'Forest' scope with the specified details.
+    #>
     [CmdletBinding()]
     param(
         [string] $Scope,

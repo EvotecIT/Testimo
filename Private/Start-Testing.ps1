@@ -1,4 +1,44 @@
 ﻿function Start-Testing {
+    <#
+    .SYNOPSIS
+    This function initiates the testing process based on the specified scope.
+
+    .DESCRIPTION
+    Start-Testing function is used to start the testing process with the provided parameters. It sets the appropriate levels based on the scope and retrieves configuration details for testing.
+
+    .PARAMETER Execute
+    Specifies the script block to execute during testing.
+
+    .PARAMETER Scope
+    Specifies the scope of the testing process (Forest, Domain, DC).
+
+    .PARAMETER Domain
+    Specifies the domain for the testing process.
+
+    .PARAMETER DomainController
+    Specifies the domain controller for the testing process.
+
+    .PARAMETER IsPDC
+    Specifies if the domain controller is a Primary Domain Controller.
+
+    .PARAMETER ForestInformation
+    Specifies information related to the forest for testing.
+
+    .PARAMETER DomainInformation
+    Specifies information related to the domain for testing.
+
+    .PARAMETER ForestDetails
+    Specifies additional details related to the forest for testing.
+
+    .PARAMETER SkipRODC
+    Skips Read-Only Domain Controller testing.
+
+    .PARAMETER Variables
+    Specifies additional variables for testing.
+
+    .EXAMPLE
+    Start-Testing -Execute { Write-Host "Testing in progress..." } -Scope "Domain" -Domain "example.com" -DomainController "DC1" -IsPDC $true -ForestInformation $ForestInfo -DomainInformation $DomainInfo -ForestDetails @{"Detail1"="Value1"} -SkipRODC -Variables @{"Var1"="Value1"}
+    #>
     [CmdletBinding()]
     param(
         [ScriptBlock] $Execute,

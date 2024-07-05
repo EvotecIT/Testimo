@@ -1,4 +1,48 @@
 ﻿function Compare-Testimo {
+    <#
+    .SYNOPSIS
+    Compares two sets of baseline data for a specific test.
+
+    .DESCRIPTION
+    This function compares two sets of baseline data for a specific test. It allows you to compare the source and target data to identify any differences or changes.
+
+    .PARAMETER Name
+    Specifies the name of the test being compared.
+
+    .PARAMETER DisplayName
+    Specifies the display name of the test being compared.
+
+    .PARAMETER Scope
+    Specifies the scope of the test being compared.
+
+    .PARAMETER Category
+    Specifies the category of the test being compared. Default is 'Baseline'.
+
+    .PARAMETER BaseLineSource
+    Specifies the baseline source data for comparison.
+
+    .PARAMETER BaseLineTarget
+    Specifies the baseline target data for comparison.
+
+    .PARAMETER BaseLineSourcePath
+    Specifies the file path to the baseline source data in JSON format.
+
+    .PARAMETER BaseLineTargetPath
+    Specifies the file path to the baseline target data in JSON format.
+
+    .PARAMETER ExcludeProperty
+    Specifies an array of properties to exclude from the comparison.
+
+    .EXAMPLE
+    Example 1
+    ----------------
+    Compare-Testimo -Name "Test1" -Scope "Domain" -BaseLineSource $SourceData1 -BaseLineTarget $TargetData1
+
+    .EXAMPLE
+    Example 2
+    ----------------
+    Compare-Testimo -Name "Test2" -DisplayName "Test 2" -Scope "Forest" -Category "Security" -BaseLineSourcePath "C:\Baseline\Test2_Source.json" -BaseLineTargetPath "C:\Baseline\Test2_Target.json" -ExcludeProperty "Property1", "Property2"
+    #>
     [cmdletbinding(DefaultParameterSetName = 'JSON')]
     param(
         [parameter(Mandatory, ParameterSetName = 'Object')]

@@ -1,4 +1,28 @@
 ﻿function Import-PrivateModule {
+    <#
+    .SYNOPSIS
+    Imports a private module by name.
+
+    .DESCRIPTION
+    This function imports a private module by name. It attempts to import the module specified by the given name. If the module is not found in the standard module directories, it looks for the module in the loaded modules.
+
+    .PARAMETER Name
+    Specifies the name of the private module to import.
+
+    .PARAMETER Portable
+    Indicates whether the module should be imported as portable.
+
+    .EXAMPLE
+    Example 1
+    ----------------
+    Import-PrivateModule -Name "MyPrivateModule"
+
+    .EXAMPLE
+    Example 2
+    ----------------
+    Import-PrivateModule -Name "MyPrivateModule" -Portable
+
+    #>
     [cmdletBinding()]
     param(
         [string] $Name,

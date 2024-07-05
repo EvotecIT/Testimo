@@ -1,4 +1,34 @@
 ﻿function Get-TestimoSources {
+    <#
+    .SYNOPSIS
+    Retrieves information about Testimo data sources.
+
+    .DESCRIPTION
+    This function retrieves detailed information about Testimo data sources based on the provided source names. It returns information such as source name, scope, tests available, area, category, tags, severity, risk level, description, resolution, and resources.
+
+    .PARAMETER Sources
+    Specifies an array of source names to retrieve information for.
+
+    .PARAMETER SourcesOnly
+    Indicates whether to return only the list of source names without additional details.
+
+    .PARAMETER Enabled
+    Indicates whether to retrieve information only for enabled sources.
+
+    .PARAMETER Advanced
+    Indicates whether to include advanced details for each source.
+
+    .EXAMPLE
+    Example 1
+    ----------------
+    Get-TestimoSources -Sources "DomainComputersUnsupported", "DomainDHCPAuthorized"
+
+    .EXAMPLE
+    Example 2
+    ----------------
+    Get-TestimoSources -Sources "DomainComputersUnsupported", "DomainDHCPAuthorized" -Advanced
+
+    #>
     [CmdletBinding()]
     param(
         [string[]] $Sources,

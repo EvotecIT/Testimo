@@ -1,4 +1,52 @@
 ﻿function Out-Status {
+    <#
+    .SYNOPSIS
+    Outputs the status of a specific test or source.
+
+    .DESCRIPTION
+    The Out-Status function outputs the status of a specific test or source based on the provided parameters. It includes details such as the test type, importance, category, action type, and status translation.
+
+    .PARAMETER Scope
+    Specifies the scope of the test (e.g., 'Domain', 'DC').
+
+    .PARAMETER TestID
+    Specifies the unique identifier of the test.
+
+    .PARAMETER Text
+    Specifies additional text related to the test or source.
+
+    .PARAMETER Status
+    Specifies the status of the test or source.
+
+    .PARAMETER Section
+    Specifies the section to which the test or source belongs.
+
+    .PARAMETER ExtendedValue
+    Specifies any extended value associated with the test or source.
+
+    .PARAMETER Domain
+    Specifies the domain related to the test or source.
+
+    .PARAMETER DomainController
+    Specifies the domain controller related to the test or source.
+
+    .PARAMETER Source
+    An IDictionary containing details about the source.
+
+    .PARAMETER Test
+    An IDictionary containing details about the test.
+
+    .PARAMETER ReferenceID
+    Specifies the reference ID of the test or source.
+
+    .EXAMPLE
+    Out-Status -Scope 'Domain' -TestID '123' -Text 'Test description' -Status $true -Section 'Section1' -ExtendedValue 'Extended' -Domain 'example.com' -DomainController 'DC1' -Source $SourceDetails -Test $TestDetails -ReferenceID 'REF123'
+    Outputs the status of a test in the 'Domain' scope with the specified details.
+
+    .EXAMPLE
+    Out-Status -Scope 'DC' -TestID '456' -Text 'Another test' -Status $false -Section 'Section2' -ExtendedValue 'Additional' -Domain 'example.com' -DomainController 'DC2' -Source $SourceDetails -Test $TestDetails -ReferenceID 'REF456'
+    Outputs the status of a test in the 'DC' scope with the specified details.
+    #>
     [CmdletBinding()]
     param(
         [string] $Scope,

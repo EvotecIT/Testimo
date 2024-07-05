@@ -1,4 +1,22 @@
 ﻿function Add-TestimoBaselines {
+    <#
+    .SYNOPSIS
+    Adds baseline objects to the Testimo configuration.
+
+    .DESCRIPTION
+    This function adds baseline objects to the Testimo configuration. It compares baseline sources and targets, excluding specified properties, and stores the comparison results in the Testimo configuration.
+
+    .PARAMETER BaseLineObjects
+    Specifies an array of baseline objects to be added to the Testimo configuration.
+
+    .EXAMPLE
+    Add-TestimoBaselines -BaseLineObjects @($BaselineObject1, $BaselineObject2)
+    Adds $BaselineObject1 and $BaselineObject2 to the Testimo configuration and performs a comparison between their baseline sources and targets.
+
+    .NOTES
+    File Name      : Add-TestimoBaselines.ps1
+    Prerequisite   : This function requires Compare-MultipleObjects function.
+    #>
     [CmdletBinding()]
     param(
         [System.Collections.IDictionary[]] $BaseLineObjects
