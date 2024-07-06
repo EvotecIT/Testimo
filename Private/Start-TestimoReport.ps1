@@ -1,4 +1,44 @@
 ﻿function Start-TestimoReport {
+    <#
+    .SYNOPSIS
+    Generates a test report based on the provided test results.
+
+    .DESCRIPTION
+    This function generates a test report based on the provided test results. It allows customization of colors and conditions for displaying test results.
+
+    .PARAMETER TestResults
+    An IDictionary containing the test results to be included in the report.
+
+    .PARAMETER FilePath
+    The file path where the report will be saved. If not provided, a temporary file with an HTML extension will be created.
+
+    .PARAMETER Online
+    Indicates whether the report should be displayed online.
+
+    .PARAMETER ShowHTML
+    Indicates whether the report should be shown in HTML format.
+
+    .PARAMETER HideSteps
+    Indicates whether detailed steps should be hidden in the report.
+
+    .PARAMETER AlwaysShowSteps
+    Indicates whether detailed steps should always be shown in the report.
+
+    .PARAMETER Scopes
+    An array of scopes to be included in the report.
+
+    .PARAMETER SplitReports
+    Indicates whether the report should be split into multiple reports based on specified conditions.
+
+    .EXAMPLE
+    Start-TestimoReport -TestResults $TestResults -FilePath "C:\Reports\TestReport.html" -ShowHTML -AlwaysShowSteps
+    Generates a test report using the provided test results, saves it to the specified file path, shows it in HTML format, and always displays detailed steps.
+
+    .EXAMPLE
+    Start-TestimoReport -TestResults $TestResults -FilePath "C:\Reports\TestReport.html" -Online -Scopes "Scope1", "Scope2" -SplitReports
+    Generates a test report using the provided test results, displays it online, includes specified scopes, and splits the report based on conditions.
+
+    #>
     [CmdletBinding()]
     param(
         [System.Collections.IDictionary] $TestResults,

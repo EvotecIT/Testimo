@@ -1,4 +1,27 @@
 ﻿function Get-TestimoConfiguration {
+    <#
+    .SYNOPSIS
+    Retrieves Testimo configuration details for Active Directory sources.
+
+    .DESCRIPTION
+    This function retrieves the Testimo configuration details for Active Directory sources. It organizes the configuration into a structured format for better readability and management.
+
+    .PARAMETER AsJson
+    Indicates whether to output the configuration as JSON format.
+
+    .PARAMETER FilePath
+    Specifies the file path to save the configuration.
+
+    .EXAMPLE
+    Example 1
+    ----------------
+    Get-TestimoConfiguration
+
+    .EXAMPLE
+    Example 2
+    ----------------
+    Get-TestimoConfiguration -AsJson -FilePath "C:\TestimoConfiguration.json"
+    #>
     [CmdletBinding()]
     param(
         [switch] $AsJson,

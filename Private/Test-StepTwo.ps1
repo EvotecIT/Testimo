@@ -1,4 +1,59 @@
 ﻿function Test-StepTwo {
+    <#
+    .SYNOPSIS
+    This function performs a specific test step with various parameters.
+
+    .DESCRIPTION
+    Test-StepTwo function is used to execute a specific test step with the provided parameters. It allows testing different operations on objects and validating the results.
+
+    .PARAMETER Scope
+    Specifies the scope of the test step.
+
+    .PARAMETER Test
+    Specifies the test data to be used for the test step.
+
+    .PARAMETER Domain
+    Specifies the domain for the test operation.
+
+    .PARAMETER DomainController
+    Specifies the domain controller for the test operation.
+
+    .PARAMETER Object
+    Specifies the object on which the test operation will be performed.
+
+    .PARAMETER TestName
+    Specifies the name of the test step.
+
+    .PARAMETER OperationType
+    Specifies the type of operation to be performed.
+
+    .PARAMETER Level
+    Specifies the level of the test step.
+
+    .PARAMETER Property
+    Specifies the property of the object to be tested.
+
+    .PARAMETER PropertyExtendedValue
+    Specifies the extended value of the property.
+
+    .PARAMETER ExpectedValue
+    Specifies the expected value of the test operation.
+
+    .PARAMETER ExpectedCount
+    Specifies the expected count of the test operation.
+
+    .PARAMETER OperationResult
+    Specifies the result of the test operation.
+
+    .PARAMETER ReferenceID
+    Specifies the reference ID for the test step.
+
+    .PARAMETER ExpectedOutput
+    Specifies the expected output of the test operation.
+
+    .EXAMPLE
+    Test-StepTwo -Scope "Global" -Test $TestData -Domain "example.com" -DomainController "DC1" -Object $Object -TestName "Test1" -OperationType "Read" -Level 1 -Property @("Property1") -PropertyExtendedValue @("ExtendedValue1") -ExpectedValue @("Value1") -ExpectedCount 1 -OperationResult "Success" -ReferenceID "Ref1" -ExpectedOutput $true
+    #>
     [CmdletBinding()]
     param(
         [string] $Scope,

@@ -1,4 +1,51 @@
 function Start-TestimoReportSection {
+    <#
+    .SYNOPSIS
+    Starts a section for generating a test report.
+
+    .DESCRIPTION
+    This function starts a section for generating a test report with detailed information and visualizations.
+
+    .PARAMETER Name
+    The name of the test report section.
+
+    .PARAMETER Data
+    An array containing the test data.
+
+    .PARAMETER Information
+    A dictionary containing additional information.
+
+    .PARAMETER SourceCode
+    The scriptblock of the source code used for testing.
+
+    .PARAMETER Results
+    An array containing the test results.
+
+    .PARAMETER WarningsAndErrors
+    An array containing any warnings or errors encountered during testing.
+
+    .PARAMETER HideSteps
+    A switch to hide detailed steps in the report.
+
+    .PARAMETER AlwaysShowSteps
+    A switch to always show detailed steps in the report.
+
+    .PARAMETER TestResults
+    A dictionary containing the detailed test results.
+
+    .PARAMETER Type
+    The type of test report section (e.g., 'Forest', 'DC', 'Domain', 'Office 365').
+
+    .EXAMPLE
+    Start-TestimoReportSection -Name "Forest Report" -Data $ForestData -Information $AdditionalInfo -SourceCode { Get-ForestData } -Results $ForestResults -Type 'Forest'
+
+    Starts a new section in the test report for a forest assessment with the specified data, additional information, source code, results, and type.
+
+    .EXAMPLE
+    Start-TestimoReportSection -Name "Domain Report" -Data $DomainData -Information $AdditionalInfo -SourceCode { Get-DomainData } -Results $DomainResults -Type 'Domain'
+
+    Starts a new section in the test report for a domain assessment with the specified data, additional information, source code, results, and type.
+    #>
     [cmdletBinding()]
     param(
         [string] $Name,

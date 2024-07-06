@@ -1,4 +1,32 @@
 ﻿function Start-TestimoReportSummary {
+    <#
+    .SYNOPSIS
+    Generates a summary report for Testimo test results.
+
+    .DESCRIPTION
+    This function generates a summary report for Testimo test results. It creates a visual representation of test results including charts and tables.
+
+    .PARAMETER TestResults
+    Specifies the test results to be summarized.
+
+    .EXAMPLE
+    $TestResults = @{
+        'Results' = @(
+            @{ 'TestName' = 'Test1'; 'Status' = 'Passed' },
+            @{ 'TestName' = 'Test2'; 'Status' = 'Failed' }
+        )
+        'Summary' = @{ 'Total' = 2 }
+        'Configuration' = @{
+            'Colors' = @{
+                'ColorPassed' = 'Green'
+                'ColorFailed' = 'Red'
+                'ColorPassedText' = 'White'
+                'ColorFailedText' = 'Black'
+            }
+        }
+    }
+    Start-TestimoReportSummary -TestResults $TestResults
+    #>
     [CmdletBinding()]
     param(
         [System.Collections.IDictionary] $TestResults

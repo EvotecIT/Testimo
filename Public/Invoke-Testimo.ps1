@@ -7,81 +7,85 @@ function Invoke-Testimo {
     Testimo simplifies Active Directory testing and reporting. It provides a way to execute tests and generate HTML reports. It's a wrapper around other modules like PSWinDocumentation, PSSharedGoods, PSEventViewer, PSWriteHTML, ADEssentials, GPOZaurr, and more.
 
     .PARAMETER BaselineTests
-    Parameter description
+    Specifies the baseline tests to be executed.
 
     .PARAMETER Sources
-    Type of report to be generated from a list of available reports.
+    Specifies the type of reports to be generated from a list of available reports.
 
     .PARAMETER ExcludeSources
-    Type of report to be excluded from a list of available reports. By default all reports are run.
+    Specifies the type of report to be excluded from the list of available reports. By default, all reports are run.
 
     .PARAMETER ExcludeDomains
-    Exclude domain from search, by default whole forest is scanned
+    Excludes specific domains from the search. By default, the entire forest is scanned.
 
     .PARAMETER IncludeDomains
-    Include only specific domains, by default whole forest is scanned
+    Includes only specific domains in the search. By default, the entire forest is scanned.
 
     .PARAMETER ExcludeDomainControllers
-    Exclude specific domain controllers, by default there are no exclusions
+    Excludes specific domain controllers from the search. By default, no exclusions are made.
 
     .PARAMETER IncludeDomainControllers
-    Include only specific domain controllers, by default all domain controllers are included
+    Includes only specific domain controllers in the search. By default, all domain controllers are included.
 
     .PARAMETER IncludeTags
-    Include only tests with specific tags, by default all tests are included
+    Includes only tests with specific tags. By default, all tests are included.
 
     .PARAMETER ExcludeTags
-    Exclude tests with specific tags, by default no tests are excluded
+    Excludes tests with specific tags. By default, no tests are excluded.
 
     .PARAMETER ForestName
-    Target different Forest, by default current forest is used
+    Specifies the target forest to be tested. By default, the current forest is used.
 
     .PARAMETER PassThru
-    Returns created objects after the report is done
+    Indicates whether to return created objects after the report is generated.
 
     .PARAMETER ShowErrors
-    Parameter description
+    Specifies whether to display errors during the execution of the tests.
 
     .PARAMETER ExtendedResults
-    Returns more information to console
+    Indicates whether to return more detailed information to the console.
 
     .PARAMETER Configuration
-    Loads configuration from a file or an object
+    Loads configuration settings from a file or an object.
 
     .PARAMETER FilePath
     Path where the HTML report will be saved. If not specified, the report will be saved in the temporary directory and the path will be displayed in console.
 
     .PARAMETER ShowReport
-    Parameter description
+    Specifies whether to display the HTML report once the tests are completed.
 
     .PARAMETER HideHTML
-    Do not show HTML report once the tests are completed. By default HTML is opened in default browser upon completion.
+    Specifies whether to prevent the HTML report from being displayed in the default browser upon completion.
 
     .PARAMETER HideSteps
-    Do not show steps in report
+    Specifies whether to exclude the steps in the report.
 
     .PARAMETER AlwaysShowSteps
-    Parameter description
+    Specifies whether to always show the steps in the report.
 
     .PARAMETER SkipRODC
-    Skip Read-Only Domain Controllers. By default all domain controllers are included.
+    Specifies whether to skip Read-Only Domain Controllers. By default, all domain controllers are included.
 
     .PARAMETER Online
-    HTML files should use CSS/JS from the Internet (CDN). By default, CSS/JS is embedded in the HTML file which can make the file much larger in size.
+    Specifies whether HTML files should use CSS/JS from the Internet (CDN). By default, CSS/JS is embedded in the HTML file.
 
     .PARAMETER ExternalTests
-    Parameter description
+    Specifies external tests to be included.
 
     .PARAMETER Variables
-    Parameter description
+    Specifies additional variables to be used during the tests.
 
     .PARAMETER SplitReports
-    Split report into multiple files, one for each report. This can be useful for large domains with huge reports.
+    Specifies whether to split the report into multiple files, one for each report.
 
     .EXAMPLE
+    Example 1
+    ----------------
     Invoke-Testimo -Sources DCDiskSpace, DCFileSystem
 
     .EXAMPLE
+    Example 2
+    ----------------
     Invoke-Testimo -Sources DCDiskSpace, DCFileSystem -SplitReports -ReportPath "$PSScriptRoot\Reports\Testimo.html" -AlwaysShowSteps
     Invoke-Testimo -Sources DomainComputersUnsupported, DomainDuplicateObjects -SplitReports -ReportPath "$PSScriptRoot\Reports\Testimo.html" -AlwaysShowSteps
 
