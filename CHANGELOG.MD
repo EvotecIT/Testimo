@@ -2,6 +2,7 @@
 
 ## 0.0.89
 - Improve `ForestTomstoneLifetime` to check for 180 days in RecycleBin and not only for TombestoneLifetime
+- Improve HTML reports by hiding specific columns in tables
 
 ## 0.0.88 - 2024.01.23
 - Added `WindowsSecureTimeSeeding` check in `DCTimeSettings` check
