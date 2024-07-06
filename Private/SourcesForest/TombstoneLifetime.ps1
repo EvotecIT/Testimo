@@ -8,13 +8,38 @@
             # Check tombstone lifetime (if blank value is 60)
             # Recommended value 720
             # Minimum value 180
-            $Output = (Get-ADObject -Identity "CN=Directory Service,CN=Windows NT,CN=Services,$((Get-ADRootDSE -Server $ForestName).configurationNamingContext)" -Server $ForestName -Properties tombstoneLifetime) | Select-Object -Property DistinguishedName, Name, objectClass, ObjectGuid, tombstoneLifetime
+            $Output = (Get-ADObject -Identity "CN=Directory Service,CN=Windows NT,CN=Services,$((Get-ADRootDSE -Server $ForestName).configurationNamingContext)" -Server $ForestName -Properties tombstoneLifetime, 'msDS-deletedObjectLifetime') | Select-Object -Property DistinguishedName, Name, objectClass, ObjectGuid, tombstoneLifetime, 'msDS-deletedObjectLifetime'
             if ($null -eq $Output) {
                 [PSCustomObject] @{
-                    TombstoneLifeTime = 60
+                    'TombstoneLifeTime'          = 60
+                    'msDS-deletedObjectLifetime' = 60
                 }
             } else {
-                $Output
+                if ($Output.tombstoneLifetime -and $Output.'msDS-deletedObjectLifetime') {
+                    [PSCustomObject] @{
+                        DistinguishedName            = $Output.DistinguishedName
+                        'TombstoneLifeTime'          = $Output.tombstoneLifetime
+                        'msDS-deletedObjectLifetime' = $Output.'msDS-deletedObjectLifetime'
+                    }
+                } elseif ($Output.tombstoneLifetime) {
+                    [PSCustomObject] @{
+                        DistinguishedName            = $Output.DistinguishedName
+                        'TombstoneLifeTime'          = $Output.tombstoneLifetime
+                        'msDS-deletedObjectLifetime' = 60
+                    }
+                } elseif ($Output.'msDS-deletedObjectLifetime') {
+                    [PSCustomObject] @{
+                        DistinguishedName            = $Output.DistinguishedName
+                        'TombstoneLifeTime'          = 60
+                        'msDS-deletedObjectLifetime' = $Output.'msDS-deletedObjectLifetime'
+                    }
+                } else {
+                    [PSCustomObject] @{
+                        DistinguishedName            = $Output.DistinguishedName
+                        'TombstoneLifeTime'          = 60
+                        'msDS-deletedObjectLifetime' = 60
+                    }
+                }
             }
         }
         Details        = [ordered] @{
@@ -32,7 +57,7 @@
         ExpectedOutput = $true
     }
     Tests          = [ordered] @{
-        TombstoneLifetime = [ordered] @{
+        TombstoneLifetime  = [ordered] @{
             Enable     = $true
             Name       = 'TombstoneLifetime should be set to minimum of 180 days'
             Parameters = @{
@@ -48,10 +73,29 @@
                 StatusFalse = 3
             }
         }
+        RecycleBinLifetime = [ordered] @{
+            Enable     = $true
+            Name       = 'RecycleBinLifetime should be set to minimum of 180 days'
+            Parameters = @{
+                ExpectedValue = 180
+                Property      = 'msDS-deletedObjectLifetime'
+                OperationType = 'ge'
+            }
+            Details    = [ordered] @{
+                Category    = 'Configuration'
+                Importance  = 7
+                ActionType  = 2
+                StatusTrue  = 1
+                StatusFalse = 3
+            }
+        }
     }
     DataHighlights = {
-        New-HTMLTableCondition -Name 'tombstoneLifetime' -ComparisonType number -BackgroundColor PaleGreen -Value 180 -Operator ge -Row
-        New-HTMLTableCondition -Name 'tombstoneLifetime' -ComparisonType number -BackgroundColor Orange -Value 180 -Operator lt -Row
-        New-HTMLTableCondition -Name 'tombstoneLifetime' -ComparisonType number -BackgroundColor Salmon -Value 60 -Operator le -Row
+        New-HTMLTableCondition -Name 'tombstoneLifetime' -ComparisonType number -BackgroundColor PaleGreen -Value 180 -Operator ge
+        New-HTMLTableCondition -Name 'tombstoneLifetime' -ComparisonType number -BackgroundColor Orange -Value 180 -Operator lt
+        New-HTMLTableCondition -Name 'tombstoneLifetime' -ComparisonType number -BackgroundColor Salmon -Value 60 -Operator le
+        New-HTMLTableCondition -Name 'msDS-deletedObjectLifetime' -ComparisonType number -BackgroundColor PaleGreen -Value 180 -Operator ge
+        New-HTMLTableCondition -Name 'msDS-deletedObjectLifetime' -ComparisonType number -BackgroundColor Orange -Value 180 -Operator lt
+        New-HTMLTableCondition -Name 'msDS-deletedObjectLifetime' -ComparisonType number -BackgroundColor Salmon -Value 60 -Operator le
     }
 }
