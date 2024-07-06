@@ -1,4 +1,36 @@
 ﻿function Set-TestsStatus {
+    <#
+    .SYNOPSIS
+    Sets the status of tests based on provided parameters.
+
+    .DESCRIPTION
+    This function sets the status of tests based on the specified sources, tags, and exclusion criteria.
+
+    .PARAMETER Sources
+    Specifies an array of sources to include for test status setting.
+
+    .PARAMETER ExcludeSources
+    Specifies an array of sources to exclude for test status setting.
+
+    .PARAMETER IncludeTags
+    Specifies an array of tags to include for test status setting.
+
+    .PARAMETER ExcludeTags
+    Specifies an array of tags to exclude for test status setting.
+
+    .EXAMPLE
+    Set-TestsStatus -Sources Source1, Source2 -IncludeTags Tag1, Tag2
+
+    Description:
+    Sets the status of tests for Source1 and Source2 with tags Tag1 and Tag2 enabled.
+
+    .EXAMPLE
+    Set-TestsStatus -Sources Source3 -ExcludeSources Source4 -ExcludeTags Tag3
+
+    Description:
+    Sets the status of tests for Source3 with Source4 excluded and Tag3 disabled.
+
+    #>
     [CmdletBinding()]
     param(
         [string[]] $Sources,

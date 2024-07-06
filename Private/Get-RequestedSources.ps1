@@ -1,4 +1,36 @@
 ﻿function Get-RequestedSources {
+    <#
+    .SYNOPSIS
+    Retrieves requested sources based on specified criteria.
+
+    .DESCRIPTION
+    This function retrieves requested sources based on the provided sources, exclude sources, include tags, and exclude tags. It filters out sources that do not match the criteria and categorizes them into working and non-working lists.
+
+    .PARAMETER Sources
+    Specifies an array of sources to be considered.
+
+    .PARAMETER ExcludeSources
+    Specifies an array of sources to be excluded from consideration.
+
+    .PARAMETER IncludeTags
+    Specifies an array of tags that sources must include to be considered.
+
+    .PARAMETER ExcludeTags
+    Specifies an array of tags that sources must exclude to be considered.
+
+    .EXAMPLE
+    Get-RequestedSources -Sources @('Source1', 'Source2') -ExcludeSources @('Source3') -IncludeTags @('Tag1')
+
+    Description:
+    Retrieves sources 'Source1' and 'Source2', excludes 'Source3', and includes sources with 'Tag1'.
+
+    .EXAMPLE
+    Get-RequestedSources -Sources @('SourceA', 'SourceB') -ExcludeTags @('TagX')
+
+    Description:
+    Retrieves sources 'SourceA' and 'SourceB', excluding sources with 'TagX'.
+
+    #>
     [CmdletBinding()]
     param(
         [string[]] $Sources,

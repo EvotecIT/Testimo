@@ -1,4 +1,26 @@
 ﻿function Add-TestimoSources {
+    <#
+    .SYNOPSIS
+    Adds external sources to the Testimo configuration.
+
+    .DESCRIPTION
+    This function adds external sources to the Testimo configuration based on the provided folder paths. It processes PowerShell script files within the specified folders to extract configuration data and updates the Testimo configuration accordingly.
+
+    .PARAMETER FolderPath
+    Specifies the folder paths containing the PowerShell script files to process.
+
+    .EXAMPLE
+    Add-TestimoSources -FolderPath "C:\Scripts"
+
+    Description:
+    Adds external sources from the "C:\Scripts" folder to the Testimo configuration.
+
+    .EXAMPLE
+    Add-TestimoSources -FolderPath "C:\Scripts", "D:\Scripts"
+
+    Description:
+    Adds external sources from both "C:\Scripts" and "D:\Scripts" folders to the Testimo configuration.
+    #>
     [CmdletBinding()]
     param(
         [string[]] $FolderPath

@@ -1,4 +1,40 @@
 ﻿function Start-TestimoReportHTML {
+    <#
+    .SYNOPSIS
+    Generates an HTML report based on the provided test results.
+
+    .DESCRIPTION
+    This function generates an HTML report based on the test results provided. It allows customization of the report format and content.
+
+    .PARAMETER TestResults
+    Specifies the test results to be included in the report.
+
+    .PARAMETER FilePath
+    Specifies the file path where the HTML report will be saved.
+
+    .PARAMETER Online
+    Indicates whether the report should be viewable online.
+
+    .PARAMETER ShowHTML
+    Indicates whether to display the HTML content.
+
+    .PARAMETER HideSteps
+    Indicates whether to hide detailed steps in the report.
+
+    .PARAMETER AlwaysShowSteps
+    Indicates whether to always show detailed steps in the report.
+
+    .PARAMETER Scopes
+    Specifies the scopes to be included in the report.
+
+    .EXAMPLE
+    Start-TestimoReportHTML -TestResults $TestResults -FilePath "C:\Reports\TestReport.html" -Online -ShowHTML -Scopes "Forest", "Domains"
+    Generates an HTML report based on the provided test results, saves it to "C:\Reports\TestReport.html", displays it online, and includes scopes "Forest" and "Domains".
+
+    .NOTES
+    File Name      : Start-TestimoReportHTML.ps1
+    Prerequisite   : This function requires the New-HTML and Start-TimeLog functions.
+    #>
     [cmdletBinding()]
     param(
         [System.Collections.IDictionary] $TestResults,

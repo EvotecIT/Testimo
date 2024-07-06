@@ -1,4 +1,17 @@
 ﻿function Start-TestimoReportSummaryAdvanced {
+    <#
+    .SYNOPSIS
+    This function generates an advanced summary report for Testimo results.
+
+    .DESCRIPTION
+    Start-TestimoReportSummaryAdvanced function is used to create a detailed summary report based on the Testimo test results. It calculates and displays various statistics and visual representations of the test outcomes.
+
+    .PARAMETER TestResults
+    Specifies the test results data to be summarized.
+
+    .EXAMPLE
+    Start-TestimoReportSummaryAdvanced -TestResults $TestResults
+    #>
     [CmdletBinding()]
     param(
         [System.Collections.IDictionary] $TestResults
