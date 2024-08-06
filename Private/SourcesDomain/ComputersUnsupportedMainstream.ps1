@@ -9,15 +9,12 @@
             $Computers | Select-Object Name, OperatingSystem, OperatingSystemServicePack, @{name = "lastlogontimestamp"; expression = { [datetime]::fromfiletime($_.lastlogontimestamp) } }
         }
         Details        = [ordered] @{
-            Area        = 'Cleanup'
-            Category    = ''
-            Severity    = ''
-            Importance  = 0
+            Area        = 'Objects'
+            Category    = 'Cleanup'
+            Importance  = 3
             Description = 'Computers running an unsupported operating system, but with possibly Microsoft support.'
             Resolution  = 'Consider upgrading computers running Windows Server 2008 or Windows Server 2008 R2 to a version that still offers mainstream support from Microsoft.'
-            Resources   = @(
-
-            )
+            Resources   = @()
         }
         ExpectedOutput = $false
     }

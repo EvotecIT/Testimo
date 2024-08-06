@@ -9,15 +9,12 @@
             $Computers | Select-Object Name, OperatingSystem, OperatingSystemServicePack, @{name = "lastlogontimestamp"; expression = { [datetime]::fromfiletime($_.lastlogontimestamp) } }
         }
         Details        = [ordered] @{
-            Area        = 'Cleanup'
-            Category    = ''
-            Severity    = ''
-            Importance  = 0
+            Area        = 'Objects'
+            Category    = 'Cleanup'
+            Importance  = 3
             Description = 'Computers running an unsupported operating system.'
             Resolution  = 'Upgrade or remove computers from Domain.'
-            Resources   = @(
-
-            )
+            Resources   = @()
         }
         ExpectedOutput = $false
     }
