@@ -2080,7 +2080,7 @@
                                                  "ExpectedOutput":  true
                                              },
                                   "Tests":  {
-                                                "NETBIOSOverTCIP":  {
+                                                "NETBIOSOverTCPIP":  {
                                                                         "Enable":  true,
                                                                         "Parameters":  {
                                                                                            "Property":  "NetBIOSOverTCPIP",

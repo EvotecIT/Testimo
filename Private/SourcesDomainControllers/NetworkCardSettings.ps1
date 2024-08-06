@@ -21,9 +21,9 @@
         ExpectedOutput = $true
     }
     Tests  = [ordered] @{
-        NETBIOSOverTCIP        = @{
+        NETBIOSOverTCPIP        = @{
             Enable     = $true
-            Name       = 'NetBIOS over TCIP should be disabled.'
+            Name       = 'NetBIOS over TCPIP should be disabled.'
             Parameters = @{
                 Property      = 'NetBIOSOverTCPIP'
                 ExpectedValue = 'Disabled'
