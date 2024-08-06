@@ -5,7 +5,7 @@
     Source = @{
         Name           = "DNS Forwarders"
         Data           = {
-            [Array] $Forwarders = Get-WinDnsServerForwarder -Forest $ForestName -Domain $Domain -WarningAction SilentlyContinue
+            [Array] $Forwarders = Get-WinADDnsServerForwarder -Forest $ForestName -Domain $Domain -WarningAction SilentlyContinue
             if ($Forwarders.Count -gt 1) {
                 $Comparision = Compare-MultipleObjects -Objects $Forwarders -FormatOutput -CompareSorted:$true -ExcludeProperty GatheredFrom -SkipProperties -Property 'IpAddress' -WarningAction SilentlyContinue
                 [PSCustomObject] @{
@@ -27,10 +27,9 @@
             }
         }
         Details        = [ordered] @{
-            Area        = 'Configuration'
-            Category    = ''
-            Severity    = ''
-            Importance  = 0
+            Area        = 'DNS'
+            Category    = 'Configuration'
+            Importance  = 3
             Description = ''
             Resolution  = ''
             Resources   = @(
