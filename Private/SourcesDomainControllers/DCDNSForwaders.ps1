@@ -5,14 +5,13 @@
     Source = @{
         Name           = "DC DNS Forwarders"
         Data           = {
-            $Forwarders = Get-WinDnsServerForwarder -Forest $ForestName -Domain $Domain -IncludeDomainControllers $DomainController -WarningAction SilentlyContinue -Formatted
+            $Forwarders = Get-WinADDnsServerForwarder -Forest $ForestName -Domain $Domain -IncludeDomainControllers $DomainController -WarningAction SilentlyContinue -Formatted
             $Forwarders
         }
         Details        = [ordered] @{
-            Area        = 'Configuration'
-            Category    = 'DNS'
-            Severity    = 'Medium'
-            Importance  = 0
+            Category    = 'Configuration'
+            Area        = 'DNS'
+            Importance  = 5
             Description = ''
             Resolution  = ''
             Resources   = @(

@@ -11,10 +11,9 @@
             EventDays = 3
         }
         Details        = [ordered] @{
-            Area        = 'Health'
-            Category    = 'DFS'
-            Severity    = 'High'
-            Importance  = 0
+            Area        = 'DFS'
+            Category    = 'Health'
+            Importance  = 10
             Description = "Provides health verification of SYSVOL/DFS on Domain Controller."
             Resolution  = ''
             Resources   = @(
