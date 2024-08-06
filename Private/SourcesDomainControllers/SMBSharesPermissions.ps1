@@ -11,7 +11,7 @@
             Area        = 'Security'
             Description = "SMB Shares for Sysvol and Netlogon should be at their defaults. That means 2 permissions for Netlogon and 3 for SysVol."
             Resolution  = 'Add/Remove unnecessary permissions.'
-            Importance  = 20
+            Importance  = 3
             Resources   = @(
 
             )
