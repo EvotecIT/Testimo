@@ -317,8 +317,8 @@
                 ExpectedOutput = $false
             }
             Details    = [ordered] @{
-                Area        = 'Security'
-                Category    = 'Services'
+                Area        = 'Services'
+                Category    = 'Security','Configuration'
                 Severity    = ''
                 Importance  = 0
                 Description = 'Due to security concerns SPOOLER should be disabled and stopped. However in some cases it may be required to have SPOOLER service up and running to cleanup stale printer objects from AD.'
@@ -342,8 +342,8 @@
                 ExpectedOutput = $false
             }
             Details    = [ordered] @{
-                Area        = 'Security'
-                Category    = 'Services'
+                Area        = 'Services'
+                Category    = 'Security','Configuration'
                 Severity    = ''
                 Importance  = 0
                 Description = 'Due to security concerns SPOOLER should be disabled and stopped. However in some cases it may be required to have SPOOLER service up and running to cleanup stale printer objects from AD.'

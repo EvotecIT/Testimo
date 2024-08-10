@@ -8,8 +8,8 @@
             Get-ADGroupMember -Identity 'S-1-5-32-548' -Recursive -Server $Domain
         }
         Details        = [ordered] @{
-            Area        = 'Cleanup', 'Security'
-            Category    = ''
+            Area        = 'Objects'
+            Category    = 'Cleanup', 'Security'
             Severity    = ''
             Importance  = 0
             Description = "The Account Operators group should not be used. Custom delegate instead. This group is a great 'backdoor' priv group for attackers. Microsoft even says don't use this group!"

@@ -8,8 +8,8 @@
             Test-ADSiteLinks -Splitter ', ' -Forest $ForestName
         }
         Details        = [ordered] @{
-            Area        = 'Configuration'
-            Category    = 'Sites'
+            Area        = 'Sites'
+            Category    = 'Configuration'
             Description = ''
             Resolution  = ''
             Importance  = 10

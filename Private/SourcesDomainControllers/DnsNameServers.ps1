@@ -8,8 +8,8 @@
             Test-DNSNameServers -Domain $Domain -DomainController $DomainController
         }
         Details        = [ordered] @{
-            Area        = 'Configuration'
-            Category    = 'DNS'
+            Category    = 'Configuration'
+            Area        = 'DNS'
             Severity    = 'Medium'
             Description = ''
             Resolution  = ''

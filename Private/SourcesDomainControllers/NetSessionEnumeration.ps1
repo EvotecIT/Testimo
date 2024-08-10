@@ -11,8 +11,7 @@
             # ConvertFrom-SID -sid $CSD.DiscretionaryAcl.SecurityIdentifier | Where-Object { $_.Name -eq 'Authenticated Users' }
         }
         Details        = [ordered] @{
-            Type        = 'Security'
-            Area        = ''
+            Category        = 'Security'
             Description = 'Net Session Enumeration is a method used to retrieve information about established sessions on a server. Any domain user can query a server for its established sessions.'
             Resolution  = 'Hardening Net Session Enumeration'
             Importance  = 10

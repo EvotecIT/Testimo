@@ -8,8 +8,8 @@
             Get-ComputerDiskLogical -ComputerName $DomainController -OnlyLocalDisk -WarningAction SilentlyContinue
         }
         Details        = [ordered] @{
-            Area        = 'Health'
-            Category    = 'Disk'
+            Area        = 'WindowsConfiguration'
+            Category    = 'Health'
             Description = ''
             Resolution  = ''
             Importance  = 10

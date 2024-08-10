@@ -8,8 +8,8 @@
             Get-ADDefaultDomainPasswordPolicy -Server $Domain
         }
         Details        = [ordered] @{
-            Area        = 'Security'
-            Category    = ''
+            Area        = 'Objects'
+            Category    = 'Security'
             Severity    = ''
             Importance  = 0
             Description = ''

@@ -8,8 +8,8 @@
             Get-PSRegistry -RegistryPath 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters' -ComputerName $DomainController
         }
         Details        = [ordered] @{
-            Area        = 'Security'
-            Category    = 'Network'
+            Area        = 'Network'
+            Category    = 'Security'
             Description = 'Provides verification of MSS Network Settings on Domain Controllers'
             Resolution  = ''
             Importance  = 10
@@ -32,7 +32,6 @@
                 OperationType = 'eq'
             }
             Details    = [ordered] @{
-                Area        = ''
                 Description = 'Highest protection, source routing is completely disabled'
                 Resolution  = ''
                 Importance  = 10
@@ -50,7 +49,6 @@
                 OperationType = 'eq'
             }
             Details    = [ordered] @{
-                Area        = ''
                 Description = ''
                 Resolution  = ''
                 Importance  = 10

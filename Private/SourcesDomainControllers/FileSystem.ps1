@@ -8,8 +8,8 @@
             Get-PSRegistry -RegistryPath 'HKLM\SYSTEM\CurrentControlSet\Control\FileSystem' -ComputerName $DomainController
         }
         Details        = [ordered] @{
-            Type        = 'Security'
-            Area        = ''
+            Category    = 'Security'
+            Area        = 'FileSystem'
             Description = ''
             Resolution  = ''
             Importance  = 10

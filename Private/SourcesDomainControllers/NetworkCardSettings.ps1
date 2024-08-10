@@ -8,9 +8,8 @@
             Get-ComputerNetwork -ComputerName $DomainController
         }
         Details        = [ordered] @{
-            Area        = 'Connectivity'
-            Category    = ''
-            Severity    = ''
+            Area        = 'Network'
+            Category    = 'Configuration'
             Importance  = 0
             Description = ''
             Resolution  = ''
@@ -30,9 +29,8 @@
                 OperationType = 'eq'
             }
             Details    = @{
-                Area        = 'Connectivity'
-                Category    = 'Legacy Protocols'
-                Severity    = 'Critical'
+                Area        = 'Network'
+                Category    = 'Configuration'
                 Importance  = 9 # 10 is top
                 Description = @'
                 NetBIOS over TCP/IP is a networking protocol that allows legacy computer applications relying on the NetBIOS to be used on modern TCP/IP networks.

@@ -11,8 +11,8 @@ $NetLogonOwner = @{
 
         }
         Details        = [ordered] @{
-            Area        = 'Cleanup'
-            Category    = 'SYSVOL'
+            Area        = 'FileSystem'
+            Category    = 'Cleanup'
             Severity    = ''
             Importance  = 6
             Description = ""

@@ -21,7 +21,8 @@
             $Output
         }
         Details        = [ordered] @{
-            Area        = ''
+            Category    = 'Health'
+            Area        = 'DNS'
             Description = ''
             Resolution  = ''
             Importance  = 10

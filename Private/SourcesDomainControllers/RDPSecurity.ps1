@@ -8,7 +8,7 @@
             Get-ComputerRDP -ComputerName $DomainController -WarningAction SilentlyContinue
         }
         Details        = [ordered] @{
-            Area        = 'Connectivity'
+            Area        = 'Network'
             Description = ''
             Resolution  = ''
             Importance  = 10
@@ -23,13 +23,13 @@
             Enable     = $true
             Name       = 'Port is OPEN'
             Parameters = @{
-                Property              = 'Connectivity'
+                Property              = 'Network'
                 ExpectedValue         = $true
                 OperationType         = 'eq'
                 PropertyExtendedValue = 'ConnectivitySummary'
             }
             Details    = [ordered] @{
-                Area        = 'Connectivity'
+                Area        = 'Network'
                 Description = ''
                 Resolution  = ''
                 Importance  = 10
@@ -48,7 +48,7 @@
                 OperationType = 'eq'
             }
             Details    = [ordered] @{
-                Area        = 'Connectivity'
+                Area        = 'Network'
                 Description = ''
                 Resolution  = ''
                 Importance  = 10
@@ -68,7 +68,7 @@
                 PropertyExtendedValue = 'MinimalEncryptionLevel'
             }
             Details    = [ordered] @{
-                Area        = 'Connectivity'
+                Area        = 'Network'
                 Description = 'Remote connections must be encrypted to prevent interception of data or sensitive information. Selecting "High Level" will ensure encryption of Remote Desktop Services sessions in both directions.'
                 Resolution  = ''
                 Importance  = 10

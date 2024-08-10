@@ -21,8 +21,8 @@
             }
         }
         Details        = [ordered] @{
-            Area        = 'Health'
-            Category    = 'SYSVOL'
+            Category        = 'Health'
+            Area    = 'SYSVOL'
             Severity    = ''
             Importance  = 0
             Description = 'Checks if DFS-R is available.'

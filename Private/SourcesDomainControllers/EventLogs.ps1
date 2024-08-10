@@ -8,7 +8,8 @@
             Get-EventsInformation -LogName 'Application', 'System', 'Security', 'Microsoft-Windows-PowerShell/Operational' -Machine $DomainController -WarningAction SilentlyContinue
         }
         Details        = [ordered] @{
-            Area        = ''
+            Area        = 'EventLogs'
+            Category    = 'Health'
             Description = ''
             Resolution  = ''
             Importance  = 10

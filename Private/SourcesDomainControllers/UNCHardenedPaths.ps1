@@ -8,7 +8,7 @@
             Get-PSRegistry -RegistryPath "HKLM\SOFTWARE\Policies\Microsoft\Windows\NetworkProvider\HardenedPaths" -ComputerName $DomainController
         }
         Details        = [ordered] @{
-            Type        = 'Security'
+            Category        = 'Security'
             Area        = ''
             Description = 'Hardened UNC Paths must be defined to require mutual authentication and integrity for at least the \\*\SYSVOL and \\*\NETLOGON shares.'
             Resolution  = 'Harden UNC Paths for SYSVOL and NETLOGON'

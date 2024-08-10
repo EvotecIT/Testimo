@@ -8,8 +8,8 @@
             Get-GPOZaurrSysvol -Forest $ForestName -IncludeDomains $Domain
         }
         Details        = [ordered] @{
-            Area        = 'Security'
-            Category    = ''
+            Area        = 'GroupPolicy'
+            Category    = 'Security'
             Severity    = ''
             Importance  = 0
             Description = "GPO Permissions are stored in Active Directory and SYSVOL at the same time. Sometimes when deleting GPO or due to replication issues GPO becomes orphaned (no SYSVOL files) or SYSVOL files exists but no GPO."

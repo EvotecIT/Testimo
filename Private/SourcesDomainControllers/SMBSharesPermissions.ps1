@@ -8,7 +8,7 @@
             Get-ComputerSMBSharePermissions -ComputerName $DomainController -ShareName 'Netlogon', 'Sysvol' -Translated
         }
         Details        = [ordered] @{
-            Area        = 'Security'
+            Category        = 'Security'
             Description = "SMB Shares for Sysvol and Netlogon should be at their defaults. That means 2 permissions for Netlogon and 3 for SysVol."
             Resolution  = 'Add/Remove unnecessary permissions.'
             Importance  = 3
@@ -29,7 +29,7 @@
                 ExpectedCount = 5
             }
             Details    = [ordered] @{
-                Area        = 'Security'
+                Category        = 'Security'
                 Description = "SMB Shares for Sysvol and Netlogon should be at their defaults. That means 2 permissions for Netlogon and 3 for SysVol."
                 Resolution  = 'Add/Remove unnecessary permissions.'
                 Importance  = 5
@@ -45,7 +45,7 @@
                 WhereObject   = { $_.Name -eq 'NETLOGON' -and $_.AccountName -eq 'Everyone' }
                 ExpectedCount = 1
             }
-            Area        = 'Security'
+            Category        = 'Security'
             Description = "SMB Shares for NETLOGON should contain Everyone with Read access rights."
             Resolution  = 'Add/Remove unnecessary permissions.'
             Importance  = 5
@@ -60,7 +60,7 @@
                 WhereObject   = { $_.Name -eq 'NETLOGON' -and $_.AccountName -eq 'BUILTIN\Administrators' }
                 ExpectedCount = 1
             }
-            Area        = 'Security'
+            Category        = 'Security'
             Description = "SMB Shares for NETLOGON should contain BUILTIN\Administrators with Full access rights."
             Resolution  = 'Add/Remove unnecessary permissions.'
             Importance  = 5
@@ -75,7 +75,7 @@
                 WhereObject   = { $_.Name -eq 'SYSVOL' -and $_.AccountName -eq 'Everyone' }
                 ExpectedCount = 1
             }
-            Area        = 'Security'
+            Category        = 'Security'
             Description = "SMB Shares for SYSVOL should contain Everyone with Read access rights."
             Resolution  = 'Add/Remove unnecessary permissions.'
             Importance  = 5
@@ -90,7 +90,7 @@
                 WhereObject   = { $_.Name -eq 'SYSVOL' -and $_.AccountName -eq 'BUILTIN\Administrators' }
                 ExpectedCount = 1
             }
-            Area        = 'Security'
+            Category        = 'Security'
             Description = "SMB Shares for SYSVOL should contain BUILTIN\Administrators with Full access rights."
             Resolution  = 'Add/Remove unnecessary permissions.'
             Importance  = 5
@@ -105,7 +105,7 @@
                 WhereObject   = { $_.Name -eq 'SYSVOL' -and $_.AccountName -eq 'NT AUTHORITY\Authenticated Users' }
                 ExpectedCount = 1
             }
-            Area        = 'Security'
+            Category        = 'Security'
             Description = "SMB Shares for SYSVOL should contain NT AUTHORITY\Authenticated Users with Full access rights."
             Resolution  = 'Add/Remove unnecessary permissions.'
             Importance  = 5
@@ -123,7 +123,7 @@
                 ExpectedValue = 'Read'
                 OperationType = 'eq'
             }
-            Area        = 'Security'
+            Category        = 'Security'
             Description = "SMB Shares for NETLOGON should contain Everyone with Read access rights."
             Resolution  = 'Add/Remove unnecessary permissions.'
             Importance  = 5
@@ -140,7 +140,7 @@
                 ExpectedValue = 'Full'
                 OperationType = 'eq'
             }
-            Area        = 'Security'
+            Category        = 'Security'
             Description = "SMB Shares for NETLOGON should contain BUILTIN\Administrators with Full access rights."
             Resolution  = 'Add/Remove unnecessary permissions.'
             Importance  = 5
@@ -157,7 +157,7 @@
                 ExpectedValue = 'Read'
                 OperationType = 'eq'
             }
-            Area        = 'Security'
+            Category        = 'Security'
             Description = "SMB Shares for SYSVOL should contain Everyone with Read access rights."
             Resolution  = 'Add/Remove unnecessary permissions.'
             Importance  = 5
@@ -174,7 +174,7 @@
                 ExpectedValue = 'Full'
                 OperationType = 'eq'
             }
-            Area        = 'Security'
+            Category        = 'Security'
             Description = "SMB Shares for SYSVOL should contain BUILTIN\Administrators with Full access rights."
             Resolution  = 'Add/Remove unnecessary permissions.'
             Importance  = 5
@@ -191,7 +191,7 @@
                 ExpectedValue = 'Full'
                 OperationType = 'eq'
             }
-            Area        = 'Security'
+            Category        = 'Security'
             Description = "SMB Shares for SYSVOL should contain NT AUTHORITY\Authenticated Users with Full access rights."
             Resolution  = 'Add/Remove unnecessary permissions.'
             Importance  = 5

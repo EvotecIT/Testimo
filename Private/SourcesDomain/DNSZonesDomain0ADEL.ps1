@@ -12,8 +12,8 @@
             $FSMORoleOwner
         }
         Details        = [ordered] @{
-            Area        = 'Configuration'
-            Category    = 'DNS'
+            Area        = 'DNS'
+            Category    = 'Configuration'
             Severity    = ''
             Importance  = 0
             Description = ""

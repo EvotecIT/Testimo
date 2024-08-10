@@ -26,8 +26,8 @@
             Compare-MultipleObjects -Objects @($DefaultWellKnownFolders, $CurrentWellKnownFolders) -SkipProperties
         }
         Details        = [ordered] @{
-            Area        = 'Configuration'
-            Category    = 'OrganizationalUnits'
+            Area        = 'Objects'
+            Category    = 'Configuration'
             Severity    = 'Low'
             Importance  = 5
             Description = 'Verifies whether well-known folders are at their defaults or not.'

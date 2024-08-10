@@ -9,7 +9,7 @@
             Get-PSRegistry -RegistryPath 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters' -ComputerName $DomainController
         }
         Details        = [ordered] @{
-            Area        = 'Security'
+            Category        = 'Security'
             Description = 'Lan Man Server'
             Resolution  = ''
             Importance  = 10
@@ -32,7 +32,7 @@
                 OperationType = 'eq'
             }
             Details    = [ordered] @{
-                Area        = 'Security'
+                Category        = 'Security'
                 Description = 'Microsoft is aware of a remote code execution vulnerability in the way that the Microsoft Server Message Block 3.1.1 (SMBv3) protocol handles certain requests. An attacker who successfully exploited the vulnerability could gain the ability to execute code on the target SMB Server or SMB Client. To exploit the vulnerability against an SMB Server, an unauthenticated attacker could send a specially crafted packet to a targeted SMBv3 Server. To exploit the vulnerability against an SMB Client, an unauthenticated attacker would need to configure a malicious SMBv3 Server and convince a user to connect to it.'
                 Resolution  = 'Disable SMBv3 compression or apply patch. Since patch is available disabling is not nessecary.'
                 Importance  = 10
@@ -88,7 +88,7 @@
                 OperationType = 'eq'
             }
             Details    = [ordered] @{
-                Type            = 'Security'
+                Category            = 'Security'
                 Area            = ''
                 Description     = 'Microsoft network server: Digitally sign communications (always)'
                 Vulnerability   = 'Session hijacking uses tools that allow attackers who have access to the same network as the client

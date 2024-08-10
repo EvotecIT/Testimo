@@ -8,8 +8,8 @@
             Get-GPOZaurrPermissionAnalysis -Forest $ForestName -Domain $Domain
         }
         Details        = [ordered] @{
-            Area        = 'Security'
-            Category    = ''
+            Area        = 'GroupPolicy'
+            Category    = 'Security'
             Severity    = ''
             Importance  = 0
             Description = "Group Policy permissions should always have Authenticated Users and Domain Computers gropup"

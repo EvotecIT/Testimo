@@ -14,8 +14,8 @@
             $FilteredOus | Select-Object -Property Name, CanonicalName, DistinguishedName, ProtectedFromAccidentalDeletion
         }
         Details        = [ordered] @{
-            Area        = 'Cleanup'
-            Category    = ''
+            Area        = 'Objects'
+            Category    = 'Cleanup'
             Severity    = ''
             Importance  = 0
             Description = ''

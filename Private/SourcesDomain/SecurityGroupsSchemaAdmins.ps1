@@ -12,8 +12,8 @@
             IsDomainRoot = $true
         }
         Details        = [ordered] @{
-            Area        = 'Cleanup', 'Security'
-            Category    = ''
+            Area        = 'Objects'
+            Category    = 'Cleanup', 'Security'
             Severity    = ''
             Importance  = 0
             Description = "Schema Admins group should be empty. If you need to manage schema you can always add user for the time of modification."

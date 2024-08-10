@@ -13,8 +13,8 @@
            IsDomainRoot = $true
         }
         Details        = [ordered] @{
-            Area        = 'Configuration'
-            Category    = 'DHCP'
+            Area        = 'DHCP'
+            Category    = 'Configuration'
             Severity    = ''
             Importance  = 0
             Description = ""

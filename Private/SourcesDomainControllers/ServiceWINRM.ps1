@@ -8,7 +8,7 @@
             Get-PSRegistry -RegistryPath 'HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service' -ComputerName $DomainController
         }
         Details        = [ordered] @{
-            Type        = 'Security'
+            Category        = 'Security'
             Area        = ''
             Description = 'Storage of administrative credentials could allow unauthorized access. Disallowing the storage of RunAs credentials for Windows Remote Management will prevent them from being used with plug-ins. The Windows Remote Management (WinRM) service must not store RunAs credentials.'
             Resolution  = ''

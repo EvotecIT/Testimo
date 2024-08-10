@@ -8,7 +8,7 @@
             Get-TimeSettings -ComputerName $DomainController -Domain $Domain
         }
         Details        = [ordered] @{
-            Area        = 'Configuration'
+            Category        = 'Configuration'
             Description = ''
             Resolution  = ''
             Importance  = 2

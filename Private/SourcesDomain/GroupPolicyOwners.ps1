@@ -8,8 +8,8 @@
             Get-GPOZaurrOwner -Forest $ForestName -IncludeSysvol -IncludeDomains $Domain
         }
         Details        = [ordered] @{
-            Area        = 'Security'
-            Category    = ''
+            Area        = 'GroupPolicy'
+            Category    = 'Security'
             Severity    = ''
             Importance  = 0
             Description = ""

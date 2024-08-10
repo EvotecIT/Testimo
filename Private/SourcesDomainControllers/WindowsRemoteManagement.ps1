@@ -20,7 +20,7 @@
     }
     Tests  = [ordered] @{
         WindowsRemoteManagement = @{
-            Enable1    = $true
+            Enable    = $true
             Name       = 'Test submits an identification request that determines whether the WinRM service is running.'
             Parameters = @{
                 Property      = 'Status'

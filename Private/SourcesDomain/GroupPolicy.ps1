@@ -11,8 +11,8 @@ $GroupPolicyAssessment = @{
 
         }
         Details        = [ordered] @{
-            Area        = 'Cleanup'
-            Category    = 'Group Policy'
+            Area        = 'GroupPolicy'
+            Category    = 'Cleanup'
             Severity    = ''
             Importance  = 0
             Description = ""

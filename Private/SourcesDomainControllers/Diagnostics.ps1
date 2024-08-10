@@ -24,7 +24,7 @@
             Enable     = $true
             Name       = 'DCDiag Connectivity'
             Parameters = @{
-                WhereObject   = { $_.Test -eq 'Connectivity' }
+                WhereObject   = { $_.Test -eq 'Network' }
                 Property      = 'Result'
                 ExpectedValue = $true
                 OperationType = 'eq'
