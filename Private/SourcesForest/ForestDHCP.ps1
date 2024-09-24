@@ -13,7 +13,7 @@
             Importance  = 0
             ActionType  = 0
             Resources   = @(
-                "[Disable or remove the DHCP Server service installed on any domain controllers](https://docs.microsoft.com/en-us/services-hub/health/remediation-steps-ad/disable-or-remove-the-dhcp-server-service-installed-on-any-domain-controllers)"
+                "[Disable or remove the DHCP Server service installed on any domain controllers](https://learn.microsoft.com/en-us/services-hub/microsoft-engage-center/health/remediation-steps-ad/disable-or-remove-the-dhcp-server-service-installed-on-any-domain-controllers)"
             )
             Tags        = 'DHCP', 'Configuration'
             StatusTrue  = 0
