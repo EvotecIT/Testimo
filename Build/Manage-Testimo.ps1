@@ -29,7 +29,7 @@ Invoke-ModuleBuild -ModuleName 'Testimo' {
     New-ConfigurationManifest @Manifest
 
     New-ConfigurationModule -Type RequiredModule -Name @(
-        'PSSharedGoods', 'PSWinDocumentation.DNS', 'PSEventViewer'
+        'PSSharedGoods', 'PSEventViewer'
         'PSWriteHTML', 'ADEssentials', 'GPOZaurr', 'PSWriteColor'
     ) -Version Latest -Guid Auto
     New-ConfigurationModule -Type ApprovedModule -Name 'PSWriteColor', 'Connectimo', 'PSUnifi', 'PSWebToolbox', 'PSMyPassword'
