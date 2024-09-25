@@ -20,19 +20,19 @@
     RequiredModules      = @(@{
             Guid          = 'ee272aa8-baaa-4edf-9f45-b6d6f7d844fe'
             ModuleName    = 'PSSharedGoods'
-            ModuleVersion = '0.0.294'
+            ModuleVersion = '0.0.295'
         }, @{
             Guid          = '5df72a79-cdf6-4add-b38d-bcacf26fb7bc'
             ModuleName    = 'PSEventViewer'
-            ModuleVersion = '2.0.0'
+            ModuleVersion = '2.1.0'
         }, @{
             Guid          = 'a7bdf640-f5cb-4acf-9de0-365b322d245c'
             ModuleName    = 'PSWriteHTML'
-            ModuleVersion = '1.26.0'
+            ModuleVersion = '1.27.0'
         }, @{
             Guid          = '9fc9fd61-7f11-4f4b-a527-084086f1905f'
             ModuleName    = 'ADEssentials'
-            ModuleVersion = '0.0.216'
+            ModuleVersion = '0.0.219'
         }, @{
             Guid          = 'f7d4c9e4-0298-4f51-ad77-e8e3febebbde'
             ModuleName    = 'GPOZaurr'
