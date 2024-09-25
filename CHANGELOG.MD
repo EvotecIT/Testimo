@@ -1,8 +1,27 @@
 ﻿# Testimo Release History
 
-## 0.0.89
-- Improve `ForestTomstoneLifetime` to check for 180 days in RecycleBin and not only for TombestoneLifetime
-- Improve HTML reports by hiding specific columns in tables
+## 0.0.89 - 2024.09.25
+
+### What's Changed
+* added help to functions. by @neztach in https://github.com/EvotecIT/Testimo/pull/185
+* Replaced TCIP typo with TCPIP by @SamErde in https://github.com/EvotecIT/Testimo/pull/186
+* Fixed Importance value for NetBIOSOverTCPIP from 90 to 9. by @SamErde in https://github.com/EvotecIT/Testimo/pull/187
+* Fixed Importance for Default SMB Shares Permissions by @SamErde in https://github.com/EvotecIT/Testimo/pull/188
+* Fix a broken link to MS docs by @diecknet in https://github.com/EvotecIT/Testimo/pull/189
+* Fixes around tags, areas, categories
+* Added recycle bin to tombstone lifetime
+* Removed dependency on PSWinDocumentation.DNS
+* Bumped dependencies to the newest versions
+* Improve HTML reporting
+* Improve `ForestTomstoneLifetime` to check for 180 days in RecycleBin and not only for TombestoneLifetime
+* Improve HTML reports by hiding specific columns in tables
+
+### New Contributors
+* @neztach made their first contribution in https://github.com/EvotecIT/Testimo/pull/185
+* @SamErde made their first contribution in https://github.com/EvotecIT/Testimo/pull/186
+* @diecknet made their first contribution in https://github.com/EvotecIT/Testimo/pull/189
+
+**Full Changelog**: https://github.com/EvotecIT/Testimo/compare/v0.0.88...v0.0.89
 
 ## 0.0.88 - 2024.01.23
 - Added `WindowsSecureTimeSeeding` check in `DCTimeSettings` check
