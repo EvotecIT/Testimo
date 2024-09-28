@@ -8,7 +8,7 @@
             Get-ComputerSMBSharePermissions -ComputerName $DomainController -ShareName 'Netlogon', 'Sysvol' -Translated
         }
         Details        = [ordered] @{
-            Category        = 'Security'
+            Category    = 'Security'
             Description = "SMB Shares for Sysvol and Netlogon should be at their defaults. That means 2 permissions for Netlogon and 3 for SysVol."
             Resolution  = 'Add/Remove unnecessary permissions.'
             Importance  = 3
@@ -29,7 +29,7 @@
                 ExpectedCount = 5
             }
             Details    = [ordered] @{
-                Category        = 'Security'
+                Category    = 'Security'
                 Description = "SMB Shares for Sysvol and Netlogon should be at their defaults. That means 2 permissions for Netlogon and 3 for SysVol."
                 Resolution  = 'Add/Remove unnecessary permissions.'
                 Importance  = 5
@@ -42,10 +42,11 @@
             Enable      = $true
             Name        = 'Netlogon Share Permissions - Everyone'
             Parameters  = @{
-                WhereObject   = { $_.Name -eq 'NETLOGON' -and $_.AccountName -eq 'Everyone' }
+                # NETLOGON share should have Everyone with Read access rights
+                WhereObject   = { $_.Name -eq 'NETLOGON' -and $_.AccountSID -eq 'S-1-1-0' }
                 ExpectedCount = 1
             }
-            Category        = 'Security'
+            Category    = 'Security'
             Description = "SMB Shares for NETLOGON should contain Everyone with Read access rights."
             Resolution  = 'Add/Remove unnecessary permissions.'
             Importance  = 5
@@ -57,10 +58,10 @@
             Enable      = $true
             Name        = 'Netlogon Share Permissions - BUILTIN\Administrators'
             Parameters  = @{
-                WhereObject   = { $_.Name -eq 'NETLOGON' -and $_.AccountName -eq 'BUILTIN\Administrators' }
+                WhereObject   = { $_.Name -eq 'NETLOGON' -and $_.AccountSID -eq 'S-1-5-32-544' }
                 ExpectedCount = 1
             }
-            Category        = 'Security'
+            Category    = 'Security'
             Description = "SMB Shares for NETLOGON should contain BUILTIN\Administrators with Full access rights."
             Resolution  = 'Add/Remove unnecessary permissions.'
             Importance  = 5
@@ -72,10 +73,10 @@
             Enable      = $true
             Name        = 'SysVol Share Permissions - Everyone'
             Parameters  = @{
-                WhereObject   = { $_.Name -eq 'SYSVOL' -and $_.AccountName -eq 'Everyone' }
+                WhereObject   = { $_.Name -eq 'SYSVOL' -and $_.AccountSID -eq 'S-1-1-0' }
                 ExpectedCount = 1
             }
-            Category        = 'Security'
+            Category    = 'Security'
             Description = "SMB Shares for SYSVOL should contain Everyone with Read access rights."
             Resolution  = 'Add/Remove unnecessary permissions.'
             Importance  = 5
@@ -87,10 +88,10 @@
             Enable      = $true
             Name        = 'SysVol Share Permissions - BUILTIN\Administrators'
             Parameters  = @{
-                WhereObject   = { $_.Name -eq 'SYSVOL' -and $_.AccountName -eq 'BUILTIN\Administrators' }
+                WhereObject   = { $_.Name -eq 'SYSVOL' -and $_.AccountSID -eq 'S-1-5-32-544' }
                 ExpectedCount = 1
             }
-            Category        = 'Security'
+            Category    = 'Security'
             Description = "SMB Shares for SYSVOL should contain BUILTIN\Administrators with Full access rights."
             Resolution  = 'Add/Remove unnecessary permissions.'
             Importance  = 5
@@ -102,10 +103,10 @@
             Enable      = $true
             Name        = 'SysVol Share Permissions - NT AUTHORITY\Authenticated Users'
             Parameters  = @{
-                WhereObject   = { $_.Name -eq 'SYSVOL' -and $_.AccountName -eq 'NT AUTHORITY\Authenticated Users' }
+                WhereObject   = { $_.Name -eq 'SYSVOL' -and $_.AccountSID -eq 'S-1-5-11' }
                 ExpectedCount = 1
             }
-            Category        = 'Security'
+            Category    = 'Security'
             Description = "SMB Shares for SYSVOL should contain NT AUTHORITY\Authenticated Users with Full access rights."
             Resolution  = 'Add/Remove unnecessary permissions.'
             Importance  = 5
@@ -118,12 +119,12 @@
             Enable      = $true
             Name        = 'Netlogon Share Permissions Value - Everyone'
             Parameters  = @{
-                WhereObject   = { $_.Name -eq 'NETLOGON' -and $_.AccountName -eq 'Everyone' }
+                WhereObject   = { $_.Name -eq 'NETLOGON' -and $_.AccountSID -eq 'S-1-1-0' }
                 Property      = 'AccessRight'
                 ExpectedValue = 'Read'
                 OperationType = 'eq'
             }
-            Category        = 'Security'
+            Category    = 'Security'
             Description = "SMB Shares for NETLOGON should contain Everyone with Read access rights."
             Resolution  = 'Add/Remove unnecessary permissions.'
             Importance  = 5
@@ -135,12 +136,12 @@
             Enable      = $true
             Name        = 'Netlogon Share Permissions Value - BUILTIN\Administrators'
             Parameters  = @{
-                WhereObject   = { $_.Name -eq 'NETLOGON' -and $_.AccountName -eq 'BUILTIN\Administrators' }
+                WhereObject   = { $_.Name -eq 'NETLOGON' -and $_.AccountSID -eq 'S-1-5-32-544' }
                 Property      = 'AccessRight'
                 ExpectedValue = 'Full'
                 OperationType = 'eq'
             }
-            Category        = 'Security'
+            Category    = 'Security'
             Description = "SMB Shares for NETLOGON should contain BUILTIN\Administrators with Full access rights."
             Resolution  = 'Add/Remove unnecessary permissions.'
             Importance  = 5
@@ -152,12 +153,12 @@
             Enable      = $true
             Name        = 'SysVol Share Permissions Value - Everyone'
             Parameters  = @{
-                WhereObject   = { $_.Name -eq 'SYSVOL' -and $_.AccountName -eq 'Everyone' }
+                WhereObject   = { $_.Name -eq 'SYSVOL' -and $_.AccountSID -eq 'S-1-1-0' }
                 Property      = 'AccessRight'
                 ExpectedValue = 'Read'
                 OperationType = 'eq'
             }
-            Category        = 'Security'
+            Category    = 'Security'
             Description = "SMB Shares for SYSVOL should contain Everyone with Read access rights."
             Resolution  = 'Add/Remove unnecessary permissions.'
             Importance  = 5
@@ -169,12 +170,12 @@
             Enable      = $true
             Name        = 'SysVol Share Permissions Value - BUILTIN\Administrators'
             Parameters  = @{
-                WhereObject   = { $_.Name -eq 'SYSVOL' -and $_.AccountName -eq 'BUILTIN\Administrators' }
+                WhereObject   = { $_.Name -eq 'SYSVOL' -and $_.AccountSID -eq 'S-1-5-32-544' }
                 Property      = 'AccessRight'
                 ExpectedValue = 'Full'
                 OperationType = 'eq'
             }
-            Category        = 'Security'
+            Category    = 'Security'
             Description = "SMB Shares for SYSVOL should contain BUILTIN\Administrators with Full access rights."
             Resolution  = 'Add/Remove unnecessary permissions.'
             Importance  = 5
@@ -186,12 +187,12 @@
             Enable      = $true
             Name        = 'SysVol Share Permissions Value - NT AUTHORITY\Authenticated Users'
             Parameters  = @{
-                WhereObject   = { $_.Name -eq 'SYSVOL' -and $_.AccountName -eq 'NT AUTHORITY\Authenticated Users' }
+                WhereObject   = { $_.Name -eq 'SYSVOL' -and $_.AccountSID -eq 'S-1-5-11' }
                 Property      = 'AccessRight'
                 ExpectedValue = 'Full'
                 OperationType = 'eq'
             }
-            Category        = 'Security'
+            Category    = 'Security'
             Description = "SMB Shares for SYSVOL should contain NT AUTHORITY\Authenticated Users with Full access rights."
             Resolution  = 'Add/Remove unnecessary permissions.'
             Importance  = 5
