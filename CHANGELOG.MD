@@ -1,5 +1,8 @@
 ﻿# Testimo Release History
 
+## 0.0.90 - 2024.09.28
+* improve `DCSMBSharesPermissions` for multilanguage support as per [#190](https://github.com/EvotecIT/Testimo/issues/190)
+
 ## 0.0.89 - 2024.09.25
 
 ### What's Changed
