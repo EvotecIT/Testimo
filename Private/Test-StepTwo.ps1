@@ -133,104 +133,111 @@
 
         } elseif ($TemporaryBoundParameters.ContainsKey('ExpectedValue')) {
             $OutputValues = [System.Collections.Generic.List[Object]]::new()
-            if ($null -eq $TestedValue -and $null -ne $ExpectedValue) {
-                # if testedvalue is null and expected value is not null that means there's no sense in testing things
-                # it should fail
-                $TestResult = for ($i = 0; $i -lt $ExpectedValue.Count; $i++) {
-                    $false # return fail
+            # if ($null -eq $TestedValue -and $null -ne $ExpectedValue) {
+            #     # if testedvalue is null and expected value is not null that means there's no sense in testing things
+            #     # it should fail
+            #     $TestResult = for ($i = 0; $i -lt $ExpectedValue.Count; $i++) {
+            #         $false # return fail
 
-                    # We need to add this to be able to convert values as below for output purposes only.
-                    if ($ExpectedValue[$i] -is [string] -and $ExpectedValue[$i] -like '*Get-Date*') {
-                        [scriptblock] $DateConversion = [scriptblock]::Create($ExpectedValue[$i])
-                        $CompareValue = & $DateConversion
-                    } else {
-                        $CompareValue = $ExpectedValue[$I]
-                    }
-                    # gather comparevalue for display purposes
-                    $OutputValues.Add($CompareValue)
+            #         # We need to add this to be able to convert values as below for output purposes only.
+            #         if ($ExpectedValue[$i] -is [string] -and $ExpectedValue[$i] -like '*Get-Date*') {
+            #             [scriptblock] $DateConversion = [scriptblock]::Create($ExpectedValue[$i])
+            #             $CompareValue = & $DateConversion
+            #         } else {
+            #             $CompareValue = $ExpectedValue[$I]
+            #         }
+            #         # gather comparevalue for display purposes
+            #         $OutputValues.Add($CompareValue)
 
-                }
-                $TextExpectedValue = $OutputValues -join ', '
-                $TextTestedValue = 'Null'
-            } else {
-                [Array] $TestResult = @(
-                    if ($OperationType -eq 'notin') {
-                        $ExpectedValue -notin $TestedValue
-                        $TextExpectedValue = $ExpectedValue
-                    } elseif ($OperationType -eq 'in') {
-                        $TestedValue -in $ExpectedValue
-                        $TextExpectedValue = $ExpectedValue -join ' or '
-                    } else {
-                        for ($i = 0; $i -lt $ExpectedValue.Count; $i++) {
-
-                            # this check is introduced to convert Get-Date in ExpectedValue to proper values
-                            # normally it wouldn't be nessecary but since we're exporting configuration to JSON
-                            # it would export currentdatetime to JSON and we don't want that.
-                            if ($ExpectedValue[$i] -is [string] -and $ExpectedValue[$i] -like '*Get-Date*') {
-                                [scriptblock] $DateConversion = [scriptblock]::Create($ExpectedValue[$i])
-                                $CompareValue = & $DateConversion
-                            } else {
-                                $CompareValue = $ExpectedValue[$I]
-                            }
-                            if ($TestedValue -is [System.Collections.ICollection] -or $TestedValue -is [Array]) {
-                                $CompareObjects = Compare-Object -ReferenceObject $TestedValue -DifferenceObject $CompareValue -IncludeEqual
-                                #$CompareObjects
-
-                                if ($OperationType -eq 'eq') {
-                                    if ($CompareObjects.SideIndicator -notcontains "=>" -and $CompareObjects.SideIndicator -notcontains "<=" -and $CompareObjects.SideIndicator -contains "==") {
-                                        $true
-                                    } else {
-                                        $false
-                                    }
-                                } elseif ($OperationType -eq 'ne') {
-                                    if ($CompareObjects.SideIndicator -contains "=>" -or $CompareObjects.SideIndicator -contains "<=") {
-                                        $true
-                                    } else {
-                                        $false
-                                    }
-                                } else {
-                                    # Not supported for arrays
-                                    $null
-                                }
-                            } else {
-                                if ($OperationType -eq 'lt') {
-                                    $TestedValue -lt $CompareValue
-                                } elseif ($OperationType -eq 'gt') {
-                                    $TestedValue -gt $CompareValue
-                                } elseif ($OperationType -eq 'ge') {
-                                    $TestedValue -ge $CompareValue
-                                } elseif ($OperationType -eq 'le') {
-                                    $TestedValue -le $CompareValue
-                                } elseif ($OperationType -eq 'like') {
-                                    $TestedValue -like $CompareValue
-                                } elseif ($OperationType -eq 'contains') {
-                                    $TestedValue -contains $CompareValue
-                                } elseif ($OperationType -eq 'notcontains') {
-                                    $TestedValue -notcontains $CompareValue
-                                } elseif ($OperationType -eq 'match') {
-                                    $TestedValue -match $CompareValue
-                                } elseif ($OperationType -eq 'notmatch') {
-                                    $TestedValue -notmatch $CompareValue
-                                } else {
-                                    $TestedValue -eq $CompareValue
-                                }
-                            }
-                            # gather comparevalue for display purposes
-                            $OutputValues.Add($CompareValue)
-                        }
-                        if ($ExpectedValue.Count -eq 0) {
-                            $TextExpectedValue = 'Null'
+            #     }
+            #     $TextExpectedValue = $OutputValues -join ', '
+            #     $TextTestedValue = 'Null'
+            # } else {
+            [Array] $TestResult = @(
+                if ($OperationType -eq 'notin') {
+                    $ExpectedValue -notin $TestedValue
+                    $TextExpectedValue = $ExpectedValue
+                } elseif ($OperationType -eq 'in') {
+                    $TestedValue -in $ExpectedValue
+                    $ExpectedValueTranslated = foreach ($V in $ExpectedValue) {
+                        if ($null -eq $V) {
+                            'Null'
                         } else {
-                            $TextExpectedValue = $OutputValues -join ', '
+                            $V
                         }
                     }
-                    if ($null -eq $TestedValue) {
-                        $TextTestedValue = 'Null'
-                    } else {
-                        $TextTestedValue = $TestedValue
+                    $TextExpectedValue = $ExpectedValueTranslated -join ' or '
+                } else {
+                    for ($i = 0; $i -lt $ExpectedValue.Count; $i++) {
+
+                        # this check is introduced to convert Get-Date in ExpectedValue to proper values
+                        # normally it wouldn't be nessecary but since we're exporting configuration to JSON
+                        # it would export currentdatetime to JSON and we don't want that.
+                        if ($ExpectedValue[$i] -is [string] -and $ExpectedValue[$i] -like '*Get-Date*') {
+                            [scriptblock] $DateConversion = [scriptblock]::Create($ExpectedValue[$i])
+                            $CompareValue = & $DateConversion
+                        } else {
+                            $CompareValue = $ExpectedValue[$I]
+                        }
+                        if ($TestedValue -is [System.Collections.ICollection] -or $TestedValue -is [Array]) {
+                            $CompareObjects = Compare-Object -ReferenceObject $TestedValue -DifferenceObject $CompareValue -IncludeEqual
+                            #$CompareObjects
+
+                            if ($OperationType -eq 'eq') {
+                                if ($CompareObjects.SideIndicator -notcontains "=>" -and $CompareObjects.SideIndicator -notcontains "<=" -and $CompareObjects.SideIndicator -contains "==") {
+                                    $true
+                                } else {
+                                    $false
+                                }
+                            } elseif ($OperationType -eq 'ne') {
+                                if ($CompareObjects.SideIndicator -contains "=>" -or $CompareObjects.SideIndicator -contains "<=") {
+                                    $true
+                                } else {
+                                    $false
+                                }
+                            } else {
+                                # Not supported for arrays
+                                $null
+                            }
+                        } else {
+                            if ($OperationType -eq 'lt') {
+                                $TestedValue -lt $CompareValue
+                            } elseif ($OperationType -eq 'gt') {
+                                $TestedValue -gt $CompareValue
+                            } elseif ($OperationType -eq 'ge') {
+                                $TestedValue -ge $CompareValue
+                            } elseif ($OperationType -eq 'le') {
+                                $TestedValue -le $CompareValue
+                            } elseif ($OperationType -eq 'like') {
+                                $TestedValue -like $CompareValue
+                            } elseif ($OperationType -eq 'contains') {
+                                $TestedValue -contains $CompareValue
+                            } elseif ($OperationType -eq 'notcontains') {
+                                $TestedValue -notcontains $CompareValue
+                            } elseif ($OperationType -eq 'match') {
+                                $TestedValue -match $CompareValue
+                            } elseif ($OperationType -eq 'notmatch') {
+                                $TestedValue -notmatch $CompareValue
+                            } else {
+                                $TestedValue -eq $CompareValue
+                            }
+                        }
+                        # gather comparevalue for display purposes
+                        $OutputValues.Add($CompareValue)
                     }
-                )
-            }
+                    if ($ExpectedValue.Count -eq 0) {
+                        $TextExpectedValue = 'Null'
+                    } else {
+                        $TextExpectedValue = $OutputValues -join ', '
+                    }
+                }
+                if ($null -eq $TestedValue) {
+                    $TextTestedValue = 'Null'
+                } else {
+                    $TextTestedValue = $TestedValue
+                }
+            )
+            # }
         } else {
             if ($ExpectedOutput -eq $false) {
                 [Array] $TestResult = @(

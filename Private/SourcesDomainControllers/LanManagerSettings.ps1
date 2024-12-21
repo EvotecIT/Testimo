@@ -8,8 +8,9 @@
             Get-WinADLMSettings -DomainController $DomainController
         }
         Details        = [ordered] @{
-            Area        = ''
-            Description = ''
+            Category    = 'Security'
+            Area        = 'System'
+            Description = 'Lan Manager Settings are a set of settings that can be configured to enhance the security of the system. '
             Resolution  = ''
             Importance  = 10
             Resources   = @(
@@ -31,6 +32,7 @@
                 OperationType = 'eq'
             }
             Details    = [ordered] @{
+                Category    = 'Security'
                 Area        = ''
                 Description = ''
                 Resolution  = ''
@@ -49,6 +51,7 @@
                 OperationType = 'eq'
             }
             Details    = [ordered] @{
+                Category    = 'Security'
                 Area        = ''
                 Description = ''
                 Resolution  = ''
@@ -67,6 +70,7 @@
                 OperationType = 'eq'
             }
             Details    = [ordered] @{
+                Category    = 'Security'
                 Area        = ''
                 Description = ''
                 Resolution  = ''
@@ -85,6 +89,7 @@
                 OperationType = 'eq'
             }
             Details    = [ordered] @{
+                Category    = 'Security'
                 Title       = 'Disable and Enforce the Setting "Network access: Let Everyone permissions apply to anonymous users"'
                 Area        = ''
                 Description = 'This setting helps to prevent an unauthorized user could from anonymously listing account names and shared resources and use using the information to attempt to guess passwords, perform social engineering attacks, or launch DoS attacks.'
@@ -104,6 +109,7 @@
                 OperationType = 'eq'
             }
             Details    = [ordered] @{
+                Category    = 'Security'
                 Area        = ''
                 Description = ''
                 Resolution  = ''
@@ -122,6 +128,7 @@
                 OperationType = 'eq'
             }
             Details    = [ordered] @{
+                Category    = 'Security'
                 Area        = ''
                 Description = ''
                 Resolution  = ''
@@ -140,6 +147,7 @@
                 OperationType = 'eq'
             }
             Details    = [ordered] @{
+                Category    = 'Security'
                 Area        = ''
                 Description = ''
                 Resolution  = ''
@@ -158,6 +166,7 @@
                 OperationType = 'eq'
             }
             Details    = [ordered] @{
+                Category    = 'Security'
                 Area        = ''
                 Description = ''
                 Resolution  = ''
@@ -176,6 +185,7 @@
                 OperationType = 'eq'
             }
             Details    = [ordered] @{
+                Category    = 'Security'
                 Area        = ''
                 Description = ''
                 Resolution  = ''
@@ -194,12 +204,38 @@
                 OperationType = 'eq'
             }
             Details    = [ordered] @{
+                Category    = 'Security'
                 Area        = ''
                 Description = ''
                 Resolution  = ''
                 Importance  = 10
                 Resources   = @(
 
+                )
+            }
+        }
+        DsrmAdminLogonBehavior    = @{
+            Enable     = $true
+            Name       = 'DsrmAdminLogonBehavior'
+            Parameters = @{
+                Property        = 'DsrmAdminLogonBehavior'
+                ExpectedValue   = @($null, 0)
+                OperationType   = 'in'
+                OperationResult = 'OR'
+                ExpectedOutput  = $false
+            }
+            Details    = [ordered] @{
+                Category    = 'Security'
+                Area        = 'Recovery'
+                Description = "Windows Server 2008 has introduced the possibility to change the DSRM logon behavior, which means now you could be able to logon using the local administrator DSRM account into a DC, without the need to reboot into DSRM. This is a security risk, as the DSRM account is a privileged account and should be used only when the DC is in DSRM mode. This setting should be set to 0 or not configured, to prevent this behavior."
+                Resolution  = 'Remove this setting from registry or set it to 0.'
+                Importance  = 10
+                StatusTrue  = 1
+                StatusFalse = 5
+                Resources   = @(
+                    'https://www.sentinelone.com/blog/detecting-dsrm-account-misconfigurations/'
+                    'https://renanrodrigues.com/the-ultimate-guide-what-is-dsrm-in-active-directory/'
+                    'https://adsecurity.org/?p=1785'
                 )
             }
         }
