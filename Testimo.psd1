@@ -30,10 +30,6 @@
             ModuleName    = 'PSWriteHTML'
             ModuleVersion = '1.28.0'
         }, @{
-            Guid          = '9fc9fd61-7f11-4f4b-a527-084086f1905f'
-            ModuleName    = 'ADEssentials'
-            ModuleVersion = '0.0.231'
-        }, @{
             Guid          = 'f7d4c9e4-0298-4f51-ad77-e8e3febebbde'
             ModuleName    = 'GPOZaurr'
             ModuleVersion = '1.1.9'
@@ -41,6 +37,10 @@
             Guid          = '0b0ba5c5-ec85-4c2b-a718-874e55a8bc3f'
             ModuleName    = 'PSWriteColor'
             ModuleVersion = '1.0.1'
+        }, @{
+            Guid          = '9fc9fd61-7f11-4f4b-a527-084086f1905f'
+            ModuleName    = 'ADEssentials'
+            ModuleVersion = '0.0.230'
         })
     RootModule           = 'Testimo.psm1'
 }

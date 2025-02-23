@@ -30,8 +30,9 @@ Invoke-ModuleBuild -ModuleName 'Testimo' {
 
     New-ConfigurationModule -Type RequiredModule -Name @(
         'PSSharedGoods', 'PSEventViewer'
-        'PSWriteHTML', 'ADEssentials', 'GPOZaurr', 'PSWriteColor'
+        'PSWriteHTML', 'GPOZaurr', 'PSWriteColor'
     ) -Version Latest -Guid Auto
+    New-ConfigurationModule -Type RequiredModule -Name 'ADEssentials' -Version '0.0.230' -Guid Auto
     New-ConfigurationModule -Type ApprovedModule -Name 'PSWriteColor', 'Connectimo', 'PSUnifi', 'PSWebToolbox', 'PSMyPassword'
     #New-ConfigurationModule -Type ExternalModule -Name 'ActiveDirectory', 'GroupPolicy', 'ServerManager'
     New-ConfigurationModuleSkip -IgnoreFunctionName @(
