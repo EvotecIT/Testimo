@@ -76,13 +76,13 @@
                             Disable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2
                         }
 
-                        New-HTMLText -Text @(
-                            "In some cases it may be required to disable MicrosoftWindowsPowerShellRoot. "
-                            "Run 'Windows PowerShell' with elevated privileges (run as administrator)."
-                        )
-                        New-HTMLCodeBlock -Style powershell {
-                            Disable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellRoot
-                        }
+                        # New-HTMLText -Text @(
+                        #     "In some cases it may be required to disable MicrosoftWindowsPowerShellRoot. "
+                        #     "Run 'Windows PowerShell' with elevated privileges (run as administrator)."
+                        # )
+                        # New-HTMLCodeBlock -Style powershell {
+                        #     Disable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellRoot
+                        # }
                     }
                 } -RemoveDoneStepOnNavigateBack -Theme arrows -ToolbarButtonPosition center -EnableAllAnchors
             }
