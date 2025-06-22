@@ -1,5 +1,5 @@
-﻿$DNSForwaders = @{
-    Name   = 'DomainDNSForwaders'
+$DNSForwarders = @{
+    Name   = 'DomainDNSForwarders'
     Enable = $true
     Scope  = 'Domain'
     Source = @{

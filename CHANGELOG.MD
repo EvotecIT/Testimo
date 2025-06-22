@@ -414,7 +414,7 @@
     - [x] ADEssentials to 0.0.27 (Get-WinADDFSHealth fixed)
     - [x] Other dependencies also updated
   - Tests
-    - [x] Fix for DNSForwaders
+    - [x] Fix for DNSForwarders
     - [x] Added DomainComputersUnsupported (older than 2008)
     - [x] Added DomainComputersUnsupportedMainstream (2008 computers with support from Microsoft)
 

@@ -44,7 +44,7 @@
         DomainOrganizationalUnitsProtected           = $OrganizationalUnitsProtected
         DomainNetLogonOwner                          = $NetLogonOwner
         DomainDNSScavengingForPrimaryDNSServer       = $DNSScavengingForPrimaryDNSServer
-        DomainDNSForwaders                           = $DNSForwaders
+        DomainDNSForwarders                          = $DNSForwarders
         DomainDnsZonesAging                          = $DnsZonesAging
         #DomainSecurityAdministrator                  = $DomainSecurityAdministrator
         DomainSecurityComputers                      = $DomainSecurityComputers
@@ -98,7 +98,7 @@
         DCNetSessionEnumeration                      = $NetSessionEnumeration
         DCServiceWINRM                               = $ServiceWINRM
         DCUNCHardenedPaths                           = $UNCHardenedPaths
-        DCDNSForwaders                               = $DCDNSForwaders
+        DCDNSForwarders                              = $DCDNSForwarders
     }
     #Office365       = [ordered]@{ }
     Debug           = [ordered] @{
