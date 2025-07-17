@@ -25,7 +25,7 @@
                     [PSCustomObject] @{
                         DistinguishedName            = $Output.DistinguishedName
                         'TombstoneLifeTime'          = $Output.tombstoneLifetime
-                        'msDS-deletedObjectLifetime' = 60
+                        'msDS-deletedObjectLifetime' = $Output.tombstoneLifetime
                     }
                 } elseif ($Output.'msDS-deletedObjectLifetime') {
                     [PSCustomObject] @{
@@ -49,7 +49,9 @@
             ActionType  = 0
             Resources   = @(
                 '[Understanding Tombstones, Active Directory, and How To Protect It](https://support.storagecraft.com/s/article/Understanding-Tombstones-Active-Directory-and-How-To-Protect-It?language=en_US)'
-                '[Adjust Active Directory Tombstone Lifetime](https://helpcenter.netwrix.com/NA/Configure_IT_Infrastructure/AD/AD_Tombstone.html)'
+                '[Adjust Active Directory Tombstone Lifetime](https://web.archive.org/web/20210910072210/https://helpcenter.netwrix.com/NA/Configure_IT_Infrastructure/AD/AD_Tombstone.html)'
+                '[How to Change the Retention Period in AD Recycle Bin](https://community.spiceworks.com/t/how-to-change-the-retention-period-in-ad-recycle-bin/1014138)'
+                '[Tombstone Lifetime and Deleted-Object Lifetime](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/1887de08-2a9e-4694-95e2-898cde411180)'
             )
             StatusTrue  = 0
             StatusFalse = 2
