@@ -83,7 +83,7 @@
         DCWindowsFeaturesOptional                    = $WindowsFeaturesOptional
         DCDnsResolveInternal                         = $DNSResolveInternal
         DCDnsResolveExternal                         = $DNSResolveExternal
-        DCDnsNameServes                              = $DNSNameServers
+        DCDNSNameServers                             = $DNSNameServers
         DCSMBProtocols                               = $SMBProtocols
         DCSMBShares                                  = $SMBShares
         DCSMBSharesPermissions                       = $SMBSharesPermissions

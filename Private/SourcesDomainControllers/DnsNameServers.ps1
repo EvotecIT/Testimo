@@ -1,5 +1,5 @@
-﻿$DNSNameServers = @{
-    Name   = 'DCDnsNameServes'
+﻿$DCDnsNameServers = @{
+    Name   = 'DCDnsNameServers'
     Enable = $true
     Scope  = 'DC'
     Source = @{

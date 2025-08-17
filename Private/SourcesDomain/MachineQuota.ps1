@@ -88,4 +88,13 @@
             }
         }
     }
+    DataDescriptionMarkdown = @'
+By default, members of the authenticated users group can join up to 10 computer accounts in the domain. The value is stored in **ms-DS-MachineAccountQuota** and should be set to `0`.
+'@
+    SolutionMarkdown = @'
+Set the quota to zero:
+```PowerShell
+Set-ADDomain -Identity $Domain -Replace @{"ms-DS-MachineAccountQuota"="0"}
+```
+'@
 }
