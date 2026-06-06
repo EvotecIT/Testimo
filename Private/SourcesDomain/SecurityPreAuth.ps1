@@ -12,11 +12,6 @@ $SecurityPreAuth = @{
             Importance  = 10
             ActionType  = 1
             Description = 'Accounts that do not require Kerberos Pre-Authentication are vulnerable to AS-REP Roasting. An attacker can request a Ticket Granting Ticket (TGT) for these accounts and capture their encrypted password hash, which can then be cracked offline.'
-            Resources   = @(
-                '[Kerberos Pre-Authentication - Why It Should Not Be Disabled](https://stealthbits.com/blog/kerberos-pre-authentication-why-it-should-not-be-disabled/)'
-                '[AS-REP Roasting - Attacking Active Directory](https://adsecurity.org/?p=3458)'
-                '[Mitigating AS-REP Roasting Attacks](https://www.netwrix.com/how_to_detect_and_prevent_as_rep_roasting.html)'
-            )
             StatusTrue  = 0
             StatusFalse = 0
         }
