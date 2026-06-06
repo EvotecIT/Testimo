@@ -5,7 +5,7 @@ $SecurityPreAuth = @{
     Source          = @{
         Name           = "Security: Kerberos Pre-Authentication disabled (AS-REP Roasting)"
         Data           = {
-            Get-ADUser -Filter {DoesNotRequirePreAuth -eq $true} -Properties Name, Enabled, DoesNotRequirePreAuth, Created, Modified, LastLogonDate, PasswordLastSet -Server $Domain | Select-Object Name, Enabled, DoesNotRequirePreAuth, Created, Modified, LastLogonDate, PasswordLastSet
+            Get-ADUser -Filter "DoesNotRequirePreAuth -eq `$true" -Properties Name, Enabled, DoesNotRequirePreAuth, Created, Modified, LastLogonDate, PasswordLastSet -Server $Domain | Select-Object Name, Enabled, DoesNotRequirePreAuth, Created, Modified, LastLogonDate, PasswordLastSet
         }
         Details        = [ordered] @{
             Category    = 'Security'
