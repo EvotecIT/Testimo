@@ -1,4 +1,4 @@
-﻿$Script:TestimoConfiguration = [ordered] @{
+$Script:TestimoConfiguration = [ordered] @{
     Types           = [ordered]@{ }
     Exclusions      = [ordered] @{
         Domains           = @()
@@ -54,6 +54,7 @@
         DomainSecurityUsers                          = $SecurityUsers
         DomainSecurityUsersAcccountAdministrator     = $SecurityUsersAcccountAdministrator
         DomainSecurityKrbtgt                         = $SecurityKRBGT
+        DomainSecurityPreAuth                        = $SecurityPreAuth
         DomainSysVolDFSR                             = $SysVolDFSR
         DomainDNSZonesForest0ADEL                    = $DNSZonesForest0ADEL
         DomainDNSZonesDomain0ADEL                    = $DNSZonesDomain0ADEL
