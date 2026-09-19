@@ -4,11 +4,11 @@
     CmdletsToExport      = @()
     CompanyName          = 'Evotec'
     CompatiblePSEditions = @('Desktop')
-    Copyright            = '(c) 2011 - 2025 Przemyslaw Klys @ Evotec. All rights reserved.'
+    Copyright            = '(c) 2011 - 2026 Przemyslaw Klys @ Evotec. All rights reserved.'
     Description          = 'Testimo is Powershell module that tests Active Directory against specific set of tests.'
     FunctionsToExport    = @('Compare-Testimo', 'Get-TestimoConfiguration', 'Get-TestimoSources', 'Import-PrivateModule', 'Invoke-Testimo')
     GUID                 = '0c1b99de-55ac-4410-8cb5-e689ff3be39b'
-    ModuleVersion        = '0.0.91'
+    ModuleVersion        = '0.0.92'
     PowerShellVersion    = '5.1'
     PrivateData          = @{
         PSData = @{
@@ -24,7 +24,7 @@
         }, @{
             Guid          = '5df72a79-cdf6-4add-b38d-bcacf26fb7bc'
             ModuleName    = 'PSEventViewer'
-            ModuleVersion = '2.4.3'
+            ModuleVersion = '4.0.0'
         }, @{
             Guid          = 'a7bdf640-f5cb-4acf-9de0-365b322d245c'
             ModuleName    = 'PSWriteHTML'
@@ -36,7 +36,7 @@
         }, @{
             Guid          = '0b0ba5c5-ec85-4c2b-a718-874e55a8bc3f'
             ModuleName    = 'PSWriteColor'
-            ModuleVersion = '1.0.1'
+            ModuleVersion = '1.0.3'
         }, @{
             Guid          = '9fc9fd61-7f11-4f4b-a527-084086f1905f'
             ModuleName    = 'ADEssentials'
