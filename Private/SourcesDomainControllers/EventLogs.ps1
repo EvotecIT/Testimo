@@ -5,7 +5,7 @@
     Source = @{
         Name           = "Event Logs"
         Data           = {
-            Get-EVXLog -LogName 'Application', 'System', 'Security', 'Microsoft-Windows-PowerShell/Operational' -MachineName $DomainController -WarningAction SilentlyContinue
+            Get-TestimoEventLogDetails -MachineName $DomainController
         }
         Details        = [ordered] @{
             Area        = 'EventLogs'
@@ -121,7 +121,16 @@
                 OperationType = 'le'
             }
         }
-        SecurityPermissionsSystemReadClear               = @{
+        SecurityPermissionsDefaultNetworkService         = @{
+            Enable     = $false
+            Name       = 'Security log DACL includes NETWORK SERVICE read allow rights (legacy opt-in)'
+            Parameters = @{
+                WhereObject   = { $_.LogName -eq 'Security' -and (Test-TestimoEventLogAllowRights -AccessRules $_.SecurityAccessRules -TrusteeSid 'S-1-5-20' -RequiredRights 1) }
+                ExpectedCount = 1
+                OperationType = 'eq'
+            }
+        }
+        SecurityPermissionsDefaultSYSTEM                 = @{
             Enable     = $true
             Name       = 'Security log DACL includes SYSTEM read and clear allow rights'
             Parameters = @{
@@ -130,7 +139,7 @@
                 OperationType = 'eq'
             }
         }
-        SecurityPermissionsAdministratorsRead            = @{
+        SecurityPermissionsNDefaultBuiltinAdministrators = @{
             Enable     = $true
             Name       = 'Security log DACL includes Administrators read allow rights'
             Parameters = @{
@@ -139,7 +148,7 @@
                 OperationType = 'eq'
             }
         }
-        SecurityPermissionsEventLogReadersRead           = @{
+        SecurityPermissionsDefaultBuiltinEventLogReaders = @{
             Enable     = $true
             Name       = 'Security log DACL includes Event Log Readers read allow rights'
             Parameters = @{
