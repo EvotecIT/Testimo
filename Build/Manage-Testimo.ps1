@@ -2,7 +2,9 @@ param(
     [ValidateSet('Manifest', 'Build', 'Publish')]
     [string] $RunMode = 'Build',
     [bool] $SignModule = $false,
-    [switch] $SkipInstall
+    [switch] $SkipInstall,
+    [string] $PowerShellGalleryApiKeyPath = 'C:\Support\Important\PowerShellGalleryAPI.txt',
+    [string] $GitHubApiKeyPath = 'C:\Support\Important\GitHubAPI.txt'
 )
 
 Import-Module PSPublishModule -Force -ErrorAction Stop
@@ -135,7 +137,6 @@ Build-Module -ModuleName 'Testimo' -RunMode $RunMode -SkipInstall:$SkipInstall -
     }
     New-ConfigurationArtefact @newConfigurationArtefactSplat -CopyFilesRelative
 
-    # global options for publishing to github/psgallery
-    #New-ConfigurationPublish -Type PowerShellGallery -FilePath 'C:\Support\Important\PowerShellGalleryAPI.txt' -Enabled:$true
-    #New-ConfigurationPublish -Type GitHub -FilePath 'C:\Support\Important\GitHubAPI.txt' -UserName 'EvotecIT' -Enabled:$true
+    New-ConfigurationPublish -Type PowerShellGallery -FilePath $PowerShellGalleryApiKeyPath -Enabled:$true
+    New-ConfigurationPublish -Type GitHub -FilePath $GitHubApiKeyPath -UserName 'EvotecIT' -RepositoryName 'Testimo' -GenerateReleaseNotes -Enabled:$true
 }
