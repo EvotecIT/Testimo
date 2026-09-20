@@ -118,6 +118,9 @@ Build-Module -ModuleName 'Testimo' -RunMode $RunMode -SkipInstall:$SkipInstall -
         ModulesPath         = "$PSScriptRoot\..\Artefacts\Unpacked\Modules"
         RequiredModulesPath = "$PSScriptRoot\..\Artefacts\Unpacked\Modules"
         AddRequiredModules  = $true
+        RequiredModulesSource     = 'Download'
+        RequiredModulesTool       = 'PowerShellGet'
+        RequiredModulesRepository = 'PSGallery'
         CopyFiles           = @{
             #"Examples\PublishingExample\Example-ExchangeEssentials.ps1" = "RunMe.ps1"
         }
@@ -130,6 +133,9 @@ Build-Module -ModuleName 'Testimo' -RunMode $RunMode -SkipInstall:$SkipInstall -
         ModulesPath         = "$PSScriptRoot\..\Artefacts\Packed\Modules"
         RequiredModulesPath = "$PSScriptRoot\..\Artefacts\Packed\Modules"
         AddRequiredModules  = $true
+        RequiredModulesSource     = 'Download'
+        RequiredModulesTool       = 'PowerShellGet'
+        RequiredModulesRepository = 'PSGallery'
         CopyFiles           = @{
             #"Examples\PublishingExample\Example-ExchangeEssentials.ps1" = "RunMe.ps1"
         }

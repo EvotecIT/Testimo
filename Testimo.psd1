@@ -12,9 +12,11 @@
     PowerShellVersion    = '5.1'
     PrivateData          = @{
         PSData = @{
-            IconUri    = 'https://evotec.xyz/wp-content/uploads/2019/08/Testimo.png'
-            ProjectUri = 'https://github.com/EvotecIT/Testimo'
-            Tags       = @('Windows', 'ActiveDirectory', 'AD', 'Infrastructure', 'Testing', 'Checks', 'Audits', 'Checklist', 'Validation')
+            IconUri                    = 'https://evotec.xyz/wp-content/uploads/2019/08/Testimo.png'
+            ProjectUri                 = 'https://github.com/EvotecIT/Testimo'
+            Tags                       = @('Windows', 'ActiveDirectory', 'AD', 'Infrastructure', 'Testing', 'Checks', 'Audits', 'Checklist', 'Validation')
+            RequireLicenseAcceptance   = $false
+            ExternalModuleDependencies = @()
         }
     }
     RequiredModules      = @(@{
