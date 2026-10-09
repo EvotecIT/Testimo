@@ -7,7 +7,7 @@ param(
     [string] $GitHubApiKeyPath = 'C:\Support\Important\GitHubAPI.txt'
 )
 
-Import-Module PSPublishModule -MinimumVersion '3.0.162' -Force -ErrorAction Stop
+Import-Module PSPublishModule -MinimumVersion '3.0.163' -Force -ErrorAction Stop
 
 Build-Module -ModuleName 'Testimo' -RunMode $RunMode -SkipInstall:$SkipInstall -ExitCode {
     # Usual defaults as per standard module
