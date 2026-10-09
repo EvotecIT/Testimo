@@ -35,6 +35,14 @@
             Guid            = '9fc9fd61-7f11-4f4b-a527-084086f1905f'
             ModuleName      = 'ADEssentials'
             ModuleVersion   = '1.0.6'
+        }, @{
+            Guid            = '0b0ba5c5-ec85-4c2b-a718-874e55a8bc3f'
+            ModuleName      = 'PSWriteColor'
+            ModuleVersion   = '1.0.7'
+        }, @{
+            Guid            = 'ee272aa8-baaa-4edf-9f45-b6d6f7d844fe'
+            ModuleName      = 'PSSharedGoods'
+            ModuleVersion   = '0.0.313'
         })
     RootModule           = 'Testimo.psm1'
 }
