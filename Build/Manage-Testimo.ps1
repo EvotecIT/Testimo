@@ -2,12 +2,13 @@ param(
     [ValidateSet('Manifest', 'Build', 'Publish')]
     [string] $RunMode = 'Build',
     [bool] $SignModule = $false,
+    [bool] $PublishGitHub = $true,
     [switch] $SkipInstall,
     [string] $PowerShellGalleryApiKeyPath = 'C:\Support\Important\PowerShellGalleryAPI.txt',
     [string] $GitHubApiKeyPath = 'C:\Support\Important\GitHubAPI.txt'
 )
 
-Import-Module PSPublishModule -MinimumVersion '3.0.163' -Force -ErrorAction Stop
+Import-Module PSPublishModule -MinimumVersion '3.0.164' -Force -ErrorAction Stop
 
 Build-Module -ModuleName 'Testimo' -RunMode $RunMode -SkipInstall:$SkipInstall -ExitCode {
     # Usual defaults as per standard module
@@ -40,9 +41,9 @@ Build-Module -ModuleName 'Testimo' -RunMode $RunMode -SkipInstall:$SkipInstall -
     New-ConfigurationModule -Type ApprovedModule -Name 'PSSharedGoods' -Version 'Latest' -Guid 'ee272aa8-baaa-4edf-9f45-b6d6f7d844fe' -VersionSource PSGallery
     New-ConfigurationModule -Type RequiredModule -Name 'PSEventViewer' -MinimumVersion '4.0.0' -Guid '5df72a79-cdf6-4add-b38d-bcacf26fb7bc'
     New-ConfigurationModule -Type RequiredModule -Name 'PSWriteHTML' -MinimumVersion '1.28.0' -Guid 'a7bdf640-f5cb-4acf-9de0-365b322d245c'
-    New-ConfigurationModule -Type RequiredModule -Name 'GPOZaurr' -MinimumVersion '1.1.12' -Guid 'f7d4c9e4-0298-4f51-ad77-e8e3febebbde' -VersionSource PSGallery
+    New-ConfigurationModule -Type RequiredModule -Name 'GPOZaurr' -MinimumVersion '1.1.13' -Guid 'f7d4c9e4-0298-4f51-ad77-e8e3febebbde' -VersionSource PSGallery
     New-ConfigurationModule -Type ApprovedModule -Name 'PSWriteColor' -Version 'Latest' -Guid '0b0ba5c5-ec85-4c2b-a718-874e55a8bc3f' -VersionSource PSGallery
-    New-ConfigurationModule -Type RequiredModule -Name 'ADEssentials' -MinimumVersion '1.0.6' -Guid '9fc9fd61-7f11-4f4b-a527-084086f1905f' -VersionSource PSGallery
+    New-ConfigurationModule -Type RequiredModule -Name 'ADEssentials' -MinimumVersion '1.0.7' -Guid '9fc9fd61-7f11-4f4b-a527-084086f1905f' -VersionSource PSGallery
     New-ConfigurationModule -Type ApprovedModule -Name 'Connectimo', 'PSUnifi', 'PSWebToolbox', 'PSMyPassword'
     #New-ConfigurationModule -Type ExternalModule -Name 'ActiveDirectory', 'GroupPolicy', 'ServerManager'
     New-ConfigurationModuleSkip -IgnoreFunctionName @(
@@ -144,7 +145,9 @@ Build-Module -ModuleName 'Testimo' -RunMode $RunMode -SkipInstall:$SkipInstall -
     New-ConfigurationArtefact @newConfigurationArtefactSplat -CopyFilesRelative
 
     New-ConfigurationPublish -Type PowerShellGallery -FilePath $PowerShellGalleryApiKeyPath -Enabled:$true
-    New-ConfigurationPublish -Type GitHub -FilePath $GitHubApiKeyPath -UserName 'EvotecIT' -RepositoryName 'Testimo' -GenerateReleaseNotes -Enabled:$true
+    if ($PublishGitHub) {
+        New-ConfigurationPublish -Type GitHub -FilePath $GitHubApiKeyPath -UserName 'EvotecIT' -RepositoryName 'Testimo' -GenerateReleaseNotes -Enabled:$true
+    }
 
     New-ConfigurationGate -Mode $RunMode
 }
